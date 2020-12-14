@@ -12,7 +12,7 @@ declare -a features=(
 for i in "${features[@]}"
 do
     docker pull ubuntu:$i
-    docker build -t peony-$i -f $i.Dockerfile
+    docker build -t peony-$i -f $i.Dockerfile .
 done
 
 echo 'done.'

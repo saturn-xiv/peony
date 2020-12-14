@@ -18,7 +18,7 @@ rustup target add armv7-unknown-linux-gnueabihf
 
 mkdir $HOME/downloads
 
-ENV ANDROID_SDK_VERSION 6858069
+export ANDROID_SDK_VERSION=6858069
 wget -P $HOME/downloads https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_VERSION}_latest.zip
 mkdir -pv $HOME/local/android-sdk
 unzip $HOME/downloads/commandlinetools-linux-${ANDROID_SDK_VERSION}_latest.zip -d $HOME/local/android-sdk
