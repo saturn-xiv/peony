@@ -14,6 +14,6 @@ npm install --save \
     redux react-redux @types/react-redux \
     react-router-dom @types/react-router-dom \
     react-syntax-highlighter @types/react-syntax-highlighter \
-    antd typescript
+    grpc-web antd typescript
 
 exit 0
