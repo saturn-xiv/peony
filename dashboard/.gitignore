@@ -11,3 +11,4 @@
 /.env.production
 
 # misc
+/.eslintcache
