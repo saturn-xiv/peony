@@ -1,0 +1,12 @@
+Package: peony
+Version: 2020-12-14
+Section: net
+Priority: optional
+Depends: ${dist:Depends}
+Build-Depends: libssl-dev,libpq-dev,libsqlite3-dev,libczmq-dev,libgit2-dev,libssh2-1-dev 
+Suggests: 
+Architecture: amd64
+Installed-Size: 66666
+Maintainer: Jeremy Zheng
+Provides: saturn-xiv
+Description: https://github.com/saturn-xiv/peony

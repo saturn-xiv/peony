@@ -1,0 +1,11 @@
+ifeq ($(shell lsb_release -cs),'xenial')
+	SUBSTVARS = -Vdist:Depends="foo (>= 2)"
+else
+	SUBSTVARS = -Vdist:Depends="libpq5,libmysqlclient21,libsqlite3-0"
+endif
+
+%:
+	dh $@
+
+override_dh_gencontrol:
+	dh_gencontrol -- $(SUBSTVARS)
