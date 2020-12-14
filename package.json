@@ -1,0 +1,16 @@
+{
+  "name": "peony",
+  "private": true,
+  "version": "2020.12.13",
+  "description": "A total free education &amp; translation &amp; ops solution.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saturn-xiv/peony.git"
+  },
+  "author": "Jeremy Zheng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saturn-xiv/peony/issues"
+  },
+  "homepage": "https://github.com/saturn-xiv/peony#readme"
+}
