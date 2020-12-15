@@ -11,4 +11,9 @@ diesel print-schema -o notifications attachments policies logs users \
     category_resources categories tag_resources tags votes leave_words friend_links links cards > src/plugins/nut/schema.rs
 diesel print-schema -o forum_posts forum_topics > src/plugins/forum/schema.rs
 
+
+# cargo install protobuf-codegen
+# cargo install grpcio-compiler
+# protoc -I protos --rust_out=src/protos --grpc_out=src/protos --plugin=protoc-gen-grpc=`which grpc_rust_plugin` protos/*.proto
+
 exit 0
