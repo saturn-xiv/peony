@@ -67,7 +67,7 @@ RUN pip3 install --user conan
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 
 RUN sh -c ". $HOME/.profile \
-    && git clone -b poco https://github.com/saturn-xiv/peony.git $HOME/peony \
+    && git clone -b cpp https://github.com/saturn-xiv/peony.git $HOME/peony \
     && mkdir -pv $HOME/peony/build/amd64 \
     && cd $HOME/peony/build/amd64 \
     && conan install ../.. --profile=../../docker/conan/profiles/amd64 --build=missing \

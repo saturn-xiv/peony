@@ -44,6 +44,17 @@ target_link_libraries(peony ${PEONY_THIRD_LIBRARIES})
 include(CTest)
 enable_testing()
 
-add_executable(queue_test src/queue_test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
-target_link_libraries(queue_test ${PEONY_THIRD_LIBRARIES})
+add_executable(audio-test src/audio-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(audio-test ${PEONY_THIRD_LIBRARIES})
 
+add_executable(elastic-search-test src/elastic-search-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(elastic-search-test ${PEONY_THIRD_LIBRARIES})
+
+add_executable(gpio-test src/gpio-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(gpio-test ${PEONY_THIRD_LIBRARIES})
+
+add_executable(tty-test src/tty-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(tty-test ${PEONY_THIRD_LIBRARIES})
+
+add_executable(twilio-test src/twilio-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(twilio-test ${PEONY_THIRD_LIBRARIES})

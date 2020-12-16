@@ -2,7 +2,9 @@
 boost/1.74.0
 openssl/1.1.1i
 sqlite3/3.34.0
-libmysqlclient/8.0.17
+sqlitecpp/3.1.1
+mariadb-connector-c/3.1.11
+libpq/13.1
 libpqxx/7.2.1
 hiredis/1.0.0
 amqp-cpp/4.3.10
@@ -12,6 +14,8 @@ inja/3.1.0
 nlohmann_json/3.9.1
 tinyxml2/8.0.0
 tomlplusplus/2.2.0
+cpprestsdk/2.10.16
+libcurl/7.74.0
 cpp-jwt/1.3
 
 
