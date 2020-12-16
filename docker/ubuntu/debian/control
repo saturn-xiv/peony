@@ -1,0 +1,13 @@
+Source: peony
+Section: net
+Priority: optional
+Maintainer: Jeremy Zheng <jitang.zheng@gmail.com>
+Build-Depends: libssl-dev,libpq-dev,libsqlite3-dev
+Standards-Version: 3.9.5
+Homepage: https://github.com/saturn-xiv/peony
+Vcs-Git: https://github.com/saturn-xiv/peony.git
+
+Package: peony
+Architecture: any
+Depends: libpq5, libsqlite3-0, libudev1, ${dist:Depends}
+Description: A total free education & translation & ops solution.
