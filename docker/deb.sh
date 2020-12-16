@@ -16,21 +16,22 @@ cd $BUILD_ROOT
 
 if [ $1 = "arm" ]
 then
-    cmake -DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/linaro.cmake -DCMAKE_BUILD_TYPE=Release $WORKSPACE
+    cmake -DPEONY_BUILD_STATIC=ON -DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/arm.cmake -DCMAKE_BUILD_TYPE=Release $WORKSPACE
+    make peony
 elif [ $1 = "win" ]
 then
-    cmake -DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/mingw.cmake -DCMAKE_BUILD_TYPE=Release $WORKSPACE 
+    cmake -DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/win.cmake -DCMAKE_BUILD_TYPE=Release $WORKSPACE 
 elif [ $1 = "x64" ]
 then
-    sudo apt -y install librabbitmq-dev
-    cmake -DPEONY_BUILD_STATIC=ON -DCMAKE_BUILD_TYPE=Release $WORKSPACE
-    strip -s $BUILD_ROOT/peony
+    sudo apt -y install librabbitmq-dev libssl-dev libboost-all-dev
+    cmake -DPEONY_BUILD_STATIC=ON -DCMAKE_BUILD_TYPE=Release $WORKSPACE    
+    make peony
+    strip -s peony
 else
     echo "Unknown arch $1"
     exit 1
 fi
 
-make peony
 
 export TARGET=$WORKSPACE/docker/ubuntu
 rm -rfv $TARGET/usr
@@ -47,7 +48,7 @@ mkdir -pv $TARGET/var/lib/peony
 
 cd $WORKSPACE
 # $(lsb_release -cs)-
-dpkg -b ubuntu $2-$1-$(git describe --tags --always --dirty --first-parent).deb
+dpkg -b docker/ubuntu $2-$1-$(git describe --tags --always --dirty --first-parent).deb
 
 echo 'done'
 
