@@ -3,7 +3,7 @@
 set -e
 
 if [ $# -ne 2 ] ; then
-    echo 'Please specify your arch(armv7, x86_64) AND domain name'
+    echo 'Please specify your arch(amd64, armhf) AND domain name'
     exit 1
 fi
 
@@ -13,7 +13,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 export WORKSPACE=$PWD
 export VERSION=$(git describe --tags --always --dirty)
-export TARGET=$WORKSPACE/docker/ubuntu
+export TARGET=$WORKSPACE/docker/debian
 
 # -----------------------------
 
@@ -31,7 +31,7 @@ export PKG_CONFIG_ALL_STATIC=1
 rm -rfv $TARGET/usr/bin/
 mkdir -pv $TARGET/usr/bin/
 
-if [ $1 = "armv7" ]
+if [ $1 = "armhf" ]
 then
     sudo apt -y install libssl-dev:armhf \
         libsqlite3-dev:armhf libpq-dev:armhf libmysqlclient-dev:armhf \
@@ -43,7 +43,7 @@ then
     cargo build --target armv7-unknown-linux-gnueabihf --release
     cp -v target/armv7-unknown-linux-gnueabihf/release/peony $TARGET/usr/bin/
     arm-linux-gnueabihf-strip -s $TARGET/usr/bin/peony
-elif [ $1 = "x86_64" ]
+elif [ $1 = "amd64" ]
 then
     sudo apt -y install libssl-dev \
         libsqlite3-dev libpq-dev libmysqlclient-dev 
@@ -71,16 +71,18 @@ REACT_GRPC_HOST=$2 npm run build
 rm -rfv $TARGET/var
 mkdir -pv $TARGET/var/lib/peony
 
-cp -rv $WORKSPACE/node_modules $TARGET/var/lib/peony/
-cp -rv $WORKSPACE/dashboard/build $TARGET/var/lib/peony/dashboard
+cp -r $WORKSPACE/node_modules $TARGET/var/lib/peony/
+cp -r $WORKSPACE/dashboard/build $TARGET/var/lib/peony/dashboard
 # -----------------------------
 rm -rfv $TARGET/etc
 mkdir -pv $TARGET/etc/peony
 cp $WORKSPACE/LICENSE $WORKSPACE/README.md $TARGET/etc/peony/
 
+echo "$(git describe --tags --always --dirty --first-parent) $(date -R)" > $TARGET/etc/peony/VERSION
+echo "$1 $(lsb_release -cs) $2" >> $TARGET/etc/peony/VERSION
 
 cd $WORKSPACE
-dpkg -b ubuntu $2-$1-$(lsb_release -cs)-$(git describe --tags --always --dirty --first-parent).deb
+dpkg-buildpackage -us -uc -b --host-arch $1
 
 echo 'done'
 

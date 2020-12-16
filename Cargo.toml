@@ -1,6 +1,6 @@
 [package]
 name = "peony"
-version = "2020.12.13"
+version = "0.1.0"
 authors = ["Jeremy Zheng <jitang.zheng@gmail.com>"]
 edition = "2018"
 description = "A total free education & translation & ops solution."

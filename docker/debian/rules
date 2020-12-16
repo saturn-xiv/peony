@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+ifeq ($(shell lsb_release -cs),xenial)
+	SUBSTVARS = -Vdist:Depends="libmysqlclient20, libssl1.0.0"
+else ifeq ($(shell lsb_release -cs),bionic)
+	SUBSTVARS = -Vdist:Depends="libmysqlclient20, libssl1.1"
+else
+	SUBSTVARS = -Vdist:Depends="libmysqlclient21, libssl1.1"
+endif
+
+%:
+	dh $@
+
+override_dh_gencontrol:
+	dh_gencontrol -- $(SUBSTVARS)
+
+override_dh_auto_install:
+	cp -r usr share etc debian/peony/
+
