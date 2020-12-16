@@ -16,5 +16,6 @@ override_dh_gencontrol:
 	dh_gencontrol -- $(SUBSTVARS)
 
 override_dh_auto_install:
-	cp -r usr share etc debian/peony/
+	mkdir -p debian/peony
+	cp -r usr var etc debian/peony/
 

@@ -13,7 +13,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 export WORKSPACE=$PWD
 export VERSION=$(git describe --tags --always --dirty)
-export TARGET=$WORKSPACE/docker/ubuntu/debian
+export TARGET=$WORKSPACE/docker/ubuntu
 
 # -----------------------------
 
@@ -28,7 +28,7 @@ export TARGET=$WORKSPACE/docker/ubuntu/debian
 # export SQLITE3_STATIC=1
 export PKG_CONFIG_ALL_STATIC=1
 
-rm -rfv $TARGET/usr/bin/
+rm -rf $TARGET/usr/bin/
 mkdir -pv $TARGET/usr/bin/
 
 if [ $1 = "armhf" ]
@@ -68,20 +68,20 @@ then
 fi
 REACT_GRPC_HOST=$2 npm run build
 
-rm -rfv $TARGET/var
+rm -rf $TARGET/var
 mkdir -pv $TARGET/var/lib/peony
 
 cp -r $WORKSPACE/node_modules $TARGET/var/lib/peony/
 cp -r $WORKSPACE/dashboard/build $TARGET/var/lib/peony/dashboard
 # -----------------------------
-rm -rfv $TARGET/etc
+rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony
 cp $WORKSPACE/LICENSE $WORKSPACE/README.md $TARGET/etc/peony/
 
 echo "$(git describe --tags --always --dirty --first-parent) $(date -R)" > $TARGET/etc/peony/VERSION
 echo "$1 $(lsb_release -cs) $2" >> $TARGET/etc/peony/VERSION
 
-cd $TARGET/..
+cd $TARGET
 dpkg-buildpackage -us -uc -b --host-arch $1
 
 echo 'done'
