@@ -3,7 +3,7 @@
 set -e
 
 if [ $# -ne 2 ] ; then
-    echo 'Please specify your arch(armv6, x86_64) AND domain name'
+    echo 'Please specify your arch(armv7, x86_64) AND domain name'
     exit 1
 fi
 
@@ -33,8 +33,9 @@ mkdir -pv $TARGET/usr/bin/
 
 if [ $1 = "armv7" ]
 then
-    sudo apt -y install libssl-dev:armhf libudev-dev:armhf \
-        libsqlite3-dev:armhf libpq-dev:armhf libmysqlclient-dev:armhf
+    sudo apt -y install libssl-dev:armhf \
+        libsqlite3-dev:armhf libpq-dev:armhf libmysqlclient-dev:armhf \
+        libudev-dev:armhf
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig

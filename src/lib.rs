@@ -80,9 +80,9 @@ pub mod parser;
 pub mod plugins;
 pub mod queue;
 // pub mod request;
+pub mod aws;
 pub mod protos;
 pub mod settings;
-pub mod storage;
 pub mod twilio;
 
 pub const XML_HEADER: &str = r###"<?xml version="1.0" encoding="utf-8" ?>"###;

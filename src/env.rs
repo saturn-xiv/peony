@@ -2,8 +2,9 @@ use std::default::Default;
 use std::fmt;
 
 use super::{
-    cache::redis::Config as RedisConfig, crypto::Key, orm::postgresql::Config as PostgreSqlConfig,
-    queue::rabbit::Config as RabbitMQConfig, storage::s3::Config as S3Config,
+    aws::s3::Config as S3Config, cache::redis::Config as RedisConfig, crypto::Key,
+    orm::postgresql::Config as PostgreSqlConfig, queue::rabbit::Config as RabbitMQConfig,
+    twilio::Config as TwilioConfig,
 };
 
 pub const NAME: &str = env!("CARGO_PKG_NAME");
@@ -47,6 +48,7 @@ pub struct Config {
     pub redis: RedisConfig,
     pub rabbitmq: RabbitMQConfig,
     pub s3: S3Config,
+    pub twilio: TwilioConfig,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]

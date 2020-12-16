@@ -14,7 +14,6 @@ lto = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-sodiumoxide = "0.2"
 actix-multipart = "0.3"
 futures = "0.3"
 futures-executor = "0.3"
@@ -120,5 +119,7 @@ features = ["from_url"]
 version = "3"
 features = ["script_helper"]
 
-[build-dependencies]
-protoc-grpcio = "1"
+[dependencies.sodiumoxide]
+# version = "0.2"
+git = "https://github.com/sodiumoxide/sodiumoxide.git"
+rev = "ffd9626"
