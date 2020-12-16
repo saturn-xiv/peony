@@ -10,7 +10,7 @@ RUN apt -y install software-properties-common
 RUN apt update
 RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm \
-    build-essential pkg-config libtool automake autoconf binutils cmake clang \
+    build-essential pkg-config libtool automake autoconf binutils cmake clang meson debhelper \
     binutils-multiarch \
     g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
     mingw-w64 mingw-w64-tools binutils-mingw-w64 \
@@ -68,6 +68,7 @@ RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 
 RUN sh -c ". $HOME/.profile \
     && git clone -b cpp https://github.com/saturn-xiv/peony.git $HOME/peony \
+    && $HOME/peony/docker/grpc.sh \
     && mkdir -pv $HOME/peony/build/amd64 \
     && cd $HOME/peony/build/amd64 \
     && conan install ../.. --profile=../../docker/conan/profiles/amd64 --build=missing \

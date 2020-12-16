@@ -2,8 +2,8 @@
 
 set -e
 
-rm -rfv build/$1
-mkdir -pv build/$1
+# rm -rf build
+mkdir -pv build
 cd build
 
 conan install .. --profile=../docker/conan/profiles/arch --build=missing

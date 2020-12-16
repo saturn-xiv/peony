@@ -36,7 +36,7 @@ mkdir -pv $TARGET/usr/share/peony
 
 rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony
-cp $WORKSPACE/LICENSE $WORKSPACE/README.md $TARGET/etc/peony/
+cp -r $WORKSPACE/protos $WORKSPACE/LICENSE $WORKSPACE/README.md $TARGET/etc/peony/
 
 rm -rf $TARGET/var
 mkdir -pv $TARGET/var/lib/peony
