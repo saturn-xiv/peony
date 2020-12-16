@@ -34,12 +34,6 @@ RUN locale-gen
 RUN update-locale LANG=en_US.UTF-8
 RUN update-alternatives --set editor /usr/bin/vim.basic
 
-# https://www.linaro.org/downloads/
-# ADD packages /opt/packages
-# RUN tar xf /opt/packages/linaro/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf.tar -C /opt
-# RUN tar xf /opt/packages/linaro/sysroot-glibc-linaro-2.25-2019.12-arm-linux-gnueabihf.tar -C /opt
-# RUN tar xf /opt/packages/linaro/runtime-gcc-linaro-7.5.0-2019.12-arm-linux-gnueabihf.tar -C /opt
-
 # deploy
 RUN useradd -m deploy -s /bin/zsh
 RUN passwd -l deploy
@@ -67,9 +61,19 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install maven \
     && sdk install gradle"
 
+RUN pip3 install --user cmake
+RUN pip3 install --user conan
+
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 
-RUN git clone -b cpp https://github.com/saturn-xiv/peony.git $HOME/peony
+RUN sh -c ". $HOME/.profile \
+    && git clone -b poco https://github.com/saturn-xiv/peony.git $HOME/peony \
+    && mkdir -pv $HOME/peony/build/amd64 \
+    && cd $HOME/peony/build/amd64 \
+    && conan install ../.. --profile=../../docker/conan/profiles/amd64 --build=missing \
+    && mkdir -pv $HOME/peony/build/armhf \
+    && cd $HOME/peony/build/armhf \
+    && conan install ../.. --profile=../../docker/conan/profiles/armhf --build=missing"
 
 VOLUME /workspace
 WORKDIR /workspace
