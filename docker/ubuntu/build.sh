@@ -13,7 +13,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 export WORKSPACE=$PWD
 export VERSION=$(git describe --tags --always --dirty)
-export TARGET=$WORKSPACE/docker/debian
+export TARGET=$WORKSPACE/docker/ubuntu/debian
 
 # -----------------------------
 
@@ -81,7 +81,7 @@ cp $WORKSPACE/LICENSE $WORKSPACE/README.md $TARGET/etc/peony/
 echo "$(git describe --tags --always --dirty --first-parent) $(date -R)" > $TARGET/etc/peony/VERSION
 echo "$1 $(lsb_release -cs) $2" >> $TARGET/etc/peony/VERSION
 
-cd $WORKSPACE
+cd $TARGET/..
 dpkg-buildpackage -us -uc -b --host-arch $1
 
 echo 'done'
