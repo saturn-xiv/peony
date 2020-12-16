@@ -13,21 +13,18 @@ option(PEONY_BUILD_STATIC "build all static binary" OFF)
 if(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
     set(OPENSSL_USE_STATIC_LIBS TRUE)
     set(Boost_USE_STATIC_LIBS ON)
+    set(PAHO_BUILD_STATIC TRUE)
 endif(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
 
 find_package(OpenSSL REQUIRED Crypto SSL)
 find_package(Boost REQUIRED log_setup log thread system filesystem regex timer date_time chrono random  program_options unit_test_framework)
 
-# set(BUILD_EXAMPLES OFF)
-# set(BUILD_STATIC_LIBS ON)
-# set(BUILD_TESTS OFF)
-# set(BUILD_TOOLS OFF)
-# FetchContent_Declare(RabbitMQ
-#     GIT_REPOSITORY "https://github.com/alanxz/rabbitmq-c.git"
-#     GIT_TAG "v0.10.0"
-# )
+FetchContent_Declare(pahomqtt
+    GIT_REPOSITORY "https://github.com/eclipse/paho.mqtt.c.git"
+    GIT_TAG "v1.3.7"
+)
 
-# FetchContent_MakeAvailable(RabbitMQ)
+FetchContent_MakeAvailable(pahomqtt)
 
 # -----------------------------
 
@@ -39,10 +36,15 @@ execute_process(COMMAND git describe --tags --always --dirty
 )
 string(STRIP "${GIT_REV}" GIT_REV)
 configure_file(src/config.h.in config.h)
+
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
+    ${pahomqtt_SOURCE_DIR}/src
 )
 
+link_directories(
+    ${pahomqtt_BINARY_DIR}/src
+)
 add_executable(peony src/main.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
 set_target_properties(peony PROPERTIES LINK_FLAGS_RELEASE -s)
 
@@ -56,7 +58,9 @@ endif(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
 set(THIRD_LIBRARIES stdc++fs 
     ${OPENSSL_LIBRARIES}
     ${Boost_LIBRARIES}
-    rabbitmq
+    rabbitmq zmq paho-mqtt3a
+    pq pqxx sqlite3
+    hiredis
 )
 # -----------------------------
  

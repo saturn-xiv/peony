@@ -3,6 +3,8 @@
 
 #include <amqp.h>
 #include <amqp_tcp_socket.h>
+#include <zmq.hpp>
+#include <MQTTClient.h>
 
 #include "common.h"
 
