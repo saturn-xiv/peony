@@ -21,7 +21,8 @@ elif [ $1 = "win" ]
 then
     cmake -DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/mingw.cmake -DCMAKE_BUILD_TYPE=Release $WORKSPACE 
 elif [ $1 = "x64" ]
-then    
+then
+    sudo apt -y install librabbitmq-dev
     cmake -DPEONY_BUILD_STATIC=ON -DCMAKE_BUILD_TYPE=Release $WORKSPACE
     strip -s $BUILD_ROOT/peony
 else

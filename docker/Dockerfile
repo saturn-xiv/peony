@@ -69,7 +69,7 @@ RUN zsh -c "source $HOME/.zshrc \
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 
-RUN git clone -b poco https://github.com/saturn-xiv/peony.git $HOME/peony
+RUN git clone -b cpp https://github.com/saturn-xiv/peony.git $HOME/peony
 
 VOLUME /workspace
 WORKDIR /workspace

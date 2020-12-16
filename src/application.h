@@ -1,0 +1,4 @@
+#ifndef PEONY_APPLICATION_H_
+#define PEONY_APPLICATION_H_
+
+#endif

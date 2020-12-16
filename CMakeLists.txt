@@ -33,11 +33,27 @@ if(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
     SET_TARGET_PROPERTIES(peony PROPERTIES LINK_SEARCH_END_STATIC 1)
 endif(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
 
-set(THIRD_LIBRARIES stdc++fs ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES})
+# -----------------------------
+# set(BUILD_EXAMPLES OFF)
+# set(BUILD_STATIC_LIBS ON)
+# set(BUILD_TESTS OFF)
+# set(BUILD_TOOLS OFF)
+# FetchContent_Declare(RabbitMQ
+#     GIT_REPOSITORY "https://github.com/alanxz/rabbitmq-c.git"
+#     GIT_TAG "v0.10.0"
+# )
+
+# FetchContent_MakeAvailable(RabbitMQ)
+set(THIRD_LIBRARIES stdc++fs 
+    ${OPENSSL_LIBRARIES}
+    ${Boost_LIBRARIES}
+    rabbitmq
+)
+# -----------------------------
  
 target_link_libraries(peony ${THIRD_LIBRARIES})
 
-# --------------------------------------
+# -----------------------------
 
 include(CTest)
 enable_testing()
