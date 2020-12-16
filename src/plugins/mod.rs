@@ -10,5 +10,5 @@ pub mod vip;
 use super::orm::migration::New as Migration;
 
 pub trait Plugin {
-    fn migrations(&self) -> Vec<Migration>;
+    fn migrations<'a>() -> Vec<Migration<'a>>;
 }

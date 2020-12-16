@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "nut.proto";
+// import "google/protobuf/empty.proto";
+// import "google/protobuf/timestamp.proto";
+// import "google/protobuf/duration.proto";
+
+service ForumService {
+  rpc CreatePost(CreatePostRequest) returns(Ok) {}
+}
+
+message CreatePostRequest {
+  string subject = 1;
+  string content_type = 2;
+  string body = 3;
+}

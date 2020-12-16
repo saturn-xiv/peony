@@ -11,7 +11,6 @@ readme = "README.md"
 [profile.release]
 lto = true  
 
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
@@ -35,6 +34,7 @@ robots_txt = "0.7"
 env_logger = "0.8"
 encoding_rs = "0.8"
 paho-mqtt = "0.8"
+protobuf = "2"
 r2d2 = "0.8"
 xml-rs = "0.8"
 lettre = "0.9"
@@ -83,6 +83,10 @@ features = ["serde"]
 version = "0.5"
 features = ["serde"]
 
+[dependencies.grpcio]
+version = "0.7"
+features = ["openssl-vendored"]
+
 [dependencies.uuid]
 version = "0.8"
 features = ["v4"]
@@ -115,3 +119,6 @@ features = ["from_url"]
 [dependencies.handlebars]
 version = "3"
 features = ["script_helper"]
+
+[build-dependencies]
+protoc-grpcio = "1"
