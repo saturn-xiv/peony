@@ -14,9 +14,6 @@ rm -rfv $BUILD_ROOT
 mkdir -pv $BUILD_ROOT
 cd $BUILD_ROOT
 
-# sudo apt update g++-mingw-w64
-# sudo apt -y install g++-9 
-# apt --yes --force-yes -o Dpkg::Options::="--force-confnew" upgrade
 if [ $1 = "arm" ]
 then
     cmake -DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/linaro.cmake -DCMAKE_BUILD_TYPE=Release $WORKSPACE
@@ -25,7 +22,7 @@ then
     cmake -DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/mingw.cmake -DCMAKE_BUILD_TYPE=Release $WORKSPACE 
 elif [ $1 = "x64" ]
 then    
-    cmake -DPEONY_BUILD_STATIC=ON -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9 -DCMAKE_BUILD_TYPE=Release $WORKSPACE
+    cmake -DPEONY_BUILD_STATIC=ON -DCMAKE_BUILD_TYPE=Release $WORKSPACE
     strip -s $BUILD_ROOT/peony
 else
     echo "Unknown arch $1"
