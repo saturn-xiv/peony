@@ -32,9 +32,14 @@
 #include <streambuf>
 #include <string>
 #include <thread>
+#include <utility>
 #include <vector>
 
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/asio.hpp>
+#include <boost/asio/serial_port.hpp>
 #include <boost/beast/core/detail/base64.hpp>
+#include <boost/bind/bind.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/local_time/local_time.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
@@ -51,6 +56,9 @@
 #include <boost/log/trivial.hpp>
 #include <boost/make_shared.hpp>
 #include <boost/program_options.hpp>
+#include <boost/system/error_code.hpp>
+#include <boost/system/system_error.hpp>
+#include <boost/thread.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
@@ -66,6 +74,11 @@
 #include <cpprest/rawptrstream.h>
 #include <cpprest/uri.h>
 #include <cpprest/ws_client.h>
+#include <mailio/imap.hpp>
+#include <mailio/message.hpp>
+#include <mailio/mime.hpp>
+#include <mailio/pop3.hpp>
+#include <mailio/smtp.hpp>
 #include <nlohmann/json.hpp>
 
 #define TOML_EXCEPTIONS 1

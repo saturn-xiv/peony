@@ -22,7 +22,14 @@ FetchContent_Declare(gRPC
 )
 set(protobuf_BUILD_PROTOC_BINARIES ON)
 set(gRPC_SSL_PROVIDER "package")
-FetchContent_MakeAvailable(gRPC)
+
+
+FetchContent_Declare(mailio
+    GIT_REPOSITORY  "https://github.com/karastojko/mailio.git"
+    GIT_TAG         "version_0-20-0"
+)
+
+FetchContent_MakeAvailable(gRPC mailio)
 
 # -----------------------------
 
@@ -50,7 +57,7 @@ if(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
     SET_TARGET_PROPERTIES(peony PROPERTIES LINK_SEARCH_END_STATIC 1)
 endif(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
 
-set(PEONY_THIRD_LIBRARIES stdc++fs ${CONAN_LIBS} grpc++)
+set(PEONY_THIRD_LIBRARIES stdc++fs ${CONAN_LIBS} grpc++ mailio)
 
 target_link_libraries(peony ${PEONY_THIRD_LIBRARIES})
 # -----------------------------
