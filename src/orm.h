@@ -4,7 +4,6 @@
 #include <sqlite3.h>
 #include <pqxx/pqxx>
 
-#include "common.h"
 #include "crypt.h"
 #include "pool.h"
 
