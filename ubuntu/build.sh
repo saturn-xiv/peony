@@ -57,7 +57,7 @@ cp -r $WORKSPACE/dashboard/build  $TARGET/var/usr/share/dashboard
 
 rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony
-cp -r $WORKSPACE/protos $WORKSPACE/LICENSE $WORKSPACE/README.md $TARGET/etc/peony/
+cp -r $WORKSPACE/LICENSE $WORKSPACE/README.md $WORKSPACE/etc/* $TARGET/etc/peony/
 echo "$(git describe --tags --always --dirty --first-parent) $(date -R)" > $TARGET/etc/peony/VERSION
 echo "$1 $(lsb_release -cs) $2" >> $TARGET/etc/peony/VERSION
 
