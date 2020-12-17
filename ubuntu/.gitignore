@@ -3,7 +3,8 @@
 /var/
 
 /debhelper-build-stamp
-/files
-/peony.debhelper.log
-/peony.substvars
-/peony/
+/debian/.debhelper/
+/debian/files
+/debian/peony.debhelper.log
+/debian/peony.substvars
+/debian/peony/

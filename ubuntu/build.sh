@@ -48,13 +48,13 @@ REACT_GRPC_HOST=$2 npm run build
 
 # -----------------------------
 
-export TARGET=$WORKSPACE/docker/ubuntu
+export TARGET=$WORKSPACE/ubuntu
 rm -rf $TARGET/usr
 mkdir -pv $TARGET/usr/bin 
 cp -av $BUILD_ROOT/bin/peony $TARGET/usr/bin/
 mkdir -pv $TARGET/usr/share/peony
 cp -r $WORKSPACE/node_modules $WORKSPACE/package.json $TARGET/usr/share/peony/
-cp -r $WORKSPACE/dashboard/build  $TARGET/var/usr/share/dashboard
+cp -r $WORKSPACE/dashboard/build $TARGET/usr/share/peony/dashboard
 
 rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony

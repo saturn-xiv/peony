@@ -26,8 +26,12 @@ set(gRPC_SSL_PROVIDER "package")
 
 FetchContent_Declare(mailio
     GIT_REPOSITORY  "https://github.com/karastojko/mailio.git"
-    GIT_TAG         "version_0-20-0"
+    GIT_TAG         "2e70e8a"
 )
+set(MAILIO_BUILD_EXAMPLES OFF)
+set(MAILIO_BUILD_DOCUMENTATION OFF)
+set(MAILIO_BUILD_LATEX_DOCUMENTATION OFF)
+set(MAILIO_BUILD_SHARED_LIBRARY OFF)
 
 FetchContent_MakeAvailable(gRPC mailio)
 
