@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.16)
 
 # include(ExternalProject)
 include(FetchContent)
@@ -16,13 +16,12 @@ conan_basic_setup()
 
 set(FETCHCONTENT_QUIET OFF)
 
-set(protobuf_BUILD_PROTOC_BINARIES ON)
-set(gRPC_SSL_PROVIDER "package")
 FetchContent_Declare(gRPC
     GIT_REPOSITORY  "https://github.com/grpc/grpc.git"
     GIT_TAG         "v1.34.0"
 )
-
+set(protobuf_BUILD_PROTOC_BINARIES ON)
+set(gRPC_SSL_PROVIDER "package")
 FetchContent_MakeAvailable(gRPC)
 
 # -----------------------------

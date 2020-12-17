@@ -6,7 +6,7 @@ sqlitecpp/3.1.1
 libpq/13.1
 libpqxx/7.2.1
 hiredis/1.0.0
-amqp-cpp/4.3.10
+rabbitmq-c/0.10.0
 zeromq/4.3.3
 cppzmq/4.7.1
 inja/3.1.0

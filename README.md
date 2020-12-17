@@ -15,3 +15,4 @@ A total free education &amp; translation &amp; ops solution.
 
 - [gRPC](https://grpc.io/docs/languages/cpp/quickstart/)
 - [Fluent UI React](https://developer.microsoft.com/en-us/fluentui#/controls/web)
+- [Material Icons](https://material-ui.com/components/material-icons/)
