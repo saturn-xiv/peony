@@ -90,3 +90,6 @@ target_link_libraries(tty-test ${PEONY_THIRD_LIBRARIES})
 
 add_executable(twilio-test src/twilio-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
 target_link_libraries(twilio-test ${PEONY_THIRD_LIBRARIES})
+
+add_executable(utils-test src/utils-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(utils-test ${PEONY_THIRD_LIBRARIES})

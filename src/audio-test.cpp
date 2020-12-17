@@ -2,10 +2,6 @@
 
 #include <boost/test/included/unit_test.hpp>
 
-BOOST_AUTO_TEST_CASE(mp3_test)
-{
-}
+BOOST_AUTO_TEST_CASE(mp3_test) {}
 
-BOOST_AUTO_TEST_CASE(wav_test)
-{
-}
+BOOST_AUTO_TEST_CASE(wav_test) {}

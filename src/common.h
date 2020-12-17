@@ -1,7 +1,12 @@
 #ifndef PEONY_COMMON_H_
 #define PEONY_COMMON_H_
 
+#include <fcntl.h>
+#include <linux/watchdog.h>
 #include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
 #include <algorithm>
 #include <cassert>
@@ -15,6 +20,7 @@
 #include <functional>
 #include <iomanip>
 #include <iostream>
+#include <memory>
 #include <mutex>
 #include <optional>
 #include <ostream>
@@ -29,10 +35,19 @@
 #include <vector>
 
 #include <boost/beast/core/detail/base64.hpp>
+#include <boost/date_time/gregorian/gregorian.hpp>
+#include <boost/date_time/local_time/local_time.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <boost/log/attributes.hpp>
+#include <boost/log/common.hpp>
+#include <boost/log/core.hpp>
+#include <boost/log/expressions.hpp>
+#include <boost/log/sinks.hpp>
+#include <boost/log/sinks/syslog_backend.hpp>
+#include <boost/log/sources/logger.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/make_shared.hpp>
 #include <boost/program_options.hpp>
