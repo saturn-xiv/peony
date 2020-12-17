@@ -74,6 +74,9 @@ class SchemaDao {
 };
 }  // namespace orm
 
+// https://www.postgresql.org/docs/current/runtime-config-logging.html
+// /var/lib/postgres/data/postgresql.conf: log_statement = 'all'
+// journalctl -f -u postgresql
 // https://www.postgresql.org/docs/current/libpq-connect.html
 // https://libpqxx.readthedocs.io/en/latest/index.html
 namespace postgresql {
@@ -141,7 +144,36 @@ class SchemaDao : public peony::orm::SchemaDao {
 };
 
 }  // namespace postgresql
+
+// use DB-NAME
+// show tables;
+// desc TABLE-NAME;
+// SELECT table_name FROM information_schema.tables WHERE table_schema =
+// 'databasename' AND table_name = 'testtable'; SHOW TABLES LIKE 'tablename';
+namespace mysql {
+const std::string EXISTS =
+    "SELECT table_name AS name FROM information_schema.tables WHERE "
+    "table_schema = DATABASE() AND table_name = 'schema_migrations'";
+const std::string VERSION = "SELECT VERSION() AS value";
+}  // namespace mysql
+
+/// .show Displays current settings for various parameters
+/// .databases Provides database names and files
+/// .quit Quit sqlite3 program
+/// .tables Show current tables
+/// .schema Display schema of table
+/// .header Display or hide the output table header
+/// .mode Select mode for the output table
+/// .dump Dump database in SQL text format
+/// pragma compile_options;
+/// SELECT name FROM sqlite_master WHERE type='table' AND name='TABLE_NAME'
 namespace sqlite3 {
+const std::string EXISTS =
+    "SELECT name FROM sqlite_master WHERE type='table' AND "
+    "name='schema_migrations'";
+const std::string VERSION = "SELECT SQLITE_VERSION() AS value";
+
+// https://stackoverflow.com/questions/57123453/how-to-use-diesel-with-sqlite-connections-and-avoid-database-is-locked-type-of
 class Config {
  private:
   std::filesystem::path file;
