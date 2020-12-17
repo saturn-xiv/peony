@@ -14,7 +14,7 @@ RUN apt update
 RUN apt upgrade
 RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm \
-    meson nasm bazel ninja \
+    meson nasm bazel ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake clang debhelper \
     binutils-multiarch \
     g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
@@ -71,13 +71,14 @@ RUN pip3 install --user cmake
 RUN pip3 install --user conan
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
-
+RUN sh -c ". $HOME/.profile && git clone -b cpp https://github.com/saturn-xiv/peony.git $HOME/peony"
+RUN sudo apt install -y libssl-dev
+RUN sh -c ". $HOME/.profile && $HOME/peony/docker/grpc.sh"
 RUN sh -c ". $HOME/.profile \
-    && git clone -b cpp https://github.com/saturn-xiv/peony.git $HOME/peony \
-    && $HOME/peony/docker/grpc.sh \
     && mkdir -pv $HOME/peony/build/amd64 \
     && cd $HOME/peony/build/amd64 \
-    && conan install ../.. --profile=../../docker/conan/profiles/amd64 --build=missing \
+    && conan install ../.. --profile=../../docker/conan/profiles/amd64 --build=missing"
+RUN sh -c ". $HOME/.profile \
     && mkdir -pv $HOME/peony/build/armhf \
     && cd $HOME/peony/build/armhf \
     && conan install ../.. --profile=../../docker/conan/profiles/armhf --build=missing"

@@ -3,4 +3,11 @@
 
 #include "common.h"
 
+namespace peony
+{
+    namespace i18n
+    {
+    }
+} // namespace peony
+
 #endif

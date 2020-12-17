@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.18)
 
 # include(ExternalProject)
 include(FetchContent)
@@ -62,11 +62,29 @@ enable_testing()
 add_executable(audio-test src/audio-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
 target_link_libraries(audio-test ${PEONY_THIRD_LIBRARIES})
 
+add_executable(aws-test src/aws-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(aws-test ${PEONY_THIRD_LIBRARIES})
+
+add_executable(crawler-test src/crawler-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(crawler-test ${PEONY_THIRD_LIBRARIES})
+
+add_executable(crontab-test src/crontab-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(crontab-test ${PEONY_THIRD_LIBRARIES})
+
+add_executable(crypt-test src/crypt-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(crypt-test ${PEONY_THIRD_LIBRARIES})
+
 add_executable(elastic-search-test src/elastic-search-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
 target_link_libraries(elastic-search-test ${PEONY_THIRD_LIBRARIES})
 
 add_executable(gpio-test src/gpio-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
 target_link_libraries(gpio-test ${PEONY_THIRD_LIBRARIES})
+
+add_executable(jwt-test src/jwt-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(jwt-test ${PEONY_THIRD_LIBRARIES})
+
+add_executable(queue-test src/queue-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+target_link_libraries(queue-test ${PEONY_THIRD_LIBRARIES})
 
 add_executable(tty-test src/tty-test.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
 target_link_libraries(tty-test ${PEONY_THIRD_LIBRARIES})

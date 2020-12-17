@@ -3,4 +3,11 @@
 
 #include "common.h"
 
+namespace peony
+{
+
+    class Application
+    {
+    };
+} // namespace peony
 #endif
