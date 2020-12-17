@@ -1,0 +1,23 @@
+{
+  "name": "peony",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A total free education &amp; translation &amp; ops solution.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saturn-xiv/peony.git"
+  },
+  "author": "Jeremy Zheng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saturn-xiv/peony/issues"
+  },
+  "homepage": "https://github.com/saturn-xiv/peony#readme",
+  "dependencies": {
+    "bootstrap": "^5.0.0-beta1",
+    "marked": "^1.2.6",
+    "material-design-icons": "^3.0.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32"
+  }
+}

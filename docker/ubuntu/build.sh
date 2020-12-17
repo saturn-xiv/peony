@@ -14,6 +14,7 @@ rm -rf $BUILD_ROOT
 mkdir -pv $BUILD_ROOT
 cd $BUILD_ROOT
 
+# -----------------------------
 conan install $WORKSPACE --profile=$WORKSPACE/docker/conan/profiles/$1 --build=missing
 if [ $1 = "arm" ]
 then
@@ -28,23 +29,43 @@ fi
 
 make peony
 
+# -----------------------------
+
+cd $WORKSPACE
+if [ ! -d node_modules ]
+then
+    npm install
+fi
+
+if [ ! -d dashboard/node_modules ]
+then
+    cd dashboard
+    npm install
+fi
+cd $WORKSPACE
+REACT_GRPC_HOST=$2 npm run build
+
+# -----------------------------
+
 export TARGET=$WORKSPACE/docker/ubuntu
 rm -rf $TARGET/usr
 mkdir -pv $TARGET/usr/bin 
 cp -av $BUILD_ROOT/bin/peony $TARGET/usr/bin/
 mkdir -pv $TARGET/usr/share/peony
+cp -r $WORKSPACE/node_modules $WORKSPACE/package.json $TARGET/usr/share/peony/
+cp -r $WORKSPACE/dashboard/build  $TARGET/var/usr/share/dashboard
 
 rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony
 cp -r $WORKSPACE/protos $WORKSPACE/LICENSE $WORKSPACE/README.md $TARGET/etc/peony/
+echo "$(git describe --tags --always --dirty --first-parent) $(date -R)" > $TARGET/etc/peony/VERSION
+echo "$1 $(lsb_release -cs) $2" >> $TARGET/etc/peony/VERSION
 
 rm -rf $TARGET/var
 mkdir -pv $TARGET/var/lib/peony
-# TODO dashboard
 
-cd $WORKSPACE
-# $(lsb_release -cs)-
-dpkg -b docker/ubuntu $2-$1-$(git describe --tags --always --dirty --first-parent).deb
+cd $TARGET
+dpkg-buildpackage -us -uc -b --host-arch $1
 
 echo 'done'
 

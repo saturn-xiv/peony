@@ -13,8 +13,11 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 # -----------------------------
+
 set(FETCHCONTENT_QUIET OFF)
 
+set(protobuf_BUILD_PROTOC_BINARIES ON)
+set(gRPC_SSL_PROVIDER "package")
 FetchContent_Declare(gRPC
     GIT_REPOSITORY  "https://github.com/grpc/grpc.git"
     GIT_TAG         "v1.34.0"

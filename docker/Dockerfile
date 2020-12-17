@@ -5,16 +5,22 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update
 RUN apt -y upgrade
-RUN apt -y install software-properties-common
-# RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
+RUN apt -y install software-properties-common curl gnupg
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
+# https://docs.bazel.build/versions/master/install-ubuntu.html
+RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/bazel.gpg
+RUN echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
 RUN apt update
+RUN apt upgrade
 RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm \
-    build-essential pkg-config libtool automake autoconf binutils cmake clang meson debhelper \
+    meson nasm bazel ninja \
+    build-essential pkg-config libtool automake autoconf binutils cmake clang debhelper \
     binutils-multiarch \
     g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
     mingw-w64 mingw-w64-tools binutils-mingw-w64 \
-    python3 python3-pip python3-distutils python3-dev    
+    python3 python3-pip python3-distutils python3-dev \
+    bazel
 
 # https://wiki.ubuntu.com/ToolChain
 RUN dpkg --add-architecture armhf
