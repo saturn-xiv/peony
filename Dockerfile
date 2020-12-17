@@ -73,15 +73,16 @@ RUN pip3 install --user conan
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN sh -c ". $HOME/.profile && git clone -b cpp https://github.com/saturn-xiv/peony.git $HOME/peony"
 RUN sudo apt install -y libssl-dev
-RUN sh -c ". $HOME/.profile && $HOME/peony/docker/grpc.sh"
+RUN COPY conanfile.txt armhf.cmake grpc.sh conan /opt/
+RUN sh -c ". $HOME/.profile && /opt/grpc.sh"
 RUN sh -c ". $HOME/.profile \
-    && mkdir -pv $HOME/peony/build/amd64 \
-    && cd $HOME/peony/build/amd64 \
-    && conan install ../.. --profile=../../docker/conan/profiles/amd64 --build=missing"
+    && mkdir -pv $HOME/amd64 \
+    && cd $HOME/amd64 \
+    && conan install /opt --profile=/opt/conan/profiles/amd64 --build=missing"
 RUN sh -c ". $HOME/.profile \
-    && mkdir -pv $HOME/peony/build/armhf \
-    && cd $HOME/peony/build/armhf \
-    && conan install ../.. --profile=../../docker/conan/profiles/armhf --build=missing"
+    && mkdir -pv $HOME/armhf \
+    && cd $HOME/armhf \
+    && conan install /opt --profile=/opt/conan/profiles/armhf --build=missing"
 
 VOLUME /workspace
 WORKDIR /workspace

@@ -15,7 +15,7 @@ mkdir -pv $BUILD_ROOT
 cd $BUILD_ROOT
 
 # -----------------------------
-conan install $WORKSPACE --profile=$WORKSPACE/docker/conan/profiles/$1 --build=missing
+conan install $WORKSPACE --profile=$WORKSPACE/conan/profiles/$1 --build=missing
 if [ $1 = "armhf" ]
 then
     cmake -DPEONY_BUILD_STATIC=ON -DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/armhf.cmake -DCMAKE_BUILD_TYPE=Release $WORKSPACE

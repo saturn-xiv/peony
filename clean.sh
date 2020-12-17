@@ -6,7 +6,7 @@ set -e
 mkdir -pv build
 cd build
 
-conan install .. --profile=../docker/conan/profiles/arch --build=missing
+conan install .. --profile=../conan/profiles/arch --build=missing
 CC=clang CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Release ..
 
 echo 'done.'
