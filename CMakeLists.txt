@@ -14,6 +14,10 @@ conan_basic_setup()
 
 # -----------------------------
 
+find_package(OpenGL REQUIRED)
+
+# -----------------------------
+
 set(FETCHCONTENT_QUIET OFF)
 
 FetchContent_Declare(gRPC
@@ -86,7 +90,7 @@ if(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
     SET_TARGET_PROPERTIES(peony PROPERTIES LINK_SEARCH_END_STATIC 1)
 endif(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
 
-set(PEONY_THIRD_LIBRARIES stdc++fs ${CONAN_LIBS} grpc++ mailio)
+set(PEONY_THIRD_LIBRARIES stdc++fs ${CONAN_LIBS} grpc++ mailio ${OPENGL_gl_LIBRARY})
 
 target_link_libraries(peony ${PEONY_THIRD_LIBRARIES})
 # -----------------------------
