@@ -65,7 +65,6 @@
 
 #include <GLFW/glfw3.h>
 #include <imgui.h>
-#include <imgui/imgui_impl_glfw.h>
 
 // https://github.com/microsoft/cpprestsdk/issues/1214
 #include <cpprest/containerstream.h>
