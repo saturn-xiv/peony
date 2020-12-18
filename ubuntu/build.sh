@@ -21,6 +21,10 @@ if [ $1 = "armhf" ]
 then
     sudo apt -y install libglfw3-dev:armhf
     cmake -DPEONY_BUILD_STATIC=ON -DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/armhf.cmake -DCMAKE_BUILD_TYPE=Release $WORKSPACE
+    # dpkg-architecture: warning: specified GNU system type arm-linux-gnueabihf
+    CC=arm-linux-gnueabihf-gcc
+    CXX=arm-linux-gnueabihf-g++
+    export CC CXX
 elif [ $1 = "amd64" ]
 then
     sudo apt -y install libglfw3-dev

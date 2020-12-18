@@ -16,25 +16,44 @@ std::string peony::crypt::timestamp() {
   return ss.str();
 }
 
-std::string peony::crypt::random_base64_string(const size_t len) {
-  // std::independent_bits_engine<std::default_random_engine, CHAR_BIT, unsigned
-  // char> rng; std::vector<unsigned char> buf(len);
-  // std::generate(std::begin(buf), std::end(buf), std::ref(rng));
-  // it.resize(boost::beast::detail::base64::encode(&it[0], &buf[0], len));
+std::string peony::crypt::random_str(std::string::size_type len) {
+  static auto& src = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  thread_local static std::random_device rd;
+  thread_local static std::mt19937 gen(rd());
+  std::uniform_int_distribution<std::string::size_type> pick(0,
+                                                             sizeof(src) - 2);
+  std::string buf;
 
-  void *const buf = malloc(sizeof(void *) * len);
+  buf.reserve(len);
 
-  {
-    FILE *fp;
-    fp = fopen("/dev/urandom", "r");
-    fread(buf, 1, len, fp);
-    fclose(fp);
+  while (len--) {
+    buf += src[pick(gen)];
   }
+  return buf;
+}
+std::string peony::crypt::random_base64(const size_t len) {
+  thread_local static std::random_device rd;
+  thread_local static std::independent_bits_engine<std::mt19937, CHAR_BIT,
+                                                   unsigned char>
+      rng(rd());
+  std::vector<unsigned char> buf(len);
+  std::generate(std::begin(buf), std::end(buf), std::ref(rng));
 
   std::string it;
   it.resize(boost::beast::detail::base64::encoded_size(len));
-  it.resize(boost::beast::detail::base64::encode(&it[0], buf, len));
-
-  free(buf);
+  it.resize(boost::beast::detail::base64::encode(&it[0], &buf[0], len));
   return it;
+}
+
+unsigned int peony::crypt::random_uint(unsigned int min, unsigned int max) {
+  thread_local static std::random_device rd;
+  thread_local static std::mt19937 gen(rd());
+  std::uniform_int_distribution<unsigned int> dis(min, max);
+  return dis(gen);
+}
+double peony::crypt::random_double(unsigned int min, unsigned int max) {
+  thread_local static std::random_device rd;
+  thread_local static std::mt19937 gen(rd());
+  std::uniform_real_distribution<double> dis(min, max);
+  return dis(gen);
 }
