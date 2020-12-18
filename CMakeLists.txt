@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.18)
 
-# include(ExternalProject)
+include(ExternalProject)
 include(FetchContent)
 
 project(peony VERSION 0.1.0)
@@ -35,6 +35,24 @@ set(MAILIO_BUILD_SHARED_LIBRARY OFF)
 
 FetchContent_MakeAvailable(gRPC mailio)
 
+ExternalProject_Add(bundle
+    GIT_REPOSITORY      "https://github.com/r-lyeh-archived/bundle.git"
+    GIT_TAG             "ae07927"
+    PREFIX              "${CMAKE_BINARY_DIR}/3rd/bundle"
+    CONFIGURE_COMMAND   ""
+    BUILD_COMMAND       ""
+    INSTALL_COMMAND     ""
+)
+
+ExternalProject_Add(stb
+    GIT_REPOSITORY      "https://github.com/nothings/stb.git"
+    GIT_TAG             "b42009b"
+    PREFIX              "${CMAKE_BINARY_DIR}/3rd/stb"
+    CONFIGURE_COMMAND   ""
+    BUILD_COMMAND       ""
+    INSTALL_COMMAND     ""
+)
+
 # -----------------------------
 
 option(PEONY_BUILD_STATIC "build all static binary" OFF)
@@ -42,7 +60,9 @@ option(PEONY_BUILD_STATIC "build all static binary" OFF)
 # -----------------------------
 
 file(GLOB PEONY_HEADERS src/*.h)
-file(GLOB PEONY_SOURCES src/*.cc)
+file(GLOB PEONY_SOURCES src/*.cc
+    # ${CMAKE_CURRENT_BINARY_DIR}/3rd/bundle/src/bundle/bundle.cpp
+)
 execute_process(COMMAND git describe --tags --always --dirty
     OUTPUT_VARIABLE GIT_REV
     ERROR_QUIET
@@ -50,10 +70,15 @@ execute_process(COMMAND git describe --tags --always --dirty
 string(STRIP "${GIT_REV}" GIT_REV)
 configure_file(src/config.h.in config.h)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(
+    ${CMAKE_CURRENT_BINARY_DIR}
+    # ${CMAKE_CURRENT_BINARY_DIR}/3rd/bundle/src/bundle
+    ${CMAKE_CURRENT_BINARY_DIR}/3rd/stb/src/stb
+)
 
 add_executable(peony src/main.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
 set_target_properties(peony PROPERTIES LINK_FLAGS_RELEASE -s)
+add_dependencies(peony bundle stb)
 
 if(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
     SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")

@@ -2,4 +2,6 @@
 
 #include <boost/test/included/unit_test.hpp>
 
+#include "queue.h"
+
 BOOST_AUTO_TEST_CASE(rabbitmq_test) {}

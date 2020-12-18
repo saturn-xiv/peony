@@ -63,6 +63,11 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 
+#include <GLFW/glfw3.h>
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl2.h>
+
 // https://github.com/microsoft/cpprestsdk/issues/1214
 #include <cpprest/containerstream.h>
 #include <cpprest/filestream.h>
@@ -84,11 +89,35 @@
 #define TOML_EXCEPTIONS 1
 #include <toml.hpp>
 
+// #define BUNDLE_NO_BCM 1
+// #define BUNDLE_NO_BROTLI 1
+// #define BUNDLE_NO_BSC 1
+// #define BUNDLE_NO_BZIP2 1
+// #define BUNDLE_NO_CRUSH 1
+// #define BUNDLE_NO_CSC 1
+// #define BUNDLE_NO_LZ4 1
+// #define BUNDLE_NO_LZIP 1
+// #define BUNDLE_NO_LZJB 1
+// #define BUNDLE_NO_LZMA 1
+// #define BUNDLE_NO_MCM 1
+// #define BUNDLE_NO_MINIZ 1
+// #define BUNDLE_NO_SHOCO 1
+// #define BUNDLE_NO_SHRINKER 1
+// #define BUNDLE_NO_TANGELO 1
+// #define BUNDLE_NO_ZLING 1
+// #define BUNDLE_NO_ZMOLLY 1
+// #define BUNDLE_NO_ZPAQ 1
+// #define BUNDLE_NO_ZSTD 1
+// #include "bundle.h"
+
+#include "stb_image.h"
+#include "stb_truetype.h"
+
+#include "config.h"
+
 #define PEONY_STR2TS(x) boost::posix_time::time_from_string(x.as<std::string>())
 #define PEONY_APPLICATION_JSON_UTF8 "application/json; charset=UTF-8"
 #define PEONY_TEXT_HTML_UTF8 "text/html; charset=UTF-8"
 #define PEONT_TIMESTAMP_SIZE 14
-
-#include "config.h"
 
 #endif
