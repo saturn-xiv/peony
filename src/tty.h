@@ -197,6 +197,8 @@ class Request {
         return this->at(key, "GET");
       case POST:
         return this->at(key, "POST");
+      default:
+        throw std::invalid_argument("invalid http client method");
     }
   }
 

@@ -1,5 +1,9 @@
 #include "application.h"
+#include "orm.h"
 #include "utils.h"
+
+#define CONFIG_POSTGRESQL_KEY "postgresql"
+#define CONFIG_REDIS_KEY "redis"
 
 void peony::Application::recipe(const std::string& name) {
   // TODO
@@ -15,6 +19,15 @@ void peony::Application::consumer(const toml::table& root) {
 }
 void peony::Application::postgresql(const toml::table& root,
                                     const PostgreSqlAction action) {
+  auto node = root[CONFIG_POSTGRESQL_KEY];
+  if (!node.is_table()) {
+    throw std::invalid_argument("invalid postgresql config");
+  }
+  {
+    // peony::postgresql::Config cfg(*(node.as_table()));
+    // auto pg = cfg.open();
+    // auto db = pg->get();
+  }
   // const auto cfg = peony::Config(root);
   // {
   //   auto pg = cfg.postgresql.open(std::nullopt);
@@ -130,9 +143,6 @@ void peony::Application::run(int argc, char** argv) {
   const std::string config = vm["config"].as<std::string>();
   BOOST_LOG_TRIVIAL(info) << "load from " << config;
   toml::table root = toml::parse_file(config);
-
-  const std::string POSTGRESQL_KEY = "postgresql";
-  const std::string REDIS_KEY = "redis";
 
   if (vm["cache-list"].as<bool>()) {
     this->redis(root, RedisAction::LIST);

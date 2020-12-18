@@ -1,7 +1,9 @@
 #ifndef PEONY_CRYPT_H_
 #define PEONY_CRYPT_H_
 
-#include "common.h"
+#include <string>
+
+#include "env.h"
 
 namespace peony {
 namespace crypt {

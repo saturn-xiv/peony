@@ -1,6 +1,16 @@
-
-
 #include "utils.h"
+
+#include <fcntl.h>
+#include <linux/watchdog.h>
+#include <sys/ioctl.h>
+
+#include <boost/log/core.hpp>
+#include <boost/log/expressions.hpp>
+#include <boost/log/sinks.hpp>
+#include <boost/log/sinks/syslog_backend.hpp>
+#include <boost/log/trivial.hpp>
+
+#define PEONY_DATE_TIME_ZONESPEC_CSV "date_time_zonespec.csv"
 
 typedef boost::log::sinks::synchronous_sink<boost::log::sinks::syslog_backend>
     sink_t;
@@ -33,6 +43,7 @@ void peony::utils::init_logging(bool daemon, bool debug) {
   );
 }
 
+// https://www.kernel.org/doc/html/latest/watchdog/index.html
 void peony::utils::watchdog(int dur) {
   int fd = open("/dev/watchdog", O_WRONLY);
   // ioctl(fd, WDIOC_SETTIMEOUT, 60);
@@ -71,14 +82,14 @@ boost::posix_time::ptime peony::utils::str2time(const std::string &time,
 
 std::vector<std::string> peony::utils::timezone_regions() {
   boost::local_time::tz_database tzd;
-  tzd.load_from_file(PEONY_TIMEZONE_SPEC_FILE);
+  tzd.load_from_file(PEONY_DATE_TIME_ZONESPEC_CSV);
   return tzd.region_list();
 }
 
 boost::local_time::time_zone_ptr peony::utils::str2tz(
     const std::string &timezone) {
   boost::local_time::tz_database tzd;
-  tzd.load_from_file(PEONY_TIMEZONE_SPEC_FILE);
+  tzd.load_from_file(PEONY_DATE_TIME_ZONESPEC_CSV);
   boost::local_time::time_zone_ptr tz = tzd.time_zone_from_region(timezone);
   return tz;
 }

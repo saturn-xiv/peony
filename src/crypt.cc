@@ -1,3 +1,14 @@
+#include <chrono>
+#include <climits>
+#include <iomanip>
+#include <random>
+#include <sstream>
+
+#include <boost/beast/core/detail/base64.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+
 #include "crypt.h"
 
 std::string peony::crypt::uuid() {

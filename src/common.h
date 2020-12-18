@@ -2,7 +2,6 @@
 #define PEONY_COMMON_H_
 
 #include <fcntl.h>
-#include <linux/watchdog.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,6 +33,8 @@
 #include <thread>
 #include <utility>
 #include <vector>
+
+#include "env.h"
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio.hpp>
@@ -85,6 +86,9 @@
 #include <nlohmann/json.hpp>
 
 #define TOML_EXCEPTIONS 1
+
+#include "config.h"
+
 #include <toml.hpp>
 
 // #define BUNDLE_NO_BCM 1
@@ -108,14 +112,7 @@
 // #define BUNDLE_NO_ZSTD 1
 // #include "bundle.h"
 
-#include "stb_image.h"
-#include "stb_truetype.h"
-
-#include "config.h"
-
-#define PEONY_STR2TS(x) boost::posix_time::time_from_string(x.as<std::string>())
-#define PEONY_APPLICATION_JSON_UTF8 "application/json; charset=UTF-8"
-#define PEONY_TEXT_HTML_UTF8 "text/html; charset=UTF-8"
-#define PEONT_TIMESTAMP_SIZE 14
+#include <stb_image.h>
+#include <stb_truetype.h>
 
 #endif

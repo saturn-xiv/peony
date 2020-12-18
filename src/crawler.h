@@ -1,7 +1,9 @@
 #ifndef PEONY_CRAWLER_H_
 #define PEONY_CRAWLER_H_
 
-#include "orm.h"
+#include "common.h"
+
+#include <pqxx/pqxx>
 
 namespace peony {
 class Crawler {
