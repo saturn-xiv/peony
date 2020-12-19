@@ -56,11 +56,10 @@ std::shared_ptr<pqxx::connection> peony::postgresql::Pool::create() {
 std::shared_ptr<pqxx::connection> peony::postgresql::Pool::get() {
   std::lock_guard<std::mutex> lock(this->locker);
   if (this->pool.size() == 0) {
-    BOOST_LOG_TRIVIAL(debug) << "postgresql pool is full";
     for (auto it = this->used.begin(); it != this->used.end(); ++it) {
       if ((*it).unique()) {
-        BOOST_LOG_TRIVIAL(debug)
-            << "creating new connection to replace discarded connection";
+        BOOST_LOG_TRIVIAL(debug) << "creating new postgresql connection to "
+                                    "replace discarded connection";
         auto con = this->create();
         this->used.erase(it);
         this->used.insert(con);
@@ -70,7 +69,7 @@ std::shared_ptr<pqxx::connection> peony::postgresql::Pool::get() {
     throw std::out_of_range("postgresql pool is full");
   }
 
-  std::shared_ptr<pqxx::connection> con = this->pool.front();
+  auto con = this->pool.front();
   this->pool.pop_front();
   this->used.insert(con);
   return con;

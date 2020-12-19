@@ -90,13 +90,21 @@ void peony::Application::run(int argc, char** argv) {
   BOOST_LOG_TRIVIAL(info) << "load from " << config;
   toml::table root = toml::parse_file(config);
 
+  auto rs_cnf =
+      std::make_shared<peony::redis::Config>(*(root["redis"].as_table()));
   if (vm["cache-list"].as<bool>()) {
-    // TODO
+    auto con = rs_cnf->open();
+    auto items = peony::cache::all(con);
+    std::cout << "KEY" << std::endl;
+    for (const auto& it : items) {
+      std::cout << it << std::endl;
+    }
     return;
   }
 
   if (vm["cache-clear"].as<bool>()) {
-    // TODO
+    auto con = rs_cnf->open();
+    peony::cache::clear(con);
     return;
   }
 
