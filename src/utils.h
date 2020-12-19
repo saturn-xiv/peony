@@ -15,6 +15,8 @@ namespace utils {
 void init_logging(bool daemon, bool debug);
 void watchdog(int dur);
 
+std::string uptime();
+
 boost::posix_time::ptime str2time(const std::string &time,
                                   const std::string &format);
 boost::local_time::local_date_time str2time(const std::string &time,

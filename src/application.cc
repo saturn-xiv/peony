@@ -6,80 +6,16 @@
 #include "tty.h"
 #include "utils.h"
 
-// peony::PostgreSQL postgresql(const toml::table& root) {
-//   auto node = root["postgresql"];
-//   if (!node.is_table()) {
-//     throw std::invalid_argument("invalid postgresql config");
-//   }
-// }
-
-void peony::Application::recipe(const std::string& name) {
+void run_recipe(const std::string& name) {
   // TODO
 }
-void peony::Application::http(const toml::table& root) {
+void run_http(const toml::table& root) {
   // TODO
 }
-void peony::Application::rpc(const toml::table& root) {
+void run_rpc(const toml::table& root) {
   // TODO
 }
-void peony::Application::consumer(const toml::table& root) {
-  // TODO
-}
-void peony::Application::postgresql(const toml::table& root,
-                                    const PostgreSqlAction action) {
-  // auto node = root[PEONY_CONFIG_POSTGRESQL_KEY];
-  // if (!node.is_table()) {
-  //   throw std::invalid_argument("invalid postgresql config");
-  // }
-  {
-    // peony::postgresql::Config cfg(*(node.as_table()));
-    // auto pg = cfg.open();
-    // auto db = pg->get();
-  }
-  // const auto cfg = peony::Config(root);
-  // {
-  //   auto pg = cfg.postgresql.open(std::nullopt);
-  //   auto db = pg->get();
-  //   peony::postgresql::SchemaDao dao(db->context, std_fs::path(db_schema));
-  //   dao.load();
-
-  // }
-
-  // auto pg = cfg.postgresql.open(std_fs::path(db_schema) / "prepares.toml");
-
-  // {
-  //   auto db = pg->get();
-  //   auto node = root["crawler"];
-  //   if (!node.is_table()) {
-  //     BOOST_LOG_TRIVIAL(error) << "con't find crawler config";
-  //     return EXIT_FAILURE;
-  //   }
-  //   peony::crawler::Crawler crawler(db->context, *(node.as_table()));
-
-  //   if (vm["crawler-all"].as<bool>()) {
-  //     crawler.execute();
-  //     return;
-  //   }
-  //   if (vm.count("crawler-name")) {
-  //     const auto name = vm["crawler-name"].as<std::string>();
-  //     crawler.execute(name);
-  //     return;
-  //   }
-  // }
-
-  // auto redis = cfg.redis.open();
-  // { auto it = redis.get(); }
-
-  // auto router = peony::api::Router(cfg.http);
-  // {
-  //   peony::nut::Plugin nut;
-  //   nut.mount(router);
-  // }
-  // router.start();
-  // TODO
-}
-void peony::Application::redis(const toml::table& root,
-                               const RedisAction action) {
+void run_consumer(const toml::table& root) {
   // TODO
 }
 
@@ -97,8 +33,10 @@ void peony::Application::run(int argc, char** argv) {
       "debug,d", boost::program_options::bool_switch(), "debug mode");
 
   boost::program_options::options_description db("PostgreSQL options");
-  db.add_options()("db-migrate", boost::program_options::bool_switch(),
-                   "migrate database to latest migration")(
+  db.add_options()("db-generate", boost::program_options::value<std::string>(),
+                   "generate a latest migration by name")(
+      "db-migrate", boost::program_options::bool_switch(),
+      "migrate database to latest migration")(
       "db-rollback", boost::program_options::bool_switch(),
       "rollback database the last migration")(
       "db-status", boost::program_options::bool_switch(),
@@ -141,7 +79,7 @@ void peony::Application::run(int argc, char** argv) {
   peony::utils::init_logging(false, debug);
   if (vm.count("recipe")) {
     const auto name = vm["recipe"].as<std::string>();
-    this->recipe(name);
+    run_recipe(name);
     return;
   }
 
@@ -153,37 +91,54 @@ void peony::Application::run(int argc, char** argv) {
   toml::table root = toml::parse_file(config);
 
   if (vm["cache-list"].as<bool>()) {
-    this->redis(root, RedisAction::LIST);
+    // TODO
     return;
   }
 
   if (vm["cache-clear"].as<bool>()) {
-    this->redis(root, RedisAction::CLEAR);
+    // TODO
     return;
   }
 
+  auto pg_cnf = std::make_shared<peony::postgresql::Config>(
+      *(root["postgresql"].as_table()));
+  if (vm.count("db-gnerate")) {
+    const auto name = vm["db-generate"].as<std::string>();
+    auto dao = peony::postgresql::SchemaDao(pg_cnf);
+    dao.generate(name);
+    return;
+  }
   if (vm["db-migrate"].as<bool>()) {
-    this->postgresql(root, PostgreSqlAction::MIGRATE);
+    auto dao = peony::postgresql::SchemaDao(pg_cnf);
+    dao.load();
+    dao.migrate();
     return;
   }
   if (vm["db-rollback"].as<bool>()) {
-    this->postgresql(root, PostgreSqlAction::ROLLBACK);
+    auto dao = peony::postgresql::SchemaDao(pg_cnf);
+    dao.load();
+    dao.rollback();
     return;
   }
   if (vm["db-status"].as<bool>()) {
-    this->postgresql(root, PostgreSqlAction::STATUS);
+    auto dao = peony::postgresql::SchemaDao(pg_cnf);
+    dao.load();
+    std::cout << dao << std::endl;
     return;
   }
+
+  auto pg_pool = std::make_shared<peony::postgresql::Pool>(pg_cnf);
+
   if (vm["http"].as<bool>()) {
-    this->http(root);
+    run_http(root);
     return;
   }
   if (vm["rpc"].as<bool>()) {
-    this->rpc(root);
+    run_rpc(root);
     return;
   }
   if (vm["consumer"].as<bool>()) {
-    this->consumer(root);
+    run_consumer(root);
     return;
   }
   BOOST_LOG_TRIVIAL(warning) << "exit...";

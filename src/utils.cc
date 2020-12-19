@@ -119,3 +119,10 @@ unsigned long peony::utils::str2ul(const std::string &s) {
   ss >> v;
   return v;
 }
+
+std::string uptime() {
+  const static auto boot = std::chrono::system_clock::now();
+  auto now = std::chrono::system_clock::now();
+  // TODO
+  return "";
+}

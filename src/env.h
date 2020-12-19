@@ -16,6 +16,7 @@
 
 #include "config.h"
 
+#include <filesystem>
 #include <optional>
 
 #include <nlohmann/json.hpp>
@@ -41,6 +42,17 @@ struct adl_serializer<std::optional<T>> {
     } else {
       opt = j.get<T>();
     }
+  }
+};
+
+template <>
+struct adl_serializer<std::filesystem::path> {
+  static void to_json(nlohmann::json& j, const std::filesystem::path& opt) {
+    j = opt.string();
+  }
+
+  static void from_json(const nlohmann::json& j, std::filesystem::path& opt) {
+    opt = j.get<std::string>();
   }
 };
 
