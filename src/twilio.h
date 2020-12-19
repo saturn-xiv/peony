@@ -8,8 +8,6 @@
 #include <boost/log/trivial.hpp>
 
 #include <cpprest/http_client.h>
-#include <nlohmann/json.hpp>
-#include <toml.hpp>
 
 namespace peony {
 namespace twilio {

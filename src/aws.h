@@ -1,14 +1,17 @@
 #ifndef PEONY_AWS_H_
 #define PEONY_AWS_H_
 
-#include "common.h"
+#include <string>
+
+#include "env.h"
 
 namespace peony {
 namespace aws {
-namespace s3 {
-class Config {
+
+class S3 {
  public:
-  Config(const toml::table &root);
+  S3() {}
+  S3(const toml::table &root);
 
   operator toml::table() const;
 
@@ -18,7 +21,7 @@ class Config {
   std::string access_key;
   std::string secret_key;
 };
-}  // namespace s3
+
 }  // namespace aws
 
 }  // namespace peony

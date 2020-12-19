@@ -1,14 +1,3 @@
-#include <chrono>
-#include <climits>
-#include <iomanip>
-#include <random>
-#include <sstream>
-
-#include <boost/beast/core/detail/base64.hpp>
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
-
 #include "crypt.h"
 
 std::string peony::crypt::uuid() {
@@ -42,6 +31,7 @@ std::string peony::crypt::random_str(std::string::size_type len) {
   }
   return buf;
 }
+
 std::string peony::crypt::random_base64(const size_t len) {
   thread_local static std::random_device rd;
   thread_local static std::independent_bits_engine<std::mt19937, CHAR_BIT,
@@ -62,6 +52,7 @@ unsigned int peony::crypt::random_uint(unsigned int min, unsigned int max) {
   std::uniform_int_distribution<unsigned int> dis(min, max);
   return dis(gen);
 }
+
 double peony::crypt::random_double(unsigned int min, unsigned int max) {
   thread_local static std::random_device rd;
   thread_local static std::mt19937 gen(rd());

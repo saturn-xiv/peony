@@ -1,7 +1,16 @@
 #ifndef PEONY_TTY_H_
 #define PEONY_TTY_H_
 
-#include "common.h"
+#include <mutex>
+#include <string>
+
+#include "env.h"
+
+#include <boost/asio.hpp>
+#include <boost/asio/serial_port.hpp>
+#include <boost/bind/bind.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/thread.hpp>
 
 #define PEONY_SERIAL_PORT_READ_BUF_SIZE 1 << 10
 
@@ -69,7 +78,9 @@ class Apn {
   const std::optional<std::string> password;
   const unsigned short auth;
 };
+
 enum HttpdClientMethod { GET, POST };
+
 class HttpdClient {
  public:
   HttpdClient(const std::string host, std::string path)
@@ -94,7 +105,9 @@ class HttpdClient {
   const HttpdClientMethod method;
   const size_t over_time;
 };
+
 enum NetTransportMode { TCPC, TCPS, UDPC };
+
 class NetTransport {
  public:
   NetTransport(const NetTransportMode mode, const std::string host,
@@ -108,6 +121,7 @@ class NetTransport {
   const NetTransportMode mode;
   const unsigned short port;
 };
+
 class Request {
  public:
   Request(const std::string password) : password(password) {}
@@ -216,6 +230,7 @@ class Request {
   const std::string password;
   const static char SEP = ',';
 };
+
 class SMS {
  public:
   void net_transport();
@@ -246,6 +261,7 @@ class SerialPort : public peony::tty::SerialPort {
     return std::nullopt;
   }
 };
+
 }  // namespace usr_g768
 }  // namespace tty
 }  // namespace peony

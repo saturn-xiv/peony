@@ -1,9 +1,20 @@
 #ifndef PEONY_CRYPT_H_
 #define PEONY_CRYPT_H_
 
+#include <chrono>
+#include <climits>
+#include <iomanip>
+#include <random>
+#include <sstream>
 #include <string>
 
 #include "env.h"
+
+#include <boost/beast/core/detail/base64.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
 
 namespace peony {
 namespace crypt {
