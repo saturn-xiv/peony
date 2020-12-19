@@ -1,5 +1,34 @@
 #include "cache.h"
 
+peony::Redis::Redis(const toml::table &root) {
+  this->host = root["host"].value<std::string>().value_or(PEONY_DEFAULT_HOST);
+  this->port = root["port"].value<unsigned int>().value_or(6379);
+  this->user = root["user"].value<std::string>();
+  this->password = root["password"].value<std::string>();
+  this->prefix = root["prefix"].value<std::string>();
+  this->db = root["db"].value<unsigned short>().value_or(0);
+  this->pool_size =
+      root["pool-size"].value<long>().value_or(PEONY_DEFAULT_POOL_SIZE);
+}
+
+peony::Redis::operator toml::table() const {
+  toml::table root;
+  root.insert("host", this->host);
+  root.insert("port", this->port);
+  if (this->prefix) {
+    root.insert("prefix", this->prefix.value());
+  }
+  if (this->user) {
+    root.insert("user", this->user.value());
+  }
+  if (this->password) {
+    root.insert("password", this->password.value());
+  }
+  root.insert("db", this->db);
+  root.insert("pool-size", (long)this->pool_size);
+  return root;
+};
+
 // void peony::redis::Connection::clear() {
 //   redisReply *reply = (redisReply *)redisCommand(context, "FLUSHDB");
 //   if (reply->type == REDIS_REPLY_ERROR) {
@@ -52,23 +81,6 @@
 // }
 
 // // ------------------------
-peony::Redis::operator toml::table() const {
-  toml::table root;
-  root.insert("host", this->host);
-  root.insert("port", this->port);
-  if (this->prefix) {
-    root.insert("prefix", this->prefix.value());
-  }
-  if (this->user) {
-    root.insert("user", this->user.value());
-  }
-  if (this->password) {
-    root.insert("password", this->password.value());
-  }
-  root.insert("db", this->db);
-  root.insert("pool-size", (long)this->pool_size);
-  return root;
-};
 
 // // ---------------------------
 

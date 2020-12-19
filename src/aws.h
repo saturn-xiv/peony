@@ -14,6 +14,7 @@ class S3 {
   S3(const toml::table &root);
 
   operator toml::table() const;
+  NLOHMANN_DEFINE_TYPE_INTRUSIVE(S3, region, endpoint, access_key, secret_key)
 
  private:
   std::string region;

@@ -40,11 +40,11 @@ namespace peony {
 
 class Redis {
  public:
-  Redis(std::string host = "127.0.0.1", unsigned int port = 6379,
+  Redis(std::string host = PEONY_DEFAULT_HOST, unsigned int port = 6379,
         std::optional<std::string> user = std::nullopt,
         std::optional<std::string> password = std::nullopt,
         std::optional<std::string> prefix = std::nullopt, unsigned short db = 0,
-        size_t pool_size = 32)
+        size_t pool_size = PEONY_DEFAULT_POOL_SIZE)
       : host(host),
         port(port),
         user(user),

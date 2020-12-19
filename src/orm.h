@@ -18,10 +18,11 @@ namespace peony {
 // https://libpqxx.readthedocs.io/en/latest/index.html
 class PostgreSql {
  public:
-  PostgreSql(std::string host = "127.0.0.1", unsigned int port = 5432,
+  PostgreSql(std::string host = PEONY_DEFAULT_HOST, unsigned int port = 5432,
              std::string user = "postgres",
              std::optional<std::string> password = std::nullopt,
-             std::string db = PEONY_PROJECT_NAME, size_t pool_size = 32)
+             std::string db = PEONY_PROJECT_NAME,
+             size_t pool_size = PEONY_DEFAULT_POOL_SIZE)
       : host(host),
         port(port),
         user(user),
@@ -54,10 +55,11 @@ class PostgreSql {
 // 'databasename' AND table_name = 'testtable'; SHOW TABLES LIKE 'tablename';
 class MySql {
  public:
-  MySql(std::string host = "127.0.0.1", unsigned int port = 3306,
+  MySql(std::string host = PEONY_DEFAULT_HOST, unsigned int port = 3306,
         std::string user = "root",
         std::optional<std::string> password = std::nullopt,
-        std::string db = PEONY_PROJECT_NAME, size_t pool_size = 32)
+        std::string db = PEONY_PROJECT_NAME,
+        size_t pool_size = PEONY_DEFAULT_POOL_SIZE)
       : host(host),
         port(port),
         user(user),

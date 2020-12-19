@@ -15,9 +15,10 @@ namespace peony {
 // https://github.com/alanxz/rabbitmq-c/tree/master/examples
 class RabbitMQ {
  public:
-  RabbitMQ(std::string host = "127.0.0.1", unsigned short port = 5672,
+  RabbitMQ(std::string host = PEONY_DEFAULT_HOST, unsigned short port = 5672,
            std::string user = "guest", std::string password = "guest",
-           std::string virtual_host = PEONY_PROJECT_NAME, size_t pool_size = 32)
+           std::string virtual_host = PEONY_PROJECT_NAME,
+           size_t pool_size = PEONY_DEFAULT_POOL_SIZE)
       : host(host),
         port(port),
         user(user),

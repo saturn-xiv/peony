@@ -4,7 +4,15 @@
 #define PEONY_STR2TS(x) boost::posix_time::time_from_string(x.as<std::string>())
 #define PEONY_APPLICATION_JSON_UTF8 "application/json; charset=UTF-8"
 #define PEONY_TEXT_HTML_UTF8 "text/html; charset=UTF-8"
-#define PEONT_TIMESTAMP_SIZE 14
+#define PEONY_TIMESTAMP_SIZE 14
+
+#ifndef PEONY_DEFAULT_POOL_SIZE
+#define PEONY_DEFAULT_POOL_SIZE 32
+#endif
+
+#ifndef PEONY_DEFAULT_HOST
+#define PEONY_DEFAULT_HOST "127.0.0.1"
+#endif
 
 #include "config.h"
 
