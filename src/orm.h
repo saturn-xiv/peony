@@ -143,7 +143,7 @@ class Pool {
  public:
   Pool(const std::shared_ptr<Config> config);
   ~Pool() {
-    BOOST_LOG_TRIVIAL(warning) << "destory postgresql pool " << this->config;
+    BOOST_LOG_TRIVIAL(warning) << "destory postgresql pool " << *(this->config);
   }
   std::shared_ptr<pqxx::connection> get();
   void release(std::shared_ptr<pqxx::connection> it);

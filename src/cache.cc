@@ -92,7 +92,7 @@ peony::redis::Config::operator toml::table() const {
 };
 
 peony::redis::Pool::~Pool() {
-  BOOST_LOG_TRIVIAL(warning) << "destory redis pool " << this->config;
+  BOOST_LOG_TRIVIAL(warning) << "destory redis pool " << *(this->config);
   for (auto it : this->pool) {
     redisFree(it);
   }
@@ -103,7 +103,7 @@ peony::redis::Pool::~Pool() {
 
 peony::redis::Pool::Pool(const std::shared_ptr<Config> config)
     : config(config) {
-  BOOST_LOG_TRIVIAL(info) << "open redis pool " << this->config;
+  BOOST_LOG_TRIVIAL(info) << "open redis pool " << *(this->config);
   while (this->pool.size() < this->config->pool_size) {
     this->pool.push_back(this->config->open());
   }

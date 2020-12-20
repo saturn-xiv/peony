@@ -42,7 +42,7 @@ std::shared_ptr<pqxx::connection> peony::postgresql::Config::open(
 
 peony::postgresql::Pool::Pool(const std::shared_ptr<Config> config)
     : config(config) {
-  BOOST_LOG_TRIVIAL(info) << "open postgresql pool " << this->config;
+  BOOST_LOG_TRIVIAL(info) << "open postgresql pool " << *(this->config);
   while (this->pool.size() < this->config->pool_size) {
     this->pool.push_back(this->create());
   }
