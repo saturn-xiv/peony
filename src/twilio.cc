@@ -1,6 +1,6 @@
 #include "twilio.h"
 
-std::shared_ptr<httplib::Client> peony::Twilio::open() const {
+std::shared_ptr<httplib::Client> peony::twilio::Config::open() const {
   auto cli = std::make_shared<httplib::Client>("https://api.twilio.com");
   cli->enable_server_certificate_verification(false);
   cli->set_basic_auth(this->account_sid.c_str(), this->auth_token.c_str());
@@ -8,7 +8,7 @@ std::shared_ptr<httplib::Client> peony::Twilio::open() const {
 }
 
 // https://www.twilio.com/docs/usage/webhooks/sms-webhooks#type-1-incoming-message
-nlohmann::json peony::Twilio::sms(
+nlohmann::json peony::twilio::Config::sms(
     const std::string &to, const std::string &message,
     const std::optional<std::string> callback) const {
   BOOST_LOG_TRIVIAL(info) << "send sms message to " << to;
@@ -42,13 +42,13 @@ nlohmann::json peony::Twilio::sms(
   return payload;
 }
 
-peony::Twilio::Twilio(const toml::table &root) {
+peony::twilio::Config::Config(const toml::table &root) {
   this->from = root["from"].value<std::string>().value();
   this->account_sid = root["account-sid"].value<std::string>().value();
   this->auth_token = root["auth-token"].value<std::string>().value();
 }
 
-peony::Twilio::operator toml::table() const {
+peony::twilio::Config::operator toml::table() const {
   toml::table root;
   root.insert("account-sid", this->account_sid);
   root.insert("auth-token", this->auth_token);

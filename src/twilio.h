@@ -9,24 +9,26 @@
 
 namespace peony {
 
-class Twilio {
+namespace twilio {
+
+class Config {
  public:
-  Twilio() {}
-  Twilio(std::string from, std::string account_sid, std::string auth_token)
+  Config() {}
+  Config(std::string from, std::string account_sid, std::string auth_token)
       : from(from), account_sid(account_sid), auth_token(auth_token) {}
-  Twilio(const toml::table &root);
+  Config(const toml::table &root);
 
   nlohmann::json sms(
       const std::string &to, const std::string &message,
       const std::optional<std::string> callback = std::nullopt) const;
 
-  friend std::ostream &operator<<(std::ostream &out, const Twilio &self) {
+  friend std::ostream &operator<<(std::ostream &out, const Config &self) {
     out << self.account_sid;
     return out;
   }
   operator toml::table() const;
   friend class Twilio;
-  NLOHMANN_DEFINE_TYPE_INTRUSIVE(Twilio, from, account_sid, auth_token)
+  NLOHMANN_DEFINE_TYPE_INTRUSIVE(Config, from, account_sid, auth_token)
 
  private:
   std::shared_ptr<httplib::Client> open() const;
@@ -35,6 +37,7 @@ class Twilio {
   std::string account_sid;
   std::string auth_token;
 };
+}  // namespace twilio
 
 }  // namespace peony
 #endif
