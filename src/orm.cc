@@ -12,7 +12,7 @@
 #define PEONY_POSTGRESQL_SCHEMA_MIGRATIONS_VERSION "SELECT VERSION() AS value"
 
 std::shared_ptr<pqxx::connection> peony::postgresql::Config::open(
-    std::optional<std::filesystem::path> prepare) {
+    std::vector<std::filesystem::path> prepares) {
   std::stringstream ss;
   ss << "sslmode=disable"
      << " connect_timeout=" << 6 << " host=" << this->host
@@ -23,8 +23,8 @@ std::shared_ptr<pqxx::connection> peony::postgresql::Config::open(
   }
 
   auto con = std::make_shared<pqxx::connection>(ss.str());
-  if (prepare) {
-    auto root = toml::parse_file(prepare.value().string());
+  for (const auto &it : prepares) {
+    auto root = toml::parse_file(it.string());
     for (auto &&[k1, v1] : root) {
       if (v1.is_table()) {
         auto vt = v1.as_table();
@@ -49,7 +49,12 @@ peony::postgresql::Pool::Pool(const std::shared_ptr<Config> config)
 }
 
 std::shared_ptr<pqxx::connection> peony::postgresql::Pool::create() {
-  auto con = this->config->open(this->config->schema / PEONY_DB_PREPARE_FILE);
+  std::vector<std::filesystem::path> prepares;
+  for (const auto &it : std::filesystem::recursive_directory_iterator(
+           std::filesystem::path(this->config->schema / "prepares"))) {
+    prepares.push_back(it.path());
+  }
+  auto con = this->config->open(prepares);
   return con;
 }
 
@@ -249,7 +254,7 @@ peony::postgresql::SchemaDao::SchemaDao(
     tx.commit();
   }
   BOOST_LOG_TRIVIAL(debug) << "load schema prepares";
-  this->connection = cfg->open(root / PEONY_DB_PREPARE_FILE);
+  this->connection = cfg->open({root / PEONY_DB_PREPARE_FILE});
 }
 
 void peony::postgresql::SchemaDao::execute(const std::string &script) const {

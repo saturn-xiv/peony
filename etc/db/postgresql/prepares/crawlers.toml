@@ -1,0 +1,5 @@
+[crawlers_logs]
+"find.all" = "SELECT name, body, created_at FROM crawlers_logs ORDER BY created_at DESC LIMIT $1"
+"find.by-name" = "SELECT body, created_at FROM crawlers_logs WHERE name = $1 ORDER BY created_at DESC LIMIT 1"
+"insert" = "INSERT INTO crawlers_logs(name, body) VALUES($1, $2)"
+"rolling-by-years" = "DELETE FROM crawlers_logs WHERE created_at < (now() - interval '$1 years')"

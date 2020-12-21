@@ -108,7 +108,8 @@ class Config {
          std::optional<std::string> password = std::nullopt,
          std::string db = PEONY_PROJECT_NAME,
          size_t pool_size = PEONY_DEFAULT_POOL_SIZE,
-         std::filesystem::path schema = "db")
+         std::filesystem::path schema = std::filesystem::path("db") /
+                                        "postgresql")
       : host(host),
         port(port),
         user(user),
@@ -118,7 +119,7 @@ class Config {
         schema(schema) {}
   Config(const toml::table &root);
   std::shared_ptr<pqxx::connection> open(
-      std::optional<std::filesystem::path> prepare = std::nullopt);
+      std::vector<std::filesystem::path> prepares = {});
   friend std::ostream &operator<<(std::ostream &out, const Config &self) {
     out << self.user << '@' << self.host << ':' << self.port << '/' << self.db;
     return out;
