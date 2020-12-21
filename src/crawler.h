@@ -1,27 +1,26 @@
 #ifndef PEONY_CRAWLER_H_
 #define PEONY_CRAWLER_H_
 
-#include "common.h"
+#include "env.h"
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/log/trivial.hpp>
 #include <pqxx/pqxx>
 
 namespace peony {
 class Crawler {
  public:
-  Crawler(const std::shared_ptr<pqxx::connection> connection,
-          std::vector<std::pair<std::string, std::string>> sources);
-  Crawler(const std::shared_ptr<pqxx::connection> connection,
-          const toml::table &root);
-  void execute() const;
-  void execute(const std::string &name) const;
+  Crawler(const std::shared_ptr<pqxx::connection> connection)
+      : connection(connection) {}
+
+  void get(const std::string& name, const std::string& home,
+           const std::string& path) const;
   std::optional<std::pair<std::string, boost::posix_time::ptime>> latest(
-      const std::string &name) const;
+      const std::string& name) const;
+  void rolling(const unsigned short years) const;
 
  private:
-  void execute(const std::string &name, const std::string &url) const;
-
   const std::shared_ptr<pqxx::connection> connection;
-  std::vector<std::pair<std::string, std::string>> sources;
 };
 }  // namespace peony
 

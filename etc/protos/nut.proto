@@ -28,8 +28,12 @@ message SignUpRequest {
   string password = 4;
 }
 
-// message SignUpResponse {
-// google.protobuf.Timestamp created_at = 1;
-//   google.protobuf.Duration duration = 2;
-//   google.protobuf.Empty aaa = 3;
-// }
+message EmailTask {
+  string to = 1;
+  repeated string cc = 2;
+  repeated string bcc = 3;
+  string subject = 4;
+  string content_type = 5;
+  string body = 6;
+  repeated string files = 7;
+}

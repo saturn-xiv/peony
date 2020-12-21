@@ -1,39 +1,23 @@
 #include "crawler.h"
 
-peony::Crawler::Crawler(
-    const std::shared_ptr<pqxx::connection> connection,
-    std::vector<std::pair<std::string, std::string>> sources)
-    : connection(connection), sources(sources) {}
-peony::Crawler::Crawler(const std::shared_ptr<pqxx::connection> connection,
-                        const toml::table &root)
-    : connection(connection), sources(0) {
-  for (auto &&[k, v] : root) {
-    std::optional<std::string> val = v.value<std::string>();
-    if (val) {
-      std::pair<std::string, std::string> it(k, val.value());
-      this->sources.push_back(it);
-    }
+void peony::Crawler::get(const std::string &name, const std::string &home,
+                         const std::string &path) const {
+  BOOST_LOG_TRIVIAL(info) << "fetch " << name << " from " << home << path;
+  httplib::Client cli(home.c_str());
+  cli.enable_server_certificate_verification(false);
+  auto res = cli.Get(path.c_str());
+  if (!res) {
+    std::stringstream ss;
+    ss << res.error();
+    throw std::runtime_error(ss.str());
   }
-}
-
-void peony::Crawler::execute() const {
-  for (auto it : this->sources) {
-    try {
-      this->execute(it.first, it.second);
-    } catch (const std::exception &e) {
-      std::cout << e.what() << std::endl;
-    }
+  if (res->status != 200) {
+    throw std::runtime_error(res->body);
   }
-}
-
-void peony::Crawler::execute(const std::string &name) const {
-  for (auto it : this->sources) {
-    if (it.first == name) {
-      this->execute(it.first, it.second);
-      return;
-    }
-  }
-  BOOST_LOG_TRIVIAL(error) << "can't find crawler nameed by " << name;
+  pqxx::work tx(*(this->connection));
+  pqxx::result rst = tx.exec_prepared("crawlers_logs.insert", name, res->body);
+  tx.commit();
+  BOOST_LOG_TRIVIAL(info) << "done.";
 }
 
 std::optional<std::pair<std::string, boost::posix_time::ptime>>
@@ -52,29 +36,56 @@ peony::Crawler::latest(const std::string &name) const {
   return std::nullopt;
 }
 
-void peony::Crawler::execute(const std::string &name,
-                             const std::string &url) const {
-  BOOST_LOG_TRIVIAL(info) << "fetch " << name << " from " << url;
-
-  web::http::client::http_client_config cfg;
-  cfg.set_validate_certificates(false);
-
-  web::http::client::http_client client(U(url), cfg);
-  std::string body;
-  client.request(web::http::methods::GET)
-      .then([](const web::http::http_response &response) {
-        const auto code = response.status_code();
-        if (code == web::http::status_codes::OK) {
-          return response.extract_string();
-        }
-        std::stringstream ss;
-        ss << "HTTP " << code;
-        throw std::runtime_error(ss.str());
-      })
-      .then([&body](const pplx::task<std::string> &task) { body = task.get(); })
-      .wait();
-
+void peony::Crawler::rolling(const unsigned short years) const {
   pqxx::work tx(*(this->connection));
-  pqxx::result rst = tx.exec_prepared("crawlers_logs.insert", name, url, body);
+  pqxx::result rst = tx.exec_prepared("crawlers_logs.rolling-by-years", years);
   tx.commit();
 }
+// void peony::Crawler::execute() const {
+//   for (auto it : this->sources) {
+//     try {
+//       this->execute(it.first, it.second);
+//     } catch (const std::exception &e) {
+//       std::cout << e.what() << std::endl;
+//     }
+//   }
+// }
+
+// void peony::Crawler::execute(const std::string &name) const {
+//   for (auto it : this->sources) {
+//     if (it.first == name) {
+//       this->execute(it.first, it.second);
+//       return;
+//     }
+//   }
+//   BOOST_LOG_TRIVIAL(error) << "can't find crawler nameed by " << name;
+// }
+
+// void peony::Crawler::execute(const std::string &name,
+//                              const std::string &url) const {
+//
+
+//   httplib::Client cli(url);
+//   auto res = cli.Get("/hi");
+//   cli.enable_server_certificate_verification(false);
+
+//   // web::http::client::http_client_config cfg;
+//   // cfg.set_validate_certificates(false);
+
+//   // web::http::client::http_client client(U(url), cfg);
+//   // std::string body;
+//   // client.request(web::http::methods::GET)
+//   //     .then([](const web::http::http_response &response) {
+//   //       const auto code = response.status_code();
+//   //       if (code == web::http::status_codes::OK) {
+//   //         return response.extract_string();
+//   //       }
+//   //       std::stringstream ss;
+//   //       ss << "HTTP " << code;
+//   //       throw std::runtime_error(ss.str());
+//   //     })
+//   //     .then([&body](const pplx::task<std::string> &task) { body =
+//   //     task.get();
+//   //     }) .wait();
+
+// }

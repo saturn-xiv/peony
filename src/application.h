@@ -1,12 +1,7 @@
 #ifndef PEONY_APPLICATION_H_
 #define PEONY_APPLICATION_H_
 
-#include <iostream>
-#include <string>
 
-#include "env.h"
-
-#include <boost/program_options.hpp>
 
 namespace peony {
 

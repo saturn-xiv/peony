@@ -23,6 +23,8 @@
 
 #define TOML_EXCEPTIONS 1
 #include <toml.hpp>
+#define CPPHTTPLIB_OPENSSL_SUPPORT
+#include <httplib.h>
 
 namespace nlohmann {
 

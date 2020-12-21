@@ -16,6 +16,7 @@ A total free education &amp; translation &amp; ops solution.
 ### Learn
 
 - [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
+- [Language Guide (proto3)](https://developers.google.com/protocol-buffers/docs/proto3)
 
 ### Framework
 
@@ -23,3 +24,4 @@ A total free education &amp; translation &amp; ops solution.
 - [Fluent UI React](https://developer.microsoft.com/en-us/fluentui#/controls/web)
 - [Material Icons](https://material-ui.com/components/material-icons/)
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
+- [Elasticsearch exposes REST APIs](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)

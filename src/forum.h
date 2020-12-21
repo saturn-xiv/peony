@@ -1,17 +1,14 @@
 #ifndef PEONY_FORUM_H_
 #define PEONY_FORUM_H_
 
-#include "common.h"
-#include "forum.pb.h"
-#include "forum.grpc.pb.h"
+#include "env.h"
 
-namespace peony
-{
-    namespace forum
-    {
-        class Plugin
-        {
-        };
-    } // namespace forum
-} // namespace peony
+#include "forum.grpc.pb.h"
+#include "forum.pb.h"
+
+namespace peony {
+namespace forum {
+class Plugin {};
+}  // namespace forum
+}  // namespace peony
 #endif

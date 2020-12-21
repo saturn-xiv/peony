@@ -1,71 +1,57 @@
 #include "twilio.h"
 
-web::http::client::http_client peony::twilio::Config::connect() const {
-  web::http::client::http_client_config cfg;
-  web::credentials cred(U(this->account_sid), U(this->auth_token));
-  cfg.set_credentials(cred);
-  cfg.set_validate_certificates(false);
-
-  web::http::client::http_client client(U("https://api.twilio.com"), cfg);
-  return client;
+std::shared_ptr<httplib::Client> peony::Twilio::open() const {
+  auto cli = std::make_shared<httplib::Client>("https://api.twilio.com");
+  cli->enable_server_certificate_verification(false);
+  cli->set_basic_auth(this->account_sid.c_str(), this->auth_token.c_str());
+  return cli;
 }
 
-peony::twilio::Config::Config(const toml::table &root) {
+// https://www.twilio.com/docs/usage/webhooks/sms-webhooks#type-1-incoming-message
+nlohmann::json peony::Twilio::sms(
+    const std::string &to, const std::string &message,
+    const std::optional<std::string> callback) const {
+  BOOST_LOG_TRIVIAL(info) << "send sms message to " << to;
+  BOOST_LOG_TRIVIAL(debug) << message;
+  auto cli = this->open();
+  httplib::MultipartFormDataItems form;
+  form.push_back({"To", to.c_str(), "", ""});
+  form.push_back({"From", this->from.c_str(), "", ""});
+  form.push_back({"Body", message.c_str(), "", ""});
+  if (callback) {
+    form.push_back({"StatusCallback", callback.value().c_str()});
+  }
+
+  std::stringstream path;
+  path << "/2010-04-01/Accounts/" << this->account_sid << "/Messages.json";
+
+  auto res = cli->Post(path.str().c_str(), form);
+  if (!res) {
+    std::stringstream ss;
+    ss << res.error();
+    throw std::runtime_error(ss.str());
+  }
+  if (res->status != 200 || res->status != 201) {
+    std::stringstream ss;
+    ss << "status: " << res->status << ", body: " << res.error();
+    throw std::runtime_error(ss.str());
+  }
+
+  auto payload = nlohmann::json(res->body);
+  BOOST_LOG_TRIVIAL(info) << "done.";
+  return payload;
+}
+
+peony::Twilio::Twilio(const toml::table &root) {
   this->from = root["from"].value<std::string>().value();
   this->account_sid = root["account-sid"].value<std::string>().value();
   this->auth_token = root["auth-token"].value<std::string>().value();
 }
 
-peony::twilio::Config::operator toml::table() const {
+peony::Twilio::operator toml::table() const {
   toml::table root;
   root.insert("account-sid", this->account_sid);
   root.insert("auth-token", this->auth_token);
   root.insert("from", this->from);
   return root;
-}
-
-// --------------------------------------------------------
-
-peony::twilio::Client::Client(const Config config) : config(config) {}
-
-web::json::value peony::twilio::Client::get(
-    const web::uri_builder &builder) const {
-  auto client = this->config.connect();
-  web::json::value result;
-  client.request(web::http::methods::GET, builder.to_string())
-      .then([](const web::http::http_response &response) {
-        return response.extract_json();
-      })
-      .then([&result](const pplx::task<web::json::value> &task) {
-        result = task.get();
-      })
-      .wait();
-  return result;
-}
-
-web::json::value peony::twilio::Client::form(const web::uri_builder &builder,
-                                             const utf8string &body) const {
-  auto client = this->config.connect();
-  web::json::value result;
-  client
-      .request(web::http::methods::POST, builder.to_string(), body,
-               U("application/x-www-form-urlencoded"))
-      .then([](const web::http::http_response &response) {
-        return response.extract_json();
-      })
-      .then([&result](const pplx::task<web::json::value> &task) {
-        result = task.get();
-      })
-      .wait();
-  return result;
-}
-
-web::json::value peony::twilio::Client::sms(const std::string &to,
-                                            const std::string &message) const {
-  web::uri_builder builder(
-      U("/2010-04-01/Accounts/" + this->config.account_sid + "/Messages.json"));
-  auto body = U("To=") + U(to) + U("&") + U("From=") + U(this->config.from) +
-              U("&") + U("Body=") + U(message);
-
-  return this->form(builder, body);
 }

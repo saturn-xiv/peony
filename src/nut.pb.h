@@ -47,13 +47,16 @@ struct TableStruct_nut_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_nut_2eproto;
+class EmailTask;
+class EmailTaskDefaultTypeInternal;
+extern EmailTaskDefaultTypeInternal _EmailTask_default_instance_;
 class Ok;
 class OkDefaultTypeInternal;
 extern OkDefaultTypeInternal _Ok_default_instance_;
@@ -67,6 +70,7 @@ class SignUpRequest;
 class SignUpRequestDefaultTypeInternal;
 extern SignUpRequestDefaultTypeInternal _SignUpRequest_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
+template<> ::EmailTask* Arena::CreateMaybeMessage<::EmailTask>(Arena*);
 template<> ::Ok* Arena::CreateMaybeMessage<::Ok>(Arena*);
 template<> ::SignInRequest* Arena::CreateMaybeMessage<::SignInRequest>(Arena*);
 template<> ::SignInResponse* Arena::CreateMaybeMessage<::SignInResponse>(Arena*);
@@ -727,6 +731,282 @@ class SignUpRequest PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_nut_2eproto;
 };
+// -------------------------------------------------------------------
+
+class EmailTask PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:EmailTask) */ {
+ public:
+  inline EmailTask() : EmailTask(nullptr) {}
+  virtual ~EmailTask();
+
+  EmailTask(const EmailTask& from);
+  EmailTask(EmailTask&& from) noexcept
+    : EmailTask() {
+    *this = ::std::move(from);
+  }
+
+  inline EmailTask& operator=(const EmailTask& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EmailTask& operator=(EmailTask&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const EmailTask& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const EmailTask* internal_default_instance() {
+    return reinterpret_cast<const EmailTask*>(
+               &_EmailTask_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(EmailTask& a, EmailTask& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EmailTask* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EmailTask* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline EmailTask* New() const final {
+    return CreateMaybeMessage<EmailTask>(nullptr);
+  }
+
+  EmailTask* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<EmailTask>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const EmailTask& from);
+  void MergeFrom(const EmailTask& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(EmailTask* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "EmailTask";
+  }
+  protected:
+  explicit EmailTask(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_nut_2eproto);
+    return ::descriptor_table_nut_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCcFieldNumber = 2,
+    kBccFieldNumber = 3,
+    kFilesFieldNumber = 7,
+    kToFieldNumber = 1,
+    kSubjectFieldNumber = 4,
+    kContentTypeFieldNumber = 5,
+    kBodyFieldNumber = 6,
+  };
+  // repeated string cc = 2;
+  int cc_size() const;
+  private:
+  int _internal_cc_size() const;
+  public:
+  void clear_cc();
+  const std::string& cc(int index) const;
+  std::string* mutable_cc(int index);
+  void set_cc(int index, const std::string& value);
+  void set_cc(int index, std::string&& value);
+  void set_cc(int index, const char* value);
+  void set_cc(int index, const char* value, size_t size);
+  std::string* add_cc();
+  void add_cc(const std::string& value);
+  void add_cc(std::string&& value);
+  void add_cc(const char* value);
+  void add_cc(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& cc() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_cc();
+  private:
+  const std::string& _internal_cc(int index) const;
+  std::string* _internal_add_cc();
+  public:
+
+  // repeated string bcc = 3;
+  int bcc_size() const;
+  private:
+  int _internal_bcc_size() const;
+  public:
+  void clear_bcc();
+  const std::string& bcc(int index) const;
+  std::string* mutable_bcc(int index);
+  void set_bcc(int index, const std::string& value);
+  void set_bcc(int index, std::string&& value);
+  void set_bcc(int index, const char* value);
+  void set_bcc(int index, const char* value, size_t size);
+  std::string* add_bcc();
+  void add_bcc(const std::string& value);
+  void add_bcc(std::string&& value);
+  void add_bcc(const char* value);
+  void add_bcc(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& bcc() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_bcc();
+  private:
+  const std::string& _internal_bcc(int index) const;
+  std::string* _internal_add_bcc();
+  public:
+
+  // repeated string files = 7;
+  int files_size() const;
+  private:
+  int _internal_files_size() const;
+  public:
+  void clear_files();
+  const std::string& files(int index) const;
+  std::string* mutable_files(int index);
+  void set_files(int index, const std::string& value);
+  void set_files(int index, std::string&& value);
+  void set_files(int index, const char* value);
+  void set_files(int index, const char* value, size_t size);
+  std::string* add_files();
+  void add_files(const std::string& value);
+  void add_files(std::string&& value);
+  void add_files(const char* value);
+  void add_files(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& files() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_files();
+  private:
+  const std::string& _internal_files(int index) const;
+  std::string* _internal_add_files();
+  public:
+
+  // string to = 1;
+  void clear_to();
+  const std::string& to() const;
+  void set_to(const std::string& value);
+  void set_to(std::string&& value);
+  void set_to(const char* value);
+  void set_to(const char* value, size_t size);
+  std::string* mutable_to();
+  std::string* release_to();
+  void set_allocated_to(std::string* to);
+  private:
+  const std::string& _internal_to() const;
+  void _internal_set_to(const std::string& value);
+  std::string* _internal_mutable_to();
+  public:
+
+  // string subject = 4;
+  void clear_subject();
+  const std::string& subject() const;
+  void set_subject(const std::string& value);
+  void set_subject(std::string&& value);
+  void set_subject(const char* value);
+  void set_subject(const char* value, size_t size);
+  std::string* mutable_subject();
+  std::string* release_subject();
+  void set_allocated_subject(std::string* subject);
+  private:
+  const std::string& _internal_subject() const;
+  void _internal_set_subject(const std::string& value);
+  std::string* _internal_mutable_subject();
+  public:
+
+  // string content_type = 5;
+  void clear_content_type();
+  const std::string& content_type() const;
+  void set_content_type(const std::string& value);
+  void set_content_type(std::string&& value);
+  void set_content_type(const char* value);
+  void set_content_type(const char* value, size_t size);
+  std::string* mutable_content_type();
+  std::string* release_content_type();
+  void set_allocated_content_type(std::string* content_type);
+  private:
+  const std::string& _internal_content_type() const;
+  void _internal_set_content_type(const std::string& value);
+  std::string* _internal_mutable_content_type();
+  public:
+
+  // string body = 6;
+  void clear_body();
+  const std::string& body() const;
+  void set_body(const std::string& value);
+  void set_body(std::string&& value);
+  void set_body(const char* value);
+  void set_body(const char* value, size_t size);
+  std::string* mutable_body();
+  std::string* release_body();
+  void set_allocated_body(std::string* body);
+  private:
+  const std::string& _internal_body() const;
+  void _internal_set_body(const std::string& value);
+  std::string* _internal_mutable_body();
+  public:
+
+  // @@protoc_insertion_point(class_scope:EmailTask)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> cc_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> bcc_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> files_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr to_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr subject_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr content_type_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr body_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_nut_2eproto;
+};
 // ===================================================================
 
 
@@ -1258,9 +1538,485 @@ inline void SignUpRequest::set_allocated_password(std::string* password) {
   // @@protoc_insertion_point(field_set_allocated:SignUpRequest.password)
 }
 
+// -------------------------------------------------------------------
+
+// EmailTask
+
+// string to = 1;
+inline void EmailTask::clear_to() {
+  to_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& EmailTask::to() const {
+  // @@protoc_insertion_point(field_get:EmailTask.to)
+  return _internal_to();
+}
+inline void EmailTask::set_to(const std::string& value) {
+  _internal_set_to(value);
+  // @@protoc_insertion_point(field_set:EmailTask.to)
+}
+inline std::string* EmailTask::mutable_to() {
+  // @@protoc_insertion_point(field_mutable:EmailTask.to)
+  return _internal_mutable_to();
+}
+inline const std::string& EmailTask::_internal_to() const {
+  return to_.Get();
+}
+inline void EmailTask::_internal_set_to(const std::string& value) {
+  
+  to_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void EmailTask::set_to(std::string&& value) {
+  
+  to_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:EmailTask.to)
+}
+inline void EmailTask::set_to(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  to_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:EmailTask.to)
+}
+inline void EmailTask::set_to(const char* value,
+    size_t size) {
+  
+  to_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:EmailTask.to)
+}
+inline std::string* EmailTask::_internal_mutable_to() {
+  
+  return to_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* EmailTask::release_to() {
+  // @@protoc_insertion_point(field_release:EmailTask.to)
+  return to_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void EmailTask::set_allocated_to(std::string* to) {
+  if (to != nullptr) {
+    
+  } else {
+    
+  }
+  to_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), to,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:EmailTask.to)
+}
+
+// repeated string cc = 2;
+inline int EmailTask::_internal_cc_size() const {
+  return cc_.size();
+}
+inline int EmailTask::cc_size() const {
+  return _internal_cc_size();
+}
+inline void EmailTask::clear_cc() {
+  cc_.Clear();
+}
+inline std::string* EmailTask::add_cc() {
+  // @@protoc_insertion_point(field_add_mutable:EmailTask.cc)
+  return _internal_add_cc();
+}
+inline const std::string& EmailTask::_internal_cc(int index) const {
+  return cc_.Get(index);
+}
+inline const std::string& EmailTask::cc(int index) const {
+  // @@protoc_insertion_point(field_get:EmailTask.cc)
+  return _internal_cc(index);
+}
+inline std::string* EmailTask::mutable_cc(int index) {
+  // @@protoc_insertion_point(field_mutable:EmailTask.cc)
+  return cc_.Mutable(index);
+}
+inline void EmailTask::set_cc(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:EmailTask.cc)
+  cc_.Mutable(index)->assign(value);
+}
+inline void EmailTask::set_cc(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:EmailTask.cc)
+  cc_.Mutable(index)->assign(std::move(value));
+}
+inline void EmailTask::set_cc(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  cc_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:EmailTask.cc)
+}
+inline void EmailTask::set_cc(int index, const char* value, size_t size) {
+  cc_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:EmailTask.cc)
+}
+inline std::string* EmailTask::_internal_add_cc() {
+  return cc_.Add();
+}
+inline void EmailTask::add_cc(const std::string& value) {
+  cc_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:EmailTask.cc)
+}
+inline void EmailTask::add_cc(std::string&& value) {
+  cc_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:EmailTask.cc)
+}
+inline void EmailTask::add_cc(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  cc_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:EmailTask.cc)
+}
+inline void EmailTask::add_cc(const char* value, size_t size) {
+  cc_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:EmailTask.cc)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+EmailTask::cc() const {
+  // @@protoc_insertion_point(field_list:EmailTask.cc)
+  return cc_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+EmailTask::mutable_cc() {
+  // @@protoc_insertion_point(field_mutable_list:EmailTask.cc)
+  return &cc_;
+}
+
+// repeated string bcc = 3;
+inline int EmailTask::_internal_bcc_size() const {
+  return bcc_.size();
+}
+inline int EmailTask::bcc_size() const {
+  return _internal_bcc_size();
+}
+inline void EmailTask::clear_bcc() {
+  bcc_.Clear();
+}
+inline std::string* EmailTask::add_bcc() {
+  // @@protoc_insertion_point(field_add_mutable:EmailTask.bcc)
+  return _internal_add_bcc();
+}
+inline const std::string& EmailTask::_internal_bcc(int index) const {
+  return bcc_.Get(index);
+}
+inline const std::string& EmailTask::bcc(int index) const {
+  // @@protoc_insertion_point(field_get:EmailTask.bcc)
+  return _internal_bcc(index);
+}
+inline std::string* EmailTask::mutable_bcc(int index) {
+  // @@protoc_insertion_point(field_mutable:EmailTask.bcc)
+  return bcc_.Mutable(index);
+}
+inline void EmailTask::set_bcc(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:EmailTask.bcc)
+  bcc_.Mutable(index)->assign(value);
+}
+inline void EmailTask::set_bcc(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:EmailTask.bcc)
+  bcc_.Mutable(index)->assign(std::move(value));
+}
+inline void EmailTask::set_bcc(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  bcc_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:EmailTask.bcc)
+}
+inline void EmailTask::set_bcc(int index, const char* value, size_t size) {
+  bcc_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:EmailTask.bcc)
+}
+inline std::string* EmailTask::_internal_add_bcc() {
+  return bcc_.Add();
+}
+inline void EmailTask::add_bcc(const std::string& value) {
+  bcc_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:EmailTask.bcc)
+}
+inline void EmailTask::add_bcc(std::string&& value) {
+  bcc_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:EmailTask.bcc)
+}
+inline void EmailTask::add_bcc(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  bcc_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:EmailTask.bcc)
+}
+inline void EmailTask::add_bcc(const char* value, size_t size) {
+  bcc_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:EmailTask.bcc)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+EmailTask::bcc() const {
+  // @@protoc_insertion_point(field_list:EmailTask.bcc)
+  return bcc_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+EmailTask::mutable_bcc() {
+  // @@protoc_insertion_point(field_mutable_list:EmailTask.bcc)
+  return &bcc_;
+}
+
+// string subject = 4;
+inline void EmailTask::clear_subject() {
+  subject_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& EmailTask::subject() const {
+  // @@protoc_insertion_point(field_get:EmailTask.subject)
+  return _internal_subject();
+}
+inline void EmailTask::set_subject(const std::string& value) {
+  _internal_set_subject(value);
+  // @@protoc_insertion_point(field_set:EmailTask.subject)
+}
+inline std::string* EmailTask::mutable_subject() {
+  // @@protoc_insertion_point(field_mutable:EmailTask.subject)
+  return _internal_mutable_subject();
+}
+inline const std::string& EmailTask::_internal_subject() const {
+  return subject_.Get();
+}
+inline void EmailTask::_internal_set_subject(const std::string& value) {
+  
+  subject_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void EmailTask::set_subject(std::string&& value) {
+  
+  subject_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:EmailTask.subject)
+}
+inline void EmailTask::set_subject(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  subject_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:EmailTask.subject)
+}
+inline void EmailTask::set_subject(const char* value,
+    size_t size) {
+  
+  subject_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:EmailTask.subject)
+}
+inline std::string* EmailTask::_internal_mutable_subject() {
+  
+  return subject_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* EmailTask::release_subject() {
+  // @@protoc_insertion_point(field_release:EmailTask.subject)
+  return subject_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void EmailTask::set_allocated_subject(std::string* subject) {
+  if (subject != nullptr) {
+    
+  } else {
+    
+  }
+  subject_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), subject,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:EmailTask.subject)
+}
+
+// string content_type = 5;
+inline void EmailTask::clear_content_type() {
+  content_type_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& EmailTask::content_type() const {
+  // @@protoc_insertion_point(field_get:EmailTask.content_type)
+  return _internal_content_type();
+}
+inline void EmailTask::set_content_type(const std::string& value) {
+  _internal_set_content_type(value);
+  // @@protoc_insertion_point(field_set:EmailTask.content_type)
+}
+inline std::string* EmailTask::mutable_content_type() {
+  // @@protoc_insertion_point(field_mutable:EmailTask.content_type)
+  return _internal_mutable_content_type();
+}
+inline const std::string& EmailTask::_internal_content_type() const {
+  return content_type_.Get();
+}
+inline void EmailTask::_internal_set_content_type(const std::string& value) {
+  
+  content_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void EmailTask::set_content_type(std::string&& value) {
+  
+  content_type_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:EmailTask.content_type)
+}
+inline void EmailTask::set_content_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  content_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:EmailTask.content_type)
+}
+inline void EmailTask::set_content_type(const char* value,
+    size_t size) {
+  
+  content_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:EmailTask.content_type)
+}
+inline std::string* EmailTask::_internal_mutable_content_type() {
+  
+  return content_type_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* EmailTask::release_content_type() {
+  // @@protoc_insertion_point(field_release:EmailTask.content_type)
+  return content_type_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void EmailTask::set_allocated_content_type(std::string* content_type) {
+  if (content_type != nullptr) {
+    
+  } else {
+    
+  }
+  content_type_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), content_type,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:EmailTask.content_type)
+}
+
+// string body = 6;
+inline void EmailTask::clear_body() {
+  body_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& EmailTask::body() const {
+  // @@protoc_insertion_point(field_get:EmailTask.body)
+  return _internal_body();
+}
+inline void EmailTask::set_body(const std::string& value) {
+  _internal_set_body(value);
+  // @@protoc_insertion_point(field_set:EmailTask.body)
+}
+inline std::string* EmailTask::mutable_body() {
+  // @@protoc_insertion_point(field_mutable:EmailTask.body)
+  return _internal_mutable_body();
+}
+inline const std::string& EmailTask::_internal_body() const {
+  return body_.Get();
+}
+inline void EmailTask::_internal_set_body(const std::string& value) {
+  
+  body_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void EmailTask::set_body(std::string&& value) {
+  
+  body_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:EmailTask.body)
+}
+inline void EmailTask::set_body(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  body_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:EmailTask.body)
+}
+inline void EmailTask::set_body(const char* value,
+    size_t size) {
+  
+  body_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:EmailTask.body)
+}
+inline std::string* EmailTask::_internal_mutable_body() {
+  
+  return body_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* EmailTask::release_body() {
+  // @@protoc_insertion_point(field_release:EmailTask.body)
+  return body_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void EmailTask::set_allocated_body(std::string* body) {
+  if (body != nullptr) {
+    
+  } else {
+    
+  }
+  body_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), body,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:EmailTask.body)
+}
+
+// repeated string files = 7;
+inline int EmailTask::_internal_files_size() const {
+  return files_.size();
+}
+inline int EmailTask::files_size() const {
+  return _internal_files_size();
+}
+inline void EmailTask::clear_files() {
+  files_.Clear();
+}
+inline std::string* EmailTask::add_files() {
+  // @@protoc_insertion_point(field_add_mutable:EmailTask.files)
+  return _internal_add_files();
+}
+inline const std::string& EmailTask::_internal_files(int index) const {
+  return files_.Get(index);
+}
+inline const std::string& EmailTask::files(int index) const {
+  // @@protoc_insertion_point(field_get:EmailTask.files)
+  return _internal_files(index);
+}
+inline std::string* EmailTask::mutable_files(int index) {
+  // @@protoc_insertion_point(field_mutable:EmailTask.files)
+  return files_.Mutable(index);
+}
+inline void EmailTask::set_files(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:EmailTask.files)
+  files_.Mutable(index)->assign(value);
+}
+inline void EmailTask::set_files(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:EmailTask.files)
+  files_.Mutable(index)->assign(std::move(value));
+}
+inline void EmailTask::set_files(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  files_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:EmailTask.files)
+}
+inline void EmailTask::set_files(int index, const char* value, size_t size) {
+  files_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:EmailTask.files)
+}
+inline std::string* EmailTask::_internal_add_files() {
+  return files_.Add();
+}
+inline void EmailTask::add_files(const std::string& value) {
+  files_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:EmailTask.files)
+}
+inline void EmailTask::add_files(std::string&& value) {
+  files_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:EmailTask.files)
+}
+inline void EmailTask::add_files(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  files_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:EmailTask.files)
+}
+inline void EmailTask::add_files(const char* value, size_t size) {
+  files_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:EmailTask.files)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+EmailTask::files() const {
+  // @@protoc_insertion_point(field_list:EmailTask.files)
+  return files_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+EmailTask::mutable_files() {
+  // @@protoc_insertion_point(field_mutable_list:EmailTask.files)
+  return &files_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
