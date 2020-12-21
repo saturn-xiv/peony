@@ -1,7 +1,7 @@
 #ifndef PEONY_NUT_H_
 #define PEONY_NUT_H_
 
-#include "env.h"
+#include "plugin.h"
 
 #include "nut.grpc.pb.h"
 #include "nut.pb.h"

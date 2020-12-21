@@ -7,7 +7,7 @@
 #include <mailio/pop3.hpp>
 #include <mailio/smtp.hpp>
 
-#include "env.h"
+#include "plugin.h"
 
 namespace peony {
 namespace dovecot {}

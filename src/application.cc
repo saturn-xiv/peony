@@ -5,14 +5,12 @@
 
 #include "application.h"
 #include "audio.h"
+#include "deploy.h"
 #include "gpio.h"
 #include "router.h"
 #include "tty.h"
 #include "utils.h"
 
-void run_recipe(const std::string& name) {
-  // TODO
-}
 void run_http(const toml::table& root) {
   // TODO
 }
@@ -52,10 +50,6 @@ void peony::Application::run(int argc, char** argv) {
       "cache-list", boost::program_options::bool_switch(),
       "list all cache items");
 
-  boost::program_options::options_description ops("Ops options");
-  ops.add_options()("recipe,r", boost::program_options::value<std::string>(),
-                    "recipe name(toml)");
-
   boost::program_options::options_description run_mode("Run mode options");
   run_mode.add_options()("http", boost::program_options::bool_switch(),
                          "start http server")(
@@ -64,7 +58,7 @@ void peony::Application::run(int argc, char** argv) {
       "consume rabbitmq tasks");
 
   boost::program_options::options_description desc("Allowed options");
-  desc.add(generic).add(global).add(db).add(cache).add(ops).add(run_mode);
+  desc.add(generic).add(global).add(db).add(cache).add(run_mode);
   boost::program_options::variables_map vm;
   boost::program_options::store(
       boost::program_options::parse_command_line(argc, argv, desc), vm);
@@ -81,11 +75,6 @@ void peony::Application::run(int argc, char** argv) {
   }
 
   peony::utils::init_logging(false, debug);
-  if (vm.count("recipe")) {
-    const auto name = vm["recipe"].as<std::string>();
-    run_recipe(name);
-    return;
-  }
 
   BOOST_LOG_TRIVIAL(info) << PEONY_PROJECT_NAME << "(" << PEONY_GIT_VERSION
                           << ")";
@@ -154,5 +143,45 @@ void peony::Application::run(int argc, char** argv) {
     return;
   }
   BOOST_LOG_TRIVIAL(warning) << "exit...";
-  return;
+}
+
+void edelweiss::Application::run(int argc, char** argv) {
+  boost::program_options::options_description generic("Generic options");
+  generic.add_options()("version,v", "print version")(
+      "help,h", "display argument help information")(
+      "debug,d", boost::program_options::bool_switch(), "debug mode");
+
+  boost::program_options::options_description deploy("Deploy options");
+  deploy.add_options()("recipe,r", boost::program_options::value<std::string>(),
+                       "recipe name")(
+      "inventory,i", boost::program_options::value<std::string>(),
+      "inventory name");
+
+  boost::program_options::options_description desc("Allowed options");
+  desc.add(generic).add(deploy);
+  boost::program_options::variables_map vm;
+  boost::program_options::store(
+      boost::program_options::parse_command_line(argc, argv, desc), vm);
+  boost::program_options::notify(vm);
+
+  const bool debug = vm["debug"].as<bool>();
+  if (vm.count("help")) {
+    std::cout << desc << std::endl;
+    return;
+  }
+  if (vm.count("version")) {
+    std::cout << PEONY_GIT_VERSION << std::endl;
+    return;
+  }
+
+  peony::utils::init_logging(false, debug);
+
+  BOOST_LOG_TRIVIAL(info) << PEONY_PROJECT_NAME << "(" << PEONY_GIT_VERSION
+                          << ")";
+  BOOST_LOG_TRIVIAL(debug) << "run in debug mode";
+  const std::string recipe = vm["recipe"].as<std::string>();
+  const std::string inventory = vm["inventory"].as<std::string>();
+  BOOST_LOG_TRIVIAL(info) << "deploy " << inventory << " on " << recipe;
+  // TODO
+  BOOST_LOG_TRIVIAL(info) << "done.";
 }

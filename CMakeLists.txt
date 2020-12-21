@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.18)
 include(ExternalProject)
 include(FetchContent)
 
-project(peony VERSION 0.1.0)
+project(peony VERSION 0.1.1)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -68,19 +68,26 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}/3rd/stb/src/stb
 )
 
-add_executable(peony src/main.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+add_executable(peony src/peony.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
 set_target_properties(peony PROPERTIES LINK_FLAGS_RELEASE -s)
 add_dependencies(peony stb)
+
+add_executable(edelweiss src/edelweiss.cpp ${PEONY_HEADERS} ${PEONY_SOURCES})
+set_target_properties(edelweiss PROPERTIES LINK_FLAGS_RELEASE -s)
+add_dependencies(edelweiss stb)
 
 if(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
     SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
     SET(CMAKE_EXE_LINKER_FLAGS "-static")
+
     SET_TARGET_PROPERTIES(peony PROPERTIES LINK_SEARCH_END_STATIC 1)
+    SET_TARGET_PROPERTIES(edelweiss PROPERTIES LINK_SEARCH_END_STATIC 1)
 endif(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
 
 set(PEONY_THIRD_LIBRARIES stdc++fs ${CONAN_LIBS} grpc++ mailio ${OPENGL_gl_LIBRARY})
 
 target_link_libraries(peony ${PEONY_THIRD_LIBRARIES})
+target_link_libraries(edelweiss ${PEONY_THIRD_LIBRARIES})
 # -----------------------------
 
 include(CTest)

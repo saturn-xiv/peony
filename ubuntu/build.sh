@@ -35,6 +35,7 @@ else
 fi
 
 make peony
+make edelweiss
 
 # -----------------------------
 
@@ -57,7 +58,7 @@ REACT_GRPC_HOST=$2 npm run build
 export TARGET=$WORKSPACE/ubuntu
 rm -rf $TARGET/usr
 mkdir -pv $TARGET/usr/bin 
-cp -av $BUILD_ROOT/bin/peony $TARGET/usr/bin/
+cp -av $BUILD_ROOT/bin/peony $BUILD_ROOT/bin/edelweiss $TARGET/usr/bin/
 mkdir -pv $TARGET/usr/share/peony
 cp -r $WORKSPACE/node_modules $WORKSPACE/package.json $TARGET/usr/share/peony/
 cp -r $WORKSPACE/dashboard/build $TARGET/usr/share/peony/dashboard
