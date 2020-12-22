@@ -179,9 +179,17 @@ void edelweiss::Application::run(int argc, char** argv) {
   BOOST_LOG_TRIVIAL(info) << PEONY_PROJECT_NAME << "(" << PEONY_GIT_VERSION
                           << ")";
   BOOST_LOG_TRIVIAL(debug) << "run in debug mode";
+  if (!vm.count("recipe")) {
+    BOOST_LOG_TRIVIAL(fatal) << "please specify a recipe";
+    return;
+  }
   const std::string recipe = vm["recipe"].as<std::string>();
+  if (!vm.count("inventory")) {
+    BOOST_LOG_TRIVIAL(fatal) << "please specify a inventory";
+    return;
+  }
   const std::string inventory = vm["inventory"].as<std::string>();
-  BOOST_LOG_TRIVIAL(info) << "deploy " << inventory << " on " << recipe;
+  BOOST_LOG_TRIVIAL(info) << "deploy " << recipe << " on " << inventory;
   // TODO
   BOOST_LOG_TRIVIAL(info) << "done.";
 }

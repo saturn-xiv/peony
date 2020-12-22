@@ -7,6 +7,7 @@
 #include "crontab.h"
 #include "email.h"
 #include "forum.h"
+#include "metrics.h"
 #include "nut.h"
 #include "pali.h"
 #include "survey.h"

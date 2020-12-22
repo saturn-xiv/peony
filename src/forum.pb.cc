@@ -14,19 +14,25 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
+namespace peony {
+namespace forum {
+namespace models {
 class CreatePostRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CreatePostRequest> _instance;
 } _CreatePostRequest_default_instance_;
+}  // namespace models
+}  // namespace forum
+}  // namespace peony
 static void InitDefaultsscc_info_CreatePostRequest_forum_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_CreatePostRequest_default_instance_;
-    new (ptr) ::CreatePostRequest();
+    void* ptr = &::peony::forum::models::_CreatePostRequest_default_instance_;
+    new (ptr) ::peony::forum::models::CreatePostRequest();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::CreatePostRequest::InitAsDefaultInstance();
+  ::peony::forum::models::CreatePostRequest::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CreatePostRequest_forum_2eproto =
@@ -38,38 +44,39 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_s
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_forum_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::CreatePostRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::peony::forum::models::CreatePostRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::CreatePostRequest, subject_),
-  PROTOBUF_FIELD_OFFSET(::CreatePostRequest, content_type_),
-  PROTOBUF_FIELD_OFFSET(::CreatePostRequest, body_),
+  PROTOBUF_FIELD_OFFSET(::peony::forum::models::CreatePostRequest, subject_),
+  PROTOBUF_FIELD_OFFSET(::peony::forum::models::CreatePostRequest, content_type_),
+  PROTOBUF_FIELD_OFFSET(::peony::forum::models::CreatePostRequest, body_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::CreatePostRequest)},
+  { 0, -1, sizeof(::peony::forum::models::CreatePostRequest)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_CreatePostRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::forum::models::_CreatePostRequest_default_instance_),
 };
 
 const char descriptor_table_protodef_forum_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013forum.proto\032\tnut.proto\"H\n\021CreatePostRe"
-  "quest\022\017\n\007subject\030\001 \001(\t\022\024\n\014content_type\030\002"
-  " \001(\t\022\014\n\004body\030\003 \001(\t27\n\014ForumService\022\'\n\nCr"
-  "eatePost\022\022.CreatePostRequest\032\003.Ok\"\000b\006pro"
-  "to3"
+  "\n\013forum.proto\022\022peony.forum.models\032\033googl"
+  "e/protobuf/empty.proto\"H\n\021CreatePostRequ"
+  "est\022\017\n\007subject\030\001 \001(\t\022\024\n\014content_type\030\002 \001"
+  "(\t\022\014\n\004body\030\003 \001(\t2]\n\014ForumService\022M\n\nCrea"
+  "tePost\022%.peony.forum.models.CreatePostRe"
+  "quest\032\026.google.protobuf.Empty\"\000b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_forum_2eproto_deps[1] = {
-  &::descriptor_table_nut_2eproto,
+  &::descriptor_table_google_2fprotobuf_2fempty_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_forum_2eproto_sccs[1] = {
   &scc_info_CreatePostRequest_forum_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_forum_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_forum_2eproto = {
-  false, false, descriptor_table_protodef_forum_2eproto, "forum.proto", 163,
+  false, false, descriptor_table_protodef_forum_2eproto, "forum.proto", 239,
   &descriptor_table_forum_2eproto_once, descriptor_table_forum_2eproto_sccs, descriptor_table_forum_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_forum_2eproto::offsets,
   file_level_metadata_forum_2eproto, 1, file_level_enum_descriptors_forum_2eproto, file_level_service_descriptors_forum_2eproto,
@@ -77,6 +84,9 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_forum_
 
 // Force running AddDescriptors() at dynamic initialization time.
 static bool dynamic_init_dummy_forum_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_forum_2eproto)), true);
+namespace peony {
+namespace forum {
+namespace models {
 
 // ===================================================================
 
@@ -90,7 +100,7 @@ CreatePostRequest::CreatePostRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:CreatePostRequest)
+  // @@protoc_insertion_point(arena_constructor:peony.forum.models.CreatePostRequest)
 }
 CreatePostRequest::CreatePostRequest(const CreatePostRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -110,7 +120,7 @@ CreatePostRequest::CreatePostRequest(const CreatePostRequest& from)
     body_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_body(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:CreatePostRequest)
+  // @@protoc_insertion_point(copy_constructor:peony.forum.models.CreatePostRequest)
 }
 
 void CreatePostRequest::SharedCtor() {
@@ -121,7 +131,7 @@ void CreatePostRequest::SharedCtor() {
 }
 
 CreatePostRequest::~CreatePostRequest() {
-  // @@protoc_insertion_point(destructor:CreatePostRequest)
+  // @@protoc_insertion_point(destructor:peony.forum.models.CreatePostRequest)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -149,7 +159,7 @@ const CreatePostRequest& CreatePostRequest::default_instance() {
 
 
 void CreatePostRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:CreatePostRequest)
+// @@protoc_insertion_point(message_clear_start:peony.forum.models.CreatePostRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -173,7 +183,7 @@ const char* CreatePostRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_subject();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CreatePostRequest.subject"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.forum.models.CreatePostRequest.subject"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -182,7 +192,7 @@ const char* CreatePostRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_content_type();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CreatePostRequest.content_type"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.forum.models.CreatePostRequest.content_type"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -191,7 +201,7 @@ const char* CreatePostRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           auto str = _internal_mutable_body();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CreatePostRequest.body"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.forum.models.CreatePostRequest.body"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -219,7 +229,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* CreatePostRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:CreatePostRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:peony.forum.models.CreatePostRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -228,7 +238,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_subject().data(), static_cast<int>(this->_internal_subject().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "CreatePostRequest.subject");
+      "peony.forum.models.CreatePostRequest.subject");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_subject(), target);
   }
@@ -238,7 +248,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_content_type().data(), static_cast<int>(this->_internal_content_type().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "CreatePostRequest.content_type");
+      "peony.forum.models.CreatePostRequest.content_type");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_content_type(), target);
   }
@@ -248,7 +258,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_body().data(), static_cast<int>(this->_internal_body().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "CreatePostRequest.body");
+      "peony.forum.models.CreatePostRequest.body");
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_body(), target);
   }
@@ -257,12 +267,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:CreatePostRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:peony.forum.models.CreatePostRequest)
   return target;
 }
 
 size_t CreatePostRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:CreatePostRequest)
+// @@protoc_insertion_point(message_byte_size_start:peony.forum.models.CreatePostRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -300,22 +310,22 @@ size_t CreatePostRequest::ByteSizeLong() const {
 }
 
 void CreatePostRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:CreatePostRequest)
+// @@protoc_insertion_point(generalized_merge_from_start:peony.forum.models.CreatePostRequest)
   GOOGLE_DCHECK_NE(&from, this);
   const CreatePostRequest* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<CreatePostRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:CreatePostRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.forum.models.CreatePostRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:CreatePostRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.forum.models.CreatePostRequest)
     MergeFrom(*source);
   }
 }
 
 void CreatePostRequest::MergeFrom(const CreatePostRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:CreatePostRequest)
+// @@protoc_insertion_point(class_specific_merge_from_start:peony.forum.models.CreatePostRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -333,14 +343,14 @@ void CreatePostRequest::MergeFrom(const CreatePostRequest& from) {
 }
 
 void CreatePostRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:CreatePostRequest)
+// @@protoc_insertion_point(generalized_copy_from_start:peony.forum.models.CreatePostRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void CreatePostRequest::CopyFrom(const CreatePostRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:CreatePostRequest)
+// @@protoc_insertion_point(class_specific_copy_from_start:peony.forum.models.CreatePostRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -364,9 +374,12 @@ void CreatePostRequest::InternalSwap(CreatePostRequest* other) {
 
 
 // @@protoc_insertion_point(namespace_scope)
+}  // namespace models
+}  // namespace forum
+}  // namespace peony
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::CreatePostRequest* Arena::CreateMaybeMessage< ::CreatePostRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::CreatePostRequest >(arena);
+template<> PROTOBUF_NOINLINE ::peony::forum::models::CreatePostRequest* Arena::CreateMaybeMessage< ::peony::forum::models::CreatePostRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::forum::models::CreatePostRequest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

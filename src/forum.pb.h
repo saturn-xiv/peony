@@ -32,7 +32,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
-#include "nut.pb.h"
+#include <google/protobuf/empty.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_forum_2eproto
@@ -55,17 +55,26 @@ struct TableStruct_forum_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_forum_2eproto;
+namespace peony {
+namespace forum {
+namespace models {
 class CreatePostRequest;
 class CreatePostRequestDefaultTypeInternal;
 extern CreatePostRequestDefaultTypeInternal _CreatePostRequest_default_instance_;
+}  // namespace models
+}  // namespace forum
+}  // namespace peony
 PROTOBUF_NAMESPACE_OPEN
-template<> ::CreatePostRequest* Arena::CreateMaybeMessage<::CreatePostRequest>(Arena*);
+template<> ::peony::forum::models::CreatePostRequest* Arena::CreateMaybeMessage<::peony::forum::models::CreatePostRequest>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
+namespace peony {
+namespace forum {
+namespace models {
 
 // ===================================================================
 
 class CreatePostRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CreatePostRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.forum.models.CreatePostRequest) */ {
  public:
   inline CreatePostRequest() : CreatePostRequest(nullptr) {}
   virtual ~CreatePostRequest();
@@ -154,7 +163,7 @@ class CreatePostRequest PROTOBUF_FINAL :
   void InternalSwap(CreatePostRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "CreatePostRequest";
+    return "peony.forum.models.CreatePostRequest";
   }
   protected:
   explicit CreatePostRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -229,7 +238,7 @@ class CreatePostRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_body();
   public:
 
-  // @@protoc_insertion_point(class_scope:CreatePostRequest)
+  // @@protoc_insertion_point(class_scope:peony.forum.models.CreatePostRequest)
  private:
   class _Internal;
 
@@ -258,15 +267,15 @@ inline void CreatePostRequest::clear_subject() {
   subject_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& CreatePostRequest::subject() const {
-  // @@protoc_insertion_point(field_get:CreatePostRequest.subject)
+  // @@protoc_insertion_point(field_get:peony.forum.models.CreatePostRequest.subject)
   return _internal_subject();
 }
 inline void CreatePostRequest::set_subject(const std::string& value) {
   _internal_set_subject(value);
-  // @@protoc_insertion_point(field_set:CreatePostRequest.subject)
+  // @@protoc_insertion_point(field_set:peony.forum.models.CreatePostRequest.subject)
 }
 inline std::string* CreatePostRequest::mutable_subject() {
-  // @@protoc_insertion_point(field_mutable:CreatePostRequest.subject)
+  // @@protoc_insertion_point(field_mutable:peony.forum.models.CreatePostRequest.subject)
   return _internal_mutable_subject();
 }
 inline const std::string& CreatePostRequest::_internal_subject() const {
@@ -280,28 +289,28 @@ inline void CreatePostRequest::set_subject(std::string&& value) {
   
   subject_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:CreatePostRequest.subject)
+  // @@protoc_insertion_point(field_set_rvalue:peony.forum.models.CreatePostRequest.subject)
 }
 inline void CreatePostRequest::set_subject(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   subject_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:CreatePostRequest.subject)
+  // @@protoc_insertion_point(field_set_char:peony.forum.models.CreatePostRequest.subject)
 }
 inline void CreatePostRequest::set_subject(const char* value,
     size_t size) {
   
   subject_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:CreatePostRequest.subject)
+  // @@protoc_insertion_point(field_set_pointer:peony.forum.models.CreatePostRequest.subject)
 }
 inline std::string* CreatePostRequest::_internal_mutable_subject() {
   
   return subject_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* CreatePostRequest::release_subject() {
-  // @@protoc_insertion_point(field_release:CreatePostRequest.subject)
+  // @@protoc_insertion_point(field_release:peony.forum.models.CreatePostRequest.subject)
   return subject_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void CreatePostRequest::set_allocated_subject(std::string* subject) {
@@ -312,7 +321,7 @@ inline void CreatePostRequest::set_allocated_subject(std::string* subject) {
   }
   subject_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), subject,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:CreatePostRequest.subject)
+  // @@protoc_insertion_point(field_set_allocated:peony.forum.models.CreatePostRequest.subject)
 }
 
 // string content_type = 2;
@@ -320,15 +329,15 @@ inline void CreatePostRequest::clear_content_type() {
   content_type_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& CreatePostRequest::content_type() const {
-  // @@protoc_insertion_point(field_get:CreatePostRequest.content_type)
+  // @@protoc_insertion_point(field_get:peony.forum.models.CreatePostRequest.content_type)
   return _internal_content_type();
 }
 inline void CreatePostRequest::set_content_type(const std::string& value) {
   _internal_set_content_type(value);
-  // @@protoc_insertion_point(field_set:CreatePostRequest.content_type)
+  // @@protoc_insertion_point(field_set:peony.forum.models.CreatePostRequest.content_type)
 }
 inline std::string* CreatePostRequest::mutable_content_type() {
-  // @@protoc_insertion_point(field_mutable:CreatePostRequest.content_type)
+  // @@protoc_insertion_point(field_mutable:peony.forum.models.CreatePostRequest.content_type)
   return _internal_mutable_content_type();
 }
 inline const std::string& CreatePostRequest::_internal_content_type() const {
@@ -342,28 +351,28 @@ inline void CreatePostRequest::set_content_type(std::string&& value) {
   
   content_type_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:CreatePostRequest.content_type)
+  // @@protoc_insertion_point(field_set_rvalue:peony.forum.models.CreatePostRequest.content_type)
 }
 inline void CreatePostRequest::set_content_type(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   content_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:CreatePostRequest.content_type)
+  // @@protoc_insertion_point(field_set_char:peony.forum.models.CreatePostRequest.content_type)
 }
 inline void CreatePostRequest::set_content_type(const char* value,
     size_t size) {
   
   content_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:CreatePostRequest.content_type)
+  // @@protoc_insertion_point(field_set_pointer:peony.forum.models.CreatePostRequest.content_type)
 }
 inline std::string* CreatePostRequest::_internal_mutable_content_type() {
   
   return content_type_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* CreatePostRequest::release_content_type() {
-  // @@protoc_insertion_point(field_release:CreatePostRequest.content_type)
+  // @@protoc_insertion_point(field_release:peony.forum.models.CreatePostRequest.content_type)
   return content_type_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void CreatePostRequest::set_allocated_content_type(std::string* content_type) {
@@ -374,7 +383,7 @@ inline void CreatePostRequest::set_allocated_content_type(std::string* content_t
   }
   content_type_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), content_type,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:CreatePostRequest.content_type)
+  // @@protoc_insertion_point(field_set_allocated:peony.forum.models.CreatePostRequest.content_type)
 }
 
 // string body = 3;
@@ -382,15 +391,15 @@ inline void CreatePostRequest::clear_body() {
   body_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& CreatePostRequest::body() const {
-  // @@protoc_insertion_point(field_get:CreatePostRequest.body)
+  // @@protoc_insertion_point(field_get:peony.forum.models.CreatePostRequest.body)
   return _internal_body();
 }
 inline void CreatePostRequest::set_body(const std::string& value) {
   _internal_set_body(value);
-  // @@protoc_insertion_point(field_set:CreatePostRequest.body)
+  // @@protoc_insertion_point(field_set:peony.forum.models.CreatePostRequest.body)
 }
 inline std::string* CreatePostRequest::mutable_body() {
-  // @@protoc_insertion_point(field_mutable:CreatePostRequest.body)
+  // @@protoc_insertion_point(field_mutable:peony.forum.models.CreatePostRequest.body)
   return _internal_mutable_body();
 }
 inline const std::string& CreatePostRequest::_internal_body() const {
@@ -404,28 +413,28 @@ inline void CreatePostRequest::set_body(std::string&& value) {
   
   body_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:CreatePostRequest.body)
+  // @@protoc_insertion_point(field_set_rvalue:peony.forum.models.CreatePostRequest.body)
 }
 inline void CreatePostRequest::set_body(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   body_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:CreatePostRequest.body)
+  // @@protoc_insertion_point(field_set_char:peony.forum.models.CreatePostRequest.body)
 }
 inline void CreatePostRequest::set_body(const char* value,
     size_t size) {
   
   body_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:CreatePostRequest.body)
+  // @@protoc_insertion_point(field_set_pointer:peony.forum.models.CreatePostRequest.body)
 }
 inline std::string* CreatePostRequest::_internal_mutable_body() {
   
   return body_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* CreatePostRequest::release_body() {
-  // @@protoc_insertion_point(field_release:CreatePostRequest.body)
+  // @@protoc_insertion_point(field_release:peony.forum.models.CreatePostRequest.body)
   return body_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void CreatePostRequest::set_allocated_body(std::string* body) {
@@ -436,7 +445,7 @@ inline void CreatePostRequest::set_allocated_body(std::string* body) {
   }
   body_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), body,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:CreatePostRequest.body)
+  // @@protoc_insertion_point(field_set_allocated:peony.forum.models.CreatePostRequest.body)
 }
 
 #ifdef __GNUC__
@@ -445,6 +454,9 @@ inline void CreatePostRequest::set_allocated_body(std::string* body) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace models
+}  // namespace forum
+}  // namespace peony
 
 // @@protoc_insertion_point(global_scope)
 

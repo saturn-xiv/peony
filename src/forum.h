@@ -4,7 +4,6 @@
 #include "plugin.h"
 
 #include "forum.grpc.pb.h"
-#include "forum.pb.h"
 
 namespace peony {
 namespace forum {

@@ -19,10 +19,13 @@
 #include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
+namespace peony {
+namespace nut {
+namespace models {
 
 static const char* NutService_method_names[] = {
-  "/NutService/SignIn",
-  "/NutService/SignUp",
+  "/peony.nut.models.NutService/SignIn",
+  "/peony.nut.models.NutService/SignUp",
 };
 
 std::unique_ptr< NutService::Stub> NutService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -36,46 +39,46 @@ NutService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel
   , rpcmethod_SignUp_(NutService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status NutService::Stub::SignIn(::grpc::ClientContext* context, const ::SignInRequest& request, ::SignInResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::SignInRequest, ::SignInResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SignIn_, context, request, response);
+::grpc::Status NutService::Stub::SignIn(::grpc::ClientContext* context, const ::peony::nut::models::SignInRequest& request, ::peony::nut::models::SignInResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::peony::nut::models::SignInRequest, ::peony::nut::models::SignInResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SignIn_, context, request, response);
 }
 
-void NutService::Stub::experimental_async::SignIn(::grpc::ClientContext* context, const ::SignInRequest* request, ::SignInResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::SignInRequest, ::SignInResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SignIn_, context, request, response, std::move(f));
+void NutService::Stub::experimental_async::SignIn(::grpc::ClientContext* context, const ::peony::nut::models::SignInRequest* request, ::peony::nut::models::SignInResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::peony::nut::models::SignInRequest, ::peony::nut::models::SignInResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SignIn_, context, request, response, std::move(f));
 }
 
-void NutService::Stub::experimental_async::SignIn(::grpc::ClientContext* context, const ::SignInRequest* request, ::SignInResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void NutService::Stub::experimental_async::SignIn(::grpc::ClientContext* context, const ::peony::nut::models::SignInRequest* request, ::peony::nut::models::SignInResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SignIn_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::SignInResponse>* NutService::Stub::PrepareAsyncSignInRaw(::grpc::ClientContext* context, const ::SignInRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::SignInResponse, ::SignInRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SignIn_, context, request);
+::grpc::ClientAsyncResponseReader< ::peony::nut::models::SignInResponse>* NutService::Stub::PrepareAsyncSignInRaw(::grpc::ClientContext* context, const ::peony::nut::models::SignInRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::peony::nut::models::SignInResponse, ::peony::nut::models::SignInRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SignIn_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::SignInResponse>* NutService::Stub::AsyncSignInRaw(::grpc::ClientContext* context, const ::SignInRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::peony::nut::models::SignInResponse>* NutService::Stub::AsyncSignInRaw(::grpc::ClientContext* context, const ::peony::nut::models::SignInRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncSignInRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status NutService::Stub::SignUp(::grpc::ClientContext* context, const ::SignUpRequest& request, ::Ok* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::SignUpRequest, ::Ok, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SignUp_, context, request, response);
+::grpc::Status NutService::Stub::SignUp(::grpc::ClientContext* context, const ::peony::nut::models::SignUpRequest& request, ::google::protobuf::Empty* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::peony::nut::models::SignUpRequest, ::google::protobuf::Empty, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SignUp_, context, request, response);
 }
 
-void NutService::Stub::experimental_async::SignUp(::grpc::ClientContext* context, const ::SignUpRequest* request, ::Ok* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::SignUpRequest, ::Ok, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SignUp_, context, request, response, std::move(f));
+void NutService::Stub::experimental_async::SignUp(::grpc::ClientContext* context, const ::peony::nut::models::SignUpRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::peony::nut::models::SignUpRequest, ::google::protobuf::Empty, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SignUp_, context, request, response, std::move(f));
 }
 
-void NutService::Stub::experimental_async::SignUp(::grpc::ClientContext* context, const ::SignUpRequest* request, ::Ok* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void NutService::Stub::experimental_async::SignUp(::grpc::ClientContext* context, const ::peony::nut::models::SignUpRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SignUp_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::Ok>* NutService::Stub::PrepareAsyncSignUpRaw(::grpc::ClientContext* context, const ::SignUpRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Ok, ::SignUpRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SignUp_, context, request);
+::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* NutService::Stub::PrepareAsyncSignUpRaw(::grpc::ClientContext* context, const ::peony::nut::models::SignUpRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::google::protobuf::Empty, ::peony::nut::models::SignUpRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SignUp_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::Ok>* NutService::Stub::AsyncSignUpRaw(::grpc::ClientContext* context, const ::SignUpRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* NutService::Stub::AsyncSignUpRaw(::grpc::ClientContext* context, const ::peony::nut::models::SignUpRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncSignUpRaw(context, request, cq);
   result->StartCall();
@@ -86,21 +89,21 @@ NutService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       NutService_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< NutService::Service, ::SignInRequest, ::SignInResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< NutService::Service, ::peony::nut::models::SignInRequest, ::peony::nut::models::SignInResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](NutService::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::SignInRequest* req,
-             ::SignInResponse* resp) {
+             const ::peony::nut::models::SignInRequest* req,
+             ::peony::nut::models::SignInResponse* resp) {
                return service->SignIn(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       NutService_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< NutService::Service, ::SignUpRequest, ::Ok, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< NutService::Service, ::peony::nut::models::SignUpRequest, ::google::protobuf::Empty, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](NutService::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::SignUpRequest* req,
-             ::Ok* resp) {
+             const ::peony::nut::models::SignUpRequest* req,
+             ::google::protobuf::Empty* resp) {
                return service->SignUp(ctx, req, resp);
              }, this)));
 }
@@ -108,18 +111,22 @@ NutService::Service::Service() {
 NutService::Service::~Service() {
 }
 
-::grpc::Status NutService::Service::SignIn(::grpc::ServerContext* context, const ::SignInRequest* request, ::SignInResponse* response) {
+::grpc::Status NutService::Service::SignIn(::grpc::ServerContext* context, const ::peony::nut::models::SignInRequest* request, ::peony::nut::models::SignInResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status NutService::Service::SignUp(::grpc::ServerContext* context, const ::SignUpRequest* request, ::Ok* response) {
+::grpc::Status NutService::Service::SignUp(::grpc::ServerContext* context, const ::peony::nut::models::SignUpRequest* request, ::google::protobuf::Empty* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
+
+}  // namespace peony
+}  // namespace nut
+}  // namespace models
 

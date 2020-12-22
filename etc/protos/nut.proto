@@ -1,15 +1,13 @@
 syntax = "proto3";
 
-// import "google/protobuf/empty.proto";
-// import "google/protobuf/timestamp.proto";
-// import "google/protobuf/duration.proto";
+package peony.nut.models;
+
+import "google/protobuf/empty.proto";
 
 service NutService {
   rpc SignIn(SignInRequest) returns(SignInResponse) {}
-  rpc SignUp(SignUpRequest) returns(Ok) {}
+  rpc SignUp(SignUpRequest) returns(google.protobuf.Empty) {}
 }
-
-message Ok {}
 
 message SignInRequest {
   string email = 1;

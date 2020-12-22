@@ -4,7 +4,6 @@
 #include "plugin.h"
 
 #include "nut.grpc.pb.h"
-#include "nut.pb.h"
 
 namespace peony {
 namespace nut {

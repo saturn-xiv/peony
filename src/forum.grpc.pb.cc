@@ -19,9 +19,12 @@
 #include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
+namespace peony {
+namespace forum {
+namespace models {
 
 static const char* ForumService_method_names[] = {
-  "/ForumService/CreatePost",
+  "/peony.forum.models.ForumService/CreatePost",
 };
 
 std::unique_ptr< ForumService::Stub> ForumService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -34,23 +37,23 @@ ForumService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& chann
   : channel_(channel), rpcmethod_CreatePost_(ForumService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status ForumService::Stub::CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::Ok* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::CreatePostRequest, ::Ok, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CreatePost_, context, request, response);
+::grpc::Status ForumService::Stub::CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::google::protobuf::Empty* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::peony::forum::models::CreatePostRequest, ::google::protobuf::Empty, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CreatePost_, context, request, response);
 }
 
-void ForumService::Stub::experimental_async::CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest* request, ::Ok* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::CreatePostRequest, ::Ok, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreatePost_, context, request, response, std::move(f));
+void ForumService::Stub::experimental_async::CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::peony::forum::models::CreatePostRequest, ::google::protobuf::Empty, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreatePost_, context, request, response, std::move(f));
 }
 
-void ForumService::Stub::experimental_async::CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest* request, ::Ok* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void ForumService::Stub::experimental_async::CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreatePost_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::Ok>* ForumService::Stub::PrepareAsyncCreatePostRaw(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Ok, ::CreatePostRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CreatePost_, context, request);
+::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* ForumService::Stub::PrepareAsyncCreatePostRaw(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::google::protobuf::Empty, ::peony::forum::models::CreatePostRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CreatePost_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::Ok>* ForumService::Stub::AsyncCreatePostRaw(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* ForumService::Stub::AsyncCreatePostRaw(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncCreatePostRaw(context, request, cq);
   result->StartCall();
@@ -61,11 +64,11 @@ ForumService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ForumService_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ForumService::Service, ::CreatePostRequest, ::Ok, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< ForumService::Service, ::peony::forum::models::CreatePostRequest, ::google::protobuf::Empty, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ForumService::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::CreatePostRequest* req,
-             ::Ok* resp) {
+             const ::peony::forum::models::CreatePostRequest* req,
+             ::google::protobuf::Empty* resp) {
                return service->CreatePost(ctx, req, resp);
              }, this)));
 }
@@ -73,11 +76,15 @@ ForumService::Service::Service() {
 ForumService::Service::~Service() {
 }
 
-::grpc::Status ForumService::Service::CreatePost(::grpc::ServerContext* context, const ::CreatePostRequest* request, ::Ok* response) {
+::grpc::Status ForumService::Service::CreatePost(::grpc::ServerContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
+
+}  // namespace peony
+}  // namespace forum
+}  // namespace models
 

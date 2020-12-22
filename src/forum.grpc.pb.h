@@ -26,29 +26,33 @@
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 
+namespace peony {
+namespace forum {
+namespace models {
+
 class ForumService final {
  public:
   static constexpr char const* service_full_name() {
-    return "ForumService";
+    return "peony.forum.models.ForumService";
   }
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::Ok* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Ok>> AsyncCreatePost(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Ok>>(AsyncCreatePostRaw(context, request, cq));
+    virtual ::grpc::Status CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::google::protobuf::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncCreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncCreatePostRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Ok>> PrepareAsyncCreatePost(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Ok>>(PrepareAsyncCreatePostRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncCreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncCreatePostRaw(context, request, cq));
     }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
-      virtual void CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest* request, ::Ok* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest* request, ::Ok* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest* request, ::Ok* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -59,27 +63,27 @@ class ForumService final {
     #endif
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Ok>* AsyncCreatePostRaw(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Ok>* PrepareAsyncCreatePostRaw(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncCreatePostRaw(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncCreatePostRaw(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::Ok* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Ok>> AsyncCreatePost(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Ok>>(AsyncCreatePostRaw(context, request, cq));
+    ::grpc::Status CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::google::protobuf::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncCreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncCreatePostRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Ok>> PrepareAsyncCreatePost(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Ok>>(PrepareAsyncCreatePostRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncCreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncCreatePostRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
-      void CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest* request, ::Ok* response, std::function<void(::grpc::Status)>) override;
+      void CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest* request, ::Ok* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void CreatePost(::grpc::ClientContext* context, const ::CreatePostRequest* request, ::Ok* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void CreatePost(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
      private:
       friend class Stub;
@@ -92,8 +96,8 @@ class ForumService final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class experimental_async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::Ok>* AsyncCreatePostRaw(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::Ok>* PrepareAsyncCreatePostRaw(::grpc::ClientContext* context, const ::CreatePostRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncCreatePostRaw(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncCreatePostRaw(::grpc::ClientContext* context, const ::peony::forum::models::CreatePostRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_CreatePost_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -102,7 +106,7 @@ class ForumService final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status CreatePost(::grpc::ServerContext* context, const ::CreatePostRequest* request, ::Ok* response);
+    virtual ::grpc::Status CreatePost(::grpc::ServerContext* context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_CreatePost : public BaseClass {
@@ -116,11 +120,11 @@ class ForumService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::CreatePostRequest* /*request*/, ::Ok* /*response*/) override {
+    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::peony::forum::models::CreatePostRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCreatePost(::grpc::ServerContext* context, ::CreatePostRequest* request, ::grpc::ServerAsyncResponseWriter< ::Ok>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestCreatePost(::grpc::ServerContext* context, ::peony::forum::models::CreatePostRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -137,38 +141,38 @@ class ForumService final {
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::CreatePostRequest, ::Ok>(
+          new ::grpc::internal::CallbackUnaryHandler< ::peony::forum::models::CreatePostRequest, ::google::protobuf::Empty>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::CreatePostRequest* request, ::Ok* response) { return this->CreatePost(context, request, response); }));}
+                     context, const ::peony::forum::models::CreatePostRequest* request, ::google::protobuf::Empty* response) { return this->CreatePost(context, request, response); }));}
     void SetMessageAllocatorFor_CreatePost(
-        ::grpc::experimental::MessageAllocator< ::CreatePostRequest, ::Ok>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::peony::forum::models::CreatePostRequest, ::google::protobuf::Empty>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
     #endif
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::CreatePostRequest, ::Ok>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::peony::forum::models::CreatePostRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_CreatePost() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::CreatePostRequest* /*request*/, ::Ok* /*response*/) override {
+    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::peony::forum::models::CreatePostRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreatePost(
-      ::grpc::CallbackServerContext* /*context*/, const ::CreatePostRequest* /*request*/, ::Ok* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::peony::forum::models::CreatePostRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* CreatePost(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::CreatePostRequest* /*request*/, ::Ok* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::peony::forum::models::CreatePostRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -189,7 +193,7 @@ class ForumService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::CreatePostRequest* /*request*/, ::Ok* /*response*/) override {
+    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::peony::forum::models::CreatePostRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -206,7 +210,7 @@ class ForumService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::CreatePostRequest* /*request*/, ::Ok* /*response*/) override {
+    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::peony::forum::models::CreatePostRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -239,7 +243,7 @@ class ForumService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::CreatePostRequest* /*request*/, ::Ok* /*response*/) override {
+    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::peony::forum::models::CreatePostRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -260,10 +264,10 @@ class ForumService final {
     WithStreamedUnaryMethod_CreatePost() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::CreatePostRequest, ::Ok>(
+          ::peony::forum::models::CreatePostRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::CreatePostRequest, ::Ok>* streamer) {
+                     ::peony::forum::models::CreatePostRequest, ::google::protobuf::Empty>* streamer) {
                        return this->StreamedCreatePost(context,
                          streamer);
                   }));
@@ -272,17 +276,21 @@ class ForumService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::CreatePostRequest* /*request*/, ::Ok* /*response*/) override {
+    ::grpc::Status CreatePost(::grpc::ServerContext* /*context*/, const ::peony::forum::models::CreatePostRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedCreatePost(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CreatePostRequest,::Ok>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedCreatePost(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::peony::forum::models::CreatePostRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
   };
   typedef WithStreamedUnaryMethod_CreatePost<Service > StreamedUnaryService;
   typedef Service SplitStreamedService;
   typedef WithStreamedUnaryMethod_CreatePost<Service > StreamedService;
 };
+
+}  // namespace models
+}  // namespace forum
+}  // namespace peony
 
 
 #endif  // GRPC_forum_2eproto__INCLUDED

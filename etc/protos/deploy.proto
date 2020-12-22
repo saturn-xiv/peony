@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package peony.delpoy.models;
+
+message Task {
+  string name = 1;
+  message Shell { string script = 1; }
+  message Upload {
+    string src = 1;
+    string dest = 2;
+  }
+  message Download {
+    string src = 1;
+    string dest = 2;
+  }
+  oneof payload {
+    Shell shell = 2;
+    Upload upload = 3;
+    Download download = 4;
+  }
+  repeated string groups = 5;
+  repeated string hosts = 6;
+}
+
+message Recipe {
+  string name = 1;
+  repeated Task tasks = 2;
+}
+
+message Ssh {
+  string host = 1;
+  int32 port = 2;
+  string user = 3;
+  string key = 4;
+}
+
+message Group {
+  string name = 1;
+  repeated string hosts = 2;
+}
+
+message Inventory {
+  string name = 1;
+  repeated string groups = 2;
+  repeated string hosts = 3;
+}
+
+message Log {
+  string inventory = 1;
+  string group = 2;
+  string user = 3;
+  string host = 4;
+  string reacipe = 5;
+  string task = 6;
+}
