@@ -28,6 +28,13 @@ set(protobuf_BUILD_PROTOC_BINARIES ON)
 set(gRPC_SSL_PROVIDER "package")
 
 
+FetchContent_Declare(ZXing
+    GIT_REPOSITORY  "https://github.com/nu-book/zxing-cpp.git"
+    GIT_TAG         "v1.1.1"
+)
+set(BUILD_SHARED_LIBS OFF)
+
+
 FetchContent_Declare(mailio
     GIT_REPOSITORY  "https://github.com/karastojko/mailio.git"
     GIT_TAG         "2e70e8a"
@@ -37,7 +44,7 @@ set(MAILIO_BUILD_DOCUMENTATION OFF)
 set(MAILIO_BUILD_LATEX_DOCUMENTATION OFF)
 set(MAILIO_BUILD_SHARED_LIBRARY OFF)
 
-FetchContent_MakeAvailable(gRPC mailio)
+FetchContent_MakeAvailable(gRPC ZXing mailio)
 
 ExternalProject_Add(stb
     GIT_REPOSITORY      "https://github.com/nothings/stb.git"
@@ -84,7 +91,7 @@ if(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
     SET_TARGET_PROPERTIES(edelweiss PROPERTIES LINK_SEARCH_END_STATIC 1)
 endif(CMAKE_CROSSCOMPILING OR PEONY_BUILD_STATIC)
 
-set(PEONY_THIRD_LIBRARIES stdc++fs ${CONAN_LIBS} grpc++ mailio ${OPENGL_gl_LIBRARY})
+set(PEONY_THIRD_LIBRARIES stdc++fs ${CONAN_LIBS} grpc++ mailio ZXing ${OPENGL_gl_LIBRARY})
 
 target_link_libraries(peony ${PEONY_THIRD_LIBRARIES})
 target_link_libraries(edelweiss ${PEONY_THIRD_LIBRARIES})

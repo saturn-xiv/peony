@@ -224,6 +224,20 @@ class MySql {
 // .dump Dump database in SQL text format
 // pragma compile_options;
 // SELECT name FROM sqlite_master WHERE type='table' AND name='TABLE_NAME'
+
+// sqlite3 db20190704_001.db3
+// sqlite>.output tmp.sql
+// sqlite> .dump
+// sqlite> .quit
+
+// sqlite3 repair.db3
+// sqlite>.read tmp.sql
+// sqlite>.quit
+// ROLLBACK; -- due to errors
+// to
+
+// COMMIT;
+
 class Sqlite3 {
  public:
   Sqlite3(std::string file = "db") : file(file) {}
