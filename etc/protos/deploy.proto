@@ -1,20 +1,24 @@
 syntax = "proto3";
 
-package peony.delpoy.models;
+package peony.deploy.models;
 
 message Task {
   string name = 1;
-  message Shell { string script = 1; }
+  message Script {
+    string file = 1;
+    string shell = 2;
+  }
   message Upload {
     string src = 1;
     string dest = 2;
+    bool tpl = 3;
   }
   message Download {
     string src = 1;
     string dest = 2;
   }
   oneof payload {
-    Shell shell = 2;
+    Script script = 2;
     Upload upload = 3;
     Download download = 4;
   }
@@ -32,24 +36,18 @@ message Ssh {
   int32 port = 2;
   string user = 3;
   string key = 4;
+  map<string, string> env = 5;
 }
 
 message Group {
   string name = 1;
   repeated string hosts = 2;
+  map<string, string> env = 3;
 }
 
 message Inventory {
   string name = 1;
-  repeated string groups = 2;
+  repeated Group groups = 2;
   repeated string hosts = 3;
-}
-
-message Log {
-  string inventory = 1;
-  string group = 2;
-  string user = 3;
-  string host = 4;
-  string reacipe = 5;
-  string task = 6;
+  map<string, string> env = 4;
 }

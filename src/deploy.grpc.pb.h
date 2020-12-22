@@ -27,11 +27,11 @@
 #include <grpcpp/impl/codegen/sync_stream.h>
 
 namespace peony {
-namespace delpoy {
+namespace deploy {
 namespace models {
 
 }  // namespace models
-}  // namespace delpoy
+}  // namespace deploy
 }  // namespace peony
 
 

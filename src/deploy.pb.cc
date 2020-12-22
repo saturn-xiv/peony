@@ -14,17 +14,21 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
+extern PROTOBUF_INTERNAL_EXPORT_deploy_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Group_deploy_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_deploy_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Group_EnvEntry_DoNotUse_deploy_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_deploy_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Inventory_EnvEntry_DoNotUse_deploy_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_deploy_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Ssh_EnvEntry_DoNotUse_deploy_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_deploy_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_Task_deploy_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_deploy_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Task_Download_deploy_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_deploy_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Task_Shell_deploy_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_deploy_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Task_Script_deploy_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_deploy_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Task_Upload_deploy_2eproto;
 namespace peony {
-namespace delpoy {
+namespace deploy {
 namespace models {
-class Task_ShellDefaultTypeInternal {
+class Task_ScriptDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Task_Shell> _instance;
-} _Task_Shell_default_instance_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Task_Script> _instance;
+} _Task_Script_default_instance_;
 class Task_UploadDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Task_Upload> _instance;
@@ -36,84 +40,107 @@ class Task_DownloadDefaultTypeInternal {
 class TaskDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Task> _instance;
-  const ::peony::delpoy::models::Task_Shell* shell_;
-  const ::peony::delpoy::models::Task_Upload* upload_;
-  const ::peony::delpoy::models::Task_Download* download_;
+  const ::peony::deploy::models::Task_Script* script_;
+  const ::peony::deploy::models::Task_Upload* upload_;
+  const ::peony::deploy::models::Task_Download* download_;
 } _Task_default_instance_;
 class RecipeDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Recipe> _instance;
 } _Recipe_default_instance_;
+class Ssh_EnvEntry_DoNotUseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Ssh_EnvEntry_DoNotUse> _instance;
+} _Ssh_EnvEntry_DoNotUse_default_instance_;
 class SshDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Ssh> _instance;
 } _Ssh_default_instance_;
+class Group_EnvEntry_DoNotUseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Group_EnvEntry_DoNotUse> _instance;
+} _Group_EnvEntry_DoNotUse_default_instance_;
 class GroupDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Group> _instance;
 } _Group_default_instance_;
+class Inventory_EnvEntry_DoNotUseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Inventory_EnvEntry_DoNotUse> _instance;
+} _Inventory_EnvEntry_DoNotUse_default_instance_;
 class InventoryDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Inventory> _instance;
 } _Inventory_default_instance_;
-class LogDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Log> _instance;
-} _Log_default_instance_;
 }  // namespace models
-}  // namespace delpoy
+}  // namespace deploy
 }  // namespace peony
 static void InitDefaultsscc_info_Group_deploy_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::peony::delpoy::models::_Group_default_instance_;
-    new (ptr) ::peony::delpoy::models::Group();
+    void* ptr = &::peony::deploy::models::_Group_default_instance_;
+    new (ptr) ::peony::deploy::models::Group();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::peony::delpoy::models::Group::InitAsDefaultInstance();
+  ::peony::deploy::models::Group::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Group_deploy_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Group_deploy_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Group_deploy_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_Group_deploy_2eproto}, {
+      &scc_info_Group_EnvEntry_DoNotUse_deploy_2eproto.base,}};
+
+static void InitDefaultsscc_info_Group_EnvEntry_DoNotUse_deploy_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::peony::deploy::models::_Group_EnvEntry_DoNotUse_default_instance_;
+    new (ptr) ::peony::deploy::models::Group_EnvEntry_DoNotUse();
+  }
+  ::peony::deploy::models::Group_EnvEntry_DoNotUse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Group_EnvEntry_DoNotUse_deploy_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Group_EnvEntry_DoNotUse_deploy_2eproto}, {}};
 
 static void InitDefaultsscc_info_Inventory_deploy_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::peony::delpoy::models::_Inventory_default_instance_;
-    new (ptr) ::peony::delpoy::models::Inventory();
+    void* ptr = &::peony::deploy::models::_Inventory_default_instance_;
+    new (ptr) ::peony::deploy::models::Inventory();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::peony::delpoy::models::Inventory::InitAsDefaultInstance();
+  ::peony::deploy::models::Inventory::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Inventory_deploy_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Inventory_deploy_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Inventory_deploy_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_Inventory_deploy_2eproto}, {
+      &scc_info_Group_deploy_2eproto.base,
+      &scc_info_Inventory_EnvEntry_DoNotUse_deploy_2eproto.base,}};
 
-static void InitDefaultsscc_info_Log_deploy_2eproto() {
+static void InitDefaultsscc_info_Inventory_EnvEntry_DoNotUse_deploy_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::peony::delpoy::models::_Log_default_instance_;
-    new (ptr) ::peony::delpoy::models::Log();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+    void* ptr = &::peony::deploy::models::_Inventory_EnvEntry_DoNotUse_default_instance_;
+    new (ptr) ::peony::deploy::models::Inventory_EnvEntry_DoNotUse();
   }
-  ::peony::delpoy::models::Log::InitAsDefaultInstance();
+  ::peony::deploy::models::Inventory_EnvEntry_DoNotUse::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Log_deploy_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Log_deploy_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Inventory_EnvEntry_DoNotUse_deploy_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Inventory_EnvEntry_DoNotUse_deploy_2eproto}, {}};
 
 static void InitDefaultsscc_info_Recipe_deploy_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::peony::delpoy::models::_Recipe_default_instance_;
-    new (ptr) ::peony::delpoy::models::Recipe();
+    void* ptr = &::peony::deploy::models::_Recipe_default_instance_;
+    new (ptr) ::peony::deploy::models::Recipe();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::peony::delpoy::models::Recipe::InitAsDefaultInstance();
+  ::peony::deploy::models::Recipe::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Recipe_deploy_2eproto =
@@ -124,30 +151,44 @@ static void InitDefaultsscc_info_Ssh_deploy_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::peony::delpoy::models::_Ssh_default_instance_;
-    new (ptr) ::peony::delpoy::models::Ssh();
+    void* ptr = &::peony::deploy::models::_Ssh_default_instance_;
+    new (ptr) ::peony::deploy::models::Ssh();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::peony::delpoy::models::Ssh::InitAsDefaultInstance();
+  ::peony::deploy::models::Ssh::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Ssh_deploy_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Ssh_deploy_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Ssh_deploy_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_Ssh_deploy_2eproto}, {
+      &scc_info_Ssh_EnvEntry_DoNotUse_deploy_2eproto.base,}};
+
+static void InitDefaultsscc_info_Ssh_EnvEntry_DoNotUse_deploy_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::peony::deploy::models::_Ssh_EnvEntry_DoNotUse_default_instance_;
+    new (ptr) ::peony::deploy::models::Ssh_EnvEntry_DoNotUse();
+  }
+  ::peony::deploy::models::Ssh_EnvEntry_DoNotUse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Ssh_EnvEntry_DoNotUse_deploy_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Ssh_EnvEntry_DoNotUse_deploy_2eproto}, {}};
 
 static void InitDefaultsscc_info_Task_deploy_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::peony::delpoy::models::_Task_default_instance_;
-    new (ptr) ::peony::delpoy::models::Task();
+    void* ptr = &::peony::deploy::models::_Task_default_instance_;
+    new (ptr) ::peony::deploy::models::Task();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::peony::delpoy::models::Task::InitAsDefaultInstance();
+  ::peony::deploy::models::Task::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_Task_deploy_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_Task_deploy_2eproto}, {
-      &scc_info_Task_Shell_deploy_2eproto.base,
+      &scc_info_Task_Script_deploy_2eproto.base,
       &scc_info_Task_Upload_deploy_2eproto.base,
       &scc_info_Task_Download_deploy_2eproto.base,}};
 
@@ -155,262 +196,303 @@ static void InitDefaultsscc_info_Task_Download_deploy_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::peony::delpoy::models::_Task_Download_default_instance_;
-    new (ptr) ::peony::delpoy::models::Task_Download();
+    void* ptr = &::peony::deploy::models::_Task_Download_default_instance_;
+    new (ptr) ::peony::deploy::models::Task_Download();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::peony::delpoy::models::Task_Download::InitAsDefaultInstance();
+  ::peony::deploy::models::Task_Download::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Task_Download_deploy_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Task_Download_deploy_2eproto}, {}};
 
-static void InitDefaultsscc_info_Task_Shell_deploy_2eproto() {
+static void InitDefaultsscc_info_Task_Script_deploy_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::peony::delpoy::models::_Task_Shell_default_instance_;
-    new (ptr) ::peony::delpoy::models::Task_Shell();
+    void* ptr = &::peony::deploy::models::_Task_Script_default_instance_;
+    new (ptr) ::peony::deploy::models::Task_Script();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::peony::delpoy::models::Task_Shell::InitAsDefaultInstance();
+  ::peony::deploy::models::Task_Script::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Task_Shell_deploy_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Task_Shell_deploy_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Task_Script_deploy_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Task_Script_deploy_2eproto}, {}};
 
 static void InitDefaultsscc_info_Task_Upload_deploy_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::peony::delpoy::models::_Task_Upload_default_instance_;
-    new (ptr) ::peony::delpoy::models::Task_Upload();
+    void* ptr = &::peony::deploy::models::_Task_Upload_default_instance_;
+    new (ptr) ::peony::deploy::models::Task_Upload();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::peony::delpoy::models::Task_Upload::InitAsDefaultInstance();
+  ::peony::deploy::models::Task_Upload::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Task_Upload_deploy_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Task_Upload_deploy_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_deploy_2eproto[9];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_deploy_2eproto[11];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_deploy_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_deploy_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_deploy_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task_Shell, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Script, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task_Shell, script_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Script, file_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Script, shell_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task_Upload, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Upload, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task_Upload, src_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task_Upload, dest_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Upload, src_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Upload, dest_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Upload, tpl_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task_Download, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Download, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task_Download, src_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task_Download, dest_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Download, src_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task_Download, dest_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task, _internal_metadata_),
   ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task, _oneof_case_[0]),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task, name_),
-  offsetof(::peony::delpoy::models::TaskDefaultTypeInternal, shell_),
-  offsetof(::peony::delpoy::models::TaskDefaultTypeInternal, upload_),
-  offsetof(::peony::delpoy::models::TaskDefaultTypeInternal, download_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task, groups_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task, hosts_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Task, payload_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task, name_),
+  offsetof(::peony::deploy::models::TaskDefaultTypeInternal, script_),
+  offsetof(::peony::deploy::models::TaskDefaultTypeInternal, upload_),
+  offsetof(::peony::deploy::models::TaskDefaultTypeInternal, download_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task, groups_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task, hosts_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Task, payload_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Recipe, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Recipe, name_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Recipe, tasks_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Ssh, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Recipe, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Ssh, host_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Ssh, port_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Ssh, user_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Ssh, key_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Group, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Recipe, name_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Recipe, tasks_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh_EnvEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh_EnvEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Group, name_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Group, hosts_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh_EnvEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh_EnvEntry_DoNotUse, value_),
+  0,
+  1,
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Inventory, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Inventory, name_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Inventory, groups_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Inventory, hosts_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Log, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh, host_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh, port_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh, user_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh, key_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Ssh, env_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Group_EnvEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Group_EnvEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Log, inventory_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Log, group_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Log, user_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Log, host_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Log, reacipe_),
-  PROTOBUF_FIELD_OFFSET(::peony::delpoy::models::Log, task_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Group_EnvEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Group_EnvEntry_DoNotUse, value_),
+  0,
+  1,
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Group, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Group, name_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Group, hosts_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Group, env_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Inventory_EnvEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Inventory_EnvEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Inventory_EnvEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Inventory_EnvEntry_DoNotUse, value_),
+  0,
+  1,
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Inventory, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Inventory, name_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Inventory, groups_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Inventory, hosts_),
+  PROTOBUF_FIELD_OFFSET(::peony::deploy::models::Inventory, env_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::peony::delpoy::models::Task_Shell)},
-  { 6, -1, sizeof(::peony::delpoy::models::Task_Upload)},
-  { 13, -1, sizeof(::peony::delpoy::models::Task_Download)},
-  { 20, -1, sizeof(::peony::delpoy::models::Task)},
-  { 32, -1, sizeof(::peony::delpoy::models::Recipe)},
-  { 39, -1, sizeof(::peony::delpoy::models::Ssh)},
-  { 48, -1, sizeof(::peony::delpoy::models::Group)},
-  { 55, -1, sizeof(::peony::delpoy::models::Inventory)},
-  { 63, -1, sizeof(::peony::delpoy::models::Log)},
+  { 0, -1, sizeof(::peony::deploy::models::Task_Script)},
+  { 7, -1, sizeof(::peony::deploy::models::Task_Upload)},
+  { 15, -1, sizeof(::peony::deploy::models::Task_Download)},
+  { 22, -1, sizeof(::peony::deploy::models::Task)},
+  { 34, -1, sizeof(::peony::deploy::models::Recipe)},
+  { 41, 48, sizeof(::peony::deploy::models::Ssh_EnvEntry_DoNotUse)},
+  { 50, -1, sizeof(::peony::deploy::models::Ssh)},
+  { 60, 67, sizeof(::peony::deploy::models::Group_EnvEntry_DoNotUse)},
+  { 69, -1, sizeof(::peony::deploy::models::Group)},
+  { 77, 84, sizeof(::peony::deploy::models::Inventory_EnvEntry_DoNotUse)},
+  { 86, -1, sizeof(::peony::deploy::models::Inventory)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::delpoy::models::_Task_Shell_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::delpoy::models::_Task_Upload_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::delpoy::models::_Task_Download_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::delpoy::models::_Task_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::delpoy::models::_Recipe_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::delpoy::models::_Ssh_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::delpoy::models::_Group_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::delpoy::models::_Inventory_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::delpoy::models::_Log_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Task_Script_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Task_Upload_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Task_Download_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Task_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Recipe_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Ssh_EnvEntry_DoNotUse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Ssh_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Group_EnvEntry_DoNotUse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Group_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Inventory_EnvEntry_DoNotUse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::peony::deploy::models::_Inventory_default_instance_),
 };
 
 const char descriptor_table_protodef_deploy_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014deploy.proto\022\023peony.delpoy.models\"\301\002\n\004"
-  "Task\022\014\n\004name\030\001 \001(\t\0220\n\005shell\030\002 \001(\0132\037.peon"
-  "y.delpoy.models.Task.ShellH\000\0222\n\006upload\030\003"
-  " \001(\0132 .peony.delpoy.models.Task.UploadH\000"
-  "\0226\n\010download\030\004 \001(\0132\".peony.delpoy.models"
-  ".Task.DownloadH\000\022\016\n\006groups\030\005 \003(\t\022\r\n\005host"
-  "s\030\006 \003(\t\032\027\n\005Shell\022\016\n\006script\030\001 \001(\t\032#\n\006Uplo"
-  "ad\022\013\n\003src\030\001 \001(\t\022\014\n\004dest\030\002 \001(\t\032%\n\010Downloa"
-  "d\022\013\n\003src\030\001 \001(\t\022\014\n\004dest\030\002 \001(\tB\t\n\007payload\""
-  "@\n\006Recipe\022\014\n\004name\030\001 \001(\t\022(\n\005tasks\030\002 \003(\0132\031"
-  ".peony.delpoy.models.Task\"<\n\003Ssh\022\014\n\004host"
-  "\030\001 \001(\t\022\014\n\004port\030\002 \001(\005\022\014\n\004user\030\003 \001(\t\022\013\n\003ke"
-  "y\030\004 \001(\t\"$\n\005Group\022\014\n\004name\030\001 \001(\t\022\r\n\005hosts\030"
-  "\002 \003(\t\"8\n\tInventory\022\014\n\004name\030\001 \001(\t\022\016\n\006grou"
-  "ps\030\002 \003(\t\022\r\n\005hosts\030\003 \003(\t\"b\n\003Log\022\021\n\tinvent"
-  "ory\030\001 \001(\t\022\r\n\005group\030\002 \001(\t\022\014\n\004user\030\003 \001(\t\022\014"
-  "\n\004host\030\004 \001(\t\022\017\n\007reacipe\030\005 \001(\t\022\014\n\004task\030\006 "
-  "\001(\tb\006proto3"
+  "\n\014deploy.proto\022\023peony.deploy.models\"\336\002\n\004"
+  "Task\022\014\n\004name\030\001 \001(\t\0222\n\006script\030\002 \001(\0132 .peo"
+  "ny.deploy.models.Task.ScriptH\000\0222\n\006upload"
+  "\030\003 \001(\0132 .peony.deploy.models.Task.Upload"
+  "H\000\0226\n\010download\030\004 \001(\0132\".peony.deploy.mode"
+  "ls.Task.DownloadH\000\022\016\n\006groups\030\005 \003(\t\022\r\n\005ho"
+  "sts\030\006 \003(\t\032%\n\006Script\022\014\n\004file\030\001 \001(\t\022\r\n\005she"
+  "ll\030\002 \001(\t\0320\n\006Upload\022\013\n\003src\030\001 \001(\t\022\014\n\004dest\030"
+  "\002 \001(\t\022\013\n\003tpl\030\003 \001(\010\032%\n\010Download\022\013\n\003src\030\001 "
+  "\001(\t\022\014\n\004dest\030\002 \001(\tB\t\n\007payload\"@\n\006Recipe\022\014"
+  "\n\004name\030\001 \001(\t\022(\n\005tasks\030\002 \003(\0132\031.peony.depl"
+  "oy.models.Task\"\230\001\n\003Ssh\022\014\n\004host\030\001 \001(\t\022\014\n\004"
+  "port\030\002 \001(\005\022\014\n\004user\030\003 \001(\t\022\013\n\003key\030\004 \001(\t\022.\n"
+  "\003env\030\005 \003(\0132!.peony.deploy.models.Ssh.Env"
+  "Entry\032*\n\010EnvEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030"
+  "\002 \001(\t:\0028\001\"\202\001\n\005Group\022\014\n\004name\030\001 \001(\t\022\r\n\005hos"
+  "ts\030\002 \003(\t\0220\n\003env\030\003 \003(\0132#.peony.deploy.mod"
+  "els.Group.EnvEntry\032*\n\010EnvEntry\022\013\n\003key\030\001 "
+  "\001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\266\001\n\tInventory\022\014\n\004"
+  "name\030\001 \001(\t\022*\n\006groups\030\002 \003(\0132\032.peony.deplo"
+  "y.models.Group\022\r\n\005hosts\030\003 \003(\t\0224\n\003env\030\004 \003"
+  "(\0132\'.peony.deploy.models.Inventory.EnvEn"
+  "try\032*\n\010EnvEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 "
+  "\001(\t:\0028\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_deploy_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_deploy_2eproto_sccs[9] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_deploy_2eproto_sccs[11] = {
   &scc_info_Group_deploy_2eproto.base,
+  &scc_info_Group_EnvEntry_DoNotUse_deploy_2eproto.base,
   &scc_info_Inventory_deploy_2eproto.base,
-  &scc_info_Log_deploy_2eproto.base,
+  &scc_info_Inventory_EnvEntry_DoNotUse_deploy_2eproto.base,
   &scc_info_Recipe_deploy_2eproto.base,
   &scc_info_Ssh_deploy_2eproto.base,
+  &scc_info_Ssh_EnvEntry_DoNotUse_deploy_2eproto.base,
   &scc_info_Task_deploy_2eproto.base,
   &scc_info_Task_Download_deploy_2eproto.base,
-  &scc_info_Task_Shell_deploy_2eproto.base,
+  &scc_info_Task_Script_deploy_2eproto.base,
   &scc_info_Task_Upload_deploy_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_deploy_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_deploy_2eproto = {
-  false, false, descriptor_table_protodef_deploy_2eproto, "deploy.proto", 691,
-  &descriptor_table_deploy_2eproto_once, descriptor_table_deploy_2eproto_sccs, descriptor_table_deploy_2eproto_deps, 9, 0,
+  false, false, descriptor_table_protodef_deploy_2eproto, "deploy.proto", 935,
+  &descriptor_table_deploy_2eproto_once, descriptor_table_deploy_2eproto_sccs, descriptor_table_deploy_2eproto_deps, 11, 0,
   schemas, file_default_instances, TableStruct_deploy_2eproto::offsets,
-  file_level_metadata_deploy_2eproto, 9, file_level_enum_descriptors_deploy_2eproto, file_level_service_descriptors_deploy_2eproto,
+  file_level_metadata_deploy_2eproto, 11, file_level_enum_descriptors_deploy_2eproto, file_level_service_descriptors_deploy_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
 static bool dynamic_init_dummy_deploy_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_deploy_2eproto)), true);
 namespace peony {
-namespace delpoy {
+namespace deploy {
 namespace models {
 
 // ===================================================================
 
-void Task_Shell::InitAsDefaultInstance() {
+void Task_Script::InitAsDefaultInstance() {
 }
-class Task_Shell::_Internal {
+class Task_Script::_Internal {
  public:
 };
 
-Task_Shell::Task_Shell(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+Task_Script::Task_Script(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:peony.delpoy.models.Task.Shell)
+  // @@protoc_insertion_point(arena_constructor:peony.deploy.models.Task.Script)
 }
-Task_Shell::Task_Shell(const Task_Shell& from)
+Task_Script::Task_Script(const Task_Script& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  script_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_script().empty()) {
-    script_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_script(),
+  file_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_file().empty()) {
+    file_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_file(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:peony.delpoy.models.Task.Shell)
+  shell_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_shell().empty()) {
+    shell_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_shell(),
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:peony.deploy.models.Task.Script)
 }
 
-void Task_Shell::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Task_Shell_deploy_2eproto.base);
-  script_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void Task_Script::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Task_Script_deploy_2eproto.base);
+  file_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  shell_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-Task_Shell::~Task_Shell() {
-  // @@protoc_insertion_point(destructor:peony.delpoy.models.Task.Shell)
+Task_Script::~Task_Script() {
+  // @@protoc_insertion_point(destructor:peony.deploy.models.Task.Script)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Task_Shell::SharedDtor() {
+void Task_Script::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  script_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  file_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  shell_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void Task_Shell::ArenaDtor(void* object) {
-  Task_Shell* _this = reinterpret_cast< Task_Shell* >(object);
+void Task_Script::ArenaDtor(void* object) {
+  Task_Script* _this = reinterpret_cast< Task_Script* >(object);
   (void)_this;
 }
-void Task_Shell::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Task_Script::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void Task_Shell::SetCachedSize(int size) const {
+void Task_Script::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Task_Shell& Task_Shell::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Task_Shell_deploy_2eproto.base);
+const Task_Script& Task_Script::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Task_Script_deploy_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void Task_Shell::Clear() {
-// @@protoc_insertion_point(message_clear_start:peony.delpoy.models.Task.Shell)
+void Task_Script::Clear() {
+// @@protoc_insertion_point(message_clear_start:peony.deploy.models.Task.Script)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  script_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  file_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  shell_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Task_Shell::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Task_Script::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
@@ -418,12 +500,21 @@ const char* Task_Shell::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // string script = 1;
+      // string file = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_script();
+          auto str = _internal_mutable_file();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Task.Shell.script"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Task.Script.file"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string shell = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_shell();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Task.Script.shell"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -449,43 +540,60 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Task_Shell::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Task_Script::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:peony.delpoy.models.Task.Shell)
+  // @@protoc_insertion_point(serialize_to_array_start:peony.deploy.models.Task.Script)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string script = 1;
-  if (this->script().size() > 0) {
+  // string file = 1;
+  if (this->file().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_script().data(), static_cast<int>(this->_internal_script().length()),
+      this->_internal_file().data(), static_cast<int>(this->_internal_file().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Task.Shell.script");
+      "peony.deploy.models.Task.Script.file");
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_script(), target);
+        1, this->_internal_file(), target);
+  }
+
+  // string shell = 2;
+  if (this->shell().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_shell().data(), static_cast<int>(this->_internal_shell().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "peony.deploy.models.Task.Script.shell");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_shell(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:peony.delpoy.models.Task.Shell)
+  // @@protoc_insertion_point(serialize_to_array_end:peony.deploy.models.Task.Script)
   return target;
 }
 
-size_t Task_Shell::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:peony.delpoy.models.Task.Shell)
+size_t Task_Script::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:peony.deploy.models.Task.Script)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string script = 1;
-  if (this->script().size() > 0) {
+  // string file = 1;
+  if (this->file().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_script());
+        this->_internal_file());
+  }
+
+  // string shell = 2;
+  if (this->shell().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_shell());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -497,58 +605,62 @@ size_t Task_Shell::ByteSizeLong() const {
   return total_size;
 }
 
-void Task_Shell::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:peony.delpoy.models.Task.Shell)
+void Task_Script::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:peony.deploy.models.Task.Script)
   GOOGLE_DCHECK_NE(&from, this);
-  const Task_Shell* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Task_Shell>(
+  const Task_Script* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Task_Script>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.delpoy.models.Task.Shell)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.deploy.models.Task.Script)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.delpoy.models.Task.Shell)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.deploy.models.Task.Script)
     MergeFrom(*source);
   }
 }
 
-void Task_Shell::MergeFrom(const Task_Shell& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:peony.delpoy.models.Task.Shell)
+void Task_Script::MergeFrom(const Task_Script& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:peony.deploy.models.Task.Script)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.script().size() > 0) {
-    _internal_set_script(from._internal_script());
+  if (from.file().size() > 0) {
+    _internal_set_file(from._internal_file());
+  }
+  if (from.shell().size() > 0) {
+    _internal_set_shell(from._internal_shell());
   }
 }
 
-void Task_Shell::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:peony.delpoy.models.Task.Shell)
+void Task_Script::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:peony.deploy.models.Task.Script)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Task_Shell::CopyFrom(const Task_Shell& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:peony.delpoy.models.Task.Shell)
+void Task_Script::CopyFrom(const Task_Script& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:peony.deploy.models.Task.Script)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Task_Shell::IsInitialized() const {
+bool Task_Script::IsInitialized() const {
   return true;
 }
 
-void Task_Shell::InternalSwap(Task_Shell* other) {
+void Task_Script::InternalSwap(Task_Script* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  script_.Swap(&other->script_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  file_.Swap(&other->file_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  shell_.Swap(&other->shell_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Task_Shell::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Task_Script::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -565,7 +677,7 @@ Task_Upload::Task_Upload(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:peony.delpoy.models.Task.Upload)
+  // @@protoc_insertion_point(arena_constructor:peony.deploy.models.Task.Upload)
 }
 Task_Upload::Task_Upload(const Task_Upload& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -580,17 +692,19 @@ Task_Upload::Task_Upload(const Task_Upload& from)
     dest_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_dest(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:peony.delpoy.models.Task.Upload)
+  tpl_ = from.tpl_;
+  // @@protoc_insertion_point(copy_constructor:peony.deploy.models.Task.Upload)
 }
 
 void Task_Upload::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Task_Upload_deploy_2eproto.base);
   src_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   dest_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  tpl_ = false;
 }
 
 Task_Upload::~Task_Upload() {
-  // @@protoc_insertion_point(destructor:peony.delpoy.models.Task.Upload)
+  // @@protoc_insertion_point(destructor:peony.deploy.models.Task.Upload)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -617,13 +731,14 @@ const Task_Upload& Task_Upload::default_instance() {
 
 
 void Task_Upload::Clear() {
-// @@protoc_insertion_point(message_clear_start:peony.delpoy.models.Task.Upload)
+// @@protoc_insertion_point(message_clear_start:peony.deploy.models.Task.Upload)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   src_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   dest_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  tpl_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -640,7 +755,7 @@ const char* Task_Upload::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_src();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Task.Upload.src"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Task.Upload.src"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -649,7 +764,14 @@ const char* Task_Upload::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_dest();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Task.Upload.dest"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Task.Upload.dest"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool tpl = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          tpl_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -677,7 +799,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Task_Upload::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:peony.delpoy.models.Task.Upload)
+  // @@protoc_insertion_point(serialize_to_array_start:peony.deploy.models.Task.Upload)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -686,7 +808,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_src().data(), static_cast<int>(this->_internal_src().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Task.Upload.src");
+      "peony.deploy.models.Task.Upload.src");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_src(), target);
   }
@@ -696,21 +818,27 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_dest().data(), static_cast<int>(this->_internal_dest().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Task.Upload.dest");
+      "peony.deploy.models.Task.Upload.dest");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_dest(), target);
+  }
+
+  // bool tpl = 3;
+  if (this->tpl() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_tpl(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:peony.delpoy.models.Task.Upload)
+  // @@protoc_insertion_point(serialize_to_array_end:peony.deploy.models.Task.Upload)
   return target;
 }
 
 size_t Task_Upload::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:peony.delpoy.models.Task.Upload)
+// @@protoc_insertion_point(message_byte_size_start:peony.deploy.models.Task.Upload)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -731,6 +859,11 @@ size_t Task_Upload::ByteSizeLong() const {
         this->_internal_dest());
   }
 
+  // bool tpl = 3;
+  if (this->tpl() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -741,22 +874,22 @@ size_t Task_Upload::ByteSizeLong() const {
 }
 
 void Task_Upload::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:peony.delpoy.models.Task.Upload)
+// @@protoc_insertion_point(generalized_merge_from_start:peony.deploy.models.Task.Upload)
   GOOGLE_DCHECK_NE(&from, this);
   const Task_Upload* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Task_Upload>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.delpoy.models.Task.Upload)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.deploy.models.Task.Upload)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.delpoy.models.Task.Upload)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.deploy.models.Task.Upload)
     MergeFrom(*source);
   }
 }
 
 void Task_Upload::MergeFrom(const Task_Upload& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:peony.delpoy.models.Task.Upload)
+// @@protoc_insertion_point(class_specific_merge_from_start:peony.deploy.models.Task.Upload)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -768,17 +901,20 @@ void Task_Upload::MergeFrom(const Task_Upload& from) {
   if (from.dest().size() > 0) {
     _internal_set_dest(from._internal_dest());
   }
+  if (from.tpl() != 0) {
+    _internal_set_tpl(from._internal_tpl());
+  }
 }
 
 void Task_Upload::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:peony.delpoy.models.Task.Upload)
+// @@protoc_insertion_point(generalized_copy_from_start:peony.deploy.models.Task.Upload)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Task_Upload::CopyFrom(const Task_Upload& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:peony.delpoy.models.Task.Upload)
+// @@protoc_insertion_point(class_specific_copy_from_start:peony.deploy.models.Task.Upload)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -793,6 +929,7 @@ void Task_Upload::InternalSwap(Task_Upload* other) {
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   src_.Swap(&other->src_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   dest_.Swap(&other->dest_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  swap(tpl_, other->tpl_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Task_Upload::GetMetadata() const {
@@ -812,7 +949,7 @@ Task_Download::Task_Download(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:peony.delpoy.models.Task.Download)
+  // @@protoc_insertion_point(arena_constructor:peony.deploy.models.Task.Download)
 }
 Task_Download::Task_Download(const Task_Download& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -827,7 +964,7 @@ Task_Download::Task_Download(const Task_Download& from)
     dest_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_dest(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:peony.delpoy.models.Task.Download)
+  // @@protoc_insertion_point(copy_constructor:peony.deploy.models.Task.Download)
 }
 
 void Task_Download::SharedCtor() {
@@ -837,7 +974,7 @@ void Task_Download::SharedCtor() {
 }
 
 Task_Download::~Task_Download() {
-  // @@protoc_insertion_point(destructor:peony.delpoy.models.Task.Download)
+  // @@protoc_insertion_point(destructor:peony.deploy.models.Task.Download)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -864,7 +1001,7 @@ const Task_Download& Task_Download::default_instance() {
 
 
 void Task_Download::Clear() {
-// @@protoc_insertion_point(message_clear_start:peony.delpoy.models.Task.Download)
+// @@protoc_insertion_point(message_clear_start:peony.deploy.models.Task.Download)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -887,7 +1024,7 @@ const char* Task_Download::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_src();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Task.Download.src"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Task.Download.src"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -896,7 +1033,7 @@ const char* Task_Download::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_dest();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Task.Download.dest"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Task.Download.dest"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -924,7 +1061,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Task_Download::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:peony.delpoy.models.Task.Download)
+  // @@protoc_insertion_point(serialize_to_array_start:peony.deploy.models.Task.Download)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -933,7 +1070,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_src().data(), static_cast<int>(this->_internal_src().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Task.Download.src");
+      "peony.deploy.models.Task.Download.src");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_src(), target);
   }
@@ -943,7 +1080,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_dest().data(), static_cast<int>(this->_internal_dest().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Task.Download.dest");
+      "peony.deploy.models.Task.Download.dest");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_dest(), target);
   }
@@ -952,12 +1089,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:peony.delpoy.models.Task.Download)
+  // @@protoc_insertion_point(serialize_to_array_end:peony.deploy.models.Task.Download)
   return target;
 }
 
 size_t Task_Download::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:peony.delpoy.models.Task.Download)
+// @@protoc_insertion_point(message_byte_size_start:peony.deploy.models.Task.Download)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -988,22 +1125,22 @@ size_t Task_Download::ByteSizeLong() const {
 }
 
 void Task_Download::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:peony.delpoy.models.Task.Download)
+// @@protoc_insertion_point(generalized_merge_from_start:peony.deploy.models.Task.Download)
   GOOGLE_DCHECK_NE(&from, this);
   const Task_Download* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Task_Download>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.delpoy.models.Task.Download)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.deploy.models.Task.Download)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.delpoy.models.Task.Download)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.deploy.models.Task.Download)
     MergeFrom(*source);
   }
 }
 
 void Task_Download::MergeFrom(const Task_Download& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:peony.delpoy.models.Task.Download)
+// @@protoc_insertion_point(class_specific_merge_from_start:peony.deploy.models.Task.Download)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1018,14 +1155,14 @@ void Task_Download::MergeFrom(const Task_Download& from) {
 }
 
 void Task_Download::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:peony.delpoy.models.Task.Download)
+// @@protoc_insertion_point(generalized_copy_from_start:peony.deploy.models.Task.Download)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Task_Download::CopyFrom(const Task_Download& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:peony.delpoy.models.Task.Download)
+// @@protoc_insertion_point(class_specific_copy_from_start:peony.deploy.models.Task.Download)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1050,48 +1187,48 @@ void Task_Download::InternalSwap(Task_Download* other) {
 // ===================================================================
 
 void Task::InitAsDefaultInstance() {
-  ::peony::delpoy::models::_Task_default_instance_.shell_ = const_cast< ::peony::delpoy::models::Task_Shell*>(
-      ::peony::delpoy::models::Task_Shell::internal_default_instance());
-  ::peony::delpoy::models::_Task_default_instance_.upload_ = const_cast< ::peony::delpoy::models::Task_Upload*>(
-      ::peony::delpoy::models::Task_Upload::internal_default_instance());
-  ::peony::delpoy::models::_Task_default_instance_.download_ = const_cast< ::peony::delpoy::models::Task_Download*>(
-      ::peony::delpoy::models::Task_Download::internal_default_instance());
+  ::peony::deploy::models::_Task_default_instance_.script_ = const_cast< ::peony::deploy::models::Task_Script*>(
+      ::peony::deploy::models::Task_Script::internal_default_instance());
+  ::peony::deploy::models::_Task_default_instance_.upload_ = const_cast< ::peony::deploy::models::Task_Upload*>(
+      ::peony::deploy::models::Task_Upload::internal_default_instance());
+  ::peony::deploy::models::_Task_default_instance_.download_ = const_cast< ::peony::deploy::models::Task_Download*>(
+      ::peony::deploy::models::Task_Download::internal_default_instance());
 }
 class Task::_Internal {
  public:
-  static const ::peony::delpoy::models::Task_Shell& shell(const Task* msg);
-  static const ::peony::delpoy::models::Task_Upload& upload(const Task* msg);
-  static const ::peony::delpoy::models::Task_Download& download(const Task* msg);
+  static const ::peony::deploy::models::Task_Script& script(const Task* msg);
+  static const ::peony::deploy::models::Task_Upload& upload(const Task* msg);
+  static const ::peony::deploy::models::Task_Download& download(const Task* msg);
 };
 
-const ::peony::delpoy::models::Task_Shell&
-Task::_Internal::shell(const Task* msg) {
-  return *msg->payload_.shell_;
+const ::peony::deploy::models::Task_Script&
+Task::_Internal::script(const Task* msg) {
+  return *msg->payload_.script_;
 }
-const ::peony::delpoy::models::Task_Upload&
+const ::peony::deploy::models::Task_Upload&
 Task::_Internal::upload(const Task* msg) {
   return *msg->payload_.upload_;
 }
-const ::peony::delpoy::models::Task_Download&
+const ::peony::deploy::models::Task_Download&
 Task::_Internal::download(const Task* msg) {
   return *msg->payload_.download_;
 }
-void Task::set_allocated_shell(::peony::delpoy::models::Task_Shell* shell) {
+void Task::set_allocated_script(::peony::deploy::models::Task_Script* script) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_payload();
-  if (shell) {
+  if (script) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(shell);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(script);
     if (message_arena != submessage_arena) {
-      shell = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, shell, submessage_arena);
+      script = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, script, submessage_arena);
     }
-    set_has_shell();
-    payload_.shell_ = shell;
+    set_has_script();
+    payload_.script_ = script;
   }
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Task.shell)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.script)
 }
-void Task::set_allocated_upload(::peony::delpoy::models::Task_Upload* upload) {
+void Task::set_allocated_upload(::peony::deploy::models::Task_Upload* upload) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_payload();
   if (upload) {
@@ -1104,9 +1241,9 @@ void Task::set_allocated_upload(::peony::delpoy::models::Task_Upload* upload) {
     set_has_upload();
     payload_.upload_ = upload;
   }
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Task.upload)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.upload)
 }
-void Task::set_allocated_download(::peony::delpoy::models::Task_Download* download) {
+void Task::set_allocated_download(::peony::deploy::models::Task_Download* download) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_payload();
   if (download) {
@@ -1119,7 +1256,7 @@ void Task::set_allocated_download(::peony::delpoy::models::Task_Download* downlo
     set_has_download();
     payload_.download_ = download;
   }
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Task.download)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.download)
 }
 Task::Task(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
@@ -1127,7 +1264,7 @@ Task::Task(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   hosts_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:peony.delpoy.models.Task)
+  // @@protoc_insertion_point(arena_constructor:peony.deploy.models.Task)
 }
 Task::Task(const Task& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -1141,23 +1278,23 @@ Task::Task(const Task& from)
   }
   clear_has_payload();
   switch (from.payload_case()) {
-    case kShell: {
-      _internal_mutable_shell()->::peony::delpoy::models::Task_Shell::MergeFrom(from._internal_shell());
+    case kScript: {
+      _internal_mutable_script()->::peony::deploy::models::Task_Script::MergeFrom(from._internal_script());
       break;
     }
     case kUpload: {
-      _internal_mutable_upload()->::peony::delpoy::models::Task_Upload::MergeFrom(from._internal_upload());
+      _internal_mutable_upload()->::peony::deploy::models::Task_Upload::MergeFrom(from._internal_upload());
       break;
     }
     case kDownload: {
-      _internal_mutable_download()->::peony::delpoy::models::Task_Download::MergeFrom(from._internal_download());
+      _internal_mutable_download()->::peony::deploy::models::Task_Download::MergeFrom(from._internal_download());
       break;
     }
     case PAYLOAD_NOT_SET: {
       break;
     }
   }
-  // @@protoc_insertion_point(copy_constructor:peony.delpoy.models.Task)
+  // @@protoc_insertion_point(copy_constructor:peony.deploy.models.Task)
 }
 
 void Task::SharedCtor() {
@@ -1167,7 +1304,7 @@ void Task::SharedCtor() {
 }
 
 Task::~Task() {
-  // @@protoc_insertion_point(destructor:peony.delpoy.models.Task)
+  // @@protoc_insertion_point(destructor:peony.deploy.models.Task)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1196,11 +1333,11 @@ const Task& Task::default_instance() {
 
 
 void Task::clear_payload() {
-// @@protoc_insertion_point(one_of_clear_start:peony.delpoy.models.Task)
+// @@protoc_insertion_point(one_of_clear_start:peony.deploy.models.Task)
   switch (payload_case()) {
-    case kShell: {
+    case kScript: {
       if (GetArena() == nullptr) {
-        delete payload_.shell_;
+        delete payload_.script_;
       }
       break;
     }
@@ -1225,7 +1362,7 @@ void Task::clear_payload() {
 
 
 void Task::Clear() {
-// @@protoc_insertion_point(message_clear_start:peony.delpoy.models.Task)
+// @@protoc_insertion_point(message_clear_start:peony.deploy.models.Task)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1250,25 +1387,25 @@ const char* Task::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Task.name"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Task.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .peony.delpoy.models.Task.Shell shell = 2;
+      // .peony.deploy.models.Task.Script script = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_shell(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_script(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .peony.delpoy.models.Task.Upload upload = 3;
+      // .peony.deploy.models.Task.Upload upload = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_upload(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .peony.delpoy.models.Task.Download download = 4;
+      // .peony.deploy.models.Task.Download download = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_download(), ptr);
@@ -1283,7 +1420,7 @@ const char* Task::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
             ptr += 1;
             auto str = _internal_add_groups();
             ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Task.groups"));
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Task.groups"));
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
@@ -1297,7 +1434,7 @@ const char* Task::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
             ptr += 1;
             auto str = _internal_add_hosts();
             ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Task.hosts"));
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Task.hosts"));
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
@@ -1327,7 +1464,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Task::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:peony.delpoy.models.Task)
+  // @@protoc_insertion_point(serialize_to_array_start:peony.deploy.models.Task)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1336,20 +1473,20 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Task.name");
+      "peony.deploy.models.Task.name");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_name(), target);
   }
 
-  // .peony.delpoy.models.Task.Shell shell = 2;
-  if (_internal_has_shell()) {
+  // .peony.deploy.models.Task.Script script = 2;
+  if (_internal_has_script()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::shell(this), target, stream);
+        2, _Internal::script(this), target, stream);
   }
 
-  // .peony.delpoy.models.Task.Upload upload = 3;
+  // .peony.deploy.models.Task.Upload upload = 3;
   if (_internal_has_upload()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -1357,7 +1494,7 @@ failure:
         3, _Internal::upload(this), target, stream);
   }
 
-  // .peony.delpoy.models.Task.Download download = 4;
+  // .peony.deploy.models.Task.Download download = 4;
   if (_internal_has_download()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -1371,7 +1508,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       s.data(), static_cast<int>(s.length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Task.groups");
+      "peony.deploy.models.Task.groups");
     target = stream->WriteString(5, s, target);
   }
 
@@ -1381,7 +1518,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       s.data(), static_cast<int>(s.length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Task.hosts");
+      "peony.deploy.models.Task.hosts");
     target = stream->WriteString(6, s, target);
   }
 
@@ -1389,12 +1526,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:peony.delpoy.models.Task)
+  // @@protoc_insertion_point(serialize_to_array_end:peony.deploy.models.Task)
   return target;
 }
 
 size_t Task::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:peony.delpoy.models.Task)
+// @@protoc_insertion_point(message_byte_size_start:peony.deploy.models.Task)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1425,21 +1562,21 @@ size_t Task::ByteSizeLong() const {
   }
 
   switch (payload_case()) {
-    // .peony.delpoy.models.Task.Shell shell = 2;
-    case kShell: {
+    // .peony.deploy.models.Task.Script script = 2;
+    case kScript: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *payload_.shell_);
+          *payload_.script_);
       break;
     }
-    // .peony.delpoy.models.Task.Upload upload = 3;
+    // .peony.deploy.models.Task.Upload upload = 3;
     case kUpload: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *payload_.upload_);
       break;
     }
-    // .peony.delpoy.models.Task.Download download = 4;
+    // .peony.deploy.models.Task.Download download = 4;
     case kDownload: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1460,22 +1597,22 @@ size_t Task::ByteSizeLong() const {
 }
 
 void Task::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:peony.delpoy.models.Task)
+// @@protoc_insertion_point(generalized_merge_from_start:peony.deploy.models.Task)
   GOOGLE_DCHECK_NE(&from, this);
   const Task* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Task>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.delpoy.models.Task)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.deploy.models.Task)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.delpoy.models.Task)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.deploy.models.Task)
     MergeFrom(*source);
   }
 }
 
 void Task::MergeFrom(const Task& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:peony.delpoy.models.Task)
+// @@protoc_insertion_point(class_specific_merge_from_start:peony.deploy.models.Task)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1487,16 +1624,16 @@ void Task::MergeFrom(const Task& from) {
     _internal_set_name(from._internal_name());
   }
   switch (from.payload_case()) {
-    case kShell: {
-      _internal_mutable_shell()->::peony::delpoy::models::Task_Shell::MergeFrom(from._internal_shell());
+    case kScript: {
+      _internal_mutable_script()->::peony::deploy::models::Task_Script::MergeFrom(from._internal_script());
       break;
     }
     case kUpload: {
-      _internal_mutable_upload()->::peony::delpoy::models::Task_Upload::MergeFrom(from._internal_upload());
+      _internal_mutable_upload()->::peony::deploy::models::Task_Upload::MergeFrom(from._internal_upload());
       break;
     }
     case kDownload: {
-      _internal_mutable_download()->::peony::delpoy::models::Task_Download::MergeFrom(from._internal_download());
+      _internal_mutable_download()->::peony::deploy::models::Task_Download::MergeFrom(from._internal_download());
       break;
     }
     case PAYLOAD_NOT_SET: {
@@ -1506,14 +1643,14 @@ void Task::MergeFrom(const Task& from) {
 }
 
 void Task::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:peony.delpoy.models.Task)
+// @@protoc_insertion_point(generalized_copy_from_start:peony.deploy.models.Task)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Task::CopyFrom(const Task& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:peony.delpoy.models.Task)
+// @@protoc_insertion_point(class_specific_copy_from_start:peony.deploy.models.Task)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1551,7 +1688,7 @@ Recipe::Recipe(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   tasks_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:peony.delpoy.models.Recipe)
+  // @@protoc_insertion_point(arena_constructor:peony.deploy.models.Recipe)
 }
 Recipe::Recipe(const Recipe& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -1562,7 +1699,7 @@ Recipe::Recipe(const Recipe& from)
     name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:peony.delpoy.models.Recipe)
+  // @@protoc_insertion_point(copy_constructor:peony.deploy.models.Recipe)
 }
 
 void Recipe::SharedCtor() {
@@ -1571,7 +1708,7 @@ void Recipe::SharedCtor() {
 }
 
 Recipe::~Recipe() {
-  // @@protoc_insertion_point(destructor:peony.delpoy.models.Recipe)
+  // @@protoc_insertion_point(destructor:peony.deploy.models.Recipe)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1597,7 +1734,7 @@ const Recipe& Recipe::default_instance() {
 
 
 void Recipe::Clear() {
-// @@protoc_insertion_point(message_clear_start:peony.delpoy.models.Recipe)
+// @@protoc_insertion_point(message_clear_start:peony.deploy.models.Recipe)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1620,11 +1757,11 @@ const char* Recipe::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Recipe.name"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Recipe.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .peony.delpoy.models.Task tasks = 2;
+      // repeated .peony.deploy.models.Task tasks = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr -= 1;
@@ -1660,7 +1797,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Recipe::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:peony.delpoy.models.Recipe)
+  // @@protoc_insertion_point(serialize_to_array_start:peony.deploy.models.Recipe)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1669,12 +1806,12 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Recipe.name");
+      "peony.deploy.models.Recipe.name");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_name(), target);
   }
 
-  // repeated .peony.delpoy.models.Task tasks = 2;
+  // repeated .peony.deploy.models.Task tasks = 2;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_tasks_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -1686,19 +1823,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:peony.delpoy.models.Recipe)
+  // @@protoc_insertion_point(serialize_to_array_end:peony.deploy.models.Recipe)
   return target;
 }
 
 size_t Recipe::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:peony.delpoy.models.Recipe)
+// @@protoc_insertion_point(message_byte_size_start:peony.deploy.models.Recipe)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .peony.delpoy.models.Task tasks = 2;
+  // repeated .peony.deploy.models.Task tasks = 2;
   total_size += 1UL * this->_internal_tasks_size();
   for (const auto& msg : this->tasks_) {
     total_size +=
@@ -1722,22 +1859,22 @@ size_t Recipe::ByteSizeLong() const {
 }
 
 void Recipe::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:peony.delpoy.models.Recipe)
+// @@protoc_insertion_point(generalized_merge_from_start:peony.deploy.models.Recipe)
   GOOGLE_DCHECK_NE(&from, this);
   const Recipe* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Recipe>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.delpoy.models.Recipe)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.deploy.models.Recipe)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.delpoy.models.Recipe)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.deploy.models.Recipe)
     MergeFrom(*source);
   }
 }
 
 void Recipe::MergeFrom(const Recipe& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:peony.delpoy.models.Recipe)
+// @@protoc_insertion_point(class_specific_merge_from_start:peony.deploy.models.Recipe)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1750,14 +1887,14 @@ void Recipe::MergeFrom(const Recipe& from) {
 }
 
 void Recipe::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:peony.delpoy.models.Recipe)
+// @@protoc_insertion_point(generalized_copy_from_start:peony.deploy.models.Recipe)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Recipe::CopyFrom(const Recipe& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:peony.delpoy.models.Recipe)
+// @@protoc_insertion_point(class_specific_copy_from_start:peony.deploy.models.Recipe)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1781,6 +1918,23 @@ void Recipe::InternalSwap(Recipe* other) {
 
 // ===================================================================
 
+Ssh_EnvEntry_DoNotUse::Ssh_EnvEntry_DoNotUse() {}
+Ssh_EnvEntry_DoNotUse::Ssh_EnvEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Ssh_EnvEntry_DoNotUse::MergeFrom(const Ssh_EnvEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata Ssh_EnvEntry_DoNotUse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+void Ssh_EnvEntry_DoNotUse::MergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::Message& other) {
+  ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom(other);
+}
+
+
+// ===================================================================
+
 void Ssh::InitAsDefaultInstance() {
 }
 class Ssh::_Internal {
@@ -1788,14 +1942,16 @@ class Ssh::_Internal {
 };
 
 Ssh::Ssh(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  env_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:peony.delpoy.models.Ssh)
+  // @@protoc_insertion_point(arena_constructor:peony.deploy.models.Ssh)
 }
 Ssh::Ssh(const Ssh& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  env_.MergeFrom(from.env_);
   host_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_host().empty()) {
     host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_host(),
@@ -1812,7 +1968,7 @@ Ssh::Ssh(const Ssh& from)
       GetArena());
   }
   port_ = from.port_;
-  // @@protoc_insertion_point(copy_constructor:peony.delpoy.models.Ssh)
+  // @@protoc_insertion_point(copy_constructor:peony.deploy.models.Ssh)
 }
 
 void Ssh::SharedCtor() {
@@ -1824,7 +1980,7 @@ void Ssh::SharedCtor() {
 }
 
 Ssh::~Ssh() {
-  // @@protoc_insertion_point(destructor:peony.delpoy.models.Ssh)
+  // @@protoc_insertion_point(destructor:peony.deploy.models.Ssh)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1852,11 +2008,12 @@ const Ssh& Ssh::default_instance() {
 
 
 void Ssh::Clear() {
-// @@protoc_insertion_point(message_clear_start:peony.delpoy.models.Ssh)
+// @@protoc_insertion_point(message_clear_start:peony.deploy.models.Ssh)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  env_.Clear();
   host_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   user_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   key_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
@@ -1877,7 +2034,7 @@ const char* Ssh::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::intern
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_host();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Ssh.host"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Ssh.host"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1893,7 +2050,7 @@ const char* Ssh::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::intern
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           auto str = _internal_mutable_user();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Ssh.user"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Ssh.user"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1902,8 +2059,20 @@ const char* Ssh::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::intern
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           auto str = _internal_mutable_key();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Ssh.key"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Ssh.key"));
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // map<string, string> env = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&env_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -1930,7 +2099,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Ssh::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:peony.delpoy.models.Ssh)
+  // @@protoc_insertion_point(serialize_to_array_start:peony.deploy.models.Ssh)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1939,7 +2108,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_host().data(), static_cast<int>(this->_internal_host().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Ssh.host");
+      "peony.deploy.models.Ssh.host");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_host(), target);
   }
@@ -1955,7 +2124,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_user().data(), static_cast<int>(this->_internal_user().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Ssh.user");
+      "peony.deploy.models.Ssh.user");
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_user(), target);
   }
@@ -1965,26 +2134,80 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_key().data(), static_cast<int>(this->_internal_key().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Ssh.key");
+      "peony.deploy.models.Ssh.key");
     target = stream->WriteStringMaybeAliased(
         4, this->_internal_key(), target);
+  }
+
+  // map<string, string> env = 5;
+  if (!this->_internal_env().empty()) {
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "peony.deploy.models.Ssh.EnvEntry.key");
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), static_cast<int>(p->second.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "peony.deploy.models.Ssh.EnvEntry.value");
+      }
+    };
+
+    if (stream->IsSerializationDeterministic() &&
+        this->_internal_env().size() > 1) {
+      ::std::unique_ptr<SortItem[]> items(
+          new SortItem[this->_internal_env().size()]);
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::size_type size_type;
+      size_type n = 0;
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+          it = this->_internal_env().begin();
+          it != this->_internal_env().end(); ++it, ++n) {
+        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
+      for (size_type i = 0; i < n; i++) {
+        target = Ssh_EnvEntry_DoNotUse::Funcs::InternalSerialize(5, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+      }
+    } else {
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+          it = this->_internal_env().begin();
+          it != this->_internal_env().end(); ++it) {
+        target = Ssh_EnvEntry_DoNotUse::Funcs::InternalSerialize(5, it->first, it->second, target, stream);
+        Utf8Check::Check(&(*it));
+      }
+    }
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:peony.delpoy.models.Ssh)
+  // @@protoc_insertion_point(serialize_to_array_end:peony.deploy.models.Ssh)
   return target;
 }
 
 size_t Ssh::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:peony.delpoy.models.Ssh)
+// @@protoc_insertion_point(message_byte_size_start:peony.deploy.models.Ssh)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // map<string, string> env = 5;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_env_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+      it = this->_internal_env().begin();
+      it != this->_internal_env().end(); ++it) {
+    total_size += Ssh_EnvEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
 
   // string host = 1;
   if (this->host().size() > 0) {
@@ -2024,27 +2247,28 @@ size_t Ssh::ByteSizeLong() const {
 }
 
 void Ssh::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:peony.delpoy.models.Ssh)
+// @@protoc_insertion_point(generalized_merge_from_start:peony.deploy.models.Ssh)
   GOOGLE_DCHECK_NE(&from, this);
   const Ssh* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Ssh>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.delpoy.models.Ssh)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.deploy.models.Ssh)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.delpoy.models.Ssh)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.deploy.models.Ssh)
     MergeFrom(*source);
   }
 }
 
 void Ssh::MergeFrom(const Ssh& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:peony.delpoy.models.Ssh)
+// @@protoc_insertion_point(class_specific_merge_from_start:peony.deploy.models.Ssh)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  env_.MergeFrom(from.env_);
   if (from.host().size() > 0) {
     _internal_set_host(from._internal_host());
   }
@@ -2060,14 +2284,14 @@ void Ssh::MergeFrom(const Ssh& from) {
 }
 
 void Ssh::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:peony.delpoy.models.Ssh)
+// @@protoc_insertion_point(generalized_copy_from_start:peony.deploy.models.Ssh)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Ssh::CopyFrom(const Ssh& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:peony.delpoy.models.Ssh)
+// @@protoc_insertion_point(class_specific_copy_from_start:peony.deploy.models.Ssh)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2080,6 +2304,7 @@ bool Ssh::IsInitialized() const {
 void Ssh::InternalSwap(Ssh* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  env_.Swap(&other->env_);
   host_.Swap(&other->host_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   user_.Swap(&other->user_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   key_.Swap(&other->key_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
@@ -2093,6 +2318,23 @@ void Ssh::InternalSwap(Ssh* other) {
 
 // ===================================================================
 
+Group_EnvEntry_DoNotUse::Group_EnvEntry_DoNotUse() {}
+Group_EnvEntry_DoNotUse::Group_EnvEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Group_EnvEntry_DoNotUse::MergeFrom(const Group_EnvEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata Group_EnvEntry_DoNotUse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+void Group_EnvEntry_DoNotUse::MergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::Message& other) {
+  ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom(other);
+}
+
+
+// ===================================================================
+
 void Group::InitAsDefaultInstance() {
 }
 class Group::_Internal {
@@ -2101,21 +2343,23 @@ class Group::_Internal {
 
 Group::Group(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  hosts_(arena) {
+  hosts_(arena),
+  env_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:peony.delpoy.models.Group)
+  // @@protoc_insertion_point(arena_constructor:peony.deploy.models.Group)
 }
 Group::Group(const Group& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       hosts_(from.hosts_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  env_.MergeFrom(from.env_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_name().empty()) {
     name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:peony.delpoy.models.Group)
+  // @@protoc_insertion_point(copy_constructor:peony.deploy.models.Group)
 }
 
 void Group::SharedCtor() {
@@ -2124,7 +2368,7 @@ void Group::SharedCtor() {
 }
 
 Group::~Group() {
-  // @@protoc_insertion_point(destructor:peony.delpoy.models.Group)
+  // @@protoc_insertion_point(destructor:peony.deploy.models.Group)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -2150,12 +2394,13 @@ const Group& Group::default_instance() {
 
 
 void Group::Clear() {
-// @@protoc_insertion_point(message_clear_start:peony.delpoy.models.Group)
+// @@protoc_insertion_point(message_clear_start:peony.deploy.models.Group)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   hosts_.Clear();
+  env_.Clear();
   name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -2173,7 +2418,7 @@ const char* Group::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Group.name"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Group.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2185,270 +2430,19 @@ const char* Group::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
             ptr += 1;
             auto str = _internal_add_hosts();
             ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Group.hosts"));
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Group.hosts"));
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* Group::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:peony.delpoy.models.Group)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Group.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
-  }
-
-  // repeated string hosts = 2;
-  for (int i = 0, n = this->_internal_hosts_size(); i < n; i++) {
-    const auto& s = this->_internal_hosts(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Group.hosts");
-    target = stream->WriteString(2, s, target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:peony.delpoy.models.Group)
-  return target;
-}
-
-size_t Group::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:peony.delpoy.models.Group)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated string hosts = 2;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(hosts_.size());
-  for (int i = 0, n = hosts_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      hosts_.Get(i));
-  }
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void Group::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:peony.delpoy.models.Group)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Group* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Group>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.delpoy.models.Group)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.delpoy.models.Group)
-    MergeFrom(*source);
-  }
-}
-
-void Group::MergeFrom(const Group& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:peony.delpoy.models.Group)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  hosts_.MergeFrom(from.hosts_);
-  if (from.name().size() > 0) {
-    _internal_set_name(from._internal_name());
-  }
-}
-
-void Group::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:peony.delpoy.models.Group)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Group::CopyFrom(const Group& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:peony.delpoy.models.Group)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Group::IsInitialized() const {
-  return true;
-}
-
-void Group::InternalSwap(Group* other) {
-  using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  hosts_.InternalSwap(&other->hosts_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata Group::GetMetadata() const {
-  return GetMetadataStatic();
-}
-
-
-// ===================================================================
-
-void Inventory::InitAsDefaultInstance() {
-}
-class Inventory::_Internal {
- public:
-};
-
-Inventory::Inventory(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  groups_(arena),
-  hosts_(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:peony.delpoy.models.Inventory)
-}
-Inventory::Inventory(const Inventory& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      groups_(from.groups_),
-      hosts_(from.hosts_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_name().empty()) {
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
-      GetArena());
-  }
-  // @@protoc_insertion_point(copy_constructor:peony.delpoy.models.Inventory)
-}
-
-void Inventory::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Inventory_deploy_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-Inventory::~Inventory() {
-  // @@protoc_insertion_point(destructor:peony.delpoy.models.Inventory)
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-void Inventory::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-void Inventory::ArenaDtor(void* object) {
-  Inventory* _this = reinterpret_cast< Inventory* >(object);
-  (void)_this;
-}
-void Inventory::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void Inventory::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const Inventory& Inventory::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Inventory_deploy_2eproto.base);
-  return *internal_default_instance();
-}
-
-
-void Inventory::Clear() {
-// @@protoc_insertion_point(message_clear_start:peony.delpoy.models.Inventory)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  groups_.Clear();
-  hosts_.Clear();
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* Inventory::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
-      // string name = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Inventory.name"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated string groups = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_groups();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Inventory.groups"));
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // repeated string hosts = 3;
+      // map<string, string> env = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
-            auto str = _internal_add_hosts();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Inventory.hosts"));
+            ptr = ctx->ParseMessage(&env_, ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
@@ -2476,9 +2470,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Inventory::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Group::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:peony.delpoy.models.Inventory)
+  // @@protoc_insertion_point(serialize_to_array_start:peony.deploy.models.Group)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2487,61 +2481,97 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Inventory.name");
+      "peony.deploy.models.Group.name");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_name(), target);
   }
 
-  // repeated string groups = 2;
-  for (int i = 0, n = this->_internal_groups_size(); i < n; i++) {
-    const auto& s = this->_internal_groups(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Inventory.groups");
-    target = stream->WriteString(2, s, target);
-  }
-
-  // repeated string hosts = 3;
+  // repeated string hosts = 2;
   for (int i = 0, n = this->_internal_hosts_size(); i < n; i++) {
     const auto& s = this->_internal_hosts(i);
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       s.data(), static_cast<int>(s.length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Inventory.hosts");
-    target = stream->WriteString(3, s, target);
+      "peony.deploy.models.Group.hosts");
+    target = stream->WriteString(2, s, target);
+  }
+
+  // map<string, string> env = 3;
+  if (!this->_internal_env().empty()) {
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "peony.deploy.models.Group.EnvEntry.key");
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), static_cast<int>(p->second.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "peony.deploy.models.Group.EnvEntry.value");
+      }
+    };
+
+    if (stream->IsSerializationDeterministic() &&
+        this->_internal_env().size() > 1) {
+      ::std::unique_ptr<SortItem[]> items(
+          new SortItem[this->_internal_env().size()]);
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::size_type size_type;
+      size_type n = 0;
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+          it = this->_internal_env().begin();
+          it != this->_internal_env().end(); ++it, ++n) {
+        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
+      for (size_type i = 0; i < n; i++) {
+        target = Group_EnvEntry_DoNotUse::Funcs::InternalSerialize(3, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+      }
+    } else {
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+          it = this->_internal_env().begin();
+          it != this->_internal_env().end(); ++it) {
+        target = Group_EnvEntry_DoNotUse::Funcs::InternalSerialize(3, it->first, it->second, target, stream);
+        Utf8Check::Check(&(*it));
+      }
+    }
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:peony.delpoy.models.Inventory)
+  // @@protoc_insertion_point(serialize_to_array_end:peony.deploy.models.Group)
   return target;
 }
 
-size_t Inventory::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:peony.delpoy.models.Inventory)
+size_t Group::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:peony.deploy.models.Group)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated string groups = 2;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(groups_.size());
-  for (int i = 0, n = groups_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      groups_.Get(i));
-  }
-
-  // repeated string hosts = 3;
+  // repeated string hosts = 2;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(hosts_.size());
   for (int i = 0, n = hosts_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       hosts_.Get(i));
+  }
+
+  // map<string, string> env = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_env_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+      it = this->_internal_env().begin();
+      it != this->_internal_env().end(); ++it) {
+    total_size += Group_EnvEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
   // string name = 1;
@@ -2560,173 +2590,159 @@ size_t Inventory::ByteSizeLong() const {
   return total_size;
 }
 
-void Inventory::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:peony.delpoy.models.Inventory)
+void Group::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:peony.deploy.models.Group)
   GOOGLE_DCHECK_NE(&from, this);
-  const Inventory* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Inventory>(
+  const Group* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Group>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.delpoy.models.Inventory)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.deploy.models.Group)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.delpoy.models.Inventory)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.deploy.models.Group)
     MergeFrom(*source);
   }
 }
 
-void Inventory::MergeFrom(const Inventory& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:peony.delpoy.models.Inventory)
+void Group::MergeFrom(const Group& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:peony.deploy.models.Group)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  groups_.MergeFrom(from.groups_);
   hosts_.MergeFrom(from.hosts_);
+  env_.MergeFrom(from.env_);
   if (from.name().size() > 0) {
     _internal_set_name(from._internal_name());
   }
 }
 
-void Inventory::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:peony.delpoy.models.Inventory)
+void Group::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:peony.deploy.models.Group)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Inventory::CopyFrom(const Inventory& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:peony.delpoy.models.Inventory)
+void Group::CopyFrom(const Group& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:peony.deploy.models.Group)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Inventory::IsInitialized() const {
+bool Group::IsInitialized() const {
   return true;
 }
 
-void Inventory::InternalSwap(Inventory* other) {
+void Group::InternalSwap(Group* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  groups_.InternalSwap(&other->groups_);
   hosts_.InternalSwap(&other->hosts_);
+  env_.Swap(&other->env_);
   name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Inventory::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Group::GetMetadata() const {
   return GetMetadataStatic();
 }
 
 
 // ===================================================================
 
-void Log::InitAsDefaultInstance() {
+Inventory_EnvEntry_DoNotUse::Inventory_EnvEntry_DoNotUse() {}
+Inventory_EnvEntry_DoNotUse::Inventory_EnvEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Inventory_EnvEntry_DoNotUse::MergeFrom(const Inventory_EnvEntry_DoNotUse& other) {
+  MergeFromInternal(other);
 }
-class Log::_Internal {
+::PROTOBUF_NAMESPACE_ID::Metadata Inventory_EnvEntry_DoNotUse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+void Inventory_EnvEntry_DoNotUse::MergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::Message& other) {
+  ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom(other);
+}
+
+
+// ===================================================================
+
+void Inventory::InitAsDefaultInstance() {
+}
+class Inventory::_Internal {
  public:
 };
 
-Log::Log(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+Inventory::Inventory(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  groups_(arena),
+  hosts_(arena),
+  env_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:peony.delpoy.models.Log)
+  // @@protoc_insertion_point(arena_constructor:peony.deploy.models.Inventory)
 }
-Log::Log(const Log& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+Inventory::Inventory(const Inventory& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      groups_(from.groups_),
+      hosts_(from.hosts_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  inventory_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_inventory().empty()) {
-    inventory_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_inventory(),
+  env_.MergeFrom(from.env_);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_name().empty()) {
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
       GetArena());
   }
-  group_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_group().empty()) {
-    group_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_group(),
-      GetArena());
-  }
-  user_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_user().empty()) {
-    user_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_user(),
-      GetArena());
-  }
-  host_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_host().empty()) {
-    host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_host(),
-      GetArena());
-  }
-  reacipe_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_reacipe().empty()) {
-    reacipe_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_reacipe(),
-      GetArena());
-  }
-  task_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_task().empty()) {
-    task_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_task(),
-      GetArena());
-  }
-  // @@protoc_insertion_point(copy_constructor:peony.delpoy.models.Log)
+  // @@protoc_insertion_point(copy_constructor:peony.deploy.models.Inventory)
 }
 
-void Log::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Log_deploy_2eproto.base);
-  inventory_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  group_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  user_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  host_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  reacipe_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  task_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void Inventory::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Inventory_deploy_2eproto.base);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-Log::~Log() {
-  // @@protoc_insertion_point(destructor:peony.delpoy.models.Log)
+Inventory::~Inventory() {
+  // @@protoc_insertion_point(destructor:peony.deploy.models.Inventory)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Log::SharedDtor() {
+void Inventory::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  inventory_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  group_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  user_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  host_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  reacipe_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  task_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void Log::ArenaDtor(void* object) {
-  Log* _this = reinterpret_cast< Log* >(object);
+void Inventory::ArenaDtor(void* object) {
+  Inventory* _this = reinterpret_cast< Inventory* >(object);
   (void)_this;
 }
-void Log::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Inventory::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void Log::SetCachedSize(int size) const {
+void Inventory::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Log& Log::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Log_deploy_2eproto.base);
+const Inventory& Inventory::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Inventory_deploy_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void Log::Clear() {
-// @@protoc_insertion_point(message_clear_start:peony.delpoy.models.Log)
+void Inventory::Clear() {
+// @@protoc_insertion_point(message_clear_start:peony.deploy.models.Inventory)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  inventory_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  group_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  user_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  host_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  reacipe_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  task_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  groups_.Clear();
+  hosts_.Clear();
+  env_.Clear();
+  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Log::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Inventory::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
@@ -2734,58 +2750,51 @@ const char* Log::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::intern
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // string inventory = 1;
+      // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_inventory();
+          auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Log.inventory"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Inventory.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string group = 2;
+      // repeated .peony.deploy.models.Group groups = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_group();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Log.group"));
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_groups(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else goto handle_unusual;
         continue;
-      // string user = 3;
+      // repeated string hosts = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          auto str = _internal_mutable_user();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Log.user"));
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_hosts();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.deploy.models.Inventory.hosts"));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
-      // string host = 4;
+      // map<string, string> env = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          auto str = _internal_mutable_host();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Log.host"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string reacipe = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          auto str = _internal_mutable_reacipe();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Log.reacipe"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string task = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          auto str = _internal_mutable_task();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "peony.delpoy.models.Log.task"));
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&env_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -2810,128 +2819,130 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Log::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Inventory::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:peony.delpoy.models.Log)
+  // @@protoc_insertion_point(serialize_to_array_start:peony.deploy.models.Inventory)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string inventory = 1;
-  if (this->inventory().size() > 0) {
+  // string name = 1;
+  if (this->name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_inventory().data(), static_cast<int>(this->_internal_inventory().length()),
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Log.inventory");
+      "peony.deploy.models.Inventory.name");
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_inventory(), target);
+        1, this->_internal_name(), target);
   }
 
-  // string group = 2;
-  if (this->group().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_group().data(), static_cast<int>(this->_internal_group().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Log.group");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_group(), target);
+  // repeated .peony.deploy.models.Group groups = 2;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_groups_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, this->_internal_groups(i), target, stream);
   }
 
-  // string user = 3;
-  if (this->user().size() > 0) {
+  // repeated string hosts = 3;
+  for (int i = 0, n = this->_internal_hosts_size(); i < n; i++) {
+    const auto& s = this->_internal_hosts(i);
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_user().data(), static_cast<int>(this->_internal_user().length()),
+      s.data(), static_cast<int>(s.length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Log.user");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_user(), target);
+      "peony.deploy.models.Inventory.hosts");
+    target = stream->WriteString(3, s, target);
   }
 
-  // string host = 4;
-  if (this->host().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_host().data(), static_cast<int>(this->_internal_host().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Log.host");
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_host(), target);
-  }
+  // map<string, string> env = 4;
+  if (!this->_internal_env().empty()) {
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "peony.deploy.models.Inventory.EnvEntry.key");
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), static_cast<int>(p->second.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "peony.deploy.models.Inventory.EnvEntry.value");
+      }
+    };
 
-  // string reacipe = 5;
-  if (this->reacipe().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_reacipe().data(), static_cast<int>(this->_internal_reacipe().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Log.reacipe");
-    target = stream->WriteStringMaybeAliased(
-        5, this->_internal_reacipe(), target);
-  }
-
-  // string task = 6;
-  if (this->task().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_task().data(), static_cast<int>(this->_internal_task().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "peony.delpoy.models.Log.task");
-    target = stream->WriteStringMaybeAliased(
-        6, this->_internal_task(), target);
+    if (stream->IsSerializationDeterministic() &&
+        this->_internal_env().size() > 1) {
+      ::std::unique_ptr<SortItem[]> items(
+          new SortItem[this->_internal_env().size()]);
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::size_type size_type;
+      size_type n = 0;
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+          it = this->_internal_env().begin();
+          it != this->_internal_env().end(); ++it, ++n) {
+        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
+      for (size_type i = 0; i < n; i++) {
+        target = Inventory_EnvEntry_DoNotUse::Funcs::InternalSerialize(4, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+      }
+    } else {
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+          it = this->_internal_env().begin();
+          it != this->_internal_env().end(); ++it) {
+        target = Inventory_EnvEntry_DoNotUse::Funcs::InternalSerialize(4, it->first, it->second, target, stream);
+        Utf8Check::Check(&(*it));
+      }
+    }
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:peony.delpoy.models.Log)
+  // @@protoc_insertion_point(serialize_to_array_end:peony.deploy.models.Inventory)
   return target;
 }
 
-size_t Log::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:peony.delpoy.models.Log)
+size_t Inventory::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:peony.deploy.models.Inventory)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string inventory = 1;
-  if (this->inventory().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_inventory());
+  // repeated .peony.deploy.models.Group groups = 2;
+  total_size += 1UL * this->_internal_groups_size();
+  for (const auto& msg : this->groups_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // string group = 2;
-  if (this->group().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_group());
+  // repeated string hosts = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(hosts_.size());
+  for (int i = 0, n = hosts_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      hosts_.Get(i));
   }
 
-  // string user = 3;
-  if (this->user().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_user());
+  // map<string, string> env = 4;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_env_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+      it = this->_internal_env().begin();
+      it != this->_internal_env().end(); ++it) {
+    total_size += Inventory_EnvEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
-  // string host = 4;
-  if (this->host().size() > 0) {
+  // string name = 1;
+  if (this->name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_host());
-  }
-
-  // string reacipe = 5;
-  if (this->reacipe().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_reacipe());
-  }
-
-  // string task = 6;
-  if (this->task().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_task());
+        this->_internal_name());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2943,113 +2954,105 @@ size_t Log::ByteSizeLong() const {
   return total_size;
 }
 
-void Log::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:peony.delpoy.models.Log)
+void Inventory::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:peony.deploy.models.Inventory)
   GOOGLE_DCHECK_NE(&from, this);
-  const Log* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Log>(
+  const Inventory* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Inventory>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.delpoy.models.Log)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:peony.deploy.models.Inventory)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.delpoy.models.Log)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:peony.deploy.models.Inventory)
     MergeFrom(*source);
   }
 }
 
-void Log::MergeFrom(const Log& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:peony.delpoy.models.Log)
+void Inventory::MergeFrom(const Inventory& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:peony.deploy.models.Inventory)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.inventory().size() > 0) {
-    _internal_set_inventory(from._internal_inventory());
-  }
-  if (from.group().size() > 0) {
-    _internal_set_group(from._internal_group());
-  }
-  if (from.user().size() > 0) {
-    _internal_set_user(from._internal_user());
-  }
-  if (from.host().size() > 0) {
-    _internal_set_host(from._internal_host());
-  }
-  if (from.reacipe().size() > 0) {
-    _internal_set_reacipe(from._internal_reacipe());
-  }
-  if (from.task().size() > 0) {
-    _internal_set_task(from._internal_task());
+  groups_.MergeFrom(from.groups_);
+  hosts_.MergeFrom(from.hosts_);
+  env_.MergeFrom(from.env_);
+  if (from.name().size() > 0) {
+    _internal_set_name(from._internal_name());
   }
 }
 
-void Log::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:peony.delpoy.models.Log)
+void Inventory::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:peony.deploy.models.Inventory)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Log::CopyFrom(const Log& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:peony.delpoy.models.Log)
+void Inventory::CopyFrom(const Inventory& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:peony.deploy.models.Inventory)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Log::IsInitialized() const {
+bool Inventory::IsInitialized() const {
   return true;
 }
 
-void Log::InternalSwap(Log* other) {
+void Inventory::InternalSwap(Inventory* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  inventory_.Swap(&other->inventory_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  group_.Swap(&other->group_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  user_.Swap(&other->user_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  host_.Swap(&other->host_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  reacipe_.Swap(&other->reacipe_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  task_.Swap(&other->task_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  groups_.InternalSwap(&other->groups_);
+  hosts_.InternalSwap(&other->hosts_);
+  env_.Swap(&other->env_);
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Log::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Inventory::GetMetadata() const {
   return GetMetadataStatic();
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace models
-}  // namespace delpoy
+}  // namespace deploy
 }  // namespace peony
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::peony::delpoy::models::Task_Shell* Arena::CreateMaybeMessage< ::peony::delpoy::models::Task_Shell >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::peony::delpoy::models::Task_Shell >(arena);
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Task_Script* Arena::CreateMaybeMessage< ::peony::deploy::models::Task_Script >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Task_Script >(arena);
 }
-template<> PROTOBUF_NOINLINE ::peony::delpoy::models::Task_Upload* Arena::CreateMaybeMessage< ::peony::delpoy::models::Task_Upload >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::peony::delpoy::models::Task_Upload >(arena);
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Task_Upload* Arena::CreateMaybeMessage< ::peony::deploy::models::Task_Upload >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Task_Upload >(arena);
 }
-template<> PROTOBUF_NOINLINE ::peony::delpoy::models::Task_Download* Arena::CreateMaybeMessage< ::peony::delpoy::models::Task_Download >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::peony::delpoy::models::Task_Download >(arena);
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Task_Download* Arena::CreateMaybeMessage< ::peony::deploy::models::Task_Download >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Task_Download >(arena);
 }
-template<> PROTOBUF_NOINLINE ::peony::delpoy::models::Task* Arena::CreateMaybeMessage< ::peony::delpoy::models::Task >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::peony::delpoy::models::Task >(arena);
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Task* Arena::CreateMaybeMessage< ::peony::deploy::models::Task >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Task >(arena);
 }
-template<> PROTOBUF_NOINLINE ::peony::delpoy::models::Recipe* Arena::CreateMaybeMessage< ::peony::delpoy::models::Recipe >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::peony::delpoy::models::Recipe >(arena);
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Recipe* Arena::CreateMaybeMessage< ::peony::deploy::models::Recipe >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Recipe >(arena);
 }
-template<> PROTOBUF_NOINLINE ::peony::delpoy::models::Ssh* Arena::CreateMaybeMessage< ::peony::delpoy::models::Ssh >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::peony::delpoy::models::Ssh >(arena);
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Ssh_EnvEntry_DoNotUse* Arena::CreateMaybeMessage< ::peony::deploy::models::Ssh_EnvEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Ssh_EnvEntry_DoNotUse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::peony::delpoy::models::Group* Arena::CreateMaybeMessage< ::peony::delpoy::models::Group >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::peony::delpoy::models::Group >(arena);
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Ssh* Arena::CreateMaybeMessage< ::peony::deploy::models::Ssh >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Ssh >(arena);
 }
-template<> PROTOBUF_NOINLINE ::peony::delpoy::models::Inventory* Arena::CreateMaybeMessage< ::peony::delpoy::models::Inventory >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::peony::delpoy::models::Inventory >(arena);
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Group_EnvEntry_DoNotUse* Arena::CreateMaybeMessage< ::peony::deploy::models::Group_EnvEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Group_EnvEntry_DoNotUse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::peony::delpoy::models::Log* Arena::CreateMaybeMessage< ::peony::delpoy::models::Log >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::peony::delpoy::models::Log >(arena);
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Group* Arena::CreateMaybeMessage< ::peony::deploy::models::Group >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Group >(arena);
+}
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Inventory_EnvEntry_DoNotUse* Arena::CreateMaybeMessage< ::peony::deploy::models::Inventory_EnvEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Inventory_EnvEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::peony::deploy::models::Inventory* Arena::CreateMaybeMessage< ::peony::deploy::models::Inventory >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::peony::deploy::models::Inventory >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

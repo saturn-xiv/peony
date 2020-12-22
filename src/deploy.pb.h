@@ -31,6 +31,9 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/map.h>  // IWYU pragma: export
+#include <google/protobuf/map_entry.h>
+#include <google/protobuf/map_field_inl.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -47,7 +50,7 @@ struct TableStruct_deploy_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[9]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[11]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -55,72 +58,80 @@ struct TableStruct_deploy_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_deploy_2eproto;
 namespace peony {
-namespace delpoy {
+namespace deploy {
 namespace models {
 class Group;
 class GroupDefaultTypeInternal;
 extern GroupDefaultTypeInternal _Group_default_instance_;
+class Group_EnvEntry_DoNotUse;
+class Group_EnvEntry_DoNotUseDefaultTypeInternal;
+extern Group_EnvEntry_DoNotUseDefaultTypeInternal _Group_EnvEntry_DoNotUse_default_instance_;
 class Inventory;
 class InventoryDefaultTypeInternal;
 extern InventoryDefaultTypeInternal _Inventory_default_instance_;
-class Log;
-class LogDefaultTypeInternal;
-extern LogDefaultTypeInternal _Log_default_instance_;
+class Inventory_EnvEntry_DoNotUse;
+class Inventory_EnvEntry_DoNotUseDefaultTypeInternal;
+extern Inventory_EnvEntry_DoNotUseDefaultTypeInternal _Inventory_EnvEntry_DoNotUse_default_instance_;
 class Recipe;
 class RecipeDefaultTypeInternal;
 extern RecipeDefaultTypeInternal _Recipe_default_instance_;
 class Ssh;
 class SshDefaultTypeInternal;
 extern SshDefaultTypeInternal _Ssh_default_instance_;
+class Ssh_EnvEntry_DoNotUse;
+class Ssh_EnvEntry_DoNotUseDefaultTypeInternal;
+extern Ssh_EnvEntry_DoNotUseDefaultTypeInternal _Ssh_EnvEntry_DoNotUse_default_instance_;
 class Task;
 class TaskDefaultTypeInternal;
 extern TaskDefaultTypeInternal _Task_default_instance_;
 class Task_Download;
 class Task_DownloadDefaultTypeInternal;
 extern Task_DownloadDefaultTypeInternal _Task_Download_default_instance_;
-class Task_Shell;
-class Task_ShellDefaultTypeInternal;
-extern Task_ShellDefaultTypeInternal _Task_Shell_default_instance_;
+class Task_Script;
+class Task_ScriptDefaultTypeInternal;
+extern Task_ScriptDefaultTypeInternal _Task_Script_default_instance_;
 class Task_Upload;
 class Task_UploadDefaultTypeInternal;
 extern Task_UploadDefaultTypeInternal _Task_Upload_default_instance_;
 }  // namespace models
-}  // namespace delpoy
+}  // namespace deploy
 }  // namespace peony
 PROTOBUF_NAMESPACE_OPEN
-template<> ::peony::delpoy::models::Group* Arena::CreateMaybeMessage<::peony::delpoy::models::Group>(Arena*);
-template<> ::peony::delpoy::models::Inventory* Arena::CreateMaybeMessage<::peony::delpoy::models::Inventory>(Arena*);
-template<> ::peony::delpoy::models::Log* Arena::CreateMaybeMessage<::peony::delpoy::models::Log>(Arena*);
-template<> ::peony::delpoy::models::Recipe* Arena::CreateMaybeMessage<::peony::delpoy::models::Recipe>(Arena*);
-template<> ::peony::delpoy::models::Ssh* Arena::CreateMaybeMessage<::peony::delpoy::models::Ssh>(Arena*);
-template<> ::peony::delpoy::models::Task* Arena::CreateMaybeMessage<::peony::delpoy::models::Task>(Arena*);
-template<> ::peony::delpoy::models::Task_Download* Arena::CreateMaybeMessage<::peony::delpoy::models::Task_Download>(Arena*);
-template<> ::peony::delpoy::models::Task_Shell* Arena::CreateMaybeMessage<::peony::delpoy::models::Task_Shell>(Arena*);
-template<> ::peony::delpoy::models::Task_Upload* Arena::CreateMaybeMessage<::peony::delpoy::models::Task_Upload>(Arena*);
+template<> ::peony::deploy::models::Group* Arena::CreateMaybeMessage<::peony::deploy::models::Group>(Arena*);
+template<> ::peony::deploy::models::Group_EnvEntry_DoNotUse* Arena::CreateMaybeMessage<::peony::deploy::models::Group_EnvEntry_DoNotUse>(Arena*);
+template<> ::peony::deploy::models::Inventory* Arena::CreateMaybeMessage<::peony::deploy::models::Inventory>(Arena*);
+template<> ::peony::deploy::models::Inventory_EnvEntry_DoNotUse* Arena::CreateMaybeMessage<::peony::deploy::models::Inventory_EnvEntry_DoNotUse>(Arena*);
+template<> ::peony::deploy::models::Recipe* Arena::CreateMaybeMessage<::peony::deploy::models::Recipe>(Arena*);
+template<> ::peony::deploy::models::Ssh* Arena::CreateMaybeMessage<::peony::deploy::models::Ssh>(Arena*);
+template<> ::peony::deploy::models::Ssh_EnvEntry_DoNotUse* Arena::CreateMaybeMessage<::peony::deploy::models::Ssh_EnvEntry_DoNotUse>(Arena*);
+template<> ::peony::deploy::models::Task* Arena::CreateMaybeMessage<::peony::deploy::models::Task>(Arena*);
+template<> ::peony::deploy::models::Task_Download* Arena::CreateMaybeMessage<::peony::deploy::models::Task_Download>(Arena*);
+template<> ::peony::deploy::models::Task_Script* Arena::CreateMaybeMessage<::peony::deploy::models::Task_Script>(Arena*);
+template<> ::peony::deploy::models::Task_Upload* Arena::CreateMaybeMessage<::peony::deploy::models::Task_Upload>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace peony {
-namespace delpoy {
+namespace deploy {
 namespace models {
 
 // ===================================================================
 
-class Task_Shell PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.delpoy.models.Task.Shell) */ {
+class Task_Script PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.deploy.models.Task.Script) */ {
  public:
-  inline Task_Shell() : Task_Shell(nullptr) {}
-  virtual ~Task_Shell();
+  inline Task_Script() : Task_Script(nullptr) {}
+  virtual ~Task_Script();
 
-  Task_Shell(const Task_Shell& from);
-  Task_Shell(Task_Shell&& from) noexcept
-    : Task_Shell() {
+  Task_Script(const Task_Script& from);
+  Task_Script(Task_Script&& from) noexcept
+    : Task_Script() {
     *this = ::std::move(from);
   }
 
-  inline Task_Shell& operator=(const Task_Shell& from) {
+  inline Task_Script& operator=(const Task_Script& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Task_Shell& operator=(Task_Shell&& from) noexcept {
+  inline Task_Script& operator=(Task_Script&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -138,20 +149,20 @@ class Task_Shell PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const Task_Shell& default_instance();
+  static const Task_Script& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Task_Shell* internal_default_instance() {
-    return reinterpret_cast<const Task_Shell*>(
-               &_Task_Shell_default_instance_);
+  static inline const Task_Script* internal_default_instance() {
+    return reinterpret_cast<const Task_Script*>(
+               &_Task_Script_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(Task_Shell& a, Task_Shell& b) {
+  friend void swap(Task_Script& a, Task_Script& b) {
     a.Swap(&b);
   }
-  inline void Swap(Task_Shell* other) {
+  inline void Swap(Task_Script* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -159,7 +170,7 @@ class Task_Shell PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Task_Shell* other) {
+  void UnsafeArenaSwap(Task_Script* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -167,17 +178,17 @@ class Task_Shell PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline Task_Shell* New() const final {
-    return CreateMaybeMessage<Task_Shell>(nullptr);
+  inline Task_Script* New() const final {
+    return CreateMaybeMessage<Task_Script>(nullptr);
   }
 
-  Task_Shell* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Task_Shell>(arena);
+  Task_Script* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Task_Script>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Task_Shell& from);
-  void MergeFrom(const Task_Shell& from);
+  void CopyFrom(const Task_Script& from);
+  void MergeFrom(const Task_Script& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -191,13 +202,13 @@ class Task_Shell PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Task_Shell* other);
+  void InternalSwap(Task_Script* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "peony.delpoy.models.Task.Shell";
+    return "peony.deploy.models.Task.Script";
   }
   protected:
-  explicit Task_Shell(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit Task_Script(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -217,39 +228,57 @@ class Task_Shell PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kScriptFieldNumber = 1,
+    kFileFieldNumber = 1,
+    kShellFieldNumber = 2,
   };
-  // string script = 1;
-  void clear_script();
-  const std::string& script() const;
-  void set_script(const std::string& value);
-  void set_script(std::string&& value);
-  void set_script(const char* value);
-  void set_script(const char* value, size_t size);
-  std::string* mutable_script();
-  std::string* release_script();
-  void set_allocated_script(std::string* script);
+  // string file = 1;
+  void clear_file();
+  const std::string& file() const;
+  void set_file(const std::string& value);
+  void set_file(std::string&& value);
+  void set_file(const char* value);
+  void set_file(const char* value, size_t size);
+  std::string* mutable_file();
+  std::string* release_file();
+  void set_allocated_file(std::string* file);
   private:
-  const std::string& _internal_script() const;
-  void _internal_set_script(const std::string& value);
-  std::string* _internal_mutable_script();
+  const std::string& _internal_file() const;
+  void _internal_set_file(const std::string& value);
+  std::string* _internal_mutable_file();
   public:
 
-  // @@protoc_insertion_point(class_scope:peony.delpoy.models.Task.Shell)
+  // string shell = 2;
+  void clear_shell();
+  const std::string& shell() const;
+  void set_shell(const std::string& value);
+  void set_shell(std::string&& value);
+  void set_shell(const char* value);
+  void set_shell(const char* value, size_t size);
+  std::string* mutable_shell();
+  std::string* release_shell();
+  void set_allocated_shell(std::string* shell);
+  private:
+  const std::string& _internal_shell() const;
+  void _internal_set_shell(const std::string& value);
+  std::string* _internal_mutable_shell();
+  public:
+
+  // @@protoc_insertion_point(class_scope:peony.deploy.models.Task.Script)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr script_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shell_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_deploy_2eproto;
 };
 // -------------------------------------------------------------------
 
 class Task_Upload PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.delpoy.models.Task.Upload) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.deploy.models.Task.Upload) */ {
  public:
   inline Task_Upload() : Task_Upload(nullptr) {}
   virtual ~Task_Upload();
@@ -338,7 +367,7 @@ class Task_Upload PROTOBUF_FINAL :
   void InternalSwap(Task_Upload* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "peony.delpoy.models.Task.Upload";
+    return "peony.deploy.models.Task.Upload";
   }
   protected:
   explicit Task_Upload(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -363,6 +392,7 @@ class Task_Upload PROTOBUF_FINAL :
   enum : int {
     kSrcFieldNumber = 1,
     kDestFieldNumber = 2,
+    kTplFieldNumber = 3,
   };
   // string src = 1;
   void clear_src();
@@ -396,7 +426,16 @@ class Task_Upload PROTOBUF_FINAL :
   std::string* _internal_mutable_dest();
   public:
 
-  // @@protoc_insertion_point(class_scope:peony.delpoy.models.Task.Upload)
+  // bool tpl = 3;
+  void clear_tpl();
+  bool tpl() const;
+  void set_tpl(bool value);
+  private:
+  bool _internal_tpl() const;
+  void _internal_set_tpl(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:peony.deploy.models.Task.Upload)
  private:
   class _Internal;
 
@@ -405,13 +444,14 @@ class Task_Upload PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr src_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dest_;
+  bool tpl_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_deploy_2eproto;
 };
 // -------------------------------------------------------------------
 
 class Task_Download PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.delpoy.models.Task.Download) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.deploy.models.Task.Download) */ {
  public:
   inline Task_Download() : Task_Download(nullptr) {}
   virtual ~Task_Download();
@@ -500,7 +540,7 @@ class Task_Download PROTOBUF_FINAL :
   void InternalSwap(Task_Download* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "peony.delpoy.models.Task.Download";
+    return "peony.deploy.models.Task.Download";
   }
   protected:
   explicit Task_Download(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -558,7 +598,7 @@ class Task_Download PROTOBUF_FINAL :
   std::string* _internal_mutable_dest();
   public:
 
-  // @@protoc_insertion_point(class_scope:peony.delpoy.models.Task.Download)
+  // @@protoc_insertion_point(class_scope:peony.deploy.models.Task.Download)
  private:
   class _Internal;
 
@@ -573,7 +613,7 @@ class Task_Download PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class Task PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.delpoy.models.Task) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.deploy.models.Task) */ {
  public:
   inline Task() : Task(nullptr) {}
   virtual ~Task();
@@ -609,7 +649,7 @@ class Task PROTOBUF_FINAL :
   static const Task& default_instance();
 
   enum PayloadCase {
-    kShell = 2,
+    kScript = 2,
     kUpload = 3,
     kDownload = 4,
     PAYLOAD_NOT_SET = 0,
@@ -669,7 +709,7 @@ class Task PROTOBUF_FINAL :
   void InternalSwap(Task* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "peony.delpoy.models.Task";
+    return "peony.deploy.models.Task";
   }
   protected:
   explicit Task(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -689,7 +729,7 @@ class Task PROTOBUF_FINAL :
 
   // nested types ----------------------------------------------------
 
-  typedef Task_Shell Shell;
+  typedef Task_Script Script;
   typedef Task_Upload Upload;
   typedef Task_Download Download;
 
@@ -699,7 +739,7 @@ class Task PROTOBUF_FINAL :
     kGroupsFieldNumber = 5,
     kHostsFieldNumber = 6,
     kNameFieldNumber = 1,
-    kShellFieldNumber = 2,
+    kScriptFieldNumber = 2,
     kUploadFieldNumber = 3,
     kDownloadFieldNumber = 4,
   };
@@ -767,66 +807,66 @@ class Task PROTOBUF_FINAL :
   std::string* _internal_mutable_name();
   public:
 
-  // .peony.delpoy.models.Task.Shell shell = 2;
-  bool has_shell() const;
+  // .peony.deploy.models.Task.Script script = 2;
+  bool has_script() const;
   private:
-  bool _internal_has_shell() const;
+  bool _internal_has_script() const;
   public:
-  void clear_shell();
-  const ::peony::delpoy::models::Task_Shell& shell() const;
-  ::peony::delpoy::models::Task_Shell* release_shell();
-  ::peony::delpoy::models::Task_Shell* mutable_shell();
-  void set_allocated_shell(::peony::delpoy::models::Task_Shell* shell);
+  void clear_script();
+  const ::peony::deploy::models::Task_Script& script() const;
+  ::peony::deploy::models::Task_Script* release_script();
+  ::peony::deploy::models::Task_Script* mutable_script();
+  void set_allocated_script(::peony::deploy::models::Task_Script* script);
   private:
-  const ::peony::delpoy::models::Task_Shell& _internal_shell() const;
-  ::peony::delpoy::models::Task_Shell* _internal_mutable_shell();
+  const ::peony::deploy::models::Task_Script& _internal_script() const;
+  ::peony::deploy::models::Task_Script* _internal_mutable_script();
   public:
-  void unsafe_arena_set_allocated_shell(
-      ::peony::delpoy::models::Task_Shell* shell);
-  ::peony::delpoy::models::Task_Shell* unsafe_arena_release_shell();
+  void unsafe_arena_set_allocated_script(
+      ::peony::deploy::models::Task_Script* script);
+  ::peony::deploy::models::Task_Script* unsafe_arena_release_script();
 
-  // .peony.delpoy.models.Task.Upload upload = 3;
+  // .peony.deploy.models.Task.Upload upload = 3;
   bool has_upload() const;
   private:
   bool _internal_has_upload() const;
   public:
   void clear_upload();
-  const ::peony::delpoy::models::Task_Upload& upload() const;
-  ::peony::delpoy::models::Task_Upload* release_upload();
-  ::peony::delpoy::models::Task_Upload* mutable_upload();
-  void set_allocated_upload(::peony::delpoy::models::Task_Upload* upload);
+  const ::peony::deploy::models::Task_Upload& upload() const;
+  ::peony::deploy::models::Task_Upload* release_upload();
+  ::peony::deploy::models::Task_Upload* mutable_upload();
+  void set_allocated_upload(::peony::deploy::models::Task_Upload* upload);
   private:
-  const ::peony::delpoy::models::Task_Upload& _internal_upload() const;
-  ::peony::delpoy::models::Task_Upload* _internal_mutable_upload();
+  const ::peony::deploy::models::Task_Upload& _internal_upload() const;
+  ::peony::deploy::models::Task_Upload* _internal_mutable_upload();
   public:
   void unsafe_arena_set_allocated_upload(
-      ::peony::delpoy::models::Task_Upload* upload);
-  ::peony::delpoy::models::Task_Upload* unsafe_arena_release_upload();
+      ::peony::deploy::models::Task_Upload* upload);
+  ::peony::deploy::models::Task_Upload* unsafe_arena_release_upload();
 
-  // .peony.delpoy.models.Task.Download download = 4;
+  // .peony.deploy.models.Task.Download download = 4;
   bool has_download() const;
   private:
   bool _internal_has_download() const;
   public:
   void clear_download();
-  const ::peony::delpoy::models::Task_Download& download() const;
-  ::peony::delpoy::models::Task_Download* release_download();
-  ::peony::delpoy::models::Task_Download* mutable_download();
-  void set_allocated_download(::peony::delpoy::models::Task_Download* download);
+  const ::peony::deploy::models::Task_Download& download() const;
+  ::peony::deploy::models::Task_Download* release_download();
+  ::peony::deploy::models::Task_Download* mutable_download();
+  void set_allocated_download(::peony::deploy::models::Task_Download* download);
   private:
-  const ::peony::delpoy::models::Task_Download& _internal_download() const;
-  ::peony::delpoy::models::Task_Download* _internal_mutable_download();
+  const ::peony::deploy::models::Task_Download& _internal_download() const;
+  ::peony::deploy::models::Task_Download* _internal_mutable_download();
   public:
   void unsafe_arena_set_allocated_download(
-      ::peony::delpoy::models::Task_Download* download);
-  ::peony::delpoy::models::Task_Download* unsafe_arena_release_download();
+      ::peony::deploy::models::Task_Download* download);
+  ::peony::deploy::models::Task_Download* unsafe_arena_release_download();
 
   void clear_payload();
   PayloadCase payload_case() const;
-  // @@protoc_insertion_point(class_scope:peony.delpoy.models.Task)
+  // @@protoc_insertion_point(class_scope:peony.deploy.models.Task)
  private:
   class _Internal;
-  void set_has_shell();
+  void set_has_script();
   void set_has_upload();
   void set_has_download();
 
@@ -841,9 +881,9 @@ class Task PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   union PayloadUnion {
     PayloadUnion() {}
-    ::peony::delpoy::models::Task_Shell* shell_;
-    ::peony::delpoy::models::Task_Upload* upload_;
-    ::peony::delpoy::models::Task_Download* download_;
+    ::peony::deploy::models::Task_Script* script_;
+    ::peony::deploy::models::Task_Upload* upload_;
+    ::peony::deploy::models::Task_Download* download_;
   } payload_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::uint32 _oneof_case_[1];
@@ -853,7 +893,7 @@ class Task PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class Recipe PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.delpoy.models.Recipe) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.deploy.models.Recipe) */ {
  public:
   inline Recipe() : Recipe(nullptr) {}
   virtual ~Recipe();
@@ -942,7 +982,7 @@ class Recipe PROTOBUF_FINAL :
   void InternalSwap(Recipe* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "peony.delpoy.models.Recipe";
+    return "peony.deploy.models.Recipe";
   }
   protected:
   explicit Recipe(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -968,22 +1008,22 @@ class Recipe PROTOBUF_FINAL :
     kTasksFieldNumber = 2,
     kNameFieldNumber = 1,
   };
-  // repeated .peony.delpoy.models.Task tasks = 2;
+  // repeated .peony.deploy.models.Task tasks = 2;
   int tasks_size() const;
   private:
   int _internal_tasks_size() const;
   public:
   void clear_tasks();
-  ::peony::delpoy::models::Task* mutable_tasks(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::delpoy::models::Task >*
+  ::peony::deploy::models::Task* mutable_tasks(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Task >*
       mutable_tasks();
   private:
-  const ::peony::delpoy::models::Task& _internal_tasks(int index) const;
-  ::peony::delpoy::models::Task* _internal_add_tasks();
+  const ::peony::deploy::models::Task& _internal_tasks(int index) const;
+  ::peony::deploy::models::Task* _internal_add_tasks();
   public:
-  const ::peony::delpoy::models::Task& tasks(int index) const;
-  ::peony::delpoy::models::Task* add_tasks();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::delpoy::models::Task >&
+  const ::peony::deploy::models::Task& tasks(int index) const;
+  ::peony::deploy::models::Task* add_tasks();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Task >&
       tasks() const;
 
   // string name = 1;
@@ -1002,22 +1042,56 @@ class Recipe PROTOBUF_FINAL :
   std::string* _internal_mutable_name();
   public:
 
-  // @@protoc_insertion_point(class_scope:peony.delpoy.models.Recipe)
+  // @@protoc_insertion_point(class_scope:peony.deploy.models.Recipe)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::delpoy::models::Task > tasks_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Task > tasks_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_deploy_2eproto;
 };
 // -------------------------------------------------------------------
 
+class Ssh_EnvEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Ssh_EnvEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    0 > {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Ssh_EnvEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    0 > SuperType;
+  Ssh_EnvEntry_DoNotUse();
+  explicit Ssh_EnvEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Ssh_EnvEntry_DoNotUse& other);
+  static const Ssh_EnvEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Ssh_EnvEntry_DoNotUse*>(&_Ssh_EnvEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "peony.deploy.models.Ssh.EnvEntry.key");
+ }
+  static bool ValidateValue(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "peony.deploy.models.Ssh.EnvEntry.value");
+ }
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& other) final;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_deploy_2eproto);
+    return ::descriptor_table_deploy_2eproto.file_level_metadata[5];
+  }
+
+  public:
+};
+
+// -------------------------------------------------------------------
+
 class Ssh PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.delpoy.models.Ssh) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.deploy.models.Ssh) */ {
  public:
   inline Ssh() : Ssh(nullptr) {}
   virtual ~Ssh();
@@ -1058,7 +1132,7 @@ class Ssh PROTOBUF_FINAL :
                &_Ssh_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(Ssh& a, Ssh& b) {
     a.Swap(&b);
@@ -1106,7 +1180,7 @@ class Ssh PROTOBUF_FINAL :
   void InternalSwap(Ssh* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "peony.delpoy.models.Ssh";
+    return "peony.deploy.models.Ssh";
   }
   protected:
   explicit Ssh(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1126,14 +1200,33 @@ class Ssh PROTOBUF_FINAL :
 
   // nested types ----------------------------------------------------
 
+
   // accessors -------------------------------------------------------
 
   enum : int {
+    kEnvFieldNumber = 5,
     kHostFieldNumber = 1,
     kUserFieldNumber = 3,
     kKeyFieldNumber = 4,
     kPortFieldNumber = 2,
   };
+  // map<string, string> env = 5;
+  int env_size() const;
+  private:
+  int _internal_env_size() const;
+  public:
+  void clear_env();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      _internal_env() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      _internal_mutable_env();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      env() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      mutable_env();
+
   // string host = 1;
   void clear_host();
   const std::string& host() const;
@@ -1191,13 +1284,19 @@ class Ssh PROTOBUF_FINAL :
   void _internal_set_port(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:peony.delpoy.models.Ssh)
+  // @@protoc_insertion_point(class_scope:peony.deploy.models.Ssh)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      Ssh_EnvEntry_DoNotUse,
+      std::string, std::string,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      0 > env_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr host_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr key_;
@@ -1207,8 +1306,42 @@ class Ssh PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class Group_EnvEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Group_EnvEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    0 > {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Group_EnvEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    0 > SuperType;
+  Group_EnvEntry_DoNotUse();
+  explicit Group_EnvEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Group_EnvEntry_DoNotUse& other);
+  static const Group_EnvEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Group_EnvEntry_DoNotUse*>(&_Group_EnvEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "peony.deploy.models.Group.EnvEntry.key");
+ }
+  static bool ValidateValue(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "peony.deploy.models.Group.EnvEntry.value");
+ }
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& other) final;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_deploy_2eproto);
+    return ::descriptor_table_deploy_2eproto.file_level_metadata[7];
+  }
+
+  public:
+};
+
+// -------------------------------------------------------------------
+
 class Group PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.delpoy.models.Group) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.deploy.models.Group) */ {
  public:
   inline Group() : Group(nullptr) {}
   virtual ~Group();
@@ -1249,7 +1382,7 @@ class Group PROTOBUF_FINAL :
                &_Group_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(Group& a, Group& b) {
     a.Swap(&b);
@@ -1297,7 +1430,7 @@ class Group PROTOBUF_FINAL :
   void InternalSwap(Group* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "peony.delpoy.models.Group";
+    return "peony.deploy.models.Group";
   }
   protected:
   explicit Group(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1317,10 +1450,12 @@ class Group PROTOBUF_FINAL :
 
   // nested types ----------------------------------------------------
 
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kHostsFieldNumber = 2,
+    kEnvFieldNumber = 3,
     kNameFieldNumber = 1,
   };
   // repeated string hosts = 2;
@@ -1347,6 +1482,23 @@ class Group PROTOBUF_FINAL :
   std::string* _internal_add_hosts();
   public:
 
+  // map<string, string> env = 3;
+  int env_size() const;
+  private:
+  int _internal_env_size() const;
+  public:
+  void clear_env();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      _internal_env() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      _internal_mutable_env();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      env() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      mutable_env();
+
   // string name = 1;
   void clear_name();
   const std::string& name() const;
@@ -1363,7 +1515,7 @@ class Group PROTOBUF_FINAL :
   std::string* _internal_mutable_name();
   public:
 
-  // @@protoc_insertion_point(class_scope:peony.delpoy.models.Group)
+  // @@protoc_insertion_point(class_scope:peony.deploy.models.Group)
  private:
   class _Internal;
 
@@ -1371,14 +1523,54 @@ class Group PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> hosts_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      Group_EnvEntry_DoNotUse,
+      std::string, std::string,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      0 > env_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_deploy_2eproto;
 };
 // -------------------------------------------------------------------
 
+class Inventory_EnvEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Inventory_EnvEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    0 > {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Inventory_EnvEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    0 > SuperType;
+  Inventory_EnvEntry_DoNotUse();
+  explicit Inventory_EnvEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Inventory_EnvEntry_DoNotUse& other);
+  static const Inventory_EnvEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Inventory_EnvEntry_DoNotUse*>(&_Inventory_EnvEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "peony.deploy.models.Inventory.EnvEntry.key");
+ }
+  static bool ValidateValue(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "peony.deploy.models.Inventory.EnvEntry.value");
+ }
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& other) final;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_deploy_2eproto);
+    return ::descriptor_table_deploy_2eproto.file_level_metadata[9];
+  }
+
+  public:
+};
+
+// -------------------------------------------------------------------
+
 class Inventory PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.delpoy.models.Inventory) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.deploy.models.Inventory) */ {
  public:
   inline Inventory() : Inventory(nullptr) {}
   virtual ~Inventory();
@@ -1419,7 +1611,7 @@ class Inventory PROTOBUF_FINAL :
                &_Inventory_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    10;
 
   friend void swap(Inventory& a, Inventory& b) {
     a.Swap(&b);
@@ -1467,7 +1659,7 @@ class Inventory PROTOBUF_FINAL :
   void InternalSwap(Inventory* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "peony.delpoy.models.Inventory";
+    return "peony.deploy.models.Inventory";
   }
   protected:
   explicit Inventory(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1487,36 +1679,32 @@ class Inventory PROTOBUF_FINAL :
 
   // nested types ----------------------------------------------------
 
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kGroupsFieldNumber = 2,
     kHostsFieldNumber = 3,
+    kEnvFieldNumber = 4,
     kNameFieldNumber = 1,
   };
-  // repeated string groups = 2;
+  // repeated .peony.deploy.models.Group groups = 2;
   int groups_size() const;
   private:
   int _internal_groups_size() const;
   public:
   void clear_groups();
-  const std::string& groups(int index) const;
-  std::string* mutable_groups(int index);
-  void set_groups(int index, const std::string& value);
-  void set_groups(int index, std::string&& value);
-  void set_groups(int index, const char* value);
-  void set_groups(int index, const char* value, size_t size);
-  std::string* add_groups();
-  void add_groups(const std::string& value);
-  void add_groups(std::string&& value);
-  void add_groups(const char* value);
-  void add_groups(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& groups() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_groups();
+  ::peony::deploy::models::Group* mutable_groups(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Group >*
+      mutable_groups();
   private:
-  const std::string& _internal_groups(int index) const;
-  std::string* _internal_add_groups();
+  const ::peony::deploy::models::Group& _internal_groups(int index) const;
+  ::peony::deploy::models::Group* _internal_add_groups();
   public:
+  const ::peony::deploy::models::Group& groups(int index) const;
+  ::peony::deploy::models::Group* add_groups();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Group >&
+      groups() const;
 
   // repeated string hosts = 3;
   int hosts_size() const;
@@ -1542,6 +1730,23 @@ class Inventory PROTOBUF_FINAL :
   std::string* _internal_add_hosts();
   public:
 
+  // map<string, string> env = 4;
+  int env_size() const;
+  private:
+  int _internal_env_size() const;
+  public:
+  void clear_env();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      _internal_env() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      _internal_mutable_env();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      env() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      mutable_env();
+
   // string name = 1;
   void clear_name();
   const std::string& name() const;
@@ -1558,250 +1763,22 @@ class Inventory PROTOBUF_FINAL :
   std::string* _internal_mutable_name();
   public:
 
-  // @@protoc_insertion_point(class_scope:peony.delpoy.models.Inventory)
+  // @@protoc_insertion_point(class_scope:peony.deploy.models.Inventory)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> groups_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Group > groups_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> hosts_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      Inventory_EnvEntry_DoNotUse,
+      std::string, std::string,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      0 > env_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_deploy_2eproto;
-};
-// -------------------------------------------------------------------
-
-class Log PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:peony.delpoy.models.Log) */ {
- public:
-  inline Log() : Log(nullptr) {}
-  virtual ~Log();
-
-  Log(const Log& from);
-  Log(Log&& from) noexcept
-    : Log() {
-    *this = ::std::move(from);
-  }
-
-  inline Log& operator=(const Log& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Log& operator=(Log&& from) noexcept {
-    if (GetArena() == from.GetArena()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const Log& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Log* internal_default_instance() {
-    return reinterpret_cast<const Log*>(
-               &_Log_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    8;
-
-  friend void swap(Log& a, Log& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(Log* other) {
-    if (other == this) return;
-    if (GetArena() == other->GetArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Log* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline Log* New() const final {
-    return CreateMaybeMessage<Log>(nullptr);
-  }
-
-  Log* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Log>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Log& from);
-  void MergeFrom(const Log& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Log* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "peony.delpoy.models.Log";
-  }
-  protected:
-  explicit Log(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_deploy_2eproto);
-    return ::descriptor_table_deploy_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kInventoryFieldNumber = 1,
-    kGroupFieldNumber = 2,
-    kUserFieldNumber = 3,
-    kHostFieldNumber = 4,
-    kReacipeFieldNumber = 5,
-    kTaskFieldNumber = 6,
-  };
-  // string inventory = 1;
-  void clear_inventory();
-  const std::string& inventory() const;
-  void set_inventory(const std::string& value);
-  void set_inventory(std::string&& value);
-  void set_inventory(const char* value);
-  void set_inventory(const char* value, size_t size);
-  std::string* mutable_inventory();
-  std::string* release_inventory();
-  void set_allocated_inventory(std::string* inventory);
-  private:
-  const std::string& _internal_inventory() const;
-  void _internal_set_inventory(const std::string& value);
-  std::string* _internal_mutable_inventory();
-  public:
-
-  // string group = 2;
-  void clear_group();
-  const std::string& group() const;
-  void set_group(const std::string& value);
-  void set_group(std::string&& value);
-  void set_group(const char* value);
-  void set_group(const char* value, size_t size);
-  std::string* mutable_group();
-  std::string* release_group();
-  void set_allocated_group(std::string* group);
-  private:
-  const std::string& _internal_group() const;
-  void _internal_set_group(const std::string& value);
-  std::string* _internal_mutable_group();
-  public:
-
-  // string user = 3;
-  void clear_user();
-  const std::string& user() const;
-  void set_user(const std::string& value);
-  void set_user(std::string&& value);
-  void set_user(const char* value);
-  void set_user(const char* value, size_t size);
-  std::string* mutable_user();
-  std::string* release_user();
-  void set_allocated_user(std::string* user);
-  private:
-  const std::string& _internal_user() const;
-  void _internal_set_user(const std::string& value);
-  std::string* _internal_mutable_user();
-  public:
-
-  // string host = 4;
-  void clear_host();
-  const std::string& host() const;
-  void set_host(const std::string& value);
-  void set_host(std::string&& value);
-  void set_host(const char* value);
-  void set_host(const char* value, size_t size);
-  std::string* mutable_host();
-  std::string* release_host();
-  void set_allocated_host(std::string* host);
-  private:
-  const std::string& _internal_host() const;
-  void _internal_set_host(const std::string& value);
-  std::string* _internal_mutable_host();
-  public:
-
-  // string reacipe = 5;
-  void clear_reacipe();
-  const std::string& reacipe() const;
-  void set_reacipe(const std::string& value);
-  void set_reacipe(std::string&& value);
-  void set_reacipe(const char* value);
-  void set_reacipe(const char* value, size_t size);
-  std::string* mutable_reacipe();
-  std::string* release_reacipe();
-  void set_allocated_reacipe(std::string* reacipe);
-  private:
-  const std::string& _internal_reacipe() const;
-  void _internal_set_reacipe(const std::string& value);
-  std::string* _internal_mutable_reacipe();
-  public:
-
-  // string task = 6;
-  void clear_task();
-  const std::string& task() const;
-  void set_task(const std::string& value);
-  void set_task(std::string&& value);
-  void set_task(const char* value);
-  void set_task(const char* value, size_t size);
-  std::string* mutable_task();
-  std::string* release_task();
-  void set_allocated_task(std::string* task);
-  private:
-  const std::string& _internal_task() const;
-  void _internal_set_task(const std::string& value);
-  std::string* _internal_mutable_task();
-  public:
-
-  // @@protoc_insertion_point(class_scope:peony.delpoy.models.Log)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr inventory_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr group_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr host_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reacipe_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr task_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_deploy_2eproto;
 };
@@ -1814,68 +1791,130 @@ class Log PROTOBUF_FINAL :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// Task_Shell
+// Task_Script
 
-// string script = 1;
-inline void Task_Shell::clear_script() {
-  script_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+// string file = 1;
+inline void Task_Script::clear_file() {
+  file_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& Task_Shell::script() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.Shell.script)
-  return _internal_script();
+inline const std::string& Task_Script::file() const {
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.Script.file)
+  return _internal_file();
 }
-inline void Task_Shell::set_script(const std::string& value) {
-  _internal_set_script(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.Shell.script)
+inline void Task_Script::set_file(const std::string& value) {
+  _internal_set_file(value);
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.Script.file)
 }
-inline std::string* Task_Shell::mutable_script() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.Shell.script)
-  return _internal_mutable_script();
+inline std::string* Task_Script::mutable_file() {
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.Script.file)
+  return _internal_mutable_file();
 }
-inline const std::string& Task_Shell::_internal_script() const {
-  return script_.Get();
+inline const std::string& Task_Script::_internal_file() const {
+  return file_.Get();
 }
-inline void Task_Shell::_internal_set_script(const std::string& value) {
+inline void Task_Script::_internal_set_file(const std::string& value) {
   
-  script_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+  file_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void Task_Shell::set_script(std::string&& value) {
+inline void Task_Script::set_file(std::string&& value) {
   
-  script_.Set(
+  file_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Task.Shell.script)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Task.Script.file)
 }
-inline void Task_Shell::set_script(const char* value) {
+inline void Task_Script::set_file(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  script_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+  file_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Task.Shell.script)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Task.Script.file)
 }
-inline void Task_Shell::set_script(const char* value,
+inline void Task_Script::set_file(const char* value,
     size_t size) {
   
-  script_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+  file_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Task.Shell.script)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Task.Script.file)
 }
-inline std::string* Task_Shell::_internal_mutable_script() {
+inline std::string* Task_Script::_internal_mutable_file() {
   
-  return script_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  return file_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* Task_Shell::release_script() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Task.Shell.script)
-  return script_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* Task_Script::release_file() {
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.Script.file)
+  return file_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void Task_Shell::set_allocated_script(std::string* script) {
-  if (script != nullptr) {
+inline void Task_Script::set_allocated_file(std::string* file) {
+  if (file != nullptr) {
     
   } else {
     
   }
-  script_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), script,
+  file_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Task.Shell.script)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.Script.file)
+}
+
+// string shell = 2;
+inline void Task_Script::clear_shell() {
+  shell_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& Task_Script::shell() const {
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.Script.shell)
+  return _internal_shell();
+}
+inline void Task_Script::set_shell(const std::string& value) {
+  _internal_set_shell(value);
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.Script.shell)
+}
+inline std::string* Task_Script::mutable_shell() {
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.Script.shell)
+  return _internal_mutable_shell();
+}
+inline const std::string& Task_Script::_internal_shell() const {
+  return shell_.Get();
+}
+inline void Task_Script::_internal_set_shell(const std::string& value) {
+  
+  shell_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void Task_Script::set_shell(std::string&& value) {
+  
+  shell_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Task.Script.shell)
+}
+inline void Task_Script::set_shell(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  shell_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Task.Script.shell)
+}
+inline void Task_Script::set_shell(const char* value,
+    size_t size) {
+  
+  shell_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Task.Script.shell)
+}
+inline std::string* Task_Script::_internal_mutable_shell() {
+  
+  return shell_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* Task_Script::release_shell() {
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.Script.shell)
+  return shell_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Task_Script::set_allocated_shell(std::string* shell) {
+  if (shell != nullptr) {
+    
+  } else {
+    
+  }
+  shell_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), shell,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.Script.shell)
 }
 
 // -------------------------------------------------------------------
@@ -1887,15 +1926,15 @@ inline void Task_Upload::clear_src() {
   src_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Task_Upload::src() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.Upload.src)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.Upload.src)
   return _internal_src();
 }
 inline void Task_Upload::set_src(const std::string& value) {
   _internal_set_src(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.Upload.src)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.Upload.src)
 }
 inline std::string* Task_Upload::mutable_src() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.Upload.src)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.Upload.src)
   return _internal_mutable_src();
 }
 inline const std::string& Task_Upload::_internal_src() const {
@@ -1909,28 +1948,28 @@ inline void Task_Upload::set_src(std::string&& value) {
   
   src_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Task.Upload.src)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Task.Upload.src)
 }
 inline void Task_Upload::set_src(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   src_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Task.Upload.src)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Task.Upload.src)
 }
 inline void Task_Upload::set_src(const char* value,
     size_t size) {
   
   src_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Task.Upload.src)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Task.Upload.src)
 }
 inline std::string* Task_Upload::_internal_mutable_src() {
   
   return src_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Task_Upload::release_src() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Task.Upload.src)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.Upload.src)
   return src_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Task_Upload::set_allocated_src(std::string* src) {
@@ -1941,7 +1980,7 @@ inline void Task_Upload::set_allocated_src(std::string* src) {
   }
   src_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), src,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Task.Upload.src)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.Upload.src)
 }
 
 // string dest = 2;
@@ -1949,15 +1988,15 @@ inline void Task_Upload::clear_dest() {
   dest_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Task_Upload::dest() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.Upload.dest)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.Upload.dest)
   return _internal_dest();
 }
 inline void Task_Upload::set_dest(const std::string& value) {
   _internal_set_dest(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.Upload.dest)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.Upload.dest)
 }
 inline std::string* Task_Upload::mutable_dest() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.Upload.dest)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.Upload.dest)
   return _internal_mutable_dest();
 }
 inline const std::string& Task_Upload::_internal_dest() const {
@@ -1971,28 +2010,28 @@ inline void Task_Upload::set_dest(std::string&& value) {
   
   dest_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Task.Upload.dest)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Task.Upload.dest)
 }
 inline void Task_Upload::set_dest(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   dest_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Task.Upload.dest)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Task.Upload.dest)
 }
 inline void Task_Upload::set_dest(const char* value,
     size_t size) {
   
   dest_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Task.Upload.dest)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Task.Upload.dest)
 }
 inline std::string* Task_Upload::_internal_mutable_dest() {
   
   return dest_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Task_Upload::release_dest() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Task.Upload.dest)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.Upload.dest)
   return dest_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Task_Upload::set_allocated_dest(std::string* dest) {
@@ -2003,7 +2042,27 @@ inline void Task_Upload::set_allocated_dest(std::string* dest) {
   }
   dest_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), dest,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Task.Upload.dest)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.Upload.dest)
+}
+
+// bool tpl = 3;
+inline void Task_Upload::clear_tpl() {
+  tpl_ = false;
+}
+inline bool Task_Upload::_internal_tpl() const {
+  return tpl_;
+}
+inline bool Task_Upload::tpl() const {
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.Upload.tpl)
+  return _internal_tpl();
+}
+inline void Task_Upload::_internal_set_tpl(bool value) {
+  
+  tpl_ = value;
+}
+inline void Task_Upload::set_tpl(bool value) {
+  _internal_set_tpl(value);
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.Upload.tpl)
 }
 
 // -------------------------------------------------------------------
@@ -2015,15 +2074,15 @@ inline void Task_Download::clear_src() {
   src_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Task_Download::src() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.Download.src)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.Download.src)
   return _internal_src();
 }
 inline void Task_Download::set_src(const std::string& value) {
   _internal_set_src(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.Download.src)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.Download.src)
 }
 inline std::string* Task_Download::mutable_src() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.Download.src)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.Download.src)
   return _internal_mutable_src();
 }
 inline const std::string& Task_Download::_internal_src() const {
@@ -2037,28 +2096,28 @@ inline void Task_Download::set_src(std::string&& value) {
   
   src_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Task.Download.src)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Task.Download.src)
 }
 inline void Task_Download::set_src(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   src_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Task.Download.src)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Task.Download.src)
 }
 inline void Task_Download::set_src(const char* value,
     size_t size) {
   
   src_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Task.Download.src)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Task.Download.src)
 }
 inline std::string* Task_Download::_internal_mutable_src() {
   
   return src_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Task_Download::release_src() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Task.Download.src)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.Download.src)
   return src_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Task_Download::set_allocated_src(std::string* src) {
@@ -2069,7 +2128,7 @@ inline void Task_Download::set_allocated_src(std::string* src) {
   }
   src_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), src,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Task.Download.src)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.Download.src)
 }
 
 // string dest = 2;
@@ -2077,15 +2136,15 @@ inline void Task_Download::clear_dest() {
   dest_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Task_Download::dest() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.Download.dest)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.Download.dest)
   return _internal_dest();
 }
 inline void Task_Download::set_dest(const std::string& value) {
   _internal_set_dest(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.Download.dest)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.Download.dest)
 }
 inline std::string* Task_Download::mutable_dest() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.Download.dest)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.Download.dest)
   return _internal_mutable_dest();
 }
 inline const std::string& Task_Download::_internal_dest() const {
@@ -2099,28 +2158,28 @@ inline void Task_Download::set_dest(std::string&& value) {
   
   dest_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Task.Download.dest)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Task.Download.dest)
 }
 inline void Task_Download::set_dest(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   dest_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Task.Download.dest)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Task.Download.dest)
 }
 inline void Task_Download::set_dest(const char* value,
     size_t size) {
   
   dest_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Task.Download.dest)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Task.Download.dest)
 }
 inline std::string* Task_Download::_internal_mutable_dest() {
   
   return dest_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Task_Download::release_dest() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Task.Download.dest)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.Download.dest)
   return dest_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Task_Download::set_allocated_dest(std::string* dest) {
@@ -2131,7 +2190,7 @@ inline void Task_Download::set_allocated_dest(std::string* dest) {
   }
   dest_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), dest,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Task.Download.dest)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.Download.dest)
 }
 
 // -------------------------------------------------------------------
@@ -2143,15 +2202,15 @@ inline void Task::clear_name() {
   name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Task::name() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.name)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.name)
   return _internal_name();
 }
 inline void Task::set_name(const std::string& value) {
   _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.name)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.name)
 }
 inline std::string* Task::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.name)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.name)
   return _internal_mutable_name();
 }
 inline const std::string& Task::_internal_name() const {
@@ -2165,28 +2224,28 @@ inline void Task::set_name(std::string&& value) {
   
   name_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Task.name)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Task.name)
 }
 inline void Task::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Task.name)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Task.name)
 }
 inline void Task::set_name(const char* value,
     size_t size) {
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Task.name)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Task.name)
 }
 inline std::string* Task::_internal_mutable_name() {
   
   return name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Task::release_name() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Task.name)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.name)
   return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Task::set_allocated_name(std::string* name) {
@@ -2197,83 +2256,83 @@ inline void Task::set_allocated_name(std::string* name) {
   }
   name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Task.name)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Task.name)
 }
 
-// .peony.delpoy.models.Task.Shell shell = 2;
-inline bool Task::_internal_has_shell() const {
-  return payload_case() == kShell;
+// .peony.deploy.models.Task.Script script = 2;
+inline bool Task::_internal_has_script() const {
+  return payload_case() == kScript;
 }
-inline bool Task::has_shell() const {
-  return _internal_has_shell();
+inline bool Task::has_script() const {
+  return _internal_has_script();
 }
-inline void Task::set_has_shell() {
-  _oneof_case_[0] = kShell;
+inline void Task::set_has_script() {
+  _oneof_case_[0] = kScript;
 }
-inline void Task::clear_shell() {
-  if (_internal_has_shell()) {
+inline void Task::clear_script() {
+  if (_internal_has_script()) {
     if (GetArena() == nullptr) {
-      delete payload_.shell_;
+      delete payload_.script_;
     }
     clear_has_payload();
   }
 }
-inline ::peony::delpoy::models::Task_Shell* Task::release_shell() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Task.shell)
-  if (_internal_has_shell()) {
+inline ::peony::deploy::models::Task_Script* Task::release_script() {
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.script)
+  if (_internal_has_script()) {
     clear_has_payload();
-      ::peony::delpoy::models::Task_Shell* temp = payload_.shell_;
+      ::peony::deploy::models::Task_Script* temp = payload_.script_;
     if (GetArena() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
-    payload_.shell_ = nullptr;
+    payload_.script_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::peony::delpoy::models::Task_Shell& Task::_internal_shell() const {
-  return _internal_has_shell()
-      ? *payload_.shell_
-      : *reinterpret_cast< ::peony::delpoy::models::Task_Shell*>(&::peony::delpoy::models::_Task_Shell_default_instance_);
+inline const ::peony::deploy::models::Task_Script& Task::_internal_script() const {
+  return _internal_has_script()
+      ? *payload_.script_
+      : *reinterpret_cast< ::peony::deploy::models::Task_Script*>(&::peony::deploy::models::_Task_Script_default_instance_);
 }
-inline const ::peony::delpoy::models::Task_Shell& Task::shell() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.shell)
-  return _internal_shell();
+inline const ::peony::deploy::models::Task_Script& Task::script() const {
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.script)
+  return _internal_script();
 }
-inline ::peony::delpoy::models::Task_Shell* Task::unsafe_arena_release_shell() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:peony.delpoy.models.Task.shell)
-  if (_internal_has_shell()) {
+inline ::peony::deploy::models::Task_Script* Task::unsafe_arena_release_script() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:peony.deploy.models.Task.script)
+  if (_internal_has_script()) {
     clear_has_payload();
-    ::peony::delpoy::models::Task_Shell* temp = payload_.shell_;
-    payload_.shell_ = nullptr;
+    ::peony::deploy::models::Task_Script* temp = payload_.script_;
+    payload_.script_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void Task::unsafe_arena_set_allocated_shell(::peony::delpoy::models::Task_Shell* shell) {
+inline void Task::unsafe_arena_set_allocated_script(::peony::deploy::models::Task_Script* script) {
   clear_payload();
-  if (shell) {
-    set_has_shell();
-    payload_.shell_ = shell;
+  if (script) {
+    set_has_script();
+    payload_.script_ = script;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:peony.delpoy.models.Task.shell)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:peony.deploy.models.Task.script)
 }
-inline ::peony::delpoy::models::Task_Shell* Task::_internal_mutable_shell() {
-  if (!_internal_has_shell()) {
+inline ::peony::deploy::models::Task_Script* Task::_internal_mutable_script() {
+  if (!_internal_has_script()) {
     clear_payload();
-    set_has_shell();
-    payload_.shell_ = CreateMaybeMessage< ::peony::delpoy::models::Task_Shell >(GetArena());
+    set_has_script();
+    payload_.script_ = CreateMaybeMessage< ::peony::deploy::models::Task_Script >(GetArena());
   }
-  return payload_.shell_;
+  return payload_.script_;
 }
-inline ::peony::delpoy::models::Task_Shell* Task::mutable_shell() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.shell)
-  return _internal_mutable_shell();
+inline ::peony::deploy::models::Task_Script* Task::mutable_script() {
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.script)
+  return _internal_mutable_script();
 }
 
-// .peony.delpoy.models.Task.Upload upload = 3;
+// .peony.deploy.models.Task.Upload upload = 3;
 inline bool Task::_internal_has_upload() const {
   return payload_case() == kUpload;
 }
@@ -2291,11 +2350,11 @@ inline void Task::clear_upload() {
     clear_has_payload();
   }
 }
-inline ::peony::delpoy::models::Task_Upload* Task::release_upload() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Task.upload)
+inline ::peony::deploy::models::Task_Upload* Task::release_upload() {
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.upload)
   if (_internal_has_upload()) {
     clear_has_payload();
-      ::peony::delpoy::models::Task_Upload* temp = payload_.upload_;
+      ::peony::deploy::models::Task_Upload* temp = payload_.upload_;
     if (GetArena() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
@@ -2305,48 +2364,48 @@ inline ::peony::delpoy::models::Task_Upload* Task::release_upload() {
     return nullptr;
   }
 }
-inline const ::peony::delpoy::models::Task_Upload& Task::_internal_upload() const {
+inline const ::peony::deploy::models::Task_Upload& Task::_internal_upload() const {
   return _internal_has_upload()
       ? *payload_.upload_
-      : *reinterpret_cast< ::peony::delpoy::models::Task_Upload*>(&::peony::delpoy::models::_Task_Upload_default_instance_);
+      : *reinterpret_cast< ::peony::deploy::models::Task_Upload*>(&::peony::deploy::models::_Task_Upload_default_instance_);
 }
-inline const ::peony::delpoy::models::Task_Upload& Task::upload() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.upload)
+inline const ::peony::deploy::models::Task_Upload& Task::upload() const {
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.upload)
   return _internal_upload();
 }
-inline ::peony::delpoy::models::Task_Upload* Task::unsafe_arena_release_upload() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:peony.delpoy.models.Task.upload)
+inline ::peony::deploy::models::Task_Upload* Task::unsafe_arena_release_upload() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:peony.deploy.models.Task.upload)
   if (_internal_has_upload()) {
     clear_has_payload();
-    ::peony::delpoy::models::Task_Upload* temp = payload_.upload_;
+    ::peony::deploy::models::Task_Upload* temp = payload_.upload_;
     payload_.upload_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void Task::unsafe_arena_set_allocated_upload(::peony::delpoy::models::Task_Upload* upload) {
+inline void Task::unsafe_arena_set_allocated_upload(::peony::deploy::models::Task_Upload* upload) {
   clear_payload();
   if (upload) {
     set_has_upload();
     payload_.upload_ = upload;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:peony.delpoy.models.Task.upload)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:peony.deploy.models.Task.upload)
 }
-inline ::peony::delpoy::models::Task_Upload* Task::_internal_mutable_upload() {
+inline ::peony::deploy::models::Task_Upload* Task::_internal_mutable_upload() {
   if (!_internal_has_upload()) {
     clear_payload();
     set_has_upload();
-    payload_.upload_ = CreateMaybeMessage< ::peony::delpoy::models::Task_Upload >(GetArena());
+    payload_.upload_ = CreateMaybeMessage< ::peony::deploy::models::Task_Upload >(GetArena());
   }
   return payload_.upload_;
 }
-inline ::peony::delpoy::models::Task_Upload* Task::mutable_upload() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.upload)
+inline ::peony::deploy::models::Task_Upload* Task::mutable_upload() {
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.upload)
   return _internal_mutable_upload();
 }
 
-// .peony.delpoy.models.Task.Download download = 4;
+// .peony.deploy.models.Task.Download download = 4;
 inline bool Task::_internal_has_download() const {
   return payload_case() == kDownload;
 }
@@ -2364,11 +2423,11 @@ inline void Task::clear_download() {
     clear_has_payload();
   }
 }
-inline ::peony::delpoy::models::Task_Download* Task::release_download() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Task.download)
+inline ::peony::deploy::models::Task_Download* Task::release_download() {
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Task.download)
   if (_internal_has_download()) {
     clear_has_payload();
-      ::peony::delpoy::models::Task_Download* temp = payload_.download_;
+      ::peony::deploy::models::Task_Download* temp = payload_.download_;
     if (GetArena() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
@@ -2378,44 +2437,44 @@ inline ::peony::delpoy::models::Task_Download* Task::release_download() {
     return nullptr;
   }
 }
-inline const ::peony::delpoy::models::Task_Download& Task::_internal_download() const {
+inline const ::peony::deploy::models::Task_Download& Task::_internal_download() const {
   return _internal_has_download()
       ? *payload_.download_
-      : *reinterpret_cast< ::peony::delpoy::models::Task_Download*>(&::peony::delpoy::models::_Task_Download_default_instance_);
+      : *reinterpret_cast< ::peony::deploy::models::Task_Download*>(&::peony::deploy::models::_Task_Download_default_instance_);
 }
-inline const ::peony::delpoy::models::Task_Download& Task::download() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.download)
+inline const ::peony::deploy::models::Task_Download& Task::download() const {
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.download)
   return _internal_download();
 }
-inline ::peony::delpoy::models::Task_Download* Task::unsafe_arena_release_download() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:peony.delpoy.models.Task.download)
+inline ::peony::deploy::models::Task_Download* Task::unsafe_arena_release_download() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:peony.deploy.models.Task.download)
   if (_internal_has_download()) {
     clear_has_payload();
-    ::peony::delpoy::models::Task_Download* temp = payload_.download_;
+    ::peony::deploy::models::Task_Download* temp = payload_.download_;
     payload_.download_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void Task::unsafe_arena_set_allocated_download(::peony::delpoy::models::Task_Download* download) {
+inline void Task::unsafe_arena_set_allocated_download(::peony::deploy::models::Task_Download* download) {
   clear_payload();
   if (download) {
     set_has_download();
     payload_.download_ = download;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:peony.delpoy.models.Task.download)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:peony.deploy.models.Task.download)
 }
-inline ::peony::delpoy::models::Task_Download* Task::_internal_mutable_download() {
+inline ::peony::deploy::models::Task_Download* Task::_internal_mutable_download() {
   if (!_internal_has_download()) {
     clear_payload();
     set_has_download();
-    payload_.download_ = CreateMaybeMessage< ::peony::delpoy::models::Task_Download >(GetArena());
+    payload_.download_ = CreateMaybeMessage< ::peony::deploy::models::Task_Download >(GetArena());
   }
   return payload_.download_;
 }
-inline ::peony::delpoy::models::Task_Download* Task::mutable_download() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.download)
+inline ::peony::deploy::models::Task_Download* Task::mutable_download() {
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.download)
   return _internal_mutable_download();
 }
 
@@ -2430,66 +2489,66 @@ inline void Task::clear_groups() {
   groups_.Clear();
 }
 inline std::string* Task::add_groups() {
-  // @@protoc_insertion_point(field_add_mutable:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_add_mutable:peony.deploy.models.Task.groups)
   return _internal_add_groups();
 }
 inline const std::string& Task::_internal_groups(int index) const {
   return groups_.Get(index);
 }
 inline const std::string& Task::groups(int index) const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.groups)
   return _internal_groups(index);
 }
 inline std::string* Task::mutable_groups(int index) {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.groups)
   return groups_.Mutable(index);
 }
 inline void Task::set_groups(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.groups)
   groups_.Mutable(index)->assign(value);
 }
 inline void Task::set_groups(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.groups)
   groups_.Mutable(index)->assign(std::move(value));
 }
 inline void Task::set_groups(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   groups_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Task.groups)
 }
 inline void Task::set_groups(int index, const char* value, size_t size) {
   groups_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Task.groups)
 }
 inline std::string* Task::_internal_add_groups() {
   return groups_.Add();
 }
 inline void Task::add_groups(const std::string& value) {
   groups_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Task.groups)
 }
 inline void Task::add_groups(std::string&& value) {
   groups_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Task.groups)
 }
 inline void Task::add_groups(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   groups_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_add_char:peony.deploy.models.Task.groups)
 }
 inline void Task::add_groups(const char* value, size_t size) {
   groups_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_add_pointer:peony.deploy.models.Task.groups)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
 Task::groups() const {
-  // @@protoc_insertion_point(field_list:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_list:peony.deploy.models.Task.groups)
   return groups_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 Task::mutable_groups() {
-  // @@protoc_insertion_point(field_mutable_list:peony.delpoy.models.Task.groups)
+  // @@protoc_insertion_point(field_mutable_list:peony.deploy.models.Task.groups)
   return &groups_;
 }
 
@@ -2504,66 +2563,66 @@ inline void Task::clear_hosts() {
   hosts_.Clear();
 }
 inline std::string* Task::add_hosts() {
-  // @@protoc_insertion_point(field_add_mutable:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_add_mutable:peony.deploy.models.Task.hosts)
   return _internal_add_hosts();
 }
 inline const std::string& Task::_internal_hosts(int index) const {
   return hosts_.Get(index);
 }
 inline const std::string& Task::hosts(int index) const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Task.hosts)
   return _internal_hosts(index);
 }
 inline std::string* Task::mutable_hosts(int index) {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Task.hosts)
   return hosts_.Mutable(index);
 }
 inline void Task::set_hosts(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.hosts)
   hosts_.Mutable(index)->assign(value);
 }
 inline void Task::set_hosts(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Task.hosts)
   hosts_.Mutable(index)->assign(std::move(value));
 }
 inline void Task::set_hosts(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   hosts_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Task.hosts)
 }
 inline void Task::set_hosts(int index, const char* value, size_t size) {
   hosts_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Task.hosts)
 }
 inline std::string* Task::_internal_add_hosts() {
   return hosts_.Add();
 }
 inline void Task::add_hosts(const std::string& value) {
   hosts_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Task.hosts)
 }
 inline void Task::add_hosts(std::string&& value) {
   hosts_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Task.hosts)
 }
 inline void Task::add_hosts(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   hosts_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_add_char:peony.deploy.models.Task.hosts)
 }
 inline void Task::add_hosts(const char* value, size_t size) {
   hosts_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_add_pointer:peony.deploy.models.Task.hosts)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
 Task::hosts() const {
-  // @@protoc_insertion_point(field_list:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_list:peony.deploy.models.Task.hosts)
   return hosts_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 Task::mutable_hosts() {
-  // @@protoc_insertion_point(field_mutable_list:peony.delpoy.models.Task.hosts)
+  // @@protoc_insertion_point(field_mutable_list:peony.deploy.models.Task.hosts)
   return &hosts_;
 }
 
@@ -2585,15 +2644,15 @@ inline void Recipe::clear_name() {
   name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Recipe::name() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Recipe.name)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Recipe.name)
   return _internal_name();
 }
 inline void Recipe::set_name(const std::string& value) {
   _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Recipe.name)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Recipe.name)
 }
 inline std::string* Recipe::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Recipe.name)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Recipe.name)
   return _internal_mutable_name();
 }
 inline const std::string& Recipe::_internal_name() const {
@@ -2607,28 +2666,28 @@ inline void Recipe::set_name(std::string&& value) {
   
   name_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Recipe.name)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Recipe.name)
 }
 inline void Recipe::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Recipe.name)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Recipe.name)
 }
 inline void Recipe::set_name(const char* value,
     size_t size) {
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Recipe.name)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Recipe.name)
 }
 inline std::string* Recipe::_internal_mutable_name() {
   
   return name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Recipe::release_name() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Recipe.name)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Recipe.name)
   return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Recipe::set_allocated_name(std::string* name) {
@@ -2639,10 +2698,10 @@ inline void Recipe::set_allocated_name(std::string* name) {
   }
   name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Recipe.name)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Recipe.name)
 }
 
-// repeated .peony.delpoy.models.Task tasks = 2;
+// repeated .peony.deploy.models.Task tasks = 2;
 inline int Recipe::_internal_tasks_size() const {
   return tasks_.size();
 }
@@ -2652,34 +2711,36 @@ inline int Recipe::tasks_size() const {
 inline void Recipe::clear_tasks() {
   tasks_.Clear();
 }
-inline ::peony::delpoy::models::Task* Recipe::mutable_tasks(int index) {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Recipe.tasks)
+inline ::peony::deploy::models::Task* Recipe::mutable_tasks(int index) {
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Recipe.tasks)
   return tasks_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::delpoy::models::Task >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Task >*
 Recipe::mutable_tasks() {
-  // @@protoc_insertion_point(field_mutable_list:peony.delpoy.models.Recipe.tasks)
+  // @@protoc_insertion_point(field_mutable_list:peony.deploy.models.Recipe.tasks)
   return &tasks_;
 }
-inline const ::peony::delpoy::models::Task& Recipe::_internal_tasks(int index) const {
+inline const ::peony::deploy::models::Task& Recipe::_internal_tasks(int index) const {
   return tasks_.Get(index);
 }
-inline const ::peony::delpoy::models::Task& Recipe::tasks(int index) const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Recipe.tasks)
+inline const ::peony::deploy::models::Task& Recipe::tasks(int index) const {
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Recipe.tasks)
   return _internal_tasks(index);
 }
-inline ::peony::delpoy::models::Task* Recipe::_internal_add_tasks() {
+inline ::peony::deploy::models::Task* Recipe::_internal_add_tasks() {
   return tasks_.Add();
 }
-inline ::peony::delpoy::models::Task* Recipe::add_tasks() {
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Recipe.tasks)
+inline ::peony::deploy::models::Task* Recipe::add_tasks() {
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Recipe.tasks)
   return _internal_add_tasks();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::delpoy::models::Task >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Task >&
 Recipe::tasks() const {
-  // @@protoc_insertion_point(field_list:peony.delpoy.models.Recipe.tasks)
+  // @@protoc_insertion_point(field_list:peony.deploy.models.Recipe.tasks)
   return tasks_;
 }
+
+// -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
 
@@ -2690,15 +2751,15 @@ inline void Ssh::clear_host() {
   host_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Ssh::host() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Ssh.host)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Ssh.host)
   return _internal_host();
 }
 inline void Ssh::set_host(const std::string& value) {
   _internal_set_host(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Ssh.host)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Ssh.host)
 }
 inline std::string* Ssh::mutable_host() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Ssh.host)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Ssh.host)
   return _internal_mutable_host();
 }
 inline const std::string& Ssh::_internal_host() const {
@@ -2712,28 +2773,28 @@ inline void Ssh::set_host(std::string&& value) {
   
   host_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Ssh.host)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Ssh.host)
 }
 inline void Ssh::set_host(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Ssh.host)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Ssh.host)
 }
 inline void Ssh::set_host(const char* value,
     size_t size) {
   
   host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Ssh.host)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Ssh.host)
 }
 inline std::string* Ssh::_internal_mutable_host() {
   
   return host_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Ssh::release_host() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Ssh.host)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Ssh.host)
   return host_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Ssh::set_allocated_host(std::string* host) {
@@ -2744,7 +2805,7 @@ inline void Ssh::set_allocated_host(std::string* host) {
   }
   host_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), host,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Ssh.host)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Ssh.host)
 }
 
 // int32 port = 2;
@@ -2755,7 +2816,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 Ssh::_internal_port() const {
   return port_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 Ssh::port() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Ssh.port)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Ssh.port)
   return _internal_port();
 }
 inline void Ssh::_internal_set_port(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -2764,7 +2825,7 @@ inline void Ssh::_internal_set_port(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void Ssh::set_port(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_port(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Ssh.port)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Ssh.port)
 }
 
 // string user = 3;
@@ -2772,15 +2833,15 @@ inline void Ssh::clear_user() {
   user_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Ssh::user() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Ssh.user)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Ssh.user)
   return _internal_user();
 }
 inline void Ssh::set_user(const std::string& value) {
   _internal_set_user(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Ssh.user)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Ssh.user)
 }
 inline std::string* Ssh::mutable_user() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Ssh.user)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Ssh.user)
   return _internal_mutable_user();
 }
 inline const std::string& Ssh::_internal_user() const {
@@ -2794,28 +2855,28 @@ inline void Ssh::set_user(std::string&& value) {
   
   user_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Ssh.user)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Ssh.user)
 }
 inline void Ssh::set_user(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   user_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Ssh.user)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Ssh.user)
 }
 inline void Ssh::set_user(const char* value,
     size_t size) {
   
   user_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Ssh.user)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Ssh.user)
 }
 inline std::string* Ssh::_internal_mutable_user() {
   
   return user_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Ssh::release_user() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Ssh.user)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Ssh.user)
   return user_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Ssh::set_allocated_user(std::string* user) {
@@ -2826,7 +2887,7 @@ inline void Ssh::set_allocated_user(std::string* user) {
   }
   user_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Ssh.user)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Ssh.user)
 }
 
 // string key = 4;
@@ -2834,15 +2895,15 @@ inline void Ssh::clear_key() {
   key_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Ssh::key() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Ssh.key)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Ssh.key)
   return _internal_key();
 }
 inline void Ssh::set_key(const std::string& value) {
   _internal_set_key(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Ssh.key)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Ssh.key)
 }
 inline std::string* Ssh::mutable_key() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Ssh.key)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Ssh.key)
   return _internal_mutable_key();
 }
 inline const std::string& Ssh::_internal_key() const {
@@ -2856,28 +2917,28 @@ inline void Ssh::set_key(std::string&& value) {
   
   key_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Ssh.key)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Ssh.key)
 }
 inline void Ssh::set_key(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Ssh.key)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Ssh.key)
 }
 inline void Ssh::set_key(const char* value,
     size_t size) {
   
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Ssh.key)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Ssh.key)
 }
 inline std::string* Ssh::_internal_mutable_key() {
   
   return key_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Ssh::release_key() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Ssh.key)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Ssh.key)
   return key_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Ssh::set_allocated_key(std::string* key) {
@@ -2888,8 +2949,39 @@ inline void Ssh::set_allocated_key(std::string* key) {
   }
   key_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), key,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Ssh.key)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Ssh.key)
 }
+
+// map<string, string> env = 5;
+inline int Ssh::_internal_env_size() const {
+  return env_.size();
+}
+inline int Ssh::env_size() const {
+  return _internal_env_size();
+}
+inline void Ssh::clear_env() {
+  env_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Ssh::_internal_env() const {
+  return env_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Ssh::env() const {
+  // @@protoc_insertion_point(field_map:peony.deploy.models.Ssh.env)
+  return _internal_env();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Ssh::_internal_mutable_env() {
+  return env_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Ssh::mutable_env() {
+  // @@protoc_insertion_point(field_mutable_map:peony.deploy.models.Ssh.env)
+  return _internal_mutable_env();
+}
+
+// -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
 
@@ -2900,15 +2992,15 @@ inline void Group::clear_name() {
   name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Group::name() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Group.name)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Group.name)
   return _internal_name();
 }
 inline void Group::set_name(const std::string& value) {
   _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Group.name)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Group.name)
 }
 inline std::string* Group::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Group.name)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Group.name)
   return _internal_mutable_name();
 }
 inline const std::string& Group::_internal_name() const {
@@ -2922,28 +3014,28 @@ inline void Group::set_name(std::string&& value) {
   
   name_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Group.name)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Group.name)
 }
 inline void Group::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Group.name)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Group.name)
 }
 inline void Group::set_name(const char* value,
     size_t size) {
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Group.name)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Group.name)
 }
 inline std::string* Group::_internal_mutable_name() {
   
   return name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Group::release_name() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Group.name)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Group.name)
   return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Group::set_allocated_name(std::string* name) {
@@ -2954,7 +3046,7 @@ inline void Group::set_allocated_name(std::string* name) {
   }
   name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Group.name)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Group.name)
 }
 
 // repeated string hosts = 2;
@@ -2968,68 +3060,99 @@ inline void Group::clear_hosts() {
   hosts_.Clear();
 }
 inline std::string* Group::add_hosts() {
-  // @@protoc_insertion_point(field_add_mutable:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_add_mutable:peony.deploy.models.Group.hosts)
   return _internal_add_hosts();
 }
 inline const std::string& Group::_internal_hosts(int index) const {
   return hosts_.Get(index);
 }
 inline const std::string& Group::hosts(int index) const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Group.hosts)
   return _internal_hosts(index);
 }
 inline std::string* Group::mutable_hosts(int index) {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Group.hosts)
   return hosts_.Mutable(index);
 }
 inline void Group::set_hosts(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Group.hosts)
   hosts_.Mutable(index)->assign(value);
 }
 inline void Group::set_hosts(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Group.hosts)
   hosts_.Mutable(index)->assign(std::move(value));
 }
 inline void Group::set_hosts(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   hosts_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Group.hosts)
 }
 inline void Group::set_hosts(int index, const char* value, size_t size) {
   hosts_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Group.hosts)
 }
 inline std::string* Group::_internal_add_hosts() {
   return hosts_.Add();
 }
 inline void Group::add_hosts(const std::string& value) {
   hosts_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Group.hosts)
 }
 inline void Group::add_hosts(std::string&& value) {
   hosts_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Group.hosts)
 }
 inline void Group::add_hosts(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   hosts_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_add_char:peony.deploy.models.Group.hosts)
 }
 inline void Group::add_hosts(const char* value, size_t size) {
   hosts_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_add_pointer:peony.deploy.models.Group.hosts)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
 Group::hosts() const {
-  // @@protoc_insertion_point(field_list:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_list:peony.deploy.models.Group.hosts)
   return hosts_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 Group::mutable_hosts() {
-  // @@protoc_insertion_point(field_mutable_list:peony.delpoy.models.Group.hosts)
+  // @@protoc_insertion_point(field_mutable_list:peony.deploy.models.Group.hosts)
   return &hosts_;
 }
+
+// map<string, string> env = 3;
+inline int Group::_internal_env_size() const {
+  return env_.size();
+}
+inline int Group::env_size() const {
+  return _internal_env_size();
+}
+inline void Group::clear_env() {
+  env_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Group::_internal_env() const {
+  return env_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Group::env() const {
+  // @@protoc_insertion_point(field_map:peony.deploy.models.Group.env)
+  return _internal_env();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Group::_internal_mutable_env() {
+  return env_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Group::mutable_env() {
+  // @@protoc_insertion_point(field_mutable_map:peony.deploy.models.Group.env)
+  return _internal_mutable_env();
+}
+
+// -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
 
@@ -3040,15 +3163,15 @@ inline void Inventory::clear_name() {
   name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& Inventory::name() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Inventory.name)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Inventory.name)
   return _internal_name();
 }
 inline void Inventory::set_name(const std::string& value) {
   _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Inventory.name)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Inventory.name)
 }
 inline std::string* Inventory::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Inventory.name)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Inventory.name)
   return _internal_mutable_name();
 }
 inline const std::string& Inventory::_internal_name() const {
@@ -3062,28 +3185,28 @@ inline void Inventory::set_name(std::string&& value) {
   
   name_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Inventory.name)
+  // @@protoc_insertion_point(field_set_rvalue:peony.deploy.models.Inventory.name)
 }
 inline void Inventory::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Inventory.name)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Inventory.name)
 }
 inline void Inventory::set_name(const char* value,
     size_t size) {
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Inventory.name)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Inventory.name)
 }
 inline std::string* Inventory::_internal_mutable_name() {
   
   return name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* Inventory::release_name() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Inventory.name)
+  // @@protoc_insertion_point(field_release:peony.deploy.models.Inventory.name)
   return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Inventory::set_allocated_name(std::string* name) {
@@ -3094,10 +3217,10 @@ inline void Inventory::set_allocated_name(std::string* name) {
   }
   name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Inventory.name)
+  // @@protoc_insertion_point(field_set_allocated:peony.deploy.models.Inventory.name)
 }
 
-// repeated string groups = 2;
+// repeated .peony.deploy.models.Group groups = 2;
 inline int Inventory::_internal_groups_size() const {
   return groups_.size();
 }
@@ -3107,68 +3230,33 @@ inline int Inventory::groups_size() const {
 inline void Inventory::clear_groups() {
   groups_.Clear();
 }
-inline std::string* Inventory::add_groups() {
-  // @@protoc_insertion_point(field_add_mutable:peony.delpoy.models.Inventory.groups)
-  return _internal_add_groups();
-}
-inline const std::string& Inventory::_internal_groups(int index) const {
-  return groups_.Get(index);
-}
-inline const std::string& Inventory::groups(int index) const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Inventory.groups)
-  return _internal_groups(index);
-}
-inline std::string* Inventory::mutable_groups(int index) {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Inventory.groups)
+inline ::peony::deploy::models::Group* Inventory::mutable_groups(int index) {
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Inventory.groups)
   return groups_.Mutable(index);
 }
-inline void Inventory::set_groups(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Inventory.groups)
-  groups_.Mutable(index)->assign(value);
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Group >*
+Inventory::mutable_groups() {
+  // @@protoc_insertion_point(field_mutable_list:peony.deploy.models.Inventory.groups)
+  return &groups_;
 }
-inline void Inventory::set_groups(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Inventory.groups)
-  groups_.Mutable(index)->assign(std::move(value));
+inline const ::peony::deploy::models::Group& Inventory::_internal_groups(int index) const {
+  return groups_.Get(index);
 }
-inline void Inventory::set_groups(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  groups_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Inventory.groups)
+inline const ::peony::deploy::models::Group& Inventory::groups(int index) const {
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Inventory.groups)
+  return _internal_groups(index);
 }
-inline void Inventory::set_groups(int index, const char* value, size_t size) {
-  groups_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Inventory.groups)
-}
-inline std::string* Inventory::_internal_add_groups() {
+inline ::peony::deploy::models::Group* Inventory::_internal_add_groups() {
   return groups_.Add();
 }
-inline void Inventory::add_groups(const std::string& value) {
-  groups_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Inventory.groups)
+inline ::peony::deploy::models::Group* Inventory::add_groups() {
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Inventory.groups)
+  return _internal_add_groups();
 }
-inline void Inventory::add_groups(std::string&& value) {
-  groups_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Inventory.groups)
-}
-inline void Inventory::add_groups(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  groups_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:peony.delpoy.models.Inventory.groups)
-}
-inline void Inventory::add_groups(const char* value, size_t size) {
-  groups_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:peony.delpoy.models.Inventory.groups)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::peony::deploy::models::Group >&
 Inventory::groups() const {
-  // @@protoc_insertion_point(field_list:peony.delpoy.models.Inventory.groups)
+  // @@protoc_insertion_point(field_list:peony.deploy.models.Inventory.groups)
   return groups_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-Inventory::mutable_groups() {
-  // @@protoc_insertion_point(field_mutable_list:peony.delpoy.models.Inventory.groups)
-  return &groups_;
 }
 
 // repeated string hosts = 3;
@@ -3182,443 +3270,96 @@ inline void Inventory::clear_hosts() {
   hosts_.Clear();
 }
 inline std::string* Inventory::add_hosts() {
-  // @@protoc_insertion_point(field_add_mutable:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_add_mutable:peony.deploy.models.Inventory.hosts)
   return _internal_add_hosts();
 }
 inline const std::string& Inventory::_internal_hosts(int index) const {
   return hosts_.Get(index);
 }
 inline const std::string& Inventory::hosts(int index) const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_get:peony.deploy.models.Inventory.hosts)
   return _internal_hosts(index);
 }
 inline std::string* Inventory::mutable_hosts(int index) {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_mutable:peony.deploy.models.Inventory.hosts)
   return hosts_.Mutable(index);
 }
 inline void Inventory::set_hosts(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Inventory.hosts)
   hosts_.Mutable(index)->assign(value);
 }
 inline void Inventory::set_hosts(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_set:peony.deploy.models.Inventory.hosts)
   hosts_.Mutable(index)->assign(std::move(value));
 }
 inline void Inventory::set_hosts(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   hosts_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_set_char:peony.deploy.models.Inventory.hosts)
 }
 inline void Inventory::set_hosts(int index, const char* value, size_t size) {
   hosts_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_set_pointer:peony.deploy.models.Inventory.hosts)
 }
 inline std::string* Inventory::_internal_add_hosts() {
   return hosts_.Add();
 }
 inline void Inventory::add_hosts(const std::string& value) {
   hosts_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Inventory.hosts)
 }
 inline void Inventory::add_hosts(std::string&& value) {
   hosts_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_add:peony.deploy.models.Inventory.hosts)
 }
 inline void Inventory::add_hosts(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   hosts_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_add_char:peony.deploy.models.Inventory.hosts)
 }
 inline void Inventory::add_hosts(const char* value, size_t size) {
   hosts_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_add_pointer:peony.deploy.models.Inventory.hosts)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
 Inventory::hosts() const {
-  // @@protoc_insertion_point(field_list:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_list:peony.deploy.models.Inventory.hosts)
   return hosts_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 Inventory::mutable_hosts() {
-  // @@protoc_insertion_point(field_mutable_list:peony.delpoy.models.Inventory.hosts)
+  // @@protoc_insertion_point(field_mutable_list:peony.deploy.models.Inventory.hosts)
   return &hosts_;
 }
 
-// -------------------------------------------------------------------
-
-// Log
-
-// string inventory = 1;
-inline void Log::clear_inventory() {
-  inventory_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Log::inventory() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Log.inventory)
-  return _internal_inventory();
-}
-inline void Log::set_inventory(const std::string& value) {
-  _internal_set_inventory(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Log.inventory)
-}
-inline std::string* Log::mutable_inventory() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Log.inventory)
-  return _internal_mutable_inventory();
-}
-inline const std::string& Log::_internal_inventory() const {
-  return inventory_.Get();
-}
-inline void Log::_internal_set_inventory(const std::string& value) {
-  
-  inventory_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Log::set_inventory(std::string&& value) {
-  
-  inventory_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Log.inventory)
-}
-inline void Log::set_inventory(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  inventory_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Log.inventory)
-}
-inline void Log::set_inventory(const char* value,
-    size_t size) {
-  
-  inventory_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Log.inventory)
-}
-inline std::string* Log::_internal_mutable_inventory() {
-  
-  return inventory_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Log::release_inventory() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Log.inventory)
-  return inventory_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Log::set_allocated_inventory(std::string* inventory) {
-  if (inventory != nullptr) {
-    
-  } else {
-    
-  }
-  inventory_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), inventory,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Log.inventory)
-}
-
-// string group = 2;
-inline void Log::clear_group() {
-  group_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Log::group() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Log.group)
-  return _internal_group();
-}
-inline void Log::set_group(const std::string& value) {
-  _internal_set_group(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Log.group)
-}
-inline std::string* Log::mutable_group() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Log.group)
-  return _internal_mutable_group();
-}
-inline const std::string& Log::_internal_group() const {
-  return group_.Get();
-}
-inline void Log::_internal_set_group(const std::string& value) {
-  
-  group_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Log::set_group(std::string&& value) {
-  
-  group_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Log.group)
-}
-inline void Log::set_group(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  group_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Log.group)
-}
-inline void Log::set_group(const char* value,
-    size_t size) {
-  
-  group_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Log.group)
-}
-inline std::string* Log::_internal_mutable_group() {
-  
-  return group_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Log::release_group() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Log.group)
-  return group_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Log::set_allocated_group(std::string* group) {
-  if (group != nullptr) {
-    
-  } else {
-    
-  }
-  group_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), group,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Log.group)
-}
-
-// string user = 3;
-inline void Log::clear_user() {
-  user_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Log::user() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Log.user)
-  return _internal_user();
-}
-inline void Log::set_user(const std::string& value) {
-  _internal_set_user(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Log.user)
-}
-inline std::string* Log::mutable_user() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Log.user)
-  return _internal_mutable_user();
-}
-inline const std::string& Log::_internal_user() const {
-  return user_.Get();
-}
-inline void Log::_internal_set_user(const std::string& value) {
-  
-  user_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Log::set_user(std::string&& value) {
-  
-  user_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Log.user)
-}
-inline void Log::set_user(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  user_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Log.user)
-}
-inline void Log::set_user(const char* value,
-    size_t size) {
-  
-  user_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Log.user)
-}
-inline std::string* Log::_internal_mutable_user() {
-  
-  return user_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Log::release_user() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Log.user)
-  return user_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Log::set_allocated_user(std::string* user) {
-  if (user != nullptr) {
-    
-  } else {
-    
-  }
-  user_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Log.user)
-}
-
-// string host = 4;
-inline void Log::clear_host() {
-  host_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Log::host() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Log.host)
-  return _internal_host();
-}
-inline void Log::set_host(const std::string& value) {
-  _internal_set_host(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Log.host)
-}
-inline std::string* Log::mutable_host() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Log.host)
-  return _internal_mutable_host();
-}
-inline const std::string& Log::_internal_host() const {
-  return host_.Get();
-}
-inline void Log::_internal_set_host(const std::string& value) {
-  
-  host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Log::set_host(std::string&& value) {
-  
-  host_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Log.host)
-}
-inline void Log::set_host(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Log.host)
-}
-inline void Log::set_host(const char* value,
-    size_t size) {
-  
-  host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Log.host)
-}
-inline std::string* Log::_internal_mutable_host() {
-  
-  return host_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Log::release_host() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Log.host)
-  return host_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Log::set_allocated_host(std::string* host) {
-  if (host != nullptr) {
-    
-  } else {
-    
-  }
-  host_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), host,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Log.host)
-}
-
-// string reacipe = 5;
-inline void Log::clear_reacipe() {
-  reacipe_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Log::reacipe() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Log.reacipe)
-  return _internal_reacipe();
-}
-inline void Log::set_reacipe(const std::string& value) {
-  _internal_set_reacipe(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Log.reacipe)
-}
-inline std::string* Log::mutable_reacipe() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Log.reacipe)
-  return _internal_mutable_reacipe();
-}
-inline const std::string& Log::_internal_reacipe() const {
-  return reacipe_.Get();
-}
-inline void Log::_internal_set_reacipe(const std::string& value) {
-  
-  reacipe_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Log::set_reacipe(std::string&& value) {
-  
-  reacipe_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Log.reacipe)
-}
-inline void Log::set_reacipe(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  reacipe_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Log.reacipe)
-}
-inline void Log::set_reacipe(const char* value,
-    size_t size) {
-  
-  reacipe_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Log.reacipe)
-}
-inline std::string* Log::_internal_mutable_reacipe() {
-  
-  return reacipe_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Log::release_reacipe() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Log.reacipe)
-  return reacipe_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Log::set_allocated_reacipe(std::string* reacipe) {
-  if (reacipe != nullptr) {
-    
-  } else {
-    
-  }
-  reacipe_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reacipe,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Log.reacipe)
-}
-
-// string task = 6;
-inline void Log::clear_task() {
-  task_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Log::task() const {
-  // @@protoc_insertion_point(field_get:peony.delpoy.models.Log.task)
-  return _internal_task();
-}
-inline void Log::set_task(const std::string& value) {
-  _internal_set_task(value);
-  // @@protoc_insertion_point(field_set:peony.delpoy.models.Log.task)
-}
-inline std::string* Log::mutable_task() {
-  // @@protoc_insertion_point(field_mutable:peony.delpoy.models.Log.task)
-  return _internal_mutable_task();
-}
-inline const std::string& Log::_internal_task() const {
-  return task_.Get();
-}
-inline void Log::_internal_set_task(const std::string& value) {
-  
-  task_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Log::set_task(std::string&& value) {
-  
-  task_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:peony.delpoy.models.Log.task)
-}
-inline void Log::set_task(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  task_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:peony.delpoy.models.Log.task)
-}
-inline void Log::set_task(const char* value,
-    size_t size) {
-  
-  task_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:peony.delpoy.models.Log.task)
-}
-inline std::string* Log::_internal_mutable_task() {
-  
-  return task_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Log::release_task() {
-  // @@protoc_insertion_point(field_release:peony.delpoy.models.Log.task)
-  return task_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Log::set_allocated_task(std::string* task) {
-  if (task != nullptr) {
-    
-  } else {
-    
-  }
-  task_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), task,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:peony.delpoy.models.Log.task)
+// map<string, string> env = 4;
+inline int Inventory::_internal_env_size() const {
+  return env_.size();
+}
+inline int Inventory::env_size() const {
+  return _internal_env_size();
+}
+inline void Inventory::clear_env() {
+  env_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Inventory::_internal_env() const {
+  return env_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Inventory::env() const {
+  // @@protoc_insertion_point(field_map:peony.deploy.models.Inventory.env)
+  return _internal_env();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Inventory::_internal_mutable_env() {
+  return env_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Inventory::mutable_env() {
+  // @@protoc_insertion_point(field_mutable_map:peony.deploy.models.Inventory.env)
+  return _internal_mutable_env();
 }
 
 #ifdef __GNUC__
@@ -3640,11 +3381,15 @@ inline void Log::set_allocated_task(std::string* task) {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace models
-}  // namespace delpoy
+}  // namespace deploy
 }  // namespace peony
 
 // @@protoc_insertion_point(global_scope)

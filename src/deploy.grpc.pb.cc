@@ -20,10 +20,10 @@
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace peony {
-namespace delpoy {
+namespace deploy {
 namespace models {
 
 }  // namespace peony
-}  // namespace delpoy
+}  // namespace deploy
 }  // namespace models
 

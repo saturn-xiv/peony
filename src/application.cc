@@ -190,6 +190,6 @@ void edelweiss::Application::run(int argc, char** argv) {
   }
   const std::string inventory = vm["inventory"].as<std::string>();
   BOOST_LOG_TRIVIAL(info) << "deploy " << recipe << " on " << inventory;
-  // TODO
+  peony::deploy::execute(recipe, inventory);
   BOOST_LOG_TRIVIAL(info) << "done.";
 }
