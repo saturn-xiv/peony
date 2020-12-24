@@ -12,7 +12,7 @@ apt update
 apt -y upgrade
 apt -y install zsh git locales rsync openssh-client net-tools \
     lsb-release vim sudo tzdata pwgen curl zip unzip wget yasm \
-    build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
+    build-essential pkg-config libtool automake autoconf binutils cmake debhelper llvm clang \
     python3 python3-pip \
     binutils-multiarch \
     g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf

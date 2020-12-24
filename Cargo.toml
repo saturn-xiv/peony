@@ -84,7 +84,8 @@ features = ["serde"]
 
 [dependencies.grpcio]
 version = "0.7"
-features = ["openssl-vendored"]
+default-features = false
+features = ["protobuf-codec", "openssl-vendored"]
 
 [dependencies.uuid]
 version = "0.8"

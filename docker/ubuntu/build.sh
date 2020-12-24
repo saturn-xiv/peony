@@ -40,6 +40,8 @@ then
     PKG_CONFIG_DIR=
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
     export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR
+    export CMAKE_SYSTEM_PROCESSOR=arm
+    export CMAKE_CROSSCOMPILING=true
     cargo build --target armv7-unknown-linux-gnueabihf --release
     cp -v target/armv7-unknown-linux-gnueabihf/release/peony $TARGET/usr/bin/
     arm-linux-gnueabihf-strip -s $TARGET/usr/bin/peony
