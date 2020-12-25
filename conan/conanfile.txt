@@ -2,7 +2,7 @@
 openssl/1.1.1i
 sqlite3/3.34.0
 libpq/13.1
-mariadb-connector-c/3.1.11
+libmysqlclient/8.0.17
 
 [options]
 

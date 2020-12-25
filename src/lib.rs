@@ -79,6 +79,7 @@ pub mod plugins;
 pub mod queue;
 // pub mod request;
 pub mod aws;
+pub mod protos;
 pub mod settings;
 pub mod twilio;
 

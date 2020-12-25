@@ -14,6 +14,7 @@ export TARGET=$WORKSPACE/ubuntu
 rm -rf $TARGET/usr
 mkdir -pv $TARGET/usr/bin 
 
+# https://github.com/rust-lang/rust/issues/79206
 export RUSTFLAGS='-C target-feature=+crt-static'
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]

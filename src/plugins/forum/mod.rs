@@ -1,3 +1,6 @@
+pub mod models;
+pub mod schema;
+
 use grpcio::{RpcContext, UnarySink};
 
 use super::super::orm::migration::New as Migration;

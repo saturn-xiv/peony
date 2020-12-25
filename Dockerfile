@@ -77,7 +77,7 @@ RUN zsh -c "source $HOME/.cargo/env \
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN sh -c "git clone https://github.com/saturn-xiv/peony.git $HOME/peony"
-RUN zsh -c "source $HOME/.profile && $HOME/peony/grpc.h"
+RUN zsh -c "source $HOME/.profile && $HOME/peony/grpc.sh"
 
 VOLUME /workspace
 WORKDIR /workspace
