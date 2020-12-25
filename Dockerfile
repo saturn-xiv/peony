@@ -76,7 +76,8 @@ RUN zsh -c "source $HOME/.cargo/env \
     && rustup target add armv7-unknown-linux-gnueabihf"
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
-RUN sh -c ". $HOME/.profile && git clone https://github.com/saturn-xiv/peony.git $HOME/peony"
+RUN sh -c "git clone https://github.com/saturn-xiv/peony.git $HOME/peony"
+RUN zsh -c "source $HOME/.profile && $HOME/peony/grpc.h"
 
 VOLUME /workspace
 WORKDIR /workspace
