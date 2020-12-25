@@ -17,6 +17,8 @@ mkdir -pv $TARGET/usr/bin
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
 then
+    sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf
+    # rust
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig

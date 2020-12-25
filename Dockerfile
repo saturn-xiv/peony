@@ -15,7 +15,8 @@ RUN apt upgrade
 RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm \
     meson nasm bazel ninja-build \
-    build-essential pkg-config libtool automake autoconf binutils cmake clang llvm debhelper \
+    build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
+    clang llvm bison flex \
     binutils-multiarch \
     g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
     mingw-w64 mingw-w64-tools binutils-mingw-w64 \
@@ -69,6 +70,7 @@ RUN zsh -c "source $HOME/.zshrc \
 
 RUN pip3 install --user cmake
 RUN pip3 install --user conan
+RUN pip3 install --user ninja
 
 # https://www.rust-lang.org/tools/install
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

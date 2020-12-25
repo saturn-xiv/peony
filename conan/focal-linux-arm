@@ -16,8 +16,6 @@ build_type=Release
 [build_requires]
 
 [env]
-CONAN_CMAKE_FIND_ROOT_PATH=$root_fs
-PATH=[ $toolchain_root/bin ]
 CHOST=$target_host
 USE_DEV_URANDOM=1
 AR=$target_host-ar
@@ -27,3 +25,10 @@ STRIP=$target_host-strip
 LD=$target_host-ld
 CC=$target_host-gcc
 CXX=$target_host-g++
+# FIXME TRY_RUN() invoked in cross-compiling mode
+HAVE_CLOCK_MONOTONIC_EXITCODE=0
+HAVE_CLOCK_REALTIME=0
+HAVE_CLOCK_REALTIME_EXITCODE__TRYRUN_OUTPUT=0
+# HAVE_LLVM_LIBCPP=OFF
+# HAVE_C_FLOATING_POINT_OPTIMIZATION_PROBLEMS=OFF
+# HAVE_CXX_FLOATING_POINT_OPTIMIZATION_PROBLEMS=OFF
