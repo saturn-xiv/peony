@@ -17,7 +17,12 @@ mkdir -pv $TARGET/usr/bin
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
 then
-    sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf
+    sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
+        libssl-dev:armhf \
+        libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
+    # if [ $(lsb_release -cs) = "focal" ]
+    # then
+    # fi
     # rust
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
@@ -28,6 +33,8 @@ then
     arm-linux-gnueabihf-strip -s $TARGET/usr/bin/peony
 elif [ $1 = "amd64" ]
 then
+    sudo apt -y install libssl-dev \
+        libpq-dev libmysqlclient-dev libsqlite3-dev
     cargo build --target x86_64-unknown-linux-gnu --release
     cp -av $WORKSPACE/target/x86_64-unknown-linux-gnu/release/peony $TARGET/usr/bin/
     strip -s $TARGET/usr/bin/peony
