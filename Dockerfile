@@ -69,8 +69,6 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install gradle"
 
 RUN pip3 install --user cmake
-RUN pip3 install --user conan
-RUN pip3 install --user ninja
 
 # https://www.rust-lang.org/tools/install
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

@@ -1,12 +1,8 @@
-extern crate conan;
-
 use std::env;
 use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 use std::process::Command;
-
-use conan::{BuildPolicy, InstallCommandBuilder};
 
 fn shell(cmd: &mut Command) -> String {
     String::from_utf8(cmd.output().unwrap().stdout)
@@ -33,27 +29,5 @@ fn main() {
 
         writeln!(fd, r#"pub const VERSION: &str = "{}";"#, git_version).unwrap();
         writeln!(fd, r#"pub const BUILD_TIME: &str = "{}";"#, build_time).unwrap();
-    }
-
-    {
-        let root = Path::new("conan");
-        let profile = root
-            .join(format!(
-                "{}-{}-{}",
-                shell(&mut Command::new("lsb_release").arg("-cs")),
-                env::var("CARGO_CFG_TARGET_OS").unwrap(),
-                env::var("CARGO_CFG_TARGET_ARCH").unwrap()
-            ))
-            .display()
-            .to_string();
-        println!("use conan profile: {}", profile);
-        let command = InstallCommandBuilder::new()
-            .with_profile(&profile)
-            .build_policy(BuildPolicy::Missing)
-            .recipe_path(&root.join("conanfile.txt"))
-            .build();
-        println!("using conan build info");
-        let build_info = command.generate().unwrap();
-        build_info.cargo_emit();
     }
 }

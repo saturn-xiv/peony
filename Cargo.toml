@@ -126,5 +126,3 @@ features = ["script_helper"]
 git = "https://github.com/sodiumoxide/sodiumoxide.git"
 rev = "ffd9626"
 
-[build-dependencies]
-conan = "0.2"
