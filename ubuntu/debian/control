@@ -8,4 +8,5 @@ Vcs-Git: https://github.com/saturn-xiv/peony.git
 
 Package: peony
 Architecture: any
+Depends: ${shlibs:Depends}
 Description: A total free education & translation & ops solution.

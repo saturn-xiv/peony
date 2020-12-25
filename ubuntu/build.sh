@@ -20,17 +20,17 @@ then
     sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
         libssl-dev:armhf \
         libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
-    # if [ $(lsb_release -cs) = "focal" ]
-    # then
-    # fi
-    # rust
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
-    export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR
+    export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR    
     cargo build --target armv7-unknown-linux-gnueabihf --release
     cp -av $WORKSPACE/target/armv7-unknown-linux-gnueabihf/release/peony $TARGET/usr/bin/
     arm-linux-gnueabihf-strip -s $TARGET/usr/bin/peony
+    # fix in dpkg-architecture
+    CC=arm-linux-gnueabihf-gcc
+    CXX=arm-linux-gnueabihf-g++
+    export CC CXX
 elif [ $1 = "amd64" ]
 then
     sudo apt -y install libssl-dev \

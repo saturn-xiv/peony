@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:xenia
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install software-properties-common curl gnupg
-# RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
 # https://docs.bazel.build/versions/master/install-ubuntu.html
 RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/bazel.gpg
 RUN echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
