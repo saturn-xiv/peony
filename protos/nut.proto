@@ -1,15 +1,13 @@
 syntax = "proto3";
 
-// import "google/protobuf/empty.proto";
-// import "google/protobuf/timestamp.proto";
-// import "google/protobuf/duration.proto";
+package peony.nut.models;
+
+import "google/protobuf/empty.proto";
 
 service NutService {
   rpc SignIn(SignInRequest) returns(SignInResponse) {}
-  rpc SignUp(SignUpRequest) returns(Ok) {}
+  rpc SignUp(SignUpRequest) returns(google.protobuf.Empty) {}
 }
-
-message Ok {}
 
 message SignInRequest {
   string email = 1;
@@ -28,8 +26,12 @@ message SignUpRequest {
   string password = 4;
 }
 
-// message SignUpResponse {
-// google.protobuf.Timestamp created_at = 1;
-//   google.protobuf.Duration duration = 2;
-//   google.protobuf.Empty aaa = 3;
-// }
+message EmailTask {
+  string to = 1;
+  repeated string cc = 2;
+  repeated string bcc = 3;
+  string subject = 4;
+  string content_type = 5;
+  string body = 6;
+  repeated string files = 7;
+}

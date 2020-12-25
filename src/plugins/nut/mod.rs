@@ -1,24 +1,19 @@
 use grpcio::{RpcContext, UnarySink};
 
-use super::super::{
-    i18n,
-    orm::migration::New as Migration,
-    protos::{nut, nut_grpc},
-    settings,
-};
+use super::super::{i18n, orm::migration::New as Migration, settings};
 
 pub struct Plugin {}
 
-impl nut_grpc::NutService for Plugin {
-    fn sign_in(
-        &mut self,
-        ctx: RpcContext,
-        req: nut::SignInRequest,
-        sink: UnarySink<nut::SignInResponse>,
-    ) {
-    }
-    fn sign_up(&mut self, ctx: RpcContext, req: nut::SignUpRequest, sink: UnarySink<nut::Ok>) {}
-}
+// impl nut_grpc::NutService for Plugin {
+//     fn sign_in(
+//         &mut self,
+//         ctx: RpcContext,
+//         req: nut::SignInRequest,
+//         sink: UnarySink<nut::SignInResponse>,
+//     ) {
+//     }
+//     fn sign_up(&mut self, ctx: RpcContext, req: nut::SignUpRequest, sink: UnarySink<nut::Ok>) {}
+// }
 
 impl super::Plugin for Plugin {
     fn migrations<'a>() -> Vec<Migration<'a>> {
