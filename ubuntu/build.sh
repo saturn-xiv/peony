@@ -14,6 +14,9 @@ export TARGET=$WORKSPACE/ubuntu
 rm -rf $TARGET/usr
 mkdir -pv $TARGET/usr/bin 
 
+# export PQ_LIB_STATIC=1
+export PKG_CONFIG_ALL_STATIC=1
+
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
 then
@@ -27,6 +30,8 @@ then
     cargo build --target armv7-unknown-linux-gnueabihf --release
     cp -av $WORKSPACE/target/armv7-unknown-linux-gnueabihf/release/peony $TARGET/usr/bin/
     arm-linux-gnueabihf-strip -s $TARGET/usr/bin/peony
+    # arm-linux-gnueabihf-readelf -a $TARGET/usr/bin/peony | grep "Shared library:"
+    arm-linux-gnueabihf-objdump -x $TARGET/usr/bin/peony | grep "NEEDED"
     # fix in dpkg-architecture
     CC=arm-linux-gnueabihf-gcc
     CXX=arm-linux-gnueabihf-g++
@@ -38,6 +43,7 @@ then
     cargo build --target x86_64-unknown-linux-gnu --release
     cp -av $WORKSPACE/target/x86_64-unknown-linux-gnu/release/peony $TARGET/usr/bin/
     strip -s $TARGET/usr/bin/peony
+    objdump -x $TARGET/usr/bin/peony | grep "NEEDED"
 else
     echo "Unknown arch $1"
     exit 1

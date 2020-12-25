@@ -1,25 +1,26 @@
-FROM ubuntu:xenia
+FROM ubuntu:xenial
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update
-RUN apt -y upgrade
-RUN apt -y install software-properties-common curl gnupg
+RUN apt -y install apt-transport-https software-properties-common curl gnupg
+# https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
 # https://docs.bazel.build/versions/master/install-ubuntu.html
 RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/bazel.gpg
 RUN echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
+# https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
+RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt update
-RUN apt upgrade
+RUN apt -y upgrade
 RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm \
     meson nasm bazel ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
-    clang llvm bison flex \
+    clang llvm bison flex bazel \
     g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
-    python3 python3-pip python3-distutils python3-dev \
-    bazel
+    python3.10 python3.10-distutils python3.10-dev
 
 # https://wiki.ubuntu.com/ToolChain
 RUN dpkg --add-architecture armhf
@@ -47,7 +48,11 @@ RUN echo 'deploy ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/101-deploy
 USER deploy
 # https://github.com/ohmyzsh/ohmyzsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN mkdir -p $HOME/downloads
 
+# https://pip.pypa.io/en/stable/installing/
+RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py
+RUN python3.10 $HOME/downloads/get-pip.py --user
 # https://github.com/nvm-sh/nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | sh
 RUN sh -c ". $HOME/.profile \
