@@ -36,6 +36,10 @@ fn main() {
     }
 
     {
+        println!("cargo:rustc-env=gRPC_PROTOBUF_PROVIDER=package");
+        println!("cargo:rustc-env=gRPC_SSL_PROVIDER=package");
+        println!("cargo:rustc-env=gRPC_ZLIB_PROVIDER=package");
+
         let root = Path::new("conan");
         let profile = root
             .join(format!(

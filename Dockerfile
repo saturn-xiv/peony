@@ -15,7 +15,7 @@ RUN apt upgrade
 RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm \
     meson nasm bazel ninja-build \
-    build-essential pkg-config libtool automake autoconf binutils cmake clang debhelper \
+    build-essential pkg-config libtool automake autoconf binutils cmake clang llvm debhelper \
     binutils-multiarch \
     g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
     mingw-w64 mingw-w64-tools binutils-mingw-w64 \

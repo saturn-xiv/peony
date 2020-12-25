@@ -11,6 +11,9 @@
 
 # production
 /target/
+/*.deb
+/*.changes
+/*.buildinfo
 
 # misc
 /tmp/

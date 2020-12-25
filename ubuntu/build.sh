@@ -14,8 +14,6 @@ export TARGET=$WORKSPACE/ubuntu
 rm -rf $TARGET/usr
 mkdir -pv $TARGET/usr/bin 
 
-# https://github.com/rust-lang/rust/issues/79206
-export RUSTFLAGS='-C target-feature=+crt-static'
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
 then
@@ -24,12 +22,12 @@ then
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
     export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR
     cargo build --target armv7-unknown-linux-gnueabihf --release
-    cp -av $BUILD_ROOT/target/armv7-unknown-linux-gnueabihf/release/peony $TARGET/usr/bin/
+    cp -av $WORKSPACE/target/armv7-unknown-linux-gnueabihf/release/peony $TARGET/usr/bin/
     arm-linux-gnueabihf-strip -s $TARGET/usr/bin/peony
 elif [ $1 = "amd64" ]
 then
     cargo build --target x86_64-unknown-linux-gnu --release
-    cp -av $BUILD_ROOT/target/x86_64-unknown-linux-gnu/release/peony $TARGET/usr/bin/
+    cp -av $WORKSPACE/target/x86_64-unknown-linux-gnu/release/peony $TARGET/usr/bin/
     strip -s $TARGET/usr/bin/peony
 else
     echo "Unknown arch $1"
@@ -59,7 +57,7 @@ cp -r $WORKSPACE/dashboard/build $TARGET/usr/share/peony/dashboard
 
 rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony
-cp -r $WORKSPACE/LICENSE $WORKSPACE/README.md $WORKSPACE/etc/* $TARGET/etc/peony/
+cp -r $WORKSPACE/LICENSE $WORKSPACE/README.md $TARGET/etc/peony/
 echo "$(git describe --tags --always --dirty --first-parent) $(date -R)" > $TARGET/etc/peony/VERSION
 echo "$1 $(lsb_release -cs) $2" >> $TARGET/etc/peony/VERSION
 
