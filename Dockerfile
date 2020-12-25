@@ -70,19 +70,13 @@ RUN zsh -c "source $HOME/.zshrc \
 RUN pip3 install --user cmake
 RUN pip3 install --user conan
 
+# https://www.rust-lang.org/tools/install
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN zsh -c "source $HOME/.cargo/env \
+    && rustup target add armv7-unknown-linux-gnueabihf"
+
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
-RUN sh -c ". $HOME/.profile && git clone -b cpp https://github.com/saturn-xiv/peony.git $HOME/peony"
-RUN sudo apt install -y libssl-dev
-COPY conanfile.txt armhf.cmake grpc.sh conan /opt/
-RUN sh -c ". $HOME/.profile && /opt/grpc.sh"
-RUN sh -c ". $HOME/.profile \
-    && mkdir -pv $HOME/amd64 \
-    && cd $HOME/amd64 \
-    && conan install /opt --profile=/opt/profiles/amd64 --build=missing"
-RUN sh -c ". $HOME/.profile \
-    && mkdir -pv $HOME/armhf \
-    && cd $HOME/armhf \
-    && conan install /opt --profile=/opt/profiles/armhf --build=missing"
+RUN sh -c ". $HOME/.profile && git clone https://github.com/saturn-xiv/peony.git $HOME/peony"
 
 VOLUME /workspace
 WORKDIR /workspace

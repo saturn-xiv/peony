@@ -1,0 +1,10 @@
+/etc/
+/usr/
+/var/
+
+/debhelper-build-stamp
+/debian/.debhelper/
+/debian/files
+/debian/peony.debhelper.log
+/debian/peony.substvars
+/debian/peony/
