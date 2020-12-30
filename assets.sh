@@ -2,14 +2,13 @@
 
 set -e
 
-npm install --save material-design-icons marked moment-timezone moment bootstrap@next
+# npm install --save material-design-icons marked moment-timezone moment bootstrap@next
 
-# https://create-react-app.dev/docs/adding-typescript/
 # react-quill@beta react-mde emoji-mart google-map-react qrcode.react react-copy-to-clipboard
-# @ant-design/charts
-cd dashboard && npm install --save \
+# @ant-design/charts antd
+npm install --save \
     js-cookie @types/js-cookie \
-    jwt-decode @types/jwt-decode \
+    jwt-decode \
     dinero @types/dinero.js \
     moment moment-timezone \
     draft-js react-markdown remark-gfm \
@@ -17,6 +16,11 @@ cd dashboard && npm install --save \
     redux react-redux @types/react-redux \
     react-router-dom @types/react-router-dom \
     react-syntax-highlighter @types/react-syntax-highlighter \
-    grpc-web antd 
+    grpc-web \
+    @fontsource/roboto material-design-icons \
+    formik react-hook-form \
+    @material-ui/core@next @material-ui/icons@next @emotion/react @emotion/styled
+
+echo 'Done.'
 
 exit 0

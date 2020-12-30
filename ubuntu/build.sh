@@ -11,12 +11,12 @@ export WORKSPACE=$PWD
 export VERSION=$(git describe --tags --always --dirty --first-parent)
 export TARGET=$WORKSPACE/tmp/$(lsb_release -cs)-$VERSION/target
 # -----------------------------
-if [ -d $TARGET/ubuntu ]
+if [ -d $TARGET ]
 then
-    rm -rf $TARGET/ubuntu
+    rm -rf $TARGET
 fi
 mkdir -pv $TARGET/usr/bin
-cp -r $WORKSPACE/ubuntu $TARGET/
+cp -r $WORKSPACE/ubuntu/debian $TARGET/
 
 
 # FIXME static link
@@ -89,6 +89,6 @@ mkdir -pv $TARGET/var/lib/peony
 cd $TARGET
 dpkg-buildpackage -us -uc -b --host-arch $1
 
-echo 'done'
+echo "Done($TARGET)."
 
 exit 0

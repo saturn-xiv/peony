@@ -13,14 +13,19 @@ A total free education &amp; translation &amp; ops solution.
 - [Visual Studio Code](https://code.visualstudio.com/Download)
 - [Graphql](https://graphql.org/learn/)
 
-### Libraries
+### Background
 
-- [Ant Design of React](https://ant.design/docs/react/introduce)
+- [gRPC Web](https://github.com/grpc/grpc-web)
+- [Protobuf](https://developers.google.com/protocol-buffers/docs/proto3)
+
+### Frontend
+
 - [Bootstrap](https://getbootstrap.com/)
 - [Materialize](https://materializecss.com/getting-started.html)
 - [Material Icons Guide](https://google.github.io/material-design-icons/)
+- [Create React App](https://create-react-app.dev/docs/adding-typescript/)
+- [Material UI](https://next.material-ui.com/components/typography/#general)
+- [Build forms in React, without the tears](https://formik.org/docs/examples/with-material-ui)
+- [React Hook Form](https://react-hook-form.com/get-started/#IntegratingwithUIlibraries)
 - [Moment.js](https://momentjs.com/)
 - [Marked](https://github.com/markedjs/marked)
-- [Juniper](https://graphql-rust.github.io/juniper/current/)
-- [gRPC Web](https://github.com/grpc/grpc-web)
-- [Protobuf](https://developers.google.com/protocol-buffers/docs/proto3)
