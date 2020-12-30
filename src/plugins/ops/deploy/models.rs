@@ -193,10 +193,17 @@ impl Command {
         }
         "root".to_string()
     }
+    fn parse_ssh_timeout(vars: &Vars) -> u8 {
+        if let Some(Value::Integer(v)) = vars.get("ssh.timeout") {
+            return (*v) as u8;
+        }
+        3
+    }
     pub fn run(&self, inventory: &str, host: &str, vars: &Vars) -> Result<()> {
         debug!("host {} env: {:?}", host, vars);
         let user = Self::parse_ssh_user(vars);
         let port = Self::parse_ssh_port(vars);
+        let timeout = Self::parse_ssh_timeout(vars);
         let key: String = Self::parse_ssh_key_file(inventory, vars);
         let sh = match vars.get("ssh.shell") {
             Some(Value::String(v)) => v.clone(),
@@ -204,7 +211,8 @@ impl Command {
         };
 
         let ssh = format!(
-            "ssh -T -o ConnectTimeout=3 -o ConnectionAttempts=5 -o StrictHostKeyChecking=no -o PasswordAuthentication=no -p {port} -i {key}",
+            "ssh -T -o ConnectTimeout={timeout} -o ConnectionAttempts=5 -o StrictHostKeyChecking=no -o PasswordAuthentication=no -p {port} -i {key}",
+            timeout = timeout,
             port = port,
             key = key
         );
@@ -294,7 +302,7 @@ impl Command {
                         ShellCommand::new("ssh")
                             .arg("-T")
                             .arg("-o")
-                            .arg("ConnectTimeout=3")
+                            .arg(format!("ConnectTimeout={}", timeout))
                             .arg("-o")
                             .arg("ConnectionAttempts=5")
                             .arg("-o")
