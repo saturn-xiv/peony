@@ -70,7 +70,8 @@ then
     npm install
 fi
 cd $WORKSPACE/dashboard
-REACT_GRPC_HOST=$2 npm run build
+# %REACT_APP_WEBSITE_NAME%
+REACT_API_HOST=api.$2 REACT_GRPC_HOST=rpc.$2 npm run build
 
 # -----------------------------
 mkdir -pv $TARGET/usr/share/peony
