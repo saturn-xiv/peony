@@ -1,69 +1,109 @@
-use std::default::Default;
+use std::fmt;
 
-use rusoto_core::{HttpClient, Region};
-use rusoto_credential::StaticProvider;
+use rusoto_core::{request::HttpClient, Region};
 use rusoto_s3::{
-    CreateBucketRequest, DeleteObjectRequest, GetBucketLocationRequest, HeadBucketRequest,
-    PutObjectRequest, S3Client, S3,
+    CreateBucketRequest, DeleteBucketRequest, DeleteObjectRequest, GetBucketLocationRequest,
+    ListObjectsV2Request, PutObjectRequest, S3Client, S3 as S3Provider,
 };
 
 use super::super::errors::Result;
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-#[serde(rename_all = "camelCase")]
-pub struct Config {
-    pub region: String,
-    pub endpoint: Option<String>,
-    pub access_key: String,
-    pub secret_key: String,
+pub struct S3 {
+    client: S3Client,
 }
 
-impl Default for Config {
-    fn default() -> Self {
-        Self {
-            region: "US_WEST_2".to_string(),
-            endpoint: Some("http://www.change-me.com".to_string()),
-            access_key: "Access Key".to_string(),
-            secret_key: "Secret Key".to_string(),
-        }
+pub enum Acl {
+    PublicRead,
+}
+
+impl fmt::Display for Acl {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "{}",
+            match *self {
+                Acl::PublicRead => "public-read",
+            }
+        )
     }
 }
 
-impl Config {
-    fn open(&self) -> Result<S3Client> {
-        let it = S3Client::new_with(
-            HttpClient::new()?,
-            StaticProvider::new(self.access_key.clone(), self.access_key.clone(), None, None),
-            match self.endpoint {
-                Some(ref v) => Region::Custom {
-                    name: self.region.clone(),
-                    endpoint: v.to_string(),
-                },
-                None => self.region.parse()?,
-            },
-        );
-        Ok(it)
+impl S3 {
+    pub fn new(cred: super::Credentials, region: Region) -> Result<Self> {
+        Ok(Self {
+            client: S3Client::new_with(HttpClient::new()?, cred.provider(), region),
+        })
     }
 
-    pub async fn put(&self, bucket: &str, name: &str, body: Vec<u8>) -> Result<()> {
-        let client = self.open()?;
-        if client
-            .head_bucket(HeadBucketRequest {
-                bucket: bucket.to_string(),
+    pub async fn bucket_exists(&self, name: String) -> Result<()> {
+        self.client
+            .get_bucket_location(GetBucketLocationRequest { bucket: name })
+            .await?;
+        Ok(())
+    }
+
+    pub async fn create_bucket(&self, name: String, acl: &Acl) -> Result<()> {
+        self.client
+            .create_bucket(CreateBucketRequest {
+                acl: Some(acl.to_string()),
+                bucket: name,
+                ..Default::default()
             })
-            .await
-            .is_err()
-        {
-            client
-                .create_bucket(CreateBucketRequest {
-                    bucket: bucket.to_string(),
-                    ..Default::default()
-                })
-                .await?;
+            .await?;
+        Ok(())
+    }
+    pub async fn delete_bucket(&self, name: String) -> Result<()> {
+        self.client
+            .delete_bucket(DeleteBucketRequest { bucket: name })
+            .await?;
+        Ok(())
+    }
+    pub async fn list_buckets(&self) -> Result<Vec<String>> {
+        let mut buckets = Vec::new();
+        if let Some(items) = self.client.list_buckets().await?.buckets {
+            for it in items {
+                if let Some(it) = it.name {
+                    buckets.push(it);
+                }
+            }
         }
-        client
+        Ok(buckets)
+    }
+
+    pub async fn list_objects(&self, bucket: String, after: Option<String>) -> Result<Vec<String>> {
+        let mut objects = Vec::new();
+
+        if let Some(items) = self
+            .client
+            .list_objects_v2(ListObjectsV2Request {
+                bucket,
+                start_after: after,
+                ..Default::default()
+            })
+            .await?
+            .contents
+        {
+            for it in items {
+                if let Some(key) = it.key {
+                    objects.push(key);
+                }
+            }
+        }
+        Ok(objects)
+    }
+
+    pub async fn put_object(
+        &self,
+        bucket: String,
+        name: String,
+        body: Vec<u8>,
+        acl: &Acl,
+    ) -> Result<()> {
+        self.client
             .put_object(PutObjectRequest {
-                key: name.to_string(),
+                acl: Some(acl.to_string()),
+                bucket,
+                key: name,
                 body: Some(body.into()),
                 ..Default::default()
             })
@@ -71,34 +111,11 @@ impl Config {
         Ok(())
     }
 
-    // https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
-    pub async fn get(&self, bucket: &str, name: &str) -> Result<String> {
-        if let Some(ref endpoint) = self.endpoint {
-            return Ok(format!("{}/{}/{}", endpoint, bucket, name));
-        }
-        let client = self.open()?;
-        let val = client
-            .get_bucket_location(GetBucketLocationRequest {
-                bucket: bucket.to_string(),
-            })
-            .await?;
-        Ok(format!(
-            "https://s3-{}.amazonaws.com/{}/{}",
-            match val.location_constraint {
-                Some(ref v) => v,
-                None => "",
-            },
-            bucket,
-            name
-        ))
-    }
-
-    pub async fn delete(&self, bucket: &str, name: &str) -> Result<()> {
-        let client = self.open()?;
-        client
+    pub async fn delete_object(&self, bucket: String, name: String) -> Result<()> {
+        self.client
             .delete_object(DeleteObjectRequest {
-                bucket: bucket.to_string(),
-                key: name.to_string(),
+                bucket,
+                key: name,
                 ..Default::default()
             })
             .await?;

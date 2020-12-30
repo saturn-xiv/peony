@@ -39,6 +39,13 @@ pub enum Error {
     RusotoCoreS3GetBucketLocation(rusoto_core::RusotoError<rusoto_s3::GetBucketLocationError>),
     RusotoCoreS3PutObject(rusoto_core::RusotoError<rusoto_s3::PutObjectError>),
     RusotoCoreS3CreateBucket(rusoto_core::RusotoError<rusoto_s3::CreateBucketError>),
+    RusotoCoreS3ListBuckets(rusoto_core::RusotoError<rusoto_s3::ListBucketsError>),
+    RusotoCoreS3ListObjectsV2(rusoto_core::RusotoError<rusoto_s3::ListObjectsV2Error>),
+    RusotoCoreS3DeleteBucket(rusoto_core::RusotoError<rusoto_s3::DeleteBucketError>),
+    RusotoCoreSqsGetQueueUrl(rusoto_core::RusotoError<rusoto_sqs::GetQueueUrlError>),
+    RusotoCoreSqsSendMessage(rusoto_core::RusotoError<rusoto_sqs::SendMessageError>),
+    RusotoCoreSqsReceiveMessage(rusoto_core::RusotoError<rusoto_sqs::ReceiveMessageError>),
+    RusotoCoreSqsCreateQueue(rusoto_core::RusotoError<rusoto_sqs::CreateQueueError>),
     SerdeJson(serde_json::Error),
     SerdeXml(serde_xml_rs::Error),
     TomlDe(toml::de::Error),
@@ -84,6 +91,13 @@ impl fmt::Display for Error {
             Self::RusotoCoreS3GetBucketLocation(v) => v.fmt(f),
             Self::RusotoCoreS3PutObject(v) => v.fmt(f),
             Self::RusotoCoreS3CreateBucket(v) => v.fmt(f),
+            Self::RusotoCoreS3ListBuckets(v) => v.fmt(f),
+            Self::RusotoCoreS3ListObjectsV2(v) => v.fmt(f),
+            Self::RusotoCoreS3DeleteBucket(v) => v.fmt(f),
+            Self::RusotoCoreSqsGetQueueUrl(v) => v.fmt(f),
+            Self::RusotoCoreSqsSendMessage(v) => v.fmt(f),
+            Self::RusotoCoreSqsReceiveMessage(v) => v.fmt(f),
+            Self::RusotoCoreSqsCreateQueue(v) => v.fmt(f),
             Self::SerdeJson(v) => v.fmt(f),
             Self::SerdeXml(v) => v.fmt(f),
             Self::TomlDe(v) => v.fmt(f),
@@ -180,6 +194,48 @@ impl From<rusoto_core::RusotoError<rusoto_s3::PutObjectError>> for Error {
 impl From<rusoto_core::RusotoError<rusoto_s3::CreateBucketError>> for Error {
     fn from(err: rusoto_core::RusotoError<rusoto_s3::CreateBucketError>) -> Self {
         Self::RusotoCoreS3CreateBucket(err)
+    }
+}
+
+impl From<rusoto_core::RusotoError<rusoto_s3::ListBucketsError>> for Error {
+    fn from(err: rusoto_core::RusotoError<rusoto_s3::ListBucketsError>) -> Self {
+        Self::RusotoCoreS3ListBuckets(err)
+    }
+}
+
+impl From<rusoto_core::RusotoError<rusoto_s3::ListObjectsV2Error>> for Error {
+    fn from(err: rusoto_core::RusotoError<rusoto_s3::ListObjectsV2Error>) -> Self {
+        Self::RusotoCoreS3ListObjectsV2(err)
+    }
+}
+
+impl From<rusoto_core::RusotoError<rusoto_s3::DeleteBucketError>> for Error {
+    fn from(err: rusoto_core::RusotoError<rusoto_s3::DeleteBucketError>) -> Self {
+        Self::RusotoCoreS3DeleteBucket(err)
+    }
+}
+
+impl From<rusoto_core::RusotoError<rusoto_sqs::GetQueueUrlError>> for Error {
+    fn from(err: rusoto_core::RusotoError<rusoto_sqs::GetQueueUrlError>) -> Self {
+        Self::RusotoCoreSqsGetQueueUrl(err)
+    }
+}
+
+impl From<rusoto_core::RusotoError<rusoto_sqs::SendMessageError>> for Error {
+    fn from(err: rusoto_core::RusotoError<rusoto_sqs::SendMessageError>) -> Self {
+        Self::RusotoCoreSqsSendMessage(err)
+    }
+}
+
+impl From<rusoto_core::RusotoError<rusoto_sqs::ReceiveMessageError>> for Error {
+    fn from(err: rusoto_core::RusotoError<rusoto_sqs::ReceiveMessageError>) -> Self {
+        Self::RusotoCoreSqsReceiveMessage(err)
+    }
+}
+
+impl From<rusoto_core::RusotoError<rusoto_sqs::CreateQueueError>> for Error {
+    fn from(err: rusoto_core::RusotoError<rusoto_sqs::CreateQueueError>) -> Self {
+        Self::RusotoCoreSqsCreateQueue(err)
     }
 }
 

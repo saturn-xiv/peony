@@ -48,6 +48,7 @@ extern crate reqwest;
 extern crate rusoto_core;
 extern crate rusoto_credential;
 extern crate rusoto_s3;
+extern crate rusoto_sqs;
 extern crate serde;
 extern crate serde_xml_rs;
 extern crate sodiumoxide;
