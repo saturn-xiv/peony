@@ -3,48 +3,15 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use amq_protocol_uri::{AMQPAuthority, AMQPUri, AMQPUserInfo};
 
 use actix_web::http::StatusCode;
+use futures::StreamExt;
 use lapin::{
-    message::Delivery, options::*, types::FieldTable, BasicProperties, Channel, Connection,
-    ConnectionProperties,
+    message::Delivery,
+    options::{BasicAckOptions, BasicConsumeOptions, BasicPublishOptions, QueueDeclareOptions},
+    types::FieldTable,
+    BasicProperties, Channel, Connection, ConnectionProperties,
 };
-use mime::APPLICATION_JSON;
-use serde::{de::DeserializeOwned, ser::Serialize};
-use uuid::Uuid;
 
 use super::super::errors::{Error, Result};
-
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Task {
-    pub id: String,
-    pub content_type: String,
-    pub payload: Vec<u8>,
-}
-
-impl Task {
-    pub fn new<T: Serialize>(payload: &T) -> Result<Self> {
-        Ok(Self {
-            id: Uuid::new_v4().to_string(),
-            content_type: APPLICATION_JSON.to_string(),
-            payload: serde_json::to_vec(payload)?,
-        })
-    }
-
-    pub fn get<T: DeserializeOwned>(&self) -> Result<T> {
-        if APPLICATION_JSON.to_string() == self.content_type {
-            let it = serde_json::from_slice(&self.payload)?;
-            return Ok(it);
-        }
-        Err(Error::Http(
-            StatusCode::BAD_REQUEST,
-            Some(format!("unsupport task content type {}", self.content_type)),
-        ))
-    }
-}
-
-pub trait Handler: Sync + Send {
-    fn handle(&self, task: &Task) -> Result<()>;
-}
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Config {
@@ -98,28 +65,37 @@ impl RabbitMQ {
     async fn open(&self, queue: &str) -> Result<Channel> {
         let con = Connection::connect_uri(self.uri.clone(), self.conn.clone()).await?;
         let ch = con.create_channel().await?;
-        ch.queue_declare(queue, QueueDeclareOptions::default(), FieldTable::default())
-            .await?;
+        {
+            let mut options = QueueDeclareOptions::default();
+            options.durable = true;
+            options.exclusive = false;
+            options.auto_delete = false;
+            ch.queue_declare(queue, options, FieldTable::default())
+                .await?;
+        }
         Ok(ch)
     }
+}
 
-    pub async fn publish(&self, queue: &str, task: Task) -> Result<()> {
+impl RabbitMQ {
+    pub async fn publish(
+        &self,
+        queue: &str,
+        id: &str,
+        content_type: &str,
+        payload: Vec<u8>,
+    ) -> Result<()> {
         let ch = self.open(queue).await?;
-        info!("publish task {}://{}", queue, task.id);
+        info!("publish task {}://{}", queue, id);
         ch.basic_publish(
             "",
             queue,
             BasicPublishOptions::default(),
-            task.payload,
+            payload,
             BasicProperties::default()
-                .with_message_id((&task.id[..]).into())
-                .with_content_type((&task.content_type[..]).into())
-                .with_timestamp(
-                    SystemTime::now()
-                        .duration_since(UNIX_EPOCH)
-                        .expect("get timestamp")
-                        .as_secs(),
-                ),
+                .with_message_id(id.into())
+                .with_content_type(content_type.into())
+                .with_timestamp(SystemTime::now().duration_since(UNIX_EPOCH)?.as_secs()),
         )
         .await?
         .await?;
@@ -127,7 +103,7 @@ impl RabbitMQ {
         Ok(())
     }
 
-    pub async fn consume<H: Handler>(
+    pub async fn consume<H: super::Handler>(
         &self,
         consumer: &str,
         queue: &str,
@@ -148,29 +124,23 @@ impl RabbitMQ {
             queue,
             ch.id()
         );
-        // TODO
-        // while let Some(msg) = cm.next().await {
-        //     let (ch, msg) = msg?;
-        //     debug!("received message: {:?}", msg);
-        //     handle_message(msg.clone(), handler)?;
-        //     ch.basic_ack(msg.delivery_tag, BasicAckOptions::default())
-        //         .wait()?;
-        // }
+        while let Some(delivery) = cm.next().await {
+            handle_message(delivery?, handler).await?;
+        }
         Ok(())
     }
 }
 
-pub fn handle_message<H: Handler>(msg: Delivery, hnd: &H) -> Result<()> {
-    let props = msg.properties;
-    info!("got message: {:?}", props);
-
+async fn handle_message<H: super::Handler>(delivery: Delivery, hnd: &H) -> Result<()> {
+    debug!("received message: {:?}", delivery);
+    let props = &delivery.properties;
     if let Some(content_type) = props.content_type() {
         if let Some(id) = props.message_id() {
-            return hnd.handle(&Task {
-                id: id.to_string(),
-                content_type: content_type.to_string(),
-                payload: msg.data,
-            });
+            let id = id.to_string();
+            info!("got message: {}", id);
+            hnd.handle(&id, &content_type.to_string(), &delivery.data)?;
+            delivery.ack(BasicAckOptions::default()).await?;
+            return Ok(());
         }
     }
 

@@ -12,6 +12,7 @@ pub enum Error {
     StdNumParseInt(std::num::ParseIntError),
     StdStrUtf8(std::str::Utf8Error),
     StdStringFromUtf8(std::string::FromUtf8Error),
+    StdSystemTime(std::time::SystemTimeError),
 
     Askama(askama::Error),
     ActixMultipart(actix_multipart::MultipartError),
@@ -56,6 +57,7 @@ impl fmt::Display for Error {
             Self::StdNumParseInt(v) => v.fmt(f),
             Self::StdStrUtf8(v) => v.fmt(f),
             Self::StdStringFromUtf8(v) => v.fmt(f),
+            Self::StdSystemTime(v) => v.fmt(f),
 
             Self::Askama(v) => v.fmt(f),
             Self::ActixMultipart(v) => v.fmt(f),
@@ -124,6 +126,12 @@ impl From<std::str::Utf8Error> for Error {
 impl From<std::net::AddrParseError> for Error {
     fn from(err: std::net::AddrParseError) -> Self {
         Self::StdNetAddrParse(err)
+    }
+}
+
+impl From<std::time::SystemTimeError> for Error {
+    fn from(err: std::time::SystemTimeError) -> Self {
+        Self::StdSystemTime(err)
     }
 }
 
