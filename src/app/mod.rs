@@ -7,6 +7,7 @@ use actix_web::http::StatusCode;
 use clap::{App, Arg};
 
 use super::{
+    cache::Provider as CacheProvider,
     env,
     errors::{Error, Result},
     orm::migration::Dao as MigrationDao,
@@ -183,13 +184,16 @@ pub fn launch() -> Result<()> {
     }
 
     if let Some(matches) = matches.subcommand_matches("cache") {
+        let db = config.redis.open()?;
         if matches.subcommand_matches("list").is_some() {
-            // TODO
+            println!("{:<12} {}", "TTL", "KEY");
+            for it in db.keys()? {
+                println!("{:<12} {}", it.1, it.0);
+            }
             return Ok(());
         }
         if matches.subcommand_matches("clear").is_some() {
-            // TODO
-            return Ok(());
+            return db.clear();
         }
     }
 

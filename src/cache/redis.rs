@@ -45,7 +45,19 @@ impl fmt::Display for Config {
     }
 }
 
+// https://redis.io/commands
 impl super::Provider for Pool {
+    fn keys(&self) -> Result<Vec<(String, i64)>> {
+        let mut db = self.get()?;
+        let db = db.deref_mut();
+        let mut items = Vec::new();
+        for key in cmd("keys").arg("*").query::<Vec<String>>(db)? {
+            let ttl = cmd("ttl").arg(&key).query::<i64>(db)?;
+            items.push((key, ttl));
+        }
+        Ok(items)
+    }
+
     fn get<K, V, F>(&self, key: &K, fun: F, ttl: Duration) -> Result<V>
     where
         F: FnOnce() -> Result<V>,
@@ -76,7 +88,7 @@ impl super::Provider for Pool {
         let mut db = self.get()?;
         let db = db.deref_mut();
         let rst = cmd("flushdb").query::<String>(db)?;
-        info!("flushdb {}", rst);
+        info!("{}", rst);
         Ok(())
     }
 }
