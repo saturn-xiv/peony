@@ -80,7 +80,9 @@ RUN zsh -c "source $HOME/.zshrc \
 # https://www.rust-lang.org/tools/install
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN zsh -c "source $HOME/.cargo/env \
-    && rustup target add armv7-unknown-linux-gnueabihf"
+    && rustup target add x86_64-unknown-linux-musl \
+    && rustup target add armv7-unknown-linux-gnueabihf \
+    && rustup target add armv7-unknown-linux-musleabihf"
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN sh -c "git clone https://github.com/saturn-xiv/peony.git $HOME/peony"

@@ -21,7 +21,7 @@ cp -r $WORKSPACE/ubuntu/debian $TARGET/
 
 # FIXME static link
 # export PQ_LIB_STATIC=1
-# export PKG_CONFIG_ALL_STATIC=1
+export PKG_CONFIG_ALL_STATIC=1
 
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
@@ -33,7 +33,11 @@ then
     PKG_CONFIG_DIR=
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
     export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR    
+    
     cargo build --target armv7-unknown-linux-gnueabihf --release
+    # export CARGO_TARGET_ARMV7_UNKNOWN_LINUX_MUSLEABIHF_LINKER=arm-linux-gnueabihf-ld
+    # cargo build --target=armv7-unknown-linux-musleabihf --release
+    
     cp -av $WORKSPACE/target/armv7-unknown-linux-gnueabihf/release/peony $TARGET/usr/bin/
     arm-linux-gnueabihf-strip -s $TARGET/usr/bin/peony
     # arm-linux-gnueabihf-readelf -a $TARGET/usr/bin/peony | grep "Shared library:"
@@ -47,7 +51,10 @@ then
     sudo apt -y install libssl-dev \
         libzmq3-dev \
         libpq-dev libmysqlclient-dev libsqlite3-dev
+
     cargo build --target x86_64-unknown-linux-gnu --release
+    # cargo build --target x86_64-unknown-linux-musl --release
+
     cp -av $WORKSPACE/target/x86_64-unknown-linux-gnu/release/peony $TARGET/usr/bin/
     strip -s $TARGET/usr/bin/peony
     objdump -x $TARGET/usr/bin/peony | grep "NEEDED"
