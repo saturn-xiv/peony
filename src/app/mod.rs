@@ -13,7 +13,7 @@ use super::{
     errors::{Error, Result},
     orm::migration::Dao as MigrationDao,
     parser,
-    plugins::{forum, nut, Plugin},
+    plugins::{forum, nut, ops, Plugin},
 };
 
 pub fn launch() -> Result<()> {
@@ -153,10 +153,9 @@ pub fn launch() -> Result<()> {
     }
 
     if let Some(matches) = matches.subcommand_matches("deploy") {
-        let _recipe = matches.value_of("recipe").unwrap();
-        let _inventory = matches.value_of("inventory").unwrap();
-        // TODO
-        // return deploy::run(&inventory, &job);
+        let recipe = matches.value_of("recipe").unwrap();
+        let inventory = matches.value_of("inventory").unwrap();
+        return ops::deploy::run(&inventory, &recipe);
     }
 
     let config = matches.value_of("config").unwrap();
