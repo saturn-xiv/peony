@@ -22,6 +22,18 @@ impl super::Plugin for Plugin {
     fn migrations<'a>() -> Vec<Migration<'a>> {
         let mut items = Vec::new();
         items.push(Migration {
+            version: "20201212175056",
+            name: "create-settings",
+            up: settings::UP,
+            down: settings::DOWN,
+        });
+        items.push(Migration {
+            version: "20201212175102",
+            name: "create-locales",
+            up: i18n::UP,
+            down: i18n::DOWN,
+        });
+        items.push(Migration {
             version: "20201214174607",
             name: "create-auth",
             up: include_str!("create-auth-up.sql"),
@@ -32,18 +44,6 @@ impl super::Plugin for Plugin {
             name: "create-site",
             up: include_str!("create-site-up.sql"),
             down: include_str!("create-site-down.sql"),
-        });
-        items.push(Migration {
-            version: "20201214175056",
-            name: "create-settings",
-            up: settings::UP,
-            down: settings::DOWN,
-        });
-        items.push(Migration {
-            version: "20201214175102",
-            name: "create-locales",
-            up: i18n::UP,
-            down: i18n::DOWN,
         });
         items
     }

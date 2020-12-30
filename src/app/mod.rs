@@ -1,5 +1,3 @@
-pub mod cache;
-pub mod database;
 pub mod generate;
 pub mod server;
 
@@ -43,15 +41,6 @@ pub fn launch() -> Result<()> {
                 .about("Redis operations")
                 .subcommand(App::new("list").about("List all cache keys"))
                 .subcommand(App::new("clear").about("Remove all keys")),
-        )
-        .subcommand(
-            App::new("crawler").about("Run crawler").arg(
-                Arg::new("name")
-                    .long("name")
-                    .short('n')
-                    .about("Crawler name")
-                    .takes_value(true),
-            ),
         )
         .subcommand(
             App::new("generate")
@@ -122,11 +111,18 @@ pub fn launch() -> Result<()> {
                         .about("Inventory"),
                 ),
         )
+        .subcommand(App::new("http").about("Start http api listener"))
         .subcommand(
-            App::new("http")
-                .about("HTTP api")
-                .subcommand(App::new("server").about("Start http listener")),
+            App::new("worker").about("Run rabbitmq worker").arg(
+                Arg::new("queue")
+                    .long("queue")
+                    .short('q')
+                    .about("Queue")
+                    .required(true)
+                    .takes_value(true),
+            ),
         )
+        .subcommand(App::new("grpc").about("Start gRPC listener"))
         .get_matches();
     if sodiumoxide::init().is_err() {
         return Err(Error::Http(
@@ -162,10 +158,8 @@ pub fn launch() -> Result<()> {
     info!("load configuration from {}", config);
     let config: env::Config = parser::from_toml(config)?;
     if let Some(matches) = matches.subcommand_matches("db") {
-        let root = matches.value_of("folder").unwrap();
         let db = config.postgresql.open()?;
         let db = db.get()?;
-        info!("using folder {}", root);
         let mut items = Vec::new();
         {
             items.extend(nut::Plugin::migrations());
@@ -180,12 +174,37 @@ pub fn launch() -> Result<()> {
             return db.rollback();
         }
         if matches.subcommand_matches("status").is_some() {
-            println!("VERSION\tNAME\t\tRUN AT");
+            println!("{:<14} {:<32} {}", "VERSION", "NAME", "RUN AT");
             for it in db.status()? {
                 println!("{}", it);
             }
             return Ok(());
         }
+    }
+
+    if let Some(matches) = matches.subcommand_matches("cache") {
+        if matches.subcommand_matches("list").is_some() {
+            // TODO
+            return Ok(());
+        }
+        if matches.subcommand_matches("clear").is_some() {
+            // TODO
+            return Ok(());
+        }
+    }
+
+    if matches.subcommand_matches("http").is_some() {
+        // TODO
+        return Ok(());
+    }
+    if matches.subcommand_matches("grpc").is_some() {
+        // TODO
+        return Ok(());
+    }
+    if let Some(matches) = matches.subcommand_matches("worker") {
+        // TODO
+        let _queue = matches.value_of("queue").unwrap();
+        return Ok(());
     }
     // let cfg = "config.toml";
     // let matches = clap::App::new(env::NAME)
@@ -205,10 +224,6 @@ pub fn launch() -> Result<()> {
     //     .subcommand(i18n::sync::command())
     //     .subcommand(SubCommand::with_name(http::routes::NAME).about(http::routes::ABOUT))
     //     .get_matches();
-
-    // if matches.subcommand_matches(http::routes::NAME).is_some() {
-    //     return http::routes::run();
-    // }
 
     // if matches.subcommand_matches(generate::config::NAME).is_some() {
     //     return generate::config::run::<&'static str, env::Config>(cfg);

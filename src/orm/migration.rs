@@ -22,11 +22,11 @@ impl fmt::Display for Item {
             f,
             "{:<14} {:<32} {}",
             self.version,
+            self.name,
             match self.run_at {
                 Some(v) => v.to_string(),
                 None => "N/A".to_string(),
             },
-            self.name,
         )
     }
 }
