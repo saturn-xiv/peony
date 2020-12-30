@@ -1,1 +1,2 @@
-pub mod google;pub mod wechat;
+pub mod google;
+pub mod wechat;

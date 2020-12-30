@@ -1,5 +1,6 @@
 use std::default::Default;
 use std::fmt;
+use std::fmt::Display;
 use std::ops::DerefMut;
 use std::time::Duration;
 
@@ -7,15 +8,6 @@ use redis_::cmd;
 use serde::{de::DeserializeOwned, ser::Serialize};
 
 use super::super::errors::Result;
-
-pub trait Provider {
-    fn get<K, V, F>(&self, key: &K, ttl: Duration, fun: F) -> Result<V>
-    where
-        F: FnOnce() -> Result<V>,
-        K: Serialize,
-        V: DeserializeOwned + Serialize;
-    fn clear(&self) -> Result<()>;
-}
 
 type Connection = redis_::Client;
 pub type Pool = r2d2::Pool<Connection>;
@@ -53,29 +45,17 @@ impl fmt::Display for Config {
     }
 }
 
-impl Provider for Pool {
-    #[cfg(debug_assertions)]
-    fn get<K, V, F>(&self, _key: &K, _ttl: Duration, fun: F) -> Result<V>
+impl super::Provider for Pool {
+    fn get<K, V, F>(&self, key: &K, fun: F, ttl: Duration) -> Result<V>
     where
         F: FnOnce() -> Result<V>,
-        K: Serialize,
-        V: DeserializeOwned + Serialize,
-    {
-        let val = fun()?;
-        Ok(val)
-    }
-
-    #[cfg(not(debug_assertions))]
-    fn get<K, V, F>(&self, key: &K, ttl: Duration, fun: F) -> Result<V>
-    where
-        F: FnOnce() -> Result<V>,
-        K: Serialize,
+        K: Display,
         V: DeserializeOwned + Serialize,
     {
         let mut db = self.get()?;
         let db = db.deref_mut();
 
-        let key = format!("cache://{}", serde_json::to_string(key)?);
+        let key = key.to_string();
         if let Ok(buf) = cmd("get").arg(&key).query::<Vec<u8>>(db) {
             if let Ok(val) = serde_json::from_slice(buf.as_slice()) {
                 return Ok(val);

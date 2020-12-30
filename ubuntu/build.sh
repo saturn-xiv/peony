@@ -8,8 +8,8 @@ if [ $# -ne 2 ] ; then
 fi
 
 export WORKSPACE=$PWD
-export TARGET=$WORKSPACE/tmp/$(lsb_release -cs)/target
-
+export VERSION=$(git describe --tags --always --dirty --first-parent)
+export TARGET=$WORKSPACE/tmp/$(lsb_release -cs)-$VERSION/target
 # -----------------------------
 if [ -d $TARGET/ubuntu ]
 then
@@ -80,7 +80,7 @@ cp -r $WORKSPACE/dashboard/build $TARGET/usr/share/peony/dashboard
 rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony
 cp -r $WORKSPACE/LICENSE $WORKSPACE/README.md $WORKSPACE/package.json $TARGET/etc/peony/
-echo "$(git describe --tags --always --dirty --first-parent) $(date -R)" > $TARGET/etc/peony/VERSION
+echo "$VERSION $(date -R)" > $TARGET/etc/peony/VERSION
 echo "$1 $(lsb_release -cs) $2" >> $TARGET/etc/peony/VERSION
 
 rm -rf $TARGET/var
