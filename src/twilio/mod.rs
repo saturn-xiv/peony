@@ -2,21 +2,18 @@ pub mod sms;
 
 use std::default::Default;
 
-use reqwest::{
-    header::{HeaderMap, HeaderValue, AUTHORIZATION},
-    Client, StatusCode,
-};
-use serde::{de::DeserializeOwned, ser::Serialize};
+use reqwest::{multipart::Form, Client, StatusCode};
 
-use super::errors::Result;
+use super::errors::{Error, Result};
 
 // https://www.twilio.com/docs/api
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-#[serde(rename_all = "camelCase")]
 pub struct Config {
     pub from: String,
+    #[serde(rename = "account-sid")]
     pub account_sid: String,
+    #[serde(rename = "auth-token")]
     pub auth_token: String,
 }
 
@@ -34,19 +31,37 @@ impl Config {
     pub fn credentials(&self) -> String {
         format!("{}:{}", self.account_sid, self.auth_token)
     }
-    // async fn get<T: DeserializeOwned>(&self) -> Result<T> {
-    //     let mut headers = HeaderMap::new();
-    //     headers.insert(AUTHORIZATION, HeaderValue::from_str(&self.credentials())?);
 
-    //     let client = Client::builder().default_headers(headers).build()?;
-    //     let res = client
-    //         .get("https://www.rust-lang.org")
-    //         .header(AUTHORIZATION, "token")
-    //         .send()
-    //         .await?;
-    //     match res.status() {
-    //         StatusCode::OK | StatusCode::CREATED => {}
-    //         _ => {}
-    //     }
-    // }
+    pub async fn sms(
+        &self,
+        to: &str,
+        body: &str,
+        callback: Option<String>,
+    ) -> Result<sms::Response> {
+        let mut form = Form::new()
+            .text("To", to.to_string())
+            .text("Body", body.to_string())
+            .text("From", self.from.clone());
+        if let Some(cb) = callback {
+            form = form.text("StatusCallback", cb);
+        }
+        // application/x-www-form-urlencoded
+        let res = Client::new()
+            .post(&format!(
+                "https://api.twilio.com/2010-04-01/Accounts/{}/Messages.json",
+                self.account_sid
+            ))
+            .basic_auth(&self.account_sid, Some(self.auth_token.clone()))
+            // .header(AUTHORIZATION, HeaderValue::from_str(&self.credentials())?)
+            .multipart(form)
+            .send()
+            .await?;
+        match res.status() {
+            StatusCode::OK | StatusCode::CREATED => {
+                let it = res.json().await?;
+                Ok(it)
+            }
+            v => Err(Error::Http(v, Some(res.text().await?))),
+        }
+    }
 }

@@ -16,8 +16,6 @@ lto = true
 [dependencies]
 actix-multipart = "0.3"
 futures = "0.3"
-futures-executor = "0.3"
-futures-util = "0.3"
 mime = "0.3"
 actix-files = "0.4"
 actix-session = "0.4"
@@ -32,11 +30,13 @@ robots_txt = "0.7"
 env_logger = "0.8"
 encoding_rs = "0.8"
 rand = "0.8"
-protobuf = "2"
+paho-mqtt = "0.8"
 r2d2 = "0.8"
 xml-rs = "0.8"
 lettre = "0.9"
 lettre_email = "0.9"
+zmq = "0.9"
+actix = "0.10"
 askama = "0.10"
 validator = "0.12"
 validator_derive = "0.12"
@@ -60,9 +60,10 @@ lapin = "1"
 lazy_static = "1"
 actix-utils = "2"
 humantime="2"
+mime_guess = "2"
 url = "2"
 percent-encoding = "2"
-mime_guess = "2"
+protobuf = "2"
 actix-web = "3"
 clap = "3.0.0-beta.2"
 tempfile = "3"
@@ -78,28 +79,13 @@ features = ["serde"]
 version = "0.5"
 features = ["serde"]
 
-[dependencies.grpcio]
-version = "0.7"
-default-features = false
-features = ["protobuf-codec", "openssl-vendored"]
-
-[dependencies.paho-mqtt]
-version = "0.8"
-default-features = false
-features = ["bundled"]
-
 [dependencies.uuid]
 version = "0.8"
 features = ["v4"]
 
-# https://github.com/zeromq/zmq.rs
-[dependencies.zmq]
-version = "0.9"
-features = ["vendored"]
-
-[dependencies.openssl]
-version = "0.10"
-features = ["vendored"]
+[dependencies.grpcio]
+ version = "0.6"
+ features = ["openssl"]
 
 [dependencies.reqwest]
 version = "0.10"

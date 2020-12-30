@@ -106,12 +106,12 @@ pub fn launch() -> Result<()> {
             App::new("deploy")
                 .about("Run deploy tasks by ssh & rsync")
                 .arg(
-                    Arg::new("job")
-                        .short('j')
-                        .long("job")
+                    Arg::new("recipe")
+                        .short('r')
+                        .long("recipe")
                         .required(true)
                         .takes_value(true)
-                        .about("Job"),
+                        .about("Recipe"),
                 )
                 .arg(
                     Arg::new("inventory")
@@ -153,8 +153,8 @@ pub fn launch() -> Result<()> {
     }
 
     if let Some(matches) = matches.subcommand_matches("deploy") {
-        let job = matches.value_of("job").unwrap();
-        let inventory = matches.value_of("inventory").unwrap();
+        let _recipe = matches.value_of("recipe").unwrap();
+        let _inventory = matches.value_of("inventory").unwrap();
         // TODO
         // return deploy::run(&inventory, &job);
     }

@@ -3,7 +3,6 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use amq_protocol_uri::{AMQPAuthority, AMQPUri, AMQPUserInfo};
 
 use actix_web::http::StatusCode;
-use futures_util::stream::StreamExt;
 use lapin::{
     message::Delivery, options::*, types::FieldTable, BasicProperties, Channel, Connection,
     ConnectionProperties,
@@ -48,12 +47,12 @@ pub trait Handler: Sync + Send {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-#[serde(rename_all = "camelCase")]
 pub struct Config {
     pub host: String,
     pub port: u16,
     pub username: String,
     pub password: String,
+    #[serde(rename = "virtual-host")]
     pub virtual_host: String,
 }
 
@@ -149,13 +148,14 @@ impl RabbitMQ {
             queue,
             ch.id()
         );
-        while let Some(msg) = cm.next().await {
-            let (ch, msg) = msg?;
-            debug!("received message: {:?}", msg);
-            handle_message(msg.clone(), handler)?;
-            ch.basic_ack(msg.delivery_tag, BasicAckOptions::default())
-                .wait()?;
-        }
+        // TODO
+        // while let Some(msg) = cm.next().await {
+        //     let (ch, msg) = msg?;
+        //     debug!("received message: {:?}", msg);
+        //     handle_message(msg.clone(), handler)?;
+        //     ch.basic_ack(msg.delivery_tag, BasicAckOptions::default())
+        //         .wait()?;
+        // }
         Ok(())
     }
 }

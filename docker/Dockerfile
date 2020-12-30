@@ -1,4 +1,6 @@
-FROM ubuntu:xenial
+ARG  CODE_VERSION=latest
+
+FROM ubuntu:${CODE_VERSION}
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -53,6 +55,9 @@ RUN mkdir -p $HOME/downloads
 # https://pip.pypa.io/en/stable/installing/
 RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py
 RUN python3.10 $HOME/downloads/get-pip.py --user
+RUN sh -c ". $HOME/.profile \
+    && pip install --user cmake"
+
 # https://github.com/nvm-sh/nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | sh
 RUN sh -c ". $HOME/.profile \
@@ -71,7 +76,6 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install maven \
     && sdk install gradle"
 
-# RUN pip3 install --user cmake
 
 # https://www.rust-lang.org/tools/install
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

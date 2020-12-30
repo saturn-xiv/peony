@@ -8,20 +8,26 @@ if [ $# -ne 2 ] ; then
 fi
 
 export WORKSPACE=$PWD
-export TARGET=$WORKSPACE/ubuntu
+export TARGET=$WORKSPACE/tmp/$(lsb_release -cs)/target
 
 # -----------------------------
-rm -rf $TARGET/usr
-mkdir -pv $TARGET/usr/bin 
+if [ -d $TARGET/ubuntu ]
+then
+    rm -rf $TARGET/ubuntu
+fi
+mkdir -pv $TARGET/usr/bin
+cp -r $WORKSPACE/ubuntu $TARGET/
 
+
+# FIXME static link
 # export PQ_LIB_STATIC=1
-export PKG_CONFIG_ALL_STATIC=1
+# export PKG_CONFIG_ALL_STATIC=1
 
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
 then
     sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
-        libssl-dev:armhf \
+        libssl-dev:armhf libzmq3-dev:armhf \
         libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
@@ -39,6 +45,7 @@ then
 elif [ $1 = "amd64" ]
 then
     sudo apt -y install libssl-dev \
+        libzmq3-dev \
         libpq-dev libmysqlclient-dev libsqlite3-dev
     cargo build --target x86_64-unknown-linux-gnu --release
     cp -av $WORKSPACE/target/x86_64-unknown-linux-gnu/release/peony $TARGET/usr/bin/
@@ -67,12 +74,12 @@ REACT_GRPC_HOST=$2 npm run build
 
 # -----------------------------
 mkdir -pv $TARGET/usr/share/peony
-cp -r $WORKSPACE/node_modules $WORKSPACE/package.json $TARGET/usr/share/peony/
+cp -r $WORKSPACE/node_modules $TARGET/usr/share/peony/
 cp -r $WORKSPACE/dashboard/build $TARGET/usr/share/peony/dashboard
 
 rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony
-cp -r $WORKSPACE/LICENSE $WORKSPACE/README.md $TARGET/etc/peony/
+cp -r $WORKSPACE/LICENSE $WORKSPACE/README.md $WORKSPACE/package.json $TARGET/etc/peony/
 echo "$(git describe --tags --always --dirty --first-parent) $(date -R)" > $TARGET/etc/peony/VERSION
 echo "$1 $(lsb_release -cs) $2" >> $TARGET/etc/peony/VERSION
 

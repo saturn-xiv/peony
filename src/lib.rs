@@ -28,8 +28,6 @@ extern crate elasticsearch;
 extern crate encoding_rs;
 extern crate eui48;
 extern crate futures;
-extern crate futures_executor;
-extern crate futures_util;
 extern crate grpcio;
 extern crate hex;
 extern crate humantime;
