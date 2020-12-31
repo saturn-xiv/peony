@@ -175,7 +175,7 @@ pub fn launch() -> Result<()> {
             return db.rollback();
         }
         if matches.subcommand_matches("status").is_some() {
-            println!("{:<14} {:<32} {}", "VERSION", "NAME", "RUN AT");
+            println!("{:<14} {:<32} RUN AT", "VERSION", "NAME");
             for it in db.status()? {
                 println!("{}", it);
             }
@@ -186,7 +186,7 @@ pub fn launch() -> Result<()> {
     if let Some(matches) = matches.subcommand_matches("cache") {
         let db = config.redis.open()?;
         if matches.subcommand_matches("list").is_some() {
-            println!("{:<12} {}", "TTL", "KEY");
+            println!("{:<12} KEY", "TTL");
             for it in db.keys()? {
                 println!("{:<12} {}", it.1, it.0);
             }

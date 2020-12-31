@@ -18,10 +18,14 @@ pub enum Error {
     ActixMultipart(actix_multipart::MultipartError),
     ActixWebBlockingSerdeJson(actix_web::error::BlockingError<serde_json::Error>),
     ActixWebCanceled(actix_web::error::Canceled),
+    ActixWebHttpInvalidHeaderName(actix_web::http::header::InvalidHeaderName),
     Base64Decode(base64::DecodeError),
     DieselResult(diesel::result::Error),
+    ChronoParse(chrono::ParseError),
+    Eui48Parse(eui48::ParseError),
     Grpcio(grpcio::Error),
     IniParse(ini::ParseError),
+    Ipnetwork(ipnetwork::IpNetworkError),
     JsonWebToken(jsonwebtoken::errors::Error),
     Lapin(lapin::Error),
     LettreEmail(lettre_email::error::Error),
@@ -54,6 +58,7 @@ pub enum Error {
     TomlSer(toml::ser::Error),
     UrlParse(url::ParseError),
     Validator(validator::ValidationErrors),
+    YamlEmit(yaml_rust::EmitError),
 
     Http(StatusCode, Option<String>),
 }
@@ -72,10 +77,14 @@ impl fmt::Display for Error {
             Self::ActixMultipart(v) => v.fmt(f),
             Self::ActixWebBlockingSerdeJson(v) => v.fmt(f),
             Self::ActixWebCanceled(v) => v.fmt(f),
+            Self::ActixWebHttpInvalidHeaderName(v) => v.fmt(f),
             Self::Base64Decode(v) => v.fmt(f),
+            Self::ChronoParse(v) => v.fmt(f),
             Self::DieselResult(v) => v.fmt(f),
+            Self::Eui48Parse(v) => v.fmt(f),
             Self::Grpcio(v) => v.fmt(f),
             Self::IniParse(v) => v.fmt(f),
+            Self::Ipnetwork(v) => v.fmt(f),
             Self::JsonWebToken(v) => v.fmt(f),
             Self::Lapin(v) => v.fmt(f),
             Self::LettreEmail(v) => v.fmt(f),
@@ -108,6 +117,7 @@ impl fmt::Display for Error {
             Self::TomlSer(v) => v.fmt(f),
             Self::UrlParse(v) => v.fmt(f),
             Self::Validator(v) => v.fmt(f),
+            Self::YamlEmit(v) => v.fmt(f),
 
             Self::Http(v, r) => match r {
                 Some(r) => r.fmt(f),
@@ -279,6 +289,24 @@ impl From<base64::DecodeError> for Error {
     }
 }
 
+impl From<chrono::ParseError> for Error {
+    fn from(err: chrono::ParseError) -> Self {
+        Self::ChronoParse(err)
+    }
+}
+
+impl From<eui48::ParseError> for Error {
+    fn from(err: eui48::ParseError) -> Self {
+        Self::Eui48Parse(err)
+    }
+}
+
+impl From<ipnetwork::IpNetworkError> for Error {
+    fn from(err: ipnetwork::IpNetworkError) -> Self {
+        Self::Ipnetwork(err)
+    }
+}
+
 impl From<jsonwebtoken::errors::Error> for Error {
     fn from(err: jsonwebtoken::errors::Error) -> Self {
         Self::JsonWebToken(err)
@@ -363,6 +391,11 @@ impl From<actix_web::error::BlockingError<serde_json::Error>> for Error {
     }
 }
 
+impl From<actix_web::http::header::InvalidHeaderName> for Error {
+    fn from(err: actix_web::http::header::InvalidHeaderName) -> Self {
+        Self::ActixWebHttpInvalidHeaderName(err)
+    }
+}
 impl From<actix_web::error::Canceled> for Error {
     fn from(err: actix_web::error::Canceled) -> Self {
         Self::ActixWebCanceled(err)
@@ -384,6 +417,12 @@ impl From<handlebars::TemplateError> for Error {
 impl From<handlebars::TemplateRenderError> for Error {
     fn from(err: handlebars::TemplateRenderError) -> Self {
         Self::HandlebarsTemplateRender(err)
+    }
+}
+
+impl From<yaml_rust::EmitError> for Error {
+    fn from(err: yaml_rust::EmitError) -> Self {
+        Self::YamlEmit(err)
     }
 }
 

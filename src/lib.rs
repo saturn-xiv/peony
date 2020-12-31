@@ -32,6 +32,7 @@ extern crate grpcio;
 extern crate hex;
 extern crate humantime;
 extern crate ini;
+extern crate ipnetwork;
 extern crate jsonwebtoken;
 extern crate lettre;
 extern crate lettre_email;
@@ -58,28 +59,29 @@ extern crate url;
 extern crate uuid;
 extern crate validator;
 extern crate xml;
+extern crate yaml_rust;
 
 #[macro_use]
 pub mod macros;
 
 pub mod app;
+pub mod aws;
 pub mod cache;
 pub mod crypto;
-// pub mod dict;
+pub mod dict;
 pub mod env;
 pub mod errors;
 pub mod i18n;
-// pub mod image_magick;
-// pub mod jwt;
+pub mod jwt;
 pub mod oauth;
 pub mod orm;
 pub mod parser;
 pub mod plugins;
-pub mod queue;
-// pub mod request;
-pub mod aws;
 pub mod protos;
+pub mod queue;
+pub mod request;
 pub mod settings;
+pub mod sys;
 pub mod twilio;
 
 pub const XML_HEADER: &str = r###"<?xml version="1.0" encoding="utf-8" ?>"###;

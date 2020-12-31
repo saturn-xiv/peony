@@ -1,4 +1,5 @@
 pub mod models;
+pub mod request;
 pub mod rpc;
 pub mod schema;
 
