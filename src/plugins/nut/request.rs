@@ -14,7 +14,7 @@ use futures::future::Future;
 use super::super::super::{
     errors::{Error, Result as Result_},
     jwt::Jwt,
-    orm::postgresql::Pool as DbPool,
+    orm::postgresql::{Connection as DbConnection, Pool as DbPool},
     request::Token as Auth,
 };
 use super::models::user::{Dao as UserDao, Item as User};
@@ -59,13 +59,11 @@ impl fmt::Display for CurrentUser {
 }
 
 impl CurrentUser {
-    pub fn parse(token: Auth, db: web::Data<DbPool>, jwt: web::Data<Arc<Jwt>>) -> Result_<User> {
-        let token = jwt.parse::<Token>(&token.0)?;
+    pub fn parse(token: &str, db: &DbConnection, jwt: &Jwt) -> Result_<User> {
+        let token = jwt.parse::<Token>(token)?;
         if token.claims.act != Action::SignIn {
             return Err(Error::Http(StatusCode::BAD_REQUEST, None));
         }
-        let db = db.get()?;
-        let db = db.deref();
         let user = UserDao::by_uid(db, &token.claims.uid)?;
         user.available()?;
         Ok(user)
@@ -86,8 +84,11 @@ impl FromRequest for CurrentUser {
             let auth = auth.await?;
             let jwt = jwt.await?;
             let db = db.await?;
+            let db = db.get().map_err(ErrorUnauthorized)?;
+            let db = db.deref();
+            let jwt = jwt.deref();
 
-            match Self::parse(auth, db, jwt) {
+            match Self::parse(&auth.0, db, jwt) {
                 Ok(it) => Ok(Self(it)),
                 Err(e) => Err(ErrorUnauthorized(e)),
             }
