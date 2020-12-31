@@ -20,7 +20,7 @@ const METHOD_FORUM_SERVICE_CREATE_POST: ::grpcio::Method<
     super::empty::Empty,
 > = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
-    name: "/peony.forum.models.ForumService/CreatePost",
+    name: "/peony.forum.ForumService/CreatePost",
     req_mar: ::grpcio::Marshaller {
         ser: ::grpcio::pb_ser,
         de: ::grpcio::pb_de,

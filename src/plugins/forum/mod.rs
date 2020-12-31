@@ -1,21 +1,11 @@
 pub mod models;
+pub mod rpc;
 pub mod schema;
-
-use grpcio::{RpcContext, UnarySink};
 
 use super::super::orm::migration::New as Migration;
 
+#[derive(Clone)]
 pub struct Plugin {}
-
-// impl forum_grpc::ForumService for Plugin {
-//     fn create_post(
-//         &mut self,
-//         ctx: RpcContext,
-//         req: forum::CreatePostRequest,
-//         sink: UnarySink<nut::Ok>,
-//     ) {
-//     }
-// }
 
 impl super::Plugin for Plugin {
     fn migrations<'a>() -> Vec<Migration<'a>> {

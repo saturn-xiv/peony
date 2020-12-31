@@ -9,6 +9,7 @@ CREATE TABLE users(
     provider_id VARCHAR(255) NOT NULL,
     access_token VARCHAR(255),
     logo VARCHAR(255) NOT NULL,
+    lang VARCHAR(16) NOT NULL DEFAULT 'en-US',
     sign_in_count BIGINT NOT NULL DEFAULT 0,
     current_sign_in_at TIMESTAMP,
     current_sign_in_ip VARCHAR(45),
@@ -23,6 +24,8 @@ CREATE TABLE users(
 );
 
 CREATE INDEX idx_users_real_name ON users(real_name);
+
+CREATE INDEX idx_users_lang ON users(lang);
 
 CREATE UNIQUE INDEX idx_users_nick_name ON users(nickname);
 

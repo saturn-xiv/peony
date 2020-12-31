@@ -15,12 +15,12 @@
 #![allow(unused_imports)]
 #![allow(unused_results)]
 
-const METHOD_NUT_SERVICE_SIGN_IN: ::grpcio::Method<
-    super::nut::SignInRequest,
-    super::nut::SignInResponse,
+const METHOD_NUT_SERVICE_HEARTBEAT: ::grpcio::Method<
+    super::empty::Empty,
+    super::nut::HeartbeatResponse,
 > = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
-    name: "/peony.nut.models.NutService/SignIn",
+    name: "/peony.nut.NutService/Heartbeat",
     req_mar: ::grpcio::Marshaller {
         ser: ::grpcio::pb_ser,
         de: ::grpcio::pb_de,
@@ -31,19 +31,21 @@ const METHOD_NUT_SERVICE_SIGN_IN: ::grpcio::Method<
     },
 };
 
-const METHOD_NUT_SERVICE_SIGN_UP: ::grpcio::Method<super::nut::SignUpRequest, super::empty::Empty> =
-    ::grpcio::Method {
-        ty: ::grpcio::MethodType::Unary,
-        name: "/peony.nut.models.NutService/SignUp",
-        req_mar: ::grpcio::Marshaller {
-            ser: ::grpcio::pb_ser,
-            de: ::grpcio::pb_de,
-        },
-        resp_mar: ::grpcio::Marshaller {
-            ser: ::grpcio::pb_ser,
-            de: ::grpcio::pb_de,
-        },
-    };
+const METHOD_NUT_SERVICE_SET_LOCALE: ::grpcio::Method<
+    super::nut::SetLocaleRequest,
+    super::empty::Empty,
+> = ::grpcio::Method {
+    ty: ::grpcio::MethodType::Unary,
+    name: "/peony.nut.NutService/SetLocale",
+    req_mar: ::grpcio::Marshaller {
+        ser: ::grpcio::pb_ser,
+        de: ::grpcio::pb_de,
+    },
+    resp_mar: ::grpcio::Marshaller {
+        ser: ::grpcio::pb_ser,
+        de: ::grpcio::pb_de,
+    },
+};
 
 #[derive(Clone)]
 pub struct NutServiceClient {
@@ -57,68 +59,68 @@ impl NutServiceClient {
         }
     }
 
-    pub fn sign_in_opt(
+    pub fn heartbeat_opt(
         &self,
-        req: &super::nut::SignInRequest,
+        req: &super::empty::Empty,
         opt: ::grpcio::CallOption,
-    ) -> ::grpcio::Result<super::nut::SignInResponse> {
+    ) -> ::grpcio::Result<super::nut::HeartbeatResponse> {
         self.client
-            .unary_call(&METHOD_NUT_SERVICE_SIGN_IN, req, opt)
+            .unary_call(&METHOD_NUT_SERVICE_HEARTBEAT, req, opt)
     }
 
-    pub fn sign_in(
+    pub fn heartbeat(
         &self,
-        req: &super::nut::SignInRequest,
-    ) -> ::grpcio::Result<super::nut::SignInResponse> {
-        self.sign_in_opt(req, ::grpcio::CallOption::default())
+        req: &super::empty::Empty,
+    ) -> ::grpcio::Result<super::nut::HeartbeatResponse> {
+        self.heartbeat_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn sign_in_async_opt(
+    pub fn heartbeat_async_opt(
         &self,
-        req: &super::nut::SignInRequest,
+        req: &super::empty::Empty,
         opt: ::grpcio::CallOption,
-    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::nut::SignInResponse>> {
+    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::nut::HeartbeatResponse>> {
         self.client
-            .unary_call_async(&METHOD_NUT_SERVICE_SIGN_IN, req, opt)
+            .unary_call_async(&METHOD_NUT_SERVICE_HEARTBEAT, req, opt)
     }
 
-    pub fn sign_in_async(
+    pub fn heartbeat_async(
         &self,
-        req: &super::nut::SignInRequest,
-    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::nut::SignInResponse>> {
-        self.sign_in_async_opt(req, ::grpcio::CallOption::default())
+        req: &super::empty::Empty,
+    ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::nut::HeartbeatResponse>> {
+        self.heartbeat_async_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn sign_up_opt(
+    pub fn set_locale_opt(
         &self,
-        req: &super::nut::SignUpRequest,
+        req: &super::nut::SetLocaleRequest,
         opt: ::grpcio::CallOption,
     ) -> ::grpcio::Result<super::empty::Empty> {
         self.client
-            .unary_call(&METHOD_NUT_SERVICE_SIGN_UP, req, opt)
+            .unary_call(&METHOD_NUT_SERVICE_SET_LOCALE, req, opt)
     }
 
-    pub fn sign_up(
+    pub fn set_locale(
         &self,
-        req: &super::nut::SignUpRequest,
+        req: &super::nut::SetLocaleRequest,
     ) -> ::grpcio::Result<super::empty::Empty> {
-        self.sign_up_opt(req, ::grpcio::CallOption::default())
+        self.set_locale_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn sign_up_async_opt(
+    pub fn set_locale_async_opt(
         &self,
-        req: &super::nut::SignUpRequest,
+        req: &super::nut::SetLocaleRequest,
         opt: ::grpcio::CallOption,
     ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::empty::Empty>> {
         self.client
-            .unary_call_async(&METHOD_NUT_SERVICE_SIGN_UP, req, opt)
+            .unary_call_async(&METHOD_NUT_SERVICE_SET_LOCALE, req, opt)
     }
 
-    pub fn sign_up_async(
+    pub fn set_locale_async(
         &self,
-        req: &super::nut::SignUpRequest,
+        req: &super::nut::SetLocaleRequest,
     ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::empty::Empty>> {
-        self.sign_up_async_opt(req, ::grpcio::CallOption::default())
+        self.set_locale_async_opt(req, ::grpcio::CallOption::default())
     }
     pub fn spawn<F>(&self, f: F)
     where
@@ -129,16 +131,16 @@ impl NutServiceClient {
 }
 
 pub trait NutService {
-    fn sign_in(
+    fn heartbeat(
         &mut self,
         ctx: ::grpcio::RpcContext,
-        req: super::nut::SignInRequest,
-        sink: ::grpcio::UnarySink<super::nut::SignInResponse>,
+        req: super::empty::Empty,
+        sink: ::grpcio::UnarySink<super::nut::HeartbeatResponse>,
     );
-    fn sign_up(
+    fn set_locale(
         &mut self,
         ctx: ::grpcio::RpcContext,
-        req: super::nut::SignUpRequest,
+        req: super::nut::SetLocaleRequest,
         sink: ::grpcio::UnarySink<super::empty::Empty>,
     );
 }
@@ -146,12 +148,12 @@ pub trait NutService {
 pub fn create_nut_service<S: NutService + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
     let mut builder = ::grpcio::ServiceBuilder::new();
     let mut instance = s.clone();
-    builder = builder.add_unary_handler(&METHOD_NUT_SERVICE_SIGN_IN, move |ctx, req, resp| {
-        instance.sign_in(ctx, req, resp)
+    builder = builder.add_unary_handler(&METHOD_NUT_SERVICE_HEARTBEAT, move |ctx, req, resp| {
+        instance.heartbeat(ctx, req, resp)
     });
     let mut instance = s;
-    builder = builder.add_unary_handler(&METHOD_NUT_SERVICE_SIGN_UP, move |ctx, req, resp| {
-        instance.sign_up(ctx, req, resp)
+    builder = builder.add_unary_handler(&METHOD_NUT_SERVICE_SET_LOCALE, move |ctx, req, resp| {
+        instance.set_locale(ctx, req, resp)
     });
     builder.build()
 }

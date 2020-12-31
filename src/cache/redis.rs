@@ -14,7 +14,6 @@ pub type Pool = r2d2::Pool<Connection>;
 pub type PooledConnection = r2d2::PooledConnection<Connection>;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-#[serde(rename_all = "camelCase")]
 pub struct Config {
     pub host: String,
     pub port: u16,

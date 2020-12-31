@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package peony.forum.models;
+package peony.forum;
 
 import "google/protobuf/empty.proto";
 

@@ -17,8 +17,10 @@ pub enum Error {
     Askama(askama::Error),
     ActixMultipart(actix_multipart::MultipartError),
     ActixWebBlockingSerdeJson(actix_web::error::BlockingError<serde_json::Error>),
+    ActixWebCanceled(actix_web::error::Canceled),
     Base64Decode(base64::DecodeError),
     DieselResult(diesel::result::Error),
+    Grpcio(grpcio::Error),
     IniParse(ini::ParseError),
     JsonWebToken(jsonwebtoken::errors::Error),
     Lapin(lapin::Error),
@@ -69,8 +71,10 @@ impl fmt::Display for Error {
             Self::Askama(v) => v.fmt(f),
             Self::ActixMultipart(v) => v.fmt(f),
             Self::ActixWebBlockingSerdeJson(v) => v.fmt(f),
+            Self::ActixWebCanceled(v) => v.fmt(f),
             Self::Base64Decode(v) => v.fmt(f),
             Self::DieselResult(v) => v.fmt(f),
+            Self::Grpcio(v) => v.fmt(f),
             Self::IniParse(v) => v.fmt(f),
             Self::JsonWebToken(v) => v.fmt(f),
             Self::Lapin(v) => v.fmt(f),
@@ -281,6 +285,12 @@ impl From<jsonwebtoken::errors::Error> for Error {
     }
 }
 
+impl From<grpcio::Error> for Error {
+    fn from(err: grpcio::Error) -> Self {
+        Self::Grpcio(err)
+    }
+}
+
 impl From<url::ParseError> for Error {
     fn from(err: url::ParseError) -> Self {
         Self::UrlParse(err)
@@ -292,6 +302,7 @@ impl From<lettre::smtp::error::Error> for Error {
         Self::LettreSmtp(err)
     }
 }
+
 impl From<lettre_email::error::Error> for Error {
     fn from(err: lettre_email::error::Error) -> Self {
         Self::LettreEmail(err)
@@ -313,12 +324,6 @@ impl From<toml::ser::Error> for Error {
 impl From<reqwest::Error> for Error {
     fn from(err: reqwest::Error) -> Self {
         Self::Reqwest(err)
-    }
-}
-
-impl From<actix_web::error::BlockingError<serde_json::Error>> for Error {
-    fn from(err: actix_web::error::BlockingError<serde_json::Error>) -> Self {
-        Self::ActixWebBlockingSerdeJson(err)
     }
 }
 
@@ -349,6 +354,18 @@ impl From<mime::FromStrError> for Error {
 impl From<actix_multipart::MultipartError> for Error {
     fn from(err: actix_multipart::MultipartError) -> Self {
         Self::ActixMultipart(err)
+    }
+}
+
+impl From<actix_web::error::BlockingError<serde_json::Error>> for Error {
+    fn from(err: actix_web::error::BlockingError<serde_json::Error>) -> Self {
+        Self::ActixWebBlockingSerdeJson(err)
+    }
+}
+
+impl From<actix_web::error::Canceled> for Error {
+    fn from(err: actix_web::error::Canceled) -> Self {
+        Self::ActixWebCanceled(err)
     }
 }
 

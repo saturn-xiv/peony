@@ -49,6 +49,7 @@ pub struct Item {
     pub provider_id: String,
     pub access_token: Option<String>,
     pub logo: String,
+    pub lang: String,
     pub sign_in_count: i64,
     pub current_sign_in_at: Option<NaiveDateTime>,
     pub current_sign_in_ip: Option<String>,

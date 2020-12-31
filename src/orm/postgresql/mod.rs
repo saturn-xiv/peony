@@ -20,7 +20,6 @@ pub type PooledConnection =
     diesel::r2d2::PooledConnection<diesel::r2d2::ConnectionManager<Connection>>;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-#[serde(rename_all = "camelCase")]
 pub struct Config {
     pub host: String,
     pub port: u16,

@@ -1,37 +1,24 @@
 syntax = "proto3";
 
-package peony.nut.models;
+package peony.nut;
 
 import "google/protobuf/empty.proto";
 
 service NutService {
-  rpc SignIn(SignInRequest) returns(SignInResponse) {}
-  rpc SignUp(SignUpRequest) returns(google.protobuf.Empty) {}
+  rpc Heartbeat(google.protobuf.Empty) returns(HeartbeatResponse) {}
+  rpc SetLocale(SetLocaleRequest) returns(google.protobuf.Empty) {}
 }
 
-message SignInRequest {
-  string email = 1;
-  string password = 2;
+message HeartbeatResponse {
+  string version = 1;
+  bool postgresql = 2;
+  bool redis = 3;
+  bool rabbitmq = 4;
+  bool elastic_search = 5;
 }
 
-message SignInResponse {
-  string token = 1;
-  repeated string roles = 2;
-}
-
-message SignUpRequest {
-  string real_name = 1;
-  string nickname = 2;
-  string email = 3;
-  string password = 4;
-}
-
-message EmailTask {
-  string to = 1;
-  repeated string cc = 2;
-  repeated string bcc = 3;
-  string subject = 4;
-  string content_type = 5;
-  string body = 6;
-  repeated string files = 7;
+message SetLocaleRequest {
+  string lang = 1;
+  string code = 2;
+  string message = 3;
 }

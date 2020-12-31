@@ -165,6 +165,7 @@ table! {
         provider_id -> Varchar,
         access_token -> Nullable<Varchar>,
         logo -> Varchar,
+        lang -> Varchar,
         sign_in_count -> Int8,
         current_sign_in_at -> Nullable<Timestamp>,
         current_sign_in_ip -> Nullable<Varchar>,
