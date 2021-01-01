@@ -95,15 +95,15 @@ RUN sh -c "git clone https://github.com/microsoft/vcpkg $HOME/vcpkg"
 #     libpq:x64-linux libmariadb:x64-linux sqlite3:x64-linux czmq:x64-linux \
 #     libpq:arm-linux libmariadb:arm-linux sqlite3:arm-linux czmq:arm-linux"
 
-COPY conan /opt/conan
-RUN zsh -c "source $HOME/.profile \
-    && mkdir -p $HOME/amd64 \
-    && cd $HOME/amd64 \
-    && conan install /opt/conan --profile=/opt/conan/profiles/focal/amd64 --build=missing"
-RUN zsh -c "source $HOME/.profile \
-    && mkdir -p $HOME/armhf \
-    && cd $HOME/armhf \
-    && conan install /opt/conan --profile=/opt/conan/profiles/focal/armhf --build=missing" 
+# COPY conan /opt/conan
+# RUN zsh -c "source $HOME/.profile \
+#     && mkdir -p $HOME/amd64 \
+#     && cd $HOME/amd64 \
+#     && conan install /opt/conan --profile=/opt/conan/profiles/focal/amd64 --build=missing"
+# RUN zsh -c "source $HOME/.profile \
+#     && mkdir -p $HOME/armhf \
+#     && cd $HOME/armhf \
+#     && conan install /opt/conan --profile=/opt/conan/profiles/focal/armhf --build=missing" 
 
 # RUN sh -c "git clone https://github.com/saturn-xiv/peony.git $HOME/peony"
 # RUN zsh -c "source $HOME/.profile \
