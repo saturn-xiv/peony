@@ -24,7 +24,7 @@ cp -r $WORKSPACE/docker/debian $TARGET/
 export PKG_CONFIG_ALL_STATIC=1
 # FIXME libmysqlclient@arm & libpq link
 # export PKG_CONFIG_PATH=$1
-export RUSTFLAGS="-C target-feature=-crt-static"
+export RUSTFLAGS="-C target-feature=+crt-static"
 
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
