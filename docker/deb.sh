@@ -9,7 +9,7 @@ fi
 
 export WORKSPACE=$PWD
 export VERSION=$(git describe --tags --always --dirty --first-parent)
-export TARGET=$WORKSPACE/tmp/$(lsb_release -cs)-$VERSION/target
+export TARGET=$WORKSPACE/tmp/$(lsb_release -cs)-$1-$VERSION/target
 export CONAN_HOME=$HOME/.conan/data
 # -----------------------------
 if [ -d $TARGET ]
@@ -21,21 +21,22 @@ cp -r $WORKSPACE/docker/debian $TARGET/
 
 
 # FIXME static link
-# export PQ_LIB_STATIC=1
 export PKG_CONFIG_ALL_STATIC=1
+# FIXME libmysqlclient@arm & libpq link
+# export PKG_CONFIG_PATH=$1
+export RUSTFLAGS="-C target-feature=-crt-static"
 
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
 then
-    # sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
-    #     libssl-dev:armhf libzmq3-dev:armhf \
-    #     libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
-
-    sudo apt -y install libmysqlclient-dev:armhf
+    sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
+        libssl-dev:armhf libzmq3-dev:armhf \
+        libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
+    
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
-    export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR    
+    export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR
     
     cargo build --target armv7-unknown-linux-gnueabihf --release
 
@@ -53,11 +54,10 @@ then
     export CC CXX
 elif [ $1 = "amd64" ]
 then
-    # sudo apt -y install libssl-dev \
-    #     libzmq3-dev \
-    #     libpq-dev libmysqlclient-dev libsqlite3-dev
-    # export OPENSSL_DIR=
-    export PQ_LIB_DIR=$CONAN_HOME/libpq/13.1/_/_/package/8e0939db49a1d312829524beb4d0b6824e47691d
+    sudo apt -y install libssl-dev \
+        libzmq3-dev \
+        libpq-dev libmysqlclient-dev libsqlite3-dev
+
     cargo build --target x86_64-unknown-linux-gnu --release
     
     # MUSL

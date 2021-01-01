@@ -87,8 +87,8 @@ version = "0.8"
 features = ["v4"]
 
 [dependencies.grpcio]
- version = "0.7"
- features = ["openssl"]
+version = "0.7"
+features = ["openssl"]
 
 [dependencies.reqwest]
 version = "0.10"

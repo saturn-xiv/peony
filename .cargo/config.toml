@@ -1,6 +1,6 @@
 [build]
 # https://github.com/rust-lang/rust/issues/79206
-rustflags = ["-C", "target-feature=+crt-static"]
+# rustflags = ["-C", "target-feature=+crt-static"]
 
 [target.armv7-unknown-linux-gnueabihf]
 linker = "arm-linux-gnueabihf-gcc"
