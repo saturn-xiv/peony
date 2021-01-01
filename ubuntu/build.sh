@@ -10,6 +10,7 @@ fi
 export WORKSPACE=$PWD
 export VERSION=$(git describe --tags --always --dirty --first-parent)
 export TARGET=$WORKSPACE/tmp/$(lsb_release -cs)-$VERSION/target
+export CONAN_HOME=$HOME/.conan/data
 # -----------------------------
 if [ -d $TARGET ]
 then
@@ -51,8 +52,11 @@ then
     # sudo apt -y install libssl-dev \
     #     libzmq3-dev \
     #     libpq-dev libmysqlclient-dev libsqlite3-dev
-    export PQ_LIB_DIR=$HOME/vcpkg/packages/libpq_x64-linux
+    # export OPENSSL_DIR=
+    export PQ_LIB_DIR=$CONAN_HOME/libpq/13.1/_/_/package/8e0939db49a1d312829524beb4d0b6824e47691d
     cargo build --target x86_64-unknown-linux-gnu --release
+    
+    # MUSL
     # cargo build --target x86_64-unknown-linux-musl --release
 
     cp -av $WORKSPACE/target/x86_64-unknown-linux-gnu/release/peony $TARGET/usr/bin/

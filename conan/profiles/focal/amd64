@@ -12,5 +12,6 @@ build_type=Release
 [options]
 
 [build_requires]
+libmysqlclient/8.0.17
 
 [env]

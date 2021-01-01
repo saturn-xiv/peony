@@ -87,7 +87,7 @@ RUN zsh -c "source $HOME/.cargo/env \
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 
-# RUN sh -c "git clone https://github.com/microsoft/vcpkg $HOME/vcpkg"
+RUN sh -c "git clone https://github.com/microsoft/vcpkg $HOME/vcpkg"
 # RUN sh -c "source $HOME/.profile \
 #     && $HOME/vcpkg/bootstrap-vcpkg.sh \
 #     && VCPKG_LIBRARY_LINKAGE=static $HOME/vcpkg/vcpkg install \
@@ -98,11 +98,10 @@ COPY conan /opt/
 RUN sh -c "source $HOME/.profile \
     && mkdir -p $HOME/amd64 \
     && cd $HOME/amd64 \
-    && conan install /opt/conan --profile=/opt/conan/focal-linux-amd64 --build=missing \
+    && conan install /opt/conan --profile=/opt/conan/profiles/focal/amd64 --build=missing \
     && mkdir -p $HOME/armhf \
     && cd $HOME/armhf \
-    && conan install /opt/conan --profile=/opt/conan/focal-linux-armhf --build=missing" 
-
+    && conan install /opt/conan --profile=/opt/conan/profiles/focal/armhf --build=missing" 
 
 # RUN sh -c "git clone https://github.com/saturn-xiv/peony.git $HOME/peony"
 # RUN sh -c "source $HOME/.profile \
