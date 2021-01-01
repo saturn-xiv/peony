@@ -17,7 +17,7 @@ then
     rm -rf $TARGET
 fi
 mkdir -pv $TARGET/usr/bin
-cp -r $WORKSPACE/ubuntu/debian $TARGET/
+cp -r $WORKSPACE/docker/debian $TARGET/
 
 
 # FIXME static link
@@ -30,12 +30,16 @@ then
     # sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
     #     libssl-dev:armhf libzmq3-dev:armhf \
     #     libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
+
+    sudo apt -y install libmysqlclient-dev:armhf
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
     export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR    
     
     cargo build --target armv7-unknown-linux-gnueabihf --release
+
+    # MUSL
     # export CARGO_TARGET_ARMV7_UNKNOWN_LINUX_MUSLEABIHF_LINKER=arm-linux-gnueabihf-ld
     # cargo build --target=armv7-unknown-linux-musleabihf --release
     

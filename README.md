@@ -2,6 +2,15 @@
 
 A total free education &amp; translation &amp; ops solution.
 
+## Usage
+
+```bash
+cd docker
+docker build -t peony .
+cd ..
+docker run --rm -it --network host -v `pwd`:/workspace peony
+```
+
 ## Documents
 
 ### Tools
