@@ -1,11 +1,11 @@
 peony (0.1.1) stable; urgency=medium
 
-  * [9c7351b] Add deploy project.
+  * [9c7351b] Add nut & forum plugins.
 
- -- Jeremy Zheng <jitang.zheng@gmail.com>  Thu, 24 Dec 2020 19:19:18 +0800
+ -- Jeremy Zheng <jitang.zheng@gmail.com>  Web, 30 Dec 2020 19:19:18 -0800
 
 peony (0.1.0) stable; urgency=medium
 
-  * [d5e1cf1] Init release.
+  * [61e1e7f] merge db, cahce & deploy tool.
 
- -- Jeremy Zheng <jitang.zheng@gmail.com>  Thu, 24 Dec 2020 19:18:35 +0800
+ -- Jeremy Zheng <jitang.zheng@gmail.com>  Web, 30 Dec 2020 10:50:39 -0800

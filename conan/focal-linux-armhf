@@ -1,0 +1,34 @@
+target_host=arm-linux-gnueabihf
+
+[settings]
+os=Linux
+os_build=Linux
+arch=armv7hf
+arch_build=x86_64
+compiler=gcc
+compiler.cppstd=17
+compiler.version=9
+compiler.libcxx=libstdc++11
+build_type=Release
+
+[options]
+
+[build_requires]
+
+[env]
+CHOST=$target_host
+USE_DEV_URANDOM=1
+AR=$target_host-ar
+AS=$target_host-as
+RANLIB=$target_host-ranlib
+STRIP=$target_host-strip
+LD=$target_host-ld
+CC=$target_host-gcc
+CXX=$target_host-g++
+# FIXME TRY_RUN() invoked in cross-compiling mode
+HAVE_CLOCK_MONOTONIC_EXITCODE=0
+HAVE_CLOCK_REALTIME=0
+HAVE_CLOCK_REALTIME_EXITCODE__TRYRUN_OUTPUT=0
+# HAVE_LLVM_LIBCPP=OFF
+# HAVE_C_FLOATING_POINT_OPTIMIZATION_PROBLEMS=OFF
+# HAVE_CXX_FLOATING_POINT_OPTIMIZATION_PROBLEMS=OFF

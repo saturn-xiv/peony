@@ -26,9 +26,9 @@ export PKG_CONFIG_ALL_STATIC=1
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
 then
-    sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
-        libssl-dev:armhf libzmq3-dev:armhf \
-        libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
+    # sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
+    #     libssl-dev:armhf libzmq3-dev:armhf \
+    #     libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
@@ -48,10 +48,10 @@ then
     export CC CXX
 elif [ $1 = "amd64" ]
 then
-    sudo apt -y install libssl-dev \
-        libzmq3-dev \
-        libpq-dev libmysqlclient-dev libsqlite3-dev
-
+    # sudo apt -y install libssl-dev \
+    #     libzmq3-dev \
+    #     libpq-dev libmysqlclient-dev libsqlite3-dev
+    export PQ_LIB_DIR=$HOME/vcpkg/packages/libpq_x64-linux
     cargo build --target x86_64-unknown-linux-gnu --release
     # cargo build --target x86_64-unknown-linux-musl --release
 

@@ -56,7 +56,8 @@ RUN mkdir -p $HOME/downloads
 RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py
 RUN python3.10 $HOME/downloads/get-pip.py --user
 RUN sh -c ". $HOME/.profile \
-    && pip install --user cmake"
+    && pip install --user cmake \
+    && pip install --user conan"
 
 # https://github.com/nvm-sh/nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | sh
@@ -85,8 +86,27 @@ RUN zsh -c "source $HOME/.cargo/env \
     && rustup target add armv7-unknown-linux-musleabihf"
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
-RUN sh -c "git clone https://github.com/saturn-xiv/peony.git $HOME/peony"
-RUN zsh -c "source $HOME/.profile && $HOME/peony/grpc.sh"
+
+# RUN sh -c "git clone https://github.com/microsoft/vcpkg $HOME/vcpkg"
+# RUN sh -c "source $HOME/.profile \
+#     && $HOME/vcpkg/bootstrap-vcpkg.sh \
+#     && VCPKG_LIBRARY_LINKAGE=static $HOME/vcpkg/vcpkg install \
+#     libpq:x64-linux libmariadb:x64-linux sqlite3:x64-linux czmq:x64-linux \
+#     libpq:arm-linux libmariadb:arm-linux sqlite3:arm-linux czmq:arm-linux"
+
+COPY conan /opt/
+RUN sh -c "source $HOME/.profile \
+    && mkdir -p $HOME/amd64 \
+    && cd $HOME/amd64 \
+    && conan install /opt/conan --profile=/opt/conan/focal-linux-amd64 --build=missing \
+    && mkdir -p $HOME/armhf \
+    && cd $HOME/armhf \
+    && conan install /opt/conan --profile=/opt/conan/focal-linux-armhf --build=missing" 
+
+
+# RUN sh -c "git clone https://github.com/saturn-xiv/peony.git $HOME/peony"
+# RUN sh -c "source $HOME/.profile \
+#     && $HOME/peony/grpc.sh"
 
 VOLUME /workspace
 WORKDIR /workspace
