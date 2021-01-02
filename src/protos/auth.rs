@@ -470,7 +470,7 @@ impl ::protobuf::reflect::ProtobufValue for EmailRequest {
 #[derive(PartialEq,Clone,Default)]
 pub struct SignInRequest {
     // message fields
-    pub email: ::std::string::String,
+    pub login: ::std::string::String,
     pub password: ::std::string::String,
     // special fields
     pub unknown_fields: ::protobuf::UnknownFields,
@@ -488,30 +488,30 @@ impl SignInRequest {
         ::std::default::Default::default()
     }
 
-    // string email = 1;
+    // string login = 1;
 
 
-    pub fn get_email(&self) -> &str {
-        &self.email
+    pub fn get_login(&self) -> &str {
+        &self.login
     }
-    pub fn clear_email(&mut self) {
-        self.email.clear();
+    pub fn clear_login(&mut self) {
+        self.login.clear();
     }
 
     // Param is passed by value, moved
-    pub fn set_email(&mut self, v: ::std::string::String) {
-        self.email = v;
+    pub fn set_login(&mut self, v: ::std::string::String) {
+        self.login = v;
     }
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_email(&mut self) -> &mut ::std::string::String {
-        &mut self.email
+    pub fn mut_login(&mut self) -> &mut ::std::string::String {
+        &mut self.login
     }
 
     // Take field
-    pub fn take_email(&mut self) -> ::std::string::String {
-        ::std::mem::replace(&mut self.email, ::std::string::String::new())
+    pub fn take_login(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.login, ::std::string::String::new())
     }
 
     // string password = 2;
@@ -551,7 +551,7 @@ impl ::protobuf::Message for SignInRequest {
             let (field_number, wire_type) = is.read_tag_unpack()?;
             match field_number {
                 1 => {
-                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.email)?;
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.login)?;
                 },
                 2 => {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.password)?;
@@ -568,8 +568,8 @@ impl ::protobuf::Message for SignInRequest {
     #[allow(unused_variables)]
     fn compute_size(&self) -> u32 {
         let mut my_size = 0;
-        if !self.email.is_empty() {
-            my_size += ::protobuf::rt::string_size(1, &self.email);
+        if !self.login.is_empty() {
+            my_size += ::protobuf::rt::string_size(1, &self.login);
         }
         if !self.password.is_empty() {
             my_size += ::protobuf::rt::string_size(2, &self.password);
@@ -580,8 +580,8 @@ impl ::protobuf::Message for SignInRequest {
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::ProtobufResult<()> {
-        if !self.email.is_empty() {
-            os.write_string(1, &self.email)?;
+        if !self.login.is_empty() {
+            os.write_string(1, &self.login)?;
         }
         if !self.password.is_empty() {
             os.write_string(2, &self.password)?;
@@ -625,9 +625,9 @@ impl ::protobuf::Message for SignInRequest {
         descriptor.get(|| {
             let mut fields = ::std::vec::Vec::new();
             fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
-                "email",
-                |m: &SignInRequest| { &m.email },
-                |m: &mut SignInRequest| { &mut m.email },
+                "login",
+                |m: &SignInRequest| { &m.login },
+                |m: &mut SignInRequest| { &mut m.login },
             ));
             fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
                 "password",
@@ -650,7 +650,7 @@ impl ::protobuf::Message for SignInRequest {
 
 impl ::protobuf::Clear for SignInRequest {
     fn clear(&mut self) {
-        self.email.clear();
+        self.login.clear();
         self.password.clear();
         self.unknown_fields.clear();
     }
@@ -1768,8 +1768,8 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     \x1b\n\treal_name\x18\x02\x20\x01(\tR\x08realName\x12\x1a\n\x08nickname\
     \x18\x03\x20\x01(\tR\x08nickname\x12\x14\n\x05email\x18\x04\x20\x01(\tR\
     \x05email\"$\n\x0cEmailRequest\x12\x14\n\x05email\x18\x01\x20\x01(\tR\
-    \x05email\"A\n\rSignInRequest\x12\x14\n\x05email\x18\x01\x20\x01(\tR\x05\
-    email\x12\x1a\n\x08password\x18\x02\x20\x01(\tR\x08password\"<\n\x0eSign\
+    \x05email\"A\n\rSignInRequest\x12\x14\n\x05login\x18\x01\x20\x01(\tR\x05\
+    login\x12\x1a\n\x08password\x18\x02\x20\x01(\tR\x08password\"<\n\x0eSign\
     InResponse\x12\x14\n\x05token\x18\x01\x20\x01(\tR\x05token\x12\x14\n\x05\
     roles\x18\x02\x20\x03(\tR\x05roles\"z\n\rSignUpRequest\x12\x1b\n\treal_n\
     ame\x18\x01\x20\x01(\tR\x08realName\x12\x1a\n\x08nickname\x18\x02\x20\
@@ -1793,25 +1793,25 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     \x16.google.protobuf.Empty\"\0J\xd9\x0e\n\x06\x12\x04\0\07\x01\n\x08\n\
     \x01\x0c\x12\x03\0\0\x12\n\x08\n\x01\x02\x12\x03\x02\0\x13\n\t\n\x02\x03\
     \0\x12\x03\x04\0%\n\n\n\x02\x06\0\x12\x04\x06\0\x0e\x01\n\n\n\x03\x06\0\
-    \x01\x12\x03\x06\x08\x13\n\x0b\n\x04\x06\0\x02\0\x12\x03\x07\x02=\n\x0c\
+    \x01\x12\x03\x06\x08\x13\n\x0b\n\x04\x06\0\x02\0\x12\x03\x07\x02>\n\x0c\
     \n\x05\x06\0\x02\0\x01\x12\x03\x07\x06\x0c\n\x0c\n\x05\x06\0\x02\0\x02\
-    \x12\x03\x07\r\x1a\n\x0c\n\x05\x06\0\x02\0\x03\x12\x03\x07$9\n\x0b\n\x04\
-    \x06\0\x02\x01\x12\x03\x08\x026\n\x0c\n\x05\x06\0\x02\x01\x01\x12\x03\
+    \x12\x03\x07\r\x1a\n\x0c\n\x05\x06\0\x02\0\x03\x12\x03\x07%:\n\x0b\n\x04\
+    \x06\0\x02\x01\x12\x03\x08\x027\n\x0c\n\x05\x06\0\x02\x01\x01\x12\x03\
     \x08\x06\x0c\n\x0c\n\x05\x06\0\x02\x01\x02\x12\x03\x08\r\x1a\n\x0c\n\x05\
-    \x06\0\x02\x01\x03\x12\x03\x08$2\n\x0b\n\x04\x06\0\x02\x02\x12\x03\t\x02\
-    =\n\x0c\n\x05\x06\0\x02\x02\x01\x12\x03\t\x06\x0c\n\x0c\n\x05\x06\0\x02\
-    \x02\x02\x12\x03\t\r\x1a\n\x0c\n\x05\x06\0\x02\x02\x03\x12\x03\t$9\n\x0b\
-    \n\x04\x06\0\x02\x03\x12\x03\n\x02=\n\x0c\n\x05\x06\0\x02\x03\x01\x12\
+    \x06\0\x02\x01\x03\x12\x03\x08%3\n\x0b\n\x04\x06\0\x02\x02\x12\x03\t\x02\
+    >\n\x0c\n\x05\x06\0\x02\x02\x01\x12\x03\t\x06\x0c\n\x0c\n\x05\x06\0\x02\
+    \x02\x02\x12\x03\t\r\x1a\n\x0c\n\x05\x06\0\x02\x02\x03\x12\x03\t%:\n\x0b\
+    \n\x04\x06\0\x02\x03\x12\x03\n\x02>\n\x0c\n\x05\x06\0\x02\x03\x01\x12\
     \x03\n\x06\r\n\x0c\n\x05\x06\0\x02\x03\x02\x12\x03\n\x0e\x1a\n\x0c\n\x05\
-    \x06\0\x02\x03\x03\x12\x03\n$9\n\x0b\n\x04\x06\0\x02\x04\x12\x03\x0b\x02\
-    <\n\x0c\n\x05\x06\0\x02\x04\x01\x12\x03\x0b\x06\x0c\n\x0c\n\x05\x06\0\
+    \x06\0\x02\x03\x03\x12\x03\n%:\n\x0b\n\x04\x06\0\x02\x04\x12\x03\x0b\x02\
+    =\n\x0c\n\x05\x06\0\x02\x04\x01\x12\x03\x0b\x06\x0c\n\x0c\n\x05\x06\0\
     \x02\x04\x02\x12\x03\x0b\r\x19\n\x0c\n\x05\x06\0\x02\x04\x03\x12\x03\x0b\
-    #8\n\x0b\n\x04\x06\0\x02\x05\x12\x03\x0c\x02D\n\x0c\n\x05\x06\0\x02\x05\
+    $9\n\x0b\n\x04\x06\0\x02\x05\x12\x03\x0c\x02E\n\x0c\n\x05\x06\0\x02\x05\
     \x01\x12\x03\x0c\x06\x14\n\x0c\n\x05\x06\0\x02\x05\x02\x12\x03\x0c\x15!\
-    \n\x0c\n\x05\x06\0\x02\x05\x03\x12\x03\x0c+@\n\x0b\n\x04\x06\0\x02\x06\
-    \x12\x03\r\x02K\n\x0c\n\x05\x06\0\x02\x06\x01\x12\x03\r\x06\x13\n\x0c\n\
+    \n\x0c\n\x05\x06\0\x02\x05\x03\x12\x03\x0c,A\n\x0b\n\x04\x06\0\x02\x06\
+    \x12\x03\r\x02L\n\x0c\n\x05\x06\0\x02\x06\x01\x12\x03\r\x06\x13\n\x0c\n\
     \x05\x06\0\x02\x06\x02\x12\x03\r\x14(\n\x0c\n\x05\x06\0\x02\x06\x03\x12\
-    \x03\r2G\n\n\n\x02\x04\0\x12\x04\x10\0\x15\x01\n\n\n\x03\x04\0\x01\x12\
+    \x03\r3H\n\n\n\x02\x04\0\x12\x04\x10\0\x15\x01\n\n\n\x03\x04\0\x01\x12\
     \x03\x10\x08\x15\n\x0b\n\x04\x04\0\x02\0\x12\x03\x11\x02\x11\n\x0c\n\x05\
     \x04\0\x02\0\x05\x12\x03\x11\x02\x08\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\
     \x11\t\x0c\n\x0c\n\x05\x04\0\x02\0\x03\x12\x03\x11\x0f\x10\n\x0b\n\x04\

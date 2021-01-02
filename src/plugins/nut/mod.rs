@@ -3,17 +3,13 @@ pub mod request;
 pub mod rpc;
 pub mod schema;
 
-use super::super::{
-    cache::redis::Pool as CachePool,
-    i18n,
-    orm::{migration::New as Migration, postgresql::Pool as DbPool},
-    settings,
-};
+use std::sync::Arc;
+
+use super::super::{env::Context, i18n, orm::migration::New as Migration, settings};
 
 #[derive(Clone)]
 pub struct Plugin {
-    pub db: DbPool,
-    pub cache: CachePool,
+    pub ctx: Arc<Context>,
 }
 
 impl super::Plugin for Plugin {

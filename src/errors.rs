@@ -59,6 +59,7 @@ pub enum Error {
     UrlParse(url::ParseError),
     Validator(validator::ValidationErrors),
     YamlEmit(yaml_rust::EmitError),
+    YamlScan(yaml_rust::ScanError),
 
     Http(StatusCode, Option<String>),
 }
@@ -118,6 +119,7 @@ impl fmt::Display for Error {
             Self::UrlParse(v) => v.fmt(f),
             Self::Validator(v) => v.fmt(f),
             Self::YamlEmit(v) => v.fmt(f),
+            Self::YamlScan(v) => v.fmt(f),
 
             Self::Http(v, r) => match r {
                 Some(r) => r.fmt(f),
@@ -423,6 +425,12 @@ impl From<handlebars::TemplateRenderError> for Error {
 impl From<yaml_rust::EmitError> for Error {
     fn from(err: yaml_rust::EmitError) -> Self {
         Self::YamlEmit(err)
+    }
+}
+
+impl From<yaml_rust::ScanError> for Error {
+    fn from(err: yaml_rust::ScanError) -> Self {
+        Self::YamlScan(err)
     }
 }
 

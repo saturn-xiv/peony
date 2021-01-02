@@ -1,4 +1,5 @@
-use std::ops::Deref;
+pub mod auth;
+pub mod site;
 
 use actix_web::http::{
     header::{HeaderName, ACCEPT_LANGUAGE, AUTHORIZATION, USER_AGENT},
@@ -7,14 +8,9 @@ use actix_web::http::{
 use grpcio::{RpcContext, UnarySink};
 
 use super::super::super::{
-    cache::{redis::Pool as CachePool, Provider as CacheProvider},
-    env::VERSION,
     errors::{Error, Result},
     jwt::Jwt,
-    orm::{
-        migration::Dao as MigrationDao,
-        postgresql::{Connection as DbConnection, Pool as DbPool},
-    },
+    orm::postgresql::Connection as DbConnection,
     protos::{
         auth::{
             EmailRequest, ImportRequest, ResetPasswordRequest, SignInRequest, SignInResponse,
@@ -27,12 +23,19 @@ use super::super::super::{
     },
     request::Token as Auth,
 };
-use super::{models::user::Item as User, request::CurrentUser};
+use super::{
+    models::{
+        policy::{Dao as PolicyDao, Role},
+        user::Item as User,
+    },
+    request::CurrentUser,
+};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Session {
     pub token: Option<String>,
     pub locale: String,
+    pub peer: String,
 }
 
 impl Default for Session {
@@ -40,12 +43,16 @@ impl Default for Session {
         Self {
             token: None,
             locale: "en-US".to_string(),
+            peer: "nil".to_string(),
         }
     }
 }
 
 impl Session {
-    pub fn new(ctx: &RpcContext) -> Result<Self> {
+    pub fn new(ctx: &RpcContext) -> Self {
+        Self::from_rpc_context(ctx).unwrap_or_default()
+    }
+    fn from_rpc_context(ctx: &RpcContext) -> Result<Self> {
         debug!(
             "{} {} {}",
             std::str::from_utf8(ctx.method())?,
@@ -54,6 +61,7 @@ impl Session {
         );
         let headers = ctx.request_headers();
         let mut it = Self::default();
+        it.peer = ctx.peer();
         for (k, v) in headers.iter() {
             let k: HeaderName = k.to_lowercase().parse()?;
             let v = std::str::from_utf8(v)?;
@@ -82,17 +90,33 @@ impl Session {
         }
         Err(Error::Http(StatusCode::NON_AUTHORITATIVE_INFORMATION, None))
     }
+    pub fn administrator(&self, db: &DbConnection, jwt: &Jwt) -> Result<User> {
+        let user = self.current_user(db, jwt)?;
+        if PolicyDao::can(db, user.id, &Role::Admin, &None) {
+            return Ok(user);
+        }
+        if PolicyDao::can(db, user.id, &Role::Root, &None) {
+            return Ok(user);
+        }
+        Err(Error::Http(StatusCode::FORBIDDEN, None))
+    }
 }
 
 impl UserService for super::Plugin {
     fn import(&mut self, _ctx: RpcContext, _req: ImportRequest, _sink: UnarySink<Empty>) {
         // TODO
     }
-    fn sign_in(&mut self, _ctx: RpcContext, _req: SignInRequest, _sink: UnarySink<SignInResponse>) {
-        // TODO
+    fn sign_in(&mut self, ctx: RpcContext, req: SignInRequest, sink: UnarySink<SignInResponse>) {
+        let ct = self.ctx.clone();
+        let ss = Session::new(&ctx);
+        let fm: auth::SignIn = req.into();
+        ctx.spawn(async move { __unary_sink!(fm.execute(&ct, &ss), sink) })
     }
-    fn sign_up(&mut self, _ctx: RpcContext, _req: SignUpRequest, _sink: UnarySink<Empty>) {
-        // TODO
+    fn sign_up(&mut self, ctx: RpcContext, req: SignUpRequest, sink: UnarySink<Empty>) {
+        let ct = self.ctx.clone();
+        let ss = Session::new(&ctx);
+        let fm: auth::SignUp = req.into();
+        ctx.spawn(async move { __unary_sink!(fm.execute(&ct, &ss), sink) })
     }
     fn forgot_password(&mut self, _ctx: RpcContext, _req: EmailRequest, _sink: UnarySink<Empty>) {
         // TODO
@@ -113,58 +137,11 @@ impl UserService for super::Plugin {
     }
 }
 
-impl super::Plugin {
-    fn _heartbeat(db: DbPool, ch: CachePool) -> Result<HeartbeatResponse> {
-        let db = db.get()?;
-        let db = db.deref();
-
-        Ok(HeartbeatResponse {
-            version: VERSION.to_string(),
-            postgresql: MigrationDao::version(db)?,
-            redis: ch.version()?,
-            ..Default::default()
-        })
-    }
-}
-
 impl NutService for super::Plugin {
-    fn heartbeat(&mut self, ctx: RpcContext, req: Empty, sink: UnarySink<HeartbeatResponse>) {
+    fn heartbeat(&mut self, ctx: RpcContext, _req: Empty, sink: UnarySink<HeartbeatResponse>) {
         let ss = Session::new(&ctx);
-        debug!("{:?} {:?} ", ss, req);
-        let db = self.db.clone();
-        let ch = self.cache.clone();
-
-        let f = async move {
-            __unary_sink!(Self::_heartbeat(db, ch), sink)
-            // match Self::_heartbeat(db, ch) {
-            //     Ok(v) => {
-            //         debug!("{:?}", v);
-            //         sink.success(v);
-            //     }
-            //     Err(e) => {
-            //         error!("{:?}", e);
-            //         sink.fail(e.into());
-            //     }
-            // }
-        };
-        ctx.spawn(f)
-        // let f = async move {
-        //     let it = Self::_heartbeat(db, ch);
-        //     match it {
-        //         Ok(v) => {
-        //             sink.success(v);
-        //             Ok(())
-        //         }
-        //         Err(e) => {
-        //             sink.fail(e.to_rpc_status());
-        //             Err(e)
-        //         }
-        //     }
-        // }
-        // .map_err(|e: Error| {
-        //     error!("failed to reply {:?}", e);
-        // })
-        // .map(|_| ());
+        let ct = self.ctx.clone();
+        ctx.spawn(async move { __unary_sink!(site::Heartbeat::execute(&ct, &ss), sink) })
     }
 
     fn set_locale(&mut self, _ctx: RpcContext, _req: SetLocaleRequest, _sink: UnarySink<Empty>) {

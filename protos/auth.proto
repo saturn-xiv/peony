@@ -5,13 +5,13 @@ package peony.auth;
 import "google/protobuf/empty.proto";
 
 service UserService {
-  rpc Import(ImportRequest) returns(google.protobuf.Empty) {}
-  rpc SignIn(SignInRequest) returns(SignInResponse) {}
-  rpc SignUp(SignUpRequest) returns(google.protobuf.Empty) {}
-  rpc Confirm(EmailRequest) returns(google.protobuf.Empty) {}
-  rpc Unlock(EmailRequest) returns(google.protobuf.Empty) {}
-  rpc ForgotPassword(EmailRequest) returns(google.protobuf.Empty) {}
-  rpc ResetPassword(ResetPasswordRequest) returns(google.protobuf.Empty) {}
+  rpc Import(ImportRequest) returns (google.protobuf.Empty) {}
+  rpc SignIn(SignInRequest) returns (SignInResponse) {}
+  rpc SignUp(SignUpRequest) returns (google.protobuf.Empty) {}
+  rpc Confirm(EmailRequest) returns (google.protobuf.Empty) {}
+  rpc Unlock(EmailRequest) returns (google.protobuf.Empty) {}
+  rpc ForgotPassword(EmailRequest) returns (google.protobuf.Empty) {}
+  rpc ResetPassword(ResetPasswordRequest) returns (google.protobuf.Empty) {}
 }
 
 message ImportRequest {
@@ -24,7 +24,7 @@ message ImportRequest {
 message EmailRequest { string email = 1; }
 
 message SignInRequest {
-  string email = 1;
+  string login = 1;
   string password = 2;
 }
 

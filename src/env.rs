@@ -2,8 +2,13 @@ use std::default::Default;
 use std::fmt;
 
 use super::{
-    cache::redis::Config as RedisConfig, crypto::Key, orm::postgresql::Config as PostgreSqlConfig,
-    queue::rabbit::Config as RabbitMQConfig, twilio::Config as TwilioConfig,
+    cache::redis::{Config as RedisConfig, Pool as CachePool},
+    crypto::Key,
+    errors::Result,
+    jwt::Jwt,
+    orm::postgresql::{Config as PostgreSqlConfig, Pool as DbPool},
+    queue::rabbit::{Config as RabbitMQConfig, RabbitMQ},
+    twilio::Config as TwilioConfig,
 };
 
 include!(concat!(env!("OUT_DIR"), "/env.rs"));
@@ -15,6 +20,24 @@ pub const AUTHORS: &str = env!("CARGO_PKG_AUTHORS");
 pub const BANNER: &str = include_str!("banner.txt");
 
 pub const LOCALHOST: &str = "127.0.0.1";
+
+pub struct Context {
+    pub cache: CachePool,
+    pub db: DbPool,
+    pub jwt: Jwt,
+    pub queue: RabbitMQ,
+}
+
+impl Context {
+    pub fn new(cfg: &Config) -> Result<Self> {
+        Ok(Self {
+            cache: cfg.redis.open()?,
+            db: cfg.postgresql.open()?,
+            jwt: Jwt::new(cfg.secrets.0.clone()),
+            queue: cfg.rabbitmq.open(),
+        })
+    }
+}
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
