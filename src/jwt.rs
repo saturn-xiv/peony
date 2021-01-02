@@ -26,11 +26,12 @@ impl Jwt {
         (nbf.timestamp(), exp.timestamp())
     }
     pub fn sum<T: Serialize>(&self, kid: Option<String>, claims: &T) -> Result<String> {
-        let mut header = Header::default();
-        header.kid = kid;
-        header.alg = Algorithm::HS512;
         let token = encode(
-            &header,
+            &Header {
+                kid,
+                alg: Algorithm::HS512,
+                ..Default::default()
+            },
             claims,
             &EncodingKey::from_base64_secret(&self.key)?,
         )?;

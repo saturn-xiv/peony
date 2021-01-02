@@ -53,10 +53,7 @@ impl fmt::Display for Config {
             f,
             "postgres://{}:{}@{}:{}/{}",
             self.user,
-            match self.password {
-                Some(ref v) => v,
-                None => "",
-            },
+            self.password.as_deref().unwrap_or(""),
             self.host,
             self.port,
             self.name

@@ -30,5 +30,5 @@ fn test_heartbeat() {
     let client = NutServiceClient::new(ch);
 
     let reply = client.heartbeat_opt(&Empty::default(), option).unwrap();
-    println!("heartbeat received: {}", reply.version);
+    println!("heartbeat received: {:?}", reply);
 }

@@ -445,3 +445,15 @@ impl ResponseError for Error {
         }
     }
 }
+
+impl From<Error> for grpcio::RpcStatus {
+    fn from(err: Error) -> Self {
+        grpcio::RpcStatus::new(grpcio::RpcStatusCode::INTERNAL, Some(err.to_string()))
+    }
+}
+
+impl Error {
+    pub fn to_rpc_status(&self) -> grpcio::RpcStatus {
+        grpcio::RpcStatus::new(grpcio::RpcStatusCode::INTERNAL, Some(self.to_string()))
+    }
+}

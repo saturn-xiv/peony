@@ -27,10 +27,10 @@
 pub struct HeartbeatResponse {
     // message fields
     pub version: ::std::string::String,
-    pub postgresql: bool,
-    pub redis: bool,
-    pub rabbitmq: bool,
-    pub elastic_search: bool,
+    pub postgresql: ::std::string::String,
+    pub redis: ::std::string::String,
+    pub rabbitmq: ::std::string::String,
+    pub elastic_search: ::std::string::String,
     // special fields
     pub unknown_fields: ::protobuf::UnknownFields,
     pub cached_size: ::protobuf::CachedSize,
@@ -73,64 +73,108 @@ impl HeartbeatResponse {
         ::std::mem::replace(&mut self.version, ::std::string::String::new())
     }
 
-    // bool postgresql = 2;
+    // string postgresql = 2;
 
 
-    pub fn get_postgresql(&self) -> bool {
-        self.postgresql
+    pub fn get_postgresql(&self) -> &str {
+        &self.postgresql
     }
     pub fn clear_postgresql(&mut self) {
-        self.postgresql = false;
+        self.postgresql.clear();
     }
 
     // Param is passed by value, moved
-    pub fn set_postgresql(&mut self, v: bool) {
+    pub fn set_postgresql(&mut self, v: ::std::string::String) {
         self.postgresql = v;
     }
 
-    // bool redis = 3;
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_postgresql(&mut self) -> &mut ::std::string::String {
+        &mut self.postgresql
+    }
+
+    // Take field
+    pub fn take_postgresql(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.postgresql, ::std::string::String::new())
+    }
+
+    // string redis = 3;
 
 
-    pub fn get_redis(&self) -> bool {
-        self.redis
+    pub fn get_redis(&self) -> &str {
+        &self.redis
     }
     pub fn clear_redis(&mut self) {
-        self.redis = false;
+        self.redis.clear();
     }
 
     // Param is passed by value, moved
-    pub fn set_redis(&mut self, v: bool) {
+    pub fn set_redis(&mut self, v: ::std::string::String) {
         self.redis = v;
     }
 
-    // bool rabbitmq = 4;
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_redis(&mut self) -> &mut ::std::string::String {
+        &mut self.redis
+    }
+
+    // Take field
+    pub fn take_redis(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.redis, ::std::string::String::new())
+    }
+
+    // string rabbitmq = 4;
 
 
-    pub fn get_rabbitmq(&self) -> bool {
-        self.rabbitmq
+    pub fn get_rabbitmq(&self) -> &str {
+        &self.rabbitmq
     }
     pub fn clear_rabbitmq(&mut self) {
-        self.rabbitmq = false;
+        self.rabbitmq.clear();
     }
 
     // Param is passed by value, moved
-    pub fn set_rabbitmq(&mut self, v: bool) {
+    pub fn set_rabbitmq(&mut self, v: ::std::string::String) {
         self.rabbitmq = v;
     }
 
-    // bool elastic_search = 5;
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_rabbitmq(&mut self) -> &mut ::std::string::String {
+        &mut self.rabbitmq
+    }
+
+    // Take field
+    pub fn take_rabbitmq(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.rabbitmq, ::std::string::String::new())
+    }
+
+    // string elastic_search = 5;
 
 
-    pub fn get_elastic_search(&self) -> bool {
-        self.elastic_search
+    pub fn get_elastic_search(&self) -> &str {
+        &self.elastic_search
     }
     pub fn clear_elastic_search(&mut self) {
-        self.elastic_search = false;
+        self.elastic_search.clear();
     }
 
     // Param is passed by value, moved
-    pub fn set_elastic_search(&mut self, v: bool) {
+    pub fn set_elastic_search(&mut self, v: ::std::string::String) {
         self.elastic_search = v;
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_elastic_search(&mut self) -> &mut ::std::string::String {
+        &mut self.elastic_search
+    }
+
+    // Take field
+    pub fn take_elastic_search(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.elastic_search, ::std::string::String::new())
     }
 }
 
@@ -147,32 +191,16 @@ impl ::protobuf::Message for HeartbeatResponse {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.version)?;
                 },
                 2 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    }
-                    let tmp = is.read_bool()?;
-                    self.postgresql = tmp;
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.postgresql)?;
                 },
                 3 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    }
-                    let tmp = is.read_bool()?;
-                    self.redis = tmp;
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.redis)?;
                 },
                 4 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    }
-                    let tmp = is.read_bool()?;
-                    self.rabbitmq = tmp;
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.rabbitmq)?;
                 },
                 5 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    }
-                    let tmp = is.read_bool()?;
-                    self.elastic_search = tmp;
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.elastic_search)?;
                 },
                 _ => {
                     ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
@@ -189,17 +217,17 @@ impl ::protobuf::Message for HeartbeatResponse {
         if !self.version.is_empty() {
             my_size += ::protobuf::rt::string_size(1, &self.version);
         }
-        if self.postgresql != false {
-            my_size += 2;
+        if !self.postgresql.is_empty() {
+            my_size += ::protobuf::rt::string_size(2, &self.postgresql);
         }
-        if self.redis != false {
-            my_size += 2;
+        if !self.redis.is_empty() {
+            my_size += ::protobuf::rt::string_size(3, &self.redis);
         }
-        if self.rabbitmq != false {
-            my_size += 2;
+        if !self.rabbitmq.is_empty() {
+            my_size += ::protobuf::rt::string_size(4, &self.rabbitmq);
         }
-        if self.elastic_search != false {
-            my_size += 2;
+        if !self.elastic_search.is_empty() {
+            my_size += ::protobuf::rt::string_size(5, &self.elastic_search);
         }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
@@ -210,17 +238,17 @@ impl ::protobuf::Message for HeartbeatResponse {
         if !self.version.is_empty() {
             os.write_string(1, &self.version)?;
         }
-        if self.postgresql != false {
-            os.write_bool(2, self.postgresql)?;
+        if !self.postgresql.is_empty() {
+            os.write_string(2, &self.postgresql)?;
         }
-        if self.redis != false {
-            os.write_bool(3, self.redis)?;
+        if !self.redis.is_empty() {
+            os.write_string(3, &self.redis)?;
         }
-        if self.rabbitmq != false {
-            os.write_bool(4, self.rabbitmq)?;
+        if !self.rabbitmq.is_empty() {
+            os.write_string(4, &self.rabbitmq)?;
         }
-        if self.elastic_search != false {
-            os.write_bool(5, self.elastic_search)?;
+        if !self.elastic_search.is_empty() {
+            os.write_string(5, &self.elastic_search)?;
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -265,22 +293,22 @@ impl ::protobuf::Message for HeartbeatResponse {
                 |m: &HeartbeatResponse| { &m.version },
                 |m: &mut HeartbeatResponse| { &mut m.version },
             ));
-            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeBool>(
+            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
                 "postgresql",
                 |m: &HeartbeatResponse| { &m.postgresql },
                 |m: &mut HeartbeatResponse| { &mut m.postgresql },
             ));
-            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeBool>(
+            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
                 "redis",
                 |m: &HeartbeatResponse| { &m.redis },
                 |m: &mut HeartbeatResponse| { &mut m.redis },
             ));
-            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeBool>(
+            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
                 "rabbitmq",
                 |m: &HeartbeatResponse| { &m.rabbitmq },
                 |m: &mut HeartbeatResponse| { &mut m.rabbitmq },
             ));
-            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeBool>(
+            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
                 "elastic_search",
                 |m: &HeartbeatResponse| { &m.elastic_search },
                 |m: &mut HeartbeatResponse| { &mut m.elastic_search },
@@ -302,10 +330,10 @@ impl ::protobuf::Message for HeartbeatResponse {
 impl ::protobuf::Clear for HeartbeatResponse {
     fn clear(&mut self) {
         self.version.clear();
-        self.postgresql = false;
-        self.redis = false;
-        self.rabbitmq = false;
-        self.elastic_search = false;
+        self.postgresql.clear();
+        self.redis.clear();
+        self.rabbitmq.clear();
+        self.elastic_search.clear();
         self.unknown_fields.clear();
     }
 }
@@ -568,47 +596,47 @@ impl ::protobuf::reflect::ProtobufValue for SetLocaleRequest {
 static file_descriptor_proto_data: &'static [u8] = b"\
     \n\x10protos/nut.proto\x12\tpeony.nut\x1a\x1bgoogle/protobuf/empty.proto\
     \"\xa6\x01\n\x11HeartbeatResponse\x12\x18\n\x07version\x18\x01\x20\x01(\
-    \tR\x07version\x12\x1e\n\npostgresql\x18\x02\x20\x01(\x08R\npostgresql\
-    \x12\x14\n\x05redis\x18\x03\x20\x01(\x08R\x05redis\x12\x1a\n\x08rabbitmq\
-    \x18\x04\x20\x01(\x08R\x08rabbitmq\x12%\n\x0eelastic_search\x18\x05\x20\
-    \x01(\x08R\relasticSearch\"T\n\x10SetLocaleRequest\x12\x12\n\x04lang\x18\
-    \x01\x20\x01(\tR\x04lang\x12\x12\n\x04code\x18\x02\x20\x01(\tR\x04code\
-    \x12\x18\n\x07message\x18\x03\x20\x01(\tR\x07message2\x95\x01\n\nNutServ\
-    ice\x12C\n\tHeartbeat\x12\x16.google.protobuf.Empty\x1a\x1c.peony.nut.He\
-    artbeatResponse\"\0\x12B\n\tSetLocale\x12\x1b.peony.nut.SetLocaleRequest\
-    \x1a\x16.google.protobuf.Empty\"\0J\x95\x05\n\x06\x12\x04\0\0\x17\x01\n\
-    \x08\n\x01\x0c\x12\x03\0\0\x12\n\x08\n\x01\x02\x12\x03\x02\0\x12\n\t\n\
-    \x02\x03\0\x12\x03\x04\0%\n\n\n\x02\x06\0\x12\x04\x06\0\t\x01\n\n\n\x03\
-    \x06\0\x01\x12\x03\x06\x08\x12\n\x0b\n\x04\x06\0\x02\0\x12\x03\x07\x02D\
-    \n\x0c\n\x05\x06\0\x02\0\x01\x12\x03\x07\x06\x0f\n\x0c\n\x05\x06\0\x02\0\
-    \x02\x12\x03\x07\x10%\n\x0c\n\x05\x06\0\x02\0\x03\x12\x03\x07/@\n\x0b\n\
-    \x04\x06\0\x02\x01\x12\x03\x08\x02C\n\x0c\n\x05\x06\0\x02\x01\x01\x12\
-    \x03\x08\x06\x0f\n\x0c\n\x05\x06\0\x02\x01\x02\x12\x03\x08\x10\x20\n\x0c\
-    \n\x05\x06\0\x02\x01\x03\x12\x03\x08*?\n\n\n\x02\x04\0\x12\x04\x0b\0\x11\
-    \x01\n\n\n\x03\x04\0\x01\x12\x03\x0b\x08\x19\n\x0b\n\x04\x04\0\x02\0\x12\
-    \x03\x0c\x02\x15\n\x0c\n\x05\x04\0\x02\0\x05\x12\x03\x0c\x02\x08\n\x0c\n\
-    \x05\x04\0\x02\0\x01\x12\x03\x0c\t\x10\n\x0c\n\x05\x04\0\x02\0\x03\x12\
-    \x03\x0c\x13\x14\n\x0b\n\x04\x04\0\x02\x01\x12\x03\r\x02\x16\n\x0c\n\x05\
-    \x04\0\x02\x01\x05\x12\x03\r\x02\x06\n\x0c\n\x05\x04\0\x02\x01\x01\x12\
-    \x03\r\x07\x11\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\r\x14\x15\n\x0b\n\
-    \x04\x04\0\x02\x02\x12\x03\x0e\x02\x11\n\x0c\n\x05\x04\0\x02\x02\x05\x12\
-    \x03\x0e\x02\x06\n\x0c\n\x05\x04\0\x02\x02\x01\x12\x03\x0e\x07\x0c\n\x0c\
-    \n\x05\x04\0\x02\x02\x03\x12\x03\x0e\x0f\x10\n\x0b\n\x04\x04\0\x02\x03\
-    \x12\x03\x0f\x02\x14\n\x0c\n\x05\x04\0\x02\x03\x05\x12\x03\x0f\x02\x06\n\
-    \x0c\n\x05\x04\0\x02\x03\x01\x12\x03\x0f\x07\x0f\n\x0c\n\x05\x04\0\x02\
-    \x03\x03\x12\x03\x0f\x12\x13\n\x0b\n\x04\x04\0\x02\x04\x12\x03\x10\x02\
-    \x1a\n\x0c\n\x05\x04\0\x02\x04\x05\x12\x03\x10\x02\x06\n\x0c\n\x05\x04\0\
-    \x02\x04\x01\x12\x03\x10\x07\x15\n\x0c\n\x05\x04\0\x02\x04\x03\x12\x03\
-    \x10\x18\x19\n\n\n\x02\x04\x01\x12\x04\x13\0\x17\x01\n\n\n\x03\x04\x01\
-    \x01\x12\x03\x13\x08\x18\n\x0b\n\x04\x04\x01\x02\0\x12\x03\x14\x02\x12\n\
-    \x0c\n\x05\x04\x01\x02\0\x05\x12\x03\x14\x02\x08\n\x0c\n\x05\x04\x01\x02\
-    \0\x01\x12\x03\x14\t\r\n\x0c\n\x05\x04\x01\x02\0\x03\x12\x03\x14\x10\x11\
-    \n\x0b\n\x04\x04\x01\x02\x01\x12\x03\x15\x02\x12\n\x0c\n\x05\x04\x01\x02\
-    \x01\x05\x12\x03\x15\x02\x08\n\x0c\n\x05\x04\x01\x02\x01\x01\x12\x03\x15\
-    \t\r\n\x0c\n\x05\x04\x01\x02\x01\x03\x12\x03\x15\x10\x11\n\x0b\n\x04\x04\
-    \x01\x02\x02\x12\x03\x16\x02\x15\n\x0c\n\x05\x04\x01\x02\x02\x05\x12\x03\
-    \x16\x02\x08\n\x0c\n\x05\x04\x01\x02\x02\x01\x12\x03\x16\t\x10\n\x0c\n\
-    \x05\x04\x01\x02\x02\x03\x12\x03\x16\x13\x14b\x06proto3\
+    \tR\x07version\x12\x1e\n\npostgresql\x18\x02\x20\x01(\tR\npostgresql\x12\
+    \x14\n\x05redis\x18\x03\x20\x01(\tR\x05redis\x12\x1a\n\x08rabbitmq\x18\
+    \x04\x20\x01(\tR\x08rabbitmq\x12%\n\x0eelastic_search\x18\x05\x20\x01(\t\
+    R\relasticSearch\"T\n\x10SetLocaleRequest\x12\x12\n\x04lang\x18\x01\x20\
+    \x01(\tR\x04lang\x12\x12\n\x04code\x18\x02\x20\x01(\tR\x04code\x12\x18\n\
+    \x07message\x18\x03\x20\x01(\tR\x07message2\x95\x01\n\nNutService\x12C\n\
+    \tHeartbeat\x12\x16.google.protobuf.Empty\x1a\x1c.peony.nut.HeartbeatRes\
+    ponse\"\0\x12B\n\tSetLocale\x12\x1b.peony.nut.SetLocaleRequest\x1a\x16.g\
+    oogle.protobuf.Empty\"\0J\x95\x05\n\x06\x12\x04\0\0\x17\x01\n\x08\n\x01\
+    \x0c\x12\x03\0\0\x12\n\x08\n\x01\x02\x12\x03\x02\0\x12\n\t\n\x02\x03\0\
+    \x12\x03\x04\0%\n\n\n\x02\x06\0\x12\x04\x06\0\t\x01\n\n\n\x03\x06\0\x01\
+    \x12\x03\x06\x08\x12\n\x0b\n\x04\x06\0\x02\0\x12\x03\x07\x02E\n\x0c\n\
+    \x05\x06\0\x02\0\x01\x12\x03\x07\x06\x0f\n\x0c\n\x05\x06\0\x02\0\x02\x12\
+    \x03\x07\x10%\n\x0c\n\x05\x06\0\x02\0\x03\x12\x03\x070A\n\x0b\n\x04\x06\
+    \0\x02\x01\x12\x03\x08\x02D\n\x0c\n\x05\x06\0\x02\x01\x01\x12\x03\x08\
+    \x06\x0f\n\x0c\n\x05\x06\0\x02\x01\x02\x12\x03\x08\x10\x20\n\x0c\n\x05\
+    \x06\0\x02\x01\x03\x12\x03\x08+@\n\n\n\x02\x04\0\x12\x04\x0b\0\x11\x01\n\
+    \n\n\x03\x04\0\x01\x12\x03\x0b\x08\x19\n\x0b\n\x04\x04\0\x02\0\x12\x03\
+    \x0c\x02\x15\n\x0c\n\x05\x04\0\x02\0\x05\x12\x03\x0c\x02\x08\n\x0c\n\x05\
+    \x04\0\x02\0\x01\x12\x03\x0c\t\x10\n\x0c\n\x05\x04\0\x02\0\x03\x12\x03\
+    \x0c\x13\x14\n\x0b\n\x04\x04\0\x02\x01\x12\x03\r\x02\x18\n\x0c\n\x05\x04\
+    \0\x02\x01\x05\x12\x03\r\x02\x08\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\r\
+    \t\x13\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\r\x16\x17\n\x0b\n\x04\x04\0\
+    \x02\x02\x12\x03\x0e\x02\x13\n\x0c\n\x05\x04\0\x02\x02\x05\x12\x03\x0e\
+    \x02\x08\n\x0c\n\x05\x04\0\x02\x02\x01\x12\x03\x0e\t\x0e\n\x0c\n\x05\x04\
+    \0\x02\x02\x03\x12\x03\x0e\x11\x12\n\x0b\n\x04\x04\0\x02\x03\x12\x03\x0f\
+    \x02\x16\n\x0c\n\x05\x04\0\x02\x03\x05\x12\x03\x0f\x02\x08\n\x0c\n\x05\
+    \x04\0\x02\x03\x01\x12\x03\x0f\t\x11\n\x0c\n\x05\x04\0\x02\x03\x03\x12\
+    \x03\x0f\x14\x15\n\x0b\n\x04\x04\0\x02\x04\x12\x03\x10\x02\x1c\n\x0c\n\
+    \x05\x04\0\x02\x04\x05\x12\x03\x10\x02\x08\n\x0c\n\x05\x04\0\x02\x04\x01\
+    \x12\x03\x10\t\x17\n\x0c\n\x05\x04\0\x02\x04\x03\x12\x03\x10\x1a\x1b\n\n\
+    \n\x02\x04\x01\x12\x04\x13\0\x17\x01\n\n\n\x03\x04\x01\x01\x12\x03\x13\
+    \x08\x18\n\x0b\n\x04\x04\x01\x02\0\x12\x03\x14\x02\x12\n\x0c\n\x05\x04\
+    \x01\x02\0\x05\x12\x03\x14\x02\x08\n\x0c\n\x05\x04\x01\x02\0\x01\x12\x03\
+    \x14\t\r\n\x0c\n\x05\x04\x01\x02\0\x03\x12\x03\x14\x10\x11\n\x0b\n\x04\
+    \x04\x01\x02\x01\x12\x03\x15\x02\x12\n\x0c\n\x05\x04\x01\x02\x01\x05\x12\
+    \x03\x15\x02\x08\n\x0c\n\x05\x04\x01\x02\x01\x01\x12\x03\x15\t\r\n\x0c\n\
+    \x05\x04\x01\x02\x01\x03\x12\x03\x15\x10\x11\n\x0b\n\x04\x04\x01\x02\x02\
+    \x12\x03\x16\x02\x15\n\x0c\n\x05\x04\x01\x02\x02\x05\x12\x03\x16\x02\x08\
+    \n\x0c\n\x05\x04\x01\x02\x02\x01\x12\x03\x16\t\x10\n\x0c\n\x05\x04\x01\
+    \x02\x02\x03\x12\x03\x16\x13\x14b\x06proto3\
 ";
 
 static file_descriptor_proto_lazy: ::protobuf::rt::LazyV2<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::rt::LazyV2::INIT;

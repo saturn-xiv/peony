@@ -15,4 +15,5 @@ pub trait Provider {
         V: DeserializeOwned + Serialize;
     fn clear(&self) -> Result<()>;
     fn keys(&self) -> Result<Vec<(String, i64)>>;
+    fn version(&self) -> Result<String>;
 }

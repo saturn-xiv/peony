@@ -3,10 +3,18 @@ pub mod request;
 pub mod rpc;
 pub mod schema;
 
-use super::super::{i18n, orm::migration::New as Migration, settings};
+use super::super::{
+    cache::redis::Pool as CachePool,
+    i18n,
+    orm::{migration::New as Migration, postgresql::Pool as DbPool},
+    settings,
+};
 
 #[derive(Clone)]
-pub struct Plugin {}
+pub struct Plugin {
+    pub db: DbPool,
+    pub cache: CachePool,
+}
 
 impl super::Plugin for Plugin {
     fn migrations<'a>() -> Vec<Migration<'a>> {

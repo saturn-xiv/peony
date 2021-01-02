@@ -34,3 +34,19 @@ macro_rules! __html {
             .body(body)
     }};
 }
+
+#[macro_export]
+macro_rules! __unary_sink {
+    ($v:expr,  $s:expr) => {
+        match $v {
+            Ok(v) => {
+                // debug!("{:?}", v);
+                $s.success(v);
+            }
+            Err(e) => {
+                error!("{:?}", e);
+                $s.fail(e.into());
+            }
+        }
+    };
+}

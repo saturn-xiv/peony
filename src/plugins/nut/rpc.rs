@@ -1,15 +1,20 @@
+use std::ops::Deref;
+
 use actix_web::http::{
     header::{HeaderName, ACCEPT_LANGUAGE, AUTHORIZATION, USER_AGENT},
     StatusCode,
 };
-use futures::prelude::*;
 use grpcio::{RpcContext, UnarySink};
 
 use super::super::super::{
+    cache::{redis::Pool as CachePool, Provider as CacheProvider},
     env::VERSION,
     errors::{Error, Result},
     jwt::Jwt,
-    orm::postgresql::Connection as DbConnection,
+    orm::{
+        migration::Dao as MigrationDao,
+        postgresql::{Connection as DbConnection, Pool as DbPool},
+    },
     protos::{
         auth::{
             EmailRequest, ImportRequest, ResetPasswordRequest, SignInRequest, SignInResponse,
@@ -108,17 +113,58 @@ impl UserService for super::Plugin {
     }
 }
 
+impl super::Plugin {
+    fn _heartbeat(db: DbPool, ch: CachePool) -> Result<HeartbeatResponse> {
+        let db = db.get()?;
+        let db = db.deref();
+
+        Ok(HeartbeatResponse {
+            version: VERSION.to_string(),
+            postgresql: MigrationDao::version(db)?,
+            redis: ch.version()?,
+            ..Default::default()
+        })
+    }
+}
+
 impl NutService for super::Plugin {
     fn heartbeat(&mut self, ctx: RpcContext, req: Empty, sink: UnarySink<HeartbeatResponse>) {
         let ss = Session::new(&ctx);
-        debug!("{:?} ", ss);
-        let mut res = HeartbeatResponse::default();
-        res.version = VERSION.to_string();
-        let f = sink
-            .success(res)
-            .map_err(move |e| error!("failed to reply {:?}: {:?}", req, e))
-            .map(|_| ());
+        debug!("{:?} {:?} ", ss, req);
+        let db = self.db.clone();
+        let ch = self.cache.clone();
+
+        let f = async move {
+            __unary_sink!(Self::_heartbeat(db, ch), sink)
+            // match Self::_heartbeat(db, ch) {
+            //     Ok(v) => {
+            //         debug!("{:?}", v);
+            //         sink.success(v);
+            //     }
+            //     Err(e) => {
+            //         error!("{:?}", e);
+            //         sink.fail(e.into());
+            //     }
+            // }
+        };
         ctx.spawn(f)
+        // let f = async move {
+        //     let it = Self::_heartbeat(db, ch);
+        //     match it {
+        //         Ok(v) => {
+        //             sink.success(v);
+        //             Ok(())
+        //         }
+        //         Err(e) => {
+        //             sink.fail(e.to_rpc_status());
+        //             Err(e)
+        //         }
+        //     }
+        // }
+        // .map_err(|e: Error| {
+        //     error!("failed to reply {:?}", e);
+        // })
+        // .map(|_| ());
     }
 
     fn set_locale(&mut self, _ctx: RpcContext, _req: SetLocaleRequest, _sink: UnarySink<Empty>) {

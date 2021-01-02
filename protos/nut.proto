@@ -5,16 +5,16 @@ package peony.nut;
 import "google/protobuf/empty.proto";
 
 service NutService {
-  rpc Heartbeat(google.protobuf.Empty) returns(HeartbeatResponse) {}
-  rpc SetLocale(SetLocaleRequest) returns(google.protobuf.Empty) {}
+  rpc Heartbeat(google.protobuf.Empty) returns (HeartbeatResponse) {}
+  rpc SetLocale(SetLocaleRequest) returns (google.protobuf.Empty) {}
 }
 
 message HeartbeatResponse {
   string version = 1;
-  bool postgresql = 2;
-  bool redis = 3;
-  bool rabbitmq = 4;
-  bool elastic_search = 5;
+  string postgresql = 2;
+  string redis = 3;
+  string rabbitmq = 4;
+  string elastic_search = 5;
 }
 
 message SetLocaleRequest {

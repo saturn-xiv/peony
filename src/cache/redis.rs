@@ -46,6 +46,12 @@ impl fmt::Display for Config {
 
 // https://redis.io/commands
 impl super::Provider for Pool {
+    fn version(&self) -> Result<String> {
+        let mut db = self.get()?;
+        let db = db.deref_mut();
+        let it = cmd("info").query::<String>(db)?;
+        Ok(it)
+    }
     fn keys(&self) -> Result<Vec<(String, i64)>> {
         let mut db = self.get()?;
         let db = db.deref_mut();

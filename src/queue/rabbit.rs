@@ -66,12 +66,16 @@ impl RabbitMQ {
         let con = Connection::connect_uri(self.uri.clone(), self.conn.clone()).await?;
         let ch = con.create_channel().await?;
         {
-            let mut options = QueueDeclareOptions::default();
-            options.durable = true;
-            options.exclusive = false;
-            options.auto_delete = false;
-            ch.queue_declare(queue, options, FieldTable::default())
-                .await?;
+            ch.queue_declare(
+                queue,
+                QueueDeclareOptions {
+                    exclusive: false,
+                    auto_delete: false,
+                    ..Default::default()
+                },
+                FieldTable::default(),
+            )
+            .await?;
         }
         Ok(ch)
     }
