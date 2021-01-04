@@ -102,6 +102,14 @@ impl Session {
     }
 }
 
+#[macro_export]
+macro_rules! __rq_fm {
+    ($r:expr,  $f:expr) => {{
+        let fm: $f = $r.into();
+        fm
+    }};
+}
+
 impl UserService for super::Plugin {
     fn import(&mut self, _ctx: RpcContext, _req: ImportRequest, _sink: UnarySink<Empty>) {
         // TODO

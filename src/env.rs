@@ -100,7 +100,7 @@ pub struct Grpc {
 impl Default for Grpc {
     fn default() -> Self {
         Self {
-            port: 8080,
+            port: 8086,
             threads: 8,
             memory: 10,
         }
