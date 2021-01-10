@@ -33,22 +33,21 @@ encoding_rs = "0.8"
 rand = "0.8"
 r2d2 = "0.8"
 xml-rs = "0.8"
-lettre = "0.9"
-lettre_email = "0.9"
 paho-mqtt = "0.9"
 zmq = "0.9"
 actix = "0.10"
 askama = "0.10"
+lettre = "0.10.0-alpha.4"
 validator = "0.12"
 validator_derive = "0.12"
 base64 = "0.13"
 rust-ini = "0.16"
 ipnetwork = "0.17"
 nix = "0.19"
-rusoto_core = "0.45"
-rusoto_credential = "0.45"
-rusoto_s3 = "0.45"
-rusoto_sqs = "0.45"
+rusoto_core = "0.46"
+rusoto_credential = "0.46"
+rusoto_s3 = "0.46"
+rusoto_sqs = "0.46"
 derive_more = "0.99"
 bytesize = "1"
 eui48 = "1"
@@ -91,8 +90,8 @@ version = "0.7"
 features = ["openssl-vendored"]
 
 [dependencies.reqwest]
-version = "0.10"
-features = ["json"]
+version = "0.11"
+features = ["json", "multipart"]
 
 [dependencies.redis]
 version = "0.19"
@@ -104,14 +103,16 @@ features = ["chrono", "r2d2", "postgres", "mysql", "sqlite", "128-column-tables"
 
 [dependencies.rss]
 version = "1"
-features = ["from_url"]
+features = ["validation", "with-serde"]
 
 [dependencies.handlebars]
 version = "3"
 features = ["script_helper"]
 
 [dependencies.sodiumoxide]
-# version = "0.2"
 git = "https://github.com/sodiumoxide/sodiumoxide.git"
 rev = "ffd9626"
 
+[dependencies.openssl]
+version = "*"
+features = ["vendored"]

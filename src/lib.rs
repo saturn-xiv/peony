@@ -64,6 +64,9 @@ extern crate yaml_rust;
 #[macro_use]
 pub mod macros;
 
+#[allow(deprecated)]
+pub mod protos;
+
 pub mod app;
 pub mod aws;
 pub mod cache;
@@ -77,7 +80,6 @@ pub mod oauth;
 pub mod orm;
 pub mod parser;
 pub mod plugins;
-pub mod protos;
 pub mod queue;
 pub mod request;
 pub mod settings;

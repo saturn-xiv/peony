@@ -21,9 +21,10 @@ cp -r $WORKSPACE/docker/debian $TARGET/
 
 
 # FIXME static link
-export PKG_CONFIG_ALL_STATIC=1
+# https://github.com/sgrif/pq-sys/pull/29
+# export PKG_CONFIG_ALL_STATIC=1
 # FIXME libmysqlclient@arm & libpq link
-# export PKG_CONFIG_PATH=$1
+# export PKG_CONFIG_PATH=$HOME/$1
 # FIXME grpcio openssl glibc link
 # export RUSTFLAGS="-C target-feature=+crt-static"
 
@@ -58,9 +59,8 @@ then
     sudo apt -y install libssl-dev \
         libzmq3-dev \
         libpq-dev libmysqlclient-dev libsqlite3-dev
-
     cargo build --target x86_64-unknown-linux-gnu --release
-    
+
     # MUSL
     # cargo build --target x86_64-unknown-linux-musl --release
 

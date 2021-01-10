@@ -37,7 +37,10 @@ impl S3 {
 
     pub async fn bucket_exists(&self, name: String) -> Result<()> {
         self.client
-            .get_bucket_location(GetBucketLocationRequest { bucket: name })
+            .get_bucket_location(GetBucketLocationRequest {
+                bucket: name,
+                ..Default::default()
+            })
             .await?;
         Ok(())
     }
@@ -54,7 +57,10 @@ impl S3 {
     }
     pub async fn delete_bucket(&self, name: String) -> Result<()> {
         self.client
-            .delete_bucket(DeleteBucketRequest { bucket: name })
+            .delete_bucket(DeleteBucketRequest {
+                bucket: name,
+                ..Default::default()
+            })
             .await?;
         Ok(())
     }
