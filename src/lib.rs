@@ -35,7 +35,6 @@ extern crate ini;
 extern crate ipnetwork;
 extern crate jsonwebtoken;
 extern crate lettre;
-extern crate lettre_email;
 extern crate md5;
 extern crate mime;
 extern crate nix;

@@ -28,8 +28,7 @@ pub enum Error {
     Ipnetwork(ipnetwork::IpNetworkError),
     JsonWebToken(jsonwebtoken::errors::Error),
     Lapin(lapin::Error),
-    LettreEmail(lettre_email::error::Error),
-    LettreSmtp(lettre::smtp::error::Error),
+    Lettre(lettre::error::Error),
     MimeFromStr(mime::FromStrError),
     Nix(nix::Error),
     HandlebarsRender(handlebars::RenderError),
@@ -88,8 +87,7 @@ impl fmt::Display for Error {
             Self::Ipnetwork(v) => v.fmt(f),
             Self::JsonWebToken(v) => v.fmt(f),
             Self::Lapin(v) => v.fmt(f),
-            Self::LettreEmail(v) => v.fmt(f),
-            Self::LettreSmtp(v) => v.fmt(f),
+            Self::Lettre(v) => v.fmt(f),
             Self::MimeFromStr(v) => v.fmt(f),
             Self::Nix(v) => v.fmt(f),
             Self::HandlebarsRender(v) => v.fmt(f),
@@ -327,15 +325,9 @@ impl From<url::ParseError> for Error {
     }
 }
 
-impl From<lettre::smtp::error::Error> for Error {
-    fn from(err: lettre::smtp::error::Error) -> Self {
-        Self::LettreSmtp(err)
-    }
-}
-
-impl From<lettre_email::error::Error> for Error {
-    fn from(err: lettre_email::error::Error) -> Self {
-        Self::LettreEmail(err)
+impl From<lettre::error::Error> for Error {
+    fn from(err: lettre::error::Error) -> Self {
+        Self::Lettre(err)
     }
 }
 
