@@ -7,6 +7,8 @@ if [ $# -ne 2 ] ; then
     exit 1
 fi
 
+sudo apt update
+
 export WORKSPACE=$PWD
 export VERSION=$(git describe --tags --always --dirty --first-parent)
 export TARGET=$WORKSPACE/tmp/$(lsb_release -cs)-$1-$VERSION/target
@@ -34,7 +36,8 @@ then
     sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
         libssl-dev:armhf libzmq3-dev:armhf \
         libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
-    
+    # export PKG_CONFIG_PATH=$HOME/vcpkg/installed/arm-linux/lib/pkgconfig
+
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
     PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
@@ -59,6 +62,8 @@ then
     sudo apt -y install libssl-dev \
         libzmq3-dev \
         libpq-dev libmysqlclient-dev libsqlite3-dev
+    # export PKG_CONFIG_PATH=$HOME/vcpkg/installed/x64-linux/lib/pkgconfig
+    
     cargo build --target x86_64-unknown-linux-gnu --release
 
     # MUSL

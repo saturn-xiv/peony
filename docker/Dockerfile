@@ -90,9 +90,12 @@ RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN sh -c "git clone https://github.com/microsoft/vcpkg $HOME/vcpkg"
 # RUN sh -c "source $HOME/.profile \
 #     && $HOME/vcpkg/bootstrap-vcpkg.sh"
+# $HOME/vcpkg/vcpkg upgrade libmariadb libmysql
 # RUN sh -c "source $HOME/.profile \
-#     && VCPKG_LIBRARY_LINKAGE=static $HOME/vcpkg/vcpkg install \
-#     libpq:x64-linux libmariadb:x64-linux sqlite3:x64-linux czmq:x64-linux \
+#     && $HOME/vcpkg/vcpkg install \
+#     libpq:x64-linux libmysql:x64-linux sqlite3:x64-linux czmq:x64-linux \
+# RUN sh -c "source $HOME/.profile \
+#     && $HOME/vcpkg/vcpkg install \
 #     libpq:arm-linux libmariadb:arm-linux sqlite3:arm-linux czmq:arm-linux"
 
 # COPY conan /opt/conan
