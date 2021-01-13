@@ -60,8 +60,10 @@ impl Session {
             ctx.peer()
         );
         let headers = ctx.request_headers();
-        let mut it = Self::default();
-        it.peer = ctx.peer();
+        let mut it = Self {
+            peer: ctx.peer(),
+            ..Default::default()
+        };
         for (k, v) in headers.iter() {
             let k: HeaderName = k.to_lowercase().parse()?;
             let v = std::str::from_utf8(v)?;

@@ -165,6 +165,8 @@ pub fn launch() -> Result<()> {
         {
             items.extend(nut::Plugin::migrations());
             items.extend(forum::Plugin::migrations());
+            items.extend(ops::crawler::Plugin::migrations());
+            items.extend(ops::cron::Plugin::migrations());
         }
         db.check()?;
         db.load(&items)?;

@@ -12,7 +12,7 @@ sudo apt update
 export WORKSPACE=$PWD
 export VERSION=$(git describe --tags --always --dirty --first-parent)
 export TARGET=$WORKSPACE/tmp/$(lsb_release -cs)-$1-$VERSION/target
-export CONAN_HOME=$HOME/.conan/data
+
 # -----------------------------
 if [ -d $TARGET ]
 then

@@ -45,10 +45,10 @@ impl From<SignUpRequest> for SignUp {
 }
 
 impl SignUp {
-    pub fn execute(&self, ctx: &Context, ss: &Session) -> Result<Empty> {
+    pub fn execute(&self, ctx: &Context, _ss: &Session) -> Result<Empty> {
         self.validate()?;
         let db = ctx.db.get()?;
-        let db = db.deref();
+        let _db = db.deref();
 
         Ok(Empty::default())
     }

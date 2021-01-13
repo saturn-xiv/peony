@@ -1,0 +1,1 @@
+DROP TABLE ops_cron_tasks;
