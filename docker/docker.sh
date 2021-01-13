@@ -2,6 +2,8 @@
 
 set -e
 
+docker pull ubuntu:latest
+
 # https://wiki.ubuntu.com/Releases
 declare -a features=(
     "focal"
