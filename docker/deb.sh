@@ -79,16 +79,17 @@ fi
 
 # -----------------------------
 
-cd $WORKSPACE
-if [ ! -d node_modules ]
+if [ ! -d $WORKSPACE/node_modules ]
 then
+    cd $WORKSPACE
     npm install
 fi
 
-if [ ! -d dashboard/node_modules ]
+if [ ! -d $WORKSPACE/dashboard/node_modules ]
 then
-    cd dashboard
-    npm install
+    cd $WORKSPACE/dashboard
+    # FIXME https://github.com/facebook/create-react-app/issues/10142
+    npm install --legacy-peer-deps
 fi
 cd $WORKSPACE/dashboard
 # %REACT_APP_WEBSITE_NAME%
