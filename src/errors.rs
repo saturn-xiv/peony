@@ -33,6 +33,8 @@ pub enum Error {
     JsonWebToken(jsonwebtoken::errors::Error),
     Lapin(lapin::Error),
     Lettre(lettre::error::Error),
+    LettreAddress(lettre::address::AddressError),
+    LettreTransportSmtp(lettre::transport::smtp::Error),
     MimeFromStr(mime::FromStrError),
     Nix(nix::Error),
     HandlebarsRender(handlebars::RenderError),
@@ -96,6 +98,8 @@ impl fmt::Display for Error {
             Self::JsonWebToken(v) => v.fmt(f),
             Self::Lapin(v) => v.fmt(f),
             Self::Lettre(v) => v.fmt(f),
+            Self::LettreAddress(v) => v.fmt(f),
+            Self::LettreTransportSmtp(v) => v.fmt(f),
             Self::MimeFromStr(v) => v.fmt(f),
             Self::Nix(v) => v.fmt(f),
             Self::HandlebarsRender(v) => v.fmt(f),
@@ -336,6 +340,17 @@ impl From<url::ParseError> for Error {
 impl From<lettre::error::Error> for Error {
     fn from(err: lettre::error::Error) -> Self {
         Self::Lettre(err)
+    }
+}
+
+impl From<lettre::address::AddressError> for Error {
+    fn from(err: lettre::address::AddressError) -> Self {
+        Self::LettreAddress(err)
+    }
+}
+impl From<lettre::transport::smtp::Error> for Error {
+    fn from(err: lettre::transport::smtp::Error) -> Self {
+        Self::LettreTransportSmtp(err)
     }
 }
 

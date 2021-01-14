@@ -3,15 +3,14 @@ use std::default::Default;
 use std::fmt;
 
 use protobuf::Message;
-use uuid::Uuid;
 
 use super::{
     cache::redis::{Config as RedisConfig, Pool as CachePool},
     crypto::Key,
     errors::Result,
     jwt::Jwt,
+    mail::Smtp,
     orm::postgresql::{Config as PostgreSqlConfig, Pool as DbPool},
-    protos::auth::{ContentType, EmailTask},
     queue::rabbit::{Config as RabbitMQConfig, RabbitMQ},
     twilio::Config as TwilioConfig,
 };
@@ -101,29 +100,6 @@ impl Config {
                 .await?;
             }
         }
-        Ok(())
-    }
-}
-
-#[derive(Serialize, Deserialize, Default, Debug, Clone)]
-pub struct Smtp {}
-
-impl Smtp {
-    pub const QUEUE: &'static str = "emails";
-    pub fn push(to: &str, subject: &str, body: &str) -> (String, EmailTask) {
-        (
-            Uuid::new_v4().to_string(),
-            EmailTask {
-                to: to.to_string(),
-                subject: subject.to_string(),
-                body: body.to_string(),
-                content_type: ContentType::PROTOBUF,
-                ..Default::default()
-            },
-        )
-    }
-    pub fn send(&self, task: &EmailTask) -> Result<()> {
-        debug!("send email {:?} to {}", task.subject, task.to);
         Ok(())
     }
 }

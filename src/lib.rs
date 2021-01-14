@@ -74,6 +74,7 @@ pub mod env;
 pub mod errors;
 pub mod i18n;
 pub mod jwt;
+pub mod mail;
 pub mod oauth;
 pub mod orm;
 pub mod parser;
