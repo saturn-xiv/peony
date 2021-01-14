@@ -85,3 +85,4 @@ pub mod sys;
 pub mod twilio;
 
 pub const XML_HEADER: &str = r###"<?xml version="1.0" encoding="utf-8" ?>"###;
+pub const PROTOBUF_CONTENT_TYPE: &str = "application/protobuf";

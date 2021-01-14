@@ -39,6 +39,7 @@ pub enum Error {
     HandlebarsTemplate(handlebars::TemplateError),
     HandlebarsTemplateRender(handlebars::TemplateRenderError),
     OpensslStack(openssl::error::ErrorStack),
+    Protobuf(protobuf::ProtobufError),
     R2d2(r2d2::Error),
     Redis(redis::RedisError),
     RusotoCoreRegionParse(rusoto_core::region::ParseRegionError),
@@ -101,6 +102,7 @@ impl fmt::Display for Error {
             Self::HandlebarsTemplate(v) => v.fmt(f),
             Self::HandlebarsTemplateRender(v) => v.fmt(f),
             Self::OpensslStack(v) => v.fmt(f),
+            Self::Protobuf(v) => v.fmt(f),
             Self::R2d2(v) => v.fmt(f),
             Self::Redis(v) => v.fmt(f),
             Self::RusotoCoreRegionParse(v) => v.fmt(f),
@@ -423,6 +425,12 @@ impl From<actix_web::client::PayloadError> for Error {
 impl From<actix_web::error::Canceled> for Error {
     fn from(err: actix_web::error::Canceled) -> Self {
         Self::ActixWebCanceled(err)
+    }
+}
+
+impl From<protobuf::ProtobufError> for Error {
+    fn from(err: protobuf::ProtobufError) -> Self {
+        Self::Protobuf(err)
     }
 }
 

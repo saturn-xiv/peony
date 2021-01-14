@@ -1,5 +1,9 @@
+use std::collections::HashMap;
 use std::default::Default;
 use std::fmt;
+
+use protobuf::Message;
+use uuid::Uuid;
 
 use super::{
     cache::redis::{Config as RedisConfig, Pool as CachePool},
@@ -7,6 +11,7 @@ use super::{
     errors::Result,
     jwt::Jwt,
     orm::postgresql::{Config as PostgreSqlConfig, Pool as DbPool},
+    protos::auth::{ContentType, EmailTask},
     queue::rabbit::{Config as RabbitMQConfig, RabbitMQ},
     twilio::Config as TwilioConfig,
 };
@@ -67,12 +72,66 @@ impl fmt::Display for Environment {
 pub struct Config {
     pub env: Environment,
     pub secrets: Key,
+    pub administrators: HashMap<String, Administrator>,
     pub http: Http,
     pub grpc: Grpc,
     pub postgresql: PostgreSqlConfig,
     pub redis: RedisConfig,
     pub rabbitmq: RabbitMQConfig,
     pub twilio: TwilioConfig,
+}
+
+impl Config {
+    pub async fn alert(&self, subject: &str, body: &str) -> Result<()> {
+        for (_, to) in self.administrators.iter() {
+            if let Some(ref to) = to.phone {
+                self.twilio.sms(to, body, None).await?;
+            }
+            if let Some(ref to) = to.email {
+                let qu = self.rabbitmq.open();
+
+                let it = Smtp::push(to, subject, body);
+
+                qu.publish(
+                    Smtp::QUEUE,
+                    &it.0,
+                    super::PROTOBUF_CONTENT_TYPE,
+                    it.1.write_to_bytes()?,
+                )
+                .await?;
+            }
+        }
+        Ok(())
+    }
+}
+
+#[derive(Serialize, Deserialize, Default, Debug, Clone)]
+pub struct Smtp {}
+
+impl Smtp {
+    pub const QUEUE: &'static str = "emails";
+    pub fn push(to: &str, subject: &str, body: &str) -> (String, EmailTask) {
+        (
+            Uuid::new_v4().to_string(),
+            EmailTask {
+                to: to.to_string(),
+                subject: subject.to_string(),
+                body: body.to_string(),
+                content_type: ContentType::PROTOBUF,
+                ..Default::default()
+            },
+        )
+    }
+    pub fn send(&self, task: &EmailTask) -> Result<()> {
+        debug!("send email {:?} to {}", task.subject, task.to);
+        Ok(())
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Administrator {
+    pub phone: Option<String>,
+    pub email: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]

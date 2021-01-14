@@ -14,6 +14,15 @@ service UserService {
   rpc ResetPassword(ResetPasswordRequest) returns (google.protobuf.Empty) {}
 }
 
+enum ContentType {
+  PLAIN = 0;
+  HTML = 1;
+  MARKDOWN = 3;
+  JSON = 4;
+  XML = 5;
+  PROTOBUF = 6;
+}
+
 message ImportRequest {
   string uid = 1;
   string real_name = 2;
@@ -50,7 +59,7 @@ message EmailTask {
   repeated string cc = 2;
   repeated string bcc = 3;
   string subject = 4;
-  string content_type = 5;
+  ContentType content_type = 5;
   string body = 6;
   repeated string files = 7;
 }

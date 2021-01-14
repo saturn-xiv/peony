@@ -19,7 +19,7 @@ use super::super::super::{
 };
 use super::models::user::{Dao as UserDao, Item as User};
 
-#[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[serde(rename_all = "camelCase")]
 pub enum Action {
     SignIn,

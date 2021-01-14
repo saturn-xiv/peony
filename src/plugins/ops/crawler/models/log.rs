@@ -22,6 +22,12 @@ pub async fn pull(db: &Connection, name: &str, url: &str) -> Result<()> {
     let body = std::str::from_utf8(&body)?;
     match res.status() {
         StatusCode::OK => {
+            if let Ok(last) = db.latest(name) {
+                if last.body == body {
+                    debug!("ignore to save {}", name);
+                    return Ok(());
+                }
+            }
             db.create(name, url, &body)?;
             Ok(())
         }
