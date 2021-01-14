@@ -15,9 +15,13 @@ pub enum Error {
     StdSystemTime(std::time::SystemTimeError),
 
     Askama(askama::Error),
+    ActixMailbox(actix::MailboxError),
     ActixMultipart(actix_multipart::MultipartError),
     ActixWebBlockingSerdeJson(actix_web::error::BlockingError<serde_json::Error>),
     ActixWebCanceled(actix_web::error::Canceled),
+    ActixWebClientSendRequest(actix_web::client::SendRequestError),
+    ActixWebClientJsonPayload(actix_web::client::JsonPayloadError),
+    ActixWebClientPayload(actix_web::client::PayloadError),
     ActixWebHttpInvalidHeaderName(actix_web::http::header::InvalidHeaderName),
     Base64Decode(base64::DecodeError),
     DieselResult(diesel::result::Error),
@@ -34,10 +38,9 @@ pub enum Error {
     HandlebarsRender(handlebars::RenderError),
     HandlebarsTemplate(handlebars::TemplateError),
     HandlebarsTemplateRender(handlebars::TemplateRenderError),
+    OpensslStack(openssl::error::ErrorStack),
     R2d2(r2d2::Error),
     Redis(redis::RedisError),
-    Reqwest(reqwest::Error),
-    ReqwestInvalidHeaderValue(reqwest::header::InvalidHeaderValue),
     RusotoCoreRegionParse(rusoto_core::region::ParseRegionError),
     RusotoCoreRequestTls(rusoto_core::request::TlsError),
     RusotoCoreS3DeleteObject(rusoto_core::RusotoError<rusoto_s3::DeleteObjectError>),
@@ -74,9 +77,13 @@ impl fmt::Display for Error {
             Self::StdSystemTime(v) => v.fmt(f),
 
             Self::Askama(v) => v.fmt(f),
+            Self::ActixMailbox(v) => v.fmt(f),
             Self::ActixMultipart(v) => v.fmt(f),
             Self::ActixWebBlockingSerdeJson(v) => v.fmt(f),
             Self::ActixWebCanceled(v) => v.fmt(f),
+            Self::ActixWebClientSendRequest(v) => v.fmt(f),
+            Self::ActixWebClientJsonPayload(v) => v.fmt(f),
+            Self::ActixWebClientPayload(v) => v.fmt(f),
             Self::ActixWebHttpInvalidHeaderName(v) => v.fmt(f),
             Self::Base64Decode(v) => v.fmt(f),
             Self::ChronoParse(v) => v.fmt(f),
@@ -93,10 +100,9 @@ impl fmt::Display for Error {
             Self::HandlebarsRender(v) => v.fmt(f),
             Self::HandlebarsTemplate(v) => v.fmt(f),
             Self::HandlebarsTemplateRender(v) => v.fmt(f),
+            Self::OpensslStack(v) => v.fmt(f),
             Self::R2d2(v) => v.fmt(f),
             Self::Redis(v) => v.fmt(f),
-            Self::Reqwest(v) => v.fmt(f),
-            Self::ReqwestInvalidHeaderValue(v) => v.fmt(f),
             Self::RusotoCoreRegionParse(v) => v.fmt(f),
             Self::RusotoCoreRequestTls(v) => v.fmt(f),
             Self::RusotoCoreS3DeleteObject(v) => v.fmt(f),
@@ -343,12 +349,6 @@ impl From<toml::ser::Error> for Error {
     }
 }
 
-impl From<reqwest::Error> for Error {
-    fn from(err: reqwest::Error) -> Self {
-        Self::Reqwest(err)
-    }
-}
-
 impl From<serde_xml_rs::Error> for Error {
     fn from(err: serde_xml_rs::Error) -> Self {
         Self::SerdeXml(err)
@@ -373,6 +373,12 @@ impl From<mime::FromStrError> for Error {
     }
 }
 
+impl From<openssl::error::ErrorStack> for Error {
+    fn from(err: openssl::error::ErrorStack) -> Self {
+        Self::OpensslStack(err)
+    }
+}
+
 impl From<actix_multipart::MultipartError> for Error {
     fn from(err: actix_multipart::MultipartError) -> Self {
         Self::ActixMultipart(err)
@@ -385,11 +391,35 @@ impl From<actix_web::error::BlockingError<serde_json::Error>> for Error {
     }
 }
 
+impl From<actix::MailboxError> for Error {
+    fn from(err: actix::MailboxError) -> Self {
+        Self::ActixMailbox(err)
+    }
+}
 impl From<actix_web::http::header::InvalidHeaderName> for Error {
     fn from(err: actix_web::http::header::InvalidHeaderName) -> Self {
         Self::ActixWebHttpInvalidHeaderName(err)
     }
 }
+
+impl From<actix_web::client::SendRequestError> for Error {
+    fn from(err: actix_web::client::SendRequestError) -> Self {
+        Self::ActixWebClientSendRequest(err)
+    }
+}
+
+impl From<actix_web::client::JsonPayloadError> for Error {
+    fn from(err: actix_web::client::JsonPayloadError) -> Self {
+        Self::ActixWebClientJsonPayload(err)
+    }
+}
+
+impl From<actix_web::client::PayloadError> for Error {
+    fn from(err: actix_web::client::PayloadError) -> Self {
+        Self::ActixWebClientPayload(err)
+    }
+}
+
 impl From<actix_web::error::Canceled> for Error {
     fn from(err: actix_web::error::Canceled) -> Self {
         Self::ActixWebCanceled(err)
@@ -426,12 +456,23 @@ impl From<yaml_rust::ScanError> for Error {
     }
 }
 
-impl From<reqwest::header::InvalidHeaderValue> for Error {
-    fn from(err: reqwest::header::InvalidHeaderValue) -> Self {
-        Self::ReqwestInvalidHeaderValue(err)
+impl From<Error> for grpcio::RpcStatus {
+    fn from(err: Error) -> Self {
+        grpcio::RpcStatus::new(grpcio::RpcStatusCode::INTERNAL, Some(err.to_string()))
     }
 }
 
+impl Error {
+    pub fn to_rpc_status(&self) -> grpcio::RpcStatus {
+        grpcio::RpcStatus::new(grpcio::RpcStatusCode::INTERNAL, Some(self.to_string()))
+    }
+}
+
+impl From<Error> for std::io::Error {
+    fn from(err: Error) -> Self {
+        std::io::Error::new(std::io::ErrorKind::Interrupted, err.to_string())
+    }
+}
 impl ResponseError for Error {
     fn error_response(&self) -> HttpResponse {
         HttpResponseBuilder::new(self.status_code())
@@ -443,17 +484,5 @@ impl ResponseError for Error {
             Self::Http(it, _) => it,
             _ => StatusCode::INTERNAL_SERVER_ERROR,
         }
-    }
-}
-
-impl From<Error> for grpcio::RpcStatus {
-    fn from(err: Error) -> Self {
-        grpcio::RpcStatus::new(grpcio::RpcStatusCode::INTERNAL, Some(err.to_string()))
-    }
-}
-
-impl Error {
-    pub fn to_rpc_status(&self) -> grpcio::RpcStatus {
-        grpcio::RpcStatus::new(grpcio::RpcStatusCode::INTERNAL, Some(self.to_string()))
     }
 }

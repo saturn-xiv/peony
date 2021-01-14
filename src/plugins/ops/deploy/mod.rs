@@ -1,56 +1,52 @@
 pub mod models;
 
-use std::ops::Deref;
-use std::sync::{Arc, Mutex};
-use std::thread;
+use std::io::Error as StdIoError;
+use std::result::Result as StdResult;
 
-use actix_web::http::StatusCode;
+use actix::{Actor, Context, Handler, Message};
 
-use super::super::super::errors::{Error, Result};
+use super::super::super::errors::Result;
 
-pub fn run(inventory: &str, recipe: &str) -> Result<()> {
-    let reason = Arc::new(Mutex::new(None::<Error>));
+#[derive(Message)]
+#[rtype(result = "StdResult<(), StdIoError>")]
+struct SshMessage {
+    inventory: String,
+    host: String,
+    vars: models::Vars,
+    tasks: Vec<models::Command>,
+}
+
+struct SshActor;
+
+impl Actor for SshActor {
+    type Context = Context<Self>;
+}
+
+impl Handler<SshMessage> for SshActor {
+    type Result = StdResult<(), StdIoError>;
+
+    fn handle(&mut self, msg: SshMessage, _ctx: &mut Context<Self>) -> Self::Result {
+        for it in msg.tasks {
+            info!("run {} on {}", it, msg.host);
+            it.run(&msg.inventory, &msg.host, &msg.vars)?;
+        }
+        Ok(())
+    }
+}
+
+pub async fn run(inventory: &str, recipe: &str) -> Result<()> {
     let excutors = models::Recipe::load(recipe, inventory)?;
     for (hosts, tasks) in excutors {
-        {
-            let reason = reason.lock();
-            if let Ok(ref reason) = reason {
-                if let Some(ref e) = reason.deref() {
-                    return Err(Error::Http(
-                        StatusCode::INTERNAL_SERVER_ERROR,
-                        Some(e.to_string()),
-                    ));
-                }
-            }
-        }
-        let mut children = vec![];
-
+        let addr = SshActor.start();
         for (host, vars) in hosts {
-            let host = host.clone();
-            let vars = vars.clone();
-            let tasks = tasks.clone();
-            let reason = reason.clone();
-            let inventory = inventory.to_string();
-            children.push(
-                thread::Builder::new()
-                    .name(format!("{}-{}-{}", host, recipe, inventory))
-                    .spawn(move || {
-                        let reason = reason.clone();
-                        for task in tasks {
-                            info!("run {} on {}", task, host);
-                            if let Err(e) = task.run(&inventory, &host, &vars) {
-                                if let Ok(mut reason) = reason.lock() {
-                                    *reason = Some(e);
-                                }
-                                return;
-                            }
-                        }
-                    })?,
-            );
-        }
-        for it in children {
-            info!("waiting for thread finished...");
-            let _ = it.join();
+            let _ = addr
+                .send(SshMessage {
+                    inventory: inventory.to_string(),
+                    vars: vars.clone(),
+                    tasks: tasks.clone(),
+                    host: host.clone(),
+                })
+                .await?;
         }
     }
 

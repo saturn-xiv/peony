@@ -8,11 +8,13 @@ use std::str::FromStr;
 
 use actix_web::http::StatusCode;
 use rand::Rng;
-use reqwest::Client;
 use serde::de::DeserializeOwned;
 use url::{form_urlencoded, Url};
 
-use super::super::errors::{Error, Result};
+use super::super::{
+    errors::{Error, Result},
+    request::https_client,
+};
 
 /// https://developers.google.com/identity/protocols/OAuth2WebServer
 /// https://developers.google.com/identity/protocols/OpenIDConnect
@@ -119,11 +121,16 @@ impl Web {
     }
 
     pub async fn get<Q: DeserializeOwned>(&self, action: &str, token: &str) -> Result<Q> {
-        let res = Client::new().get(action).bearer_auth(token).send().await?;
+        let mut res = https_client()?
+            .bearer_auth(token)
+            .finish()
+            .get(action)
+            .send()
+            .await?;
         if res.status().is_success() {
             return Ok(res.json().await?);
         }
-        error!("{:?}", res);
+        // error!("{:?}", res);
         Err(Error::Http(StatusCode::BAD_REQUEST, None))
     }
 }

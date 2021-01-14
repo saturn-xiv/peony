@@ -1,9 +1,11 @@
 use std::collections::HashMap;
 
 use actix_web::http::StatusCode;
-use reqwest::Client;
 
-use super::super::super::errors::{Error, Result};
+use super::super::super::{
+    errors::{Error, Result},
+    request::https_client,
+};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct User {
@@ -49,16 +51,16 @@ impl super::Web {
         body.insert("redirect_uri", redirect_uri);
         body.insert("grant_type", "authorization_code");
 
-        let res = Client::new()
+        let mut res = https_client()?
+            .finish()
             .post("https://www.googleapis.com/oauth2/v4/token")
-            .form(&body)
-            .send()
+            .send_form(&body)
             .await?;
         if res.status().is_success() {
             return Ok(res.json().await?);
         }
 
-        error!("{:?}", res);
+        // error!("{:?}", res);
         Err(Error::Http(StatusCode::BAD_REQUEST, None))
     }
 }

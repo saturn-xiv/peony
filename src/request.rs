@@ -2,15 +2,32 @@ use std::fmt;
 use std::fmt::Debug;
 use std::net::IpAddr;
 use std::pin::Pin;
+use std::result::Result as StdResult;
+use std::time::Duration;
 
 use actix_web::{
+    client::{Client, ClientBuilder, Connector},
     dev::Payload,
-    error::{Error, ErrorBadRequest, ErrorUnauthorized},
+    error::{Error as WebError, ErrorBadRequest, ErrorUnauthorized},
     http::header::{HeaderMap, LanguageTag, ACCEPT_LANGUAGE, AUTHORIZATION},
     FromRequest, HttpMessage, HttpRequest,
 };
 use futures::future::Future;
+use openssl::ssl::{SslConnector, SslMethod, SslVerifyMode};
 use serde::ser::Serialize;
+
+use super::errors::Result;
+
+pub fn https_client() -> Result<ClientBuilder> {
+    let mut ssl = SslConnector::builder(SslMethod::tls_client())?;
+    ssl.set_verify(SslVerifyMode::NONE | SslVerifyMode::PEER);
+    Ok(Client::builder().connector(
+        Connector::new()
+            .timeout(Duration::from_secs(5))
+            .ssl(ssl.build())
+            .finish(),
+    ))
+}
 
 #[derive(Serialize)]
 pub struct Pagination<T> {
@@ -127,8 +144,8 @@ impl fmt::Display for Locale {
 
 impl FromRequest for Locale {
     type Config = ();
-    type Error = Error;
-    type Future = Pin<Box<dyn Future<Output = Result<Self, Self::Error>>>>;
+    type Error = WebError;
+    type Future = Pin<Box<dyn Future<Output = StdResult<Self, Self::Error>>>>;
 
     fn from_request(req: &HttpRequest, _pl: &mut Payload) -> Self::Future {
         let it = Self::parse(req);
@@ -205,8 +222,8 @@ impl fmt::Display for ClientIp {
 
 impl FromRequest for ClientIp {
     type Config = ();
-    type Error = Error;
-    type Future = Pin<Box<dyn Future<Output = Result<Self, Self::Error>>>>;
+    type Error = WebError;
+    type Future = Pin<Box<dyn Future<Output = StdResult<Self, Self::Error>>>>;
 
     fn from_request(req: &HttpRequest, _pl: &mut Payload) -> Self::Future {
         let it = Self::parse(req.headers());
@@ -250,8 +267,8 @@ impl fmt::Display for Token {
 
 impl FromRequest for Token {
     type Config = ();
-    type Error = Error;
-    type Future = Pin<Box<dyn Future<Output = Result<Self, Self::Error>>>>;
+    type Error = WebError;
+    type Future = Pin<Box<dyn Future<Output = StdResult<Self, Self::Error>>>>;
 
     fn from_request(req: &HttpRequest, _pl: &mut Payload) -> Self::Future {
         let it = Self::parse(req.headers());

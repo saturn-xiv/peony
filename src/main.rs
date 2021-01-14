@@ -3,9 +3,10 @@ extern crate peony;
 #[macro_use]
 extern crate log;
 
-fn main() {
+#[actix_rt::main]
+async fn main() {
     env_logger::init();
-    if let Err(e) = peony::app::launch() {
+    if let Err(e) = peony::app::launch().await {
         error!("{:?}", e);
     }
 }

@@ -15,7 +15,7 @@ use super::{
     plugins::{forum, nut, ops, Plugin},
 };
 
-pub fn launch() -> Result<()> {
+pub async fn launch() -> Result<()> {
     let matches = App::new(env::NAME)
         .version(env::VERSION)
         .author(env::AUTHORS)
@@ -152,7 +152,7 @@ pub fn launch() -> Result<()> {
     if let Some(matches) = matches.subcommand_matches("deploy") {
         let recipe = matches.value_of("recipe").unwrap();
         let inventory = matches.value_of("inventory").unwrap();
-        return ops::deploy::run(&inventory, &recipe);
+        return ops::deploy::run(&inventory, &recipe).await;
     }
 
     let config = matches.value_of("config").unwrap();

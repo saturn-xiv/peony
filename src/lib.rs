@@ -44,7 +44,6 @@ extern crate r2d2;
 extern crate rand;
 extern crate redis as redis_;
 extern crate regex;
-extern crate reqwest;
 extern crate rusoto_core;
 extern crate rusoto_credential;
 extern crate rusoto_s3;

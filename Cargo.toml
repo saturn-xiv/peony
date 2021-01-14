@@ -66,7 +66,6 @@ mime_guess = "2"
 url = "2"
 percent-encoding = "2"
 protobuf = "2"
-actix-web = "3"
 clap = "3.0.0-beta.2"
 tempfile = "3"
 amq-protocol-uri = "7.0.0-alpha.5"
@@ -89,10 +88,6 @@ features = ["v4"]
 version = "0.7"
 features = ["openssl-vendored"]
 
-[dependencies.reqwest]
-version = "0.11"
-features = ["json", "multipart"]
-
 [dependencies.redis]
 version = "0.19"
 features = ["r2d2"]
@@ -104,6 +99,10 @@ features = ["chrono", "r2d2", "postgres", "mysql", "sqlite", "128-column-tables"
 [dependencies.rss]
 version = "1"
 features = ["validation", "with-serde"]
+
+[dependencies.actix-web]
+version = "3"
+features = ["openssl"]
 
 [dependencies.handlebars]
 version = "3"

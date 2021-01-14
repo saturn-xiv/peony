@@ -81,6 +81,12 @@ pub struct Http {
     pub port: u16,
 }
 
+impl Http {
+    pub fn address(&self) -> String {
+        format!("127.0.0.1:{}", self.port)
+    }
+}
+
 impl Default for Http {
     fn default() -> Self {
         Self {

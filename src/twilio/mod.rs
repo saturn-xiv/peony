@@ -1,10 +1,14 @@
 pub mod sms;
 
+use std::collections::HashMap;
 use std::default::Default;
 
-use reqwest::{multipart::Form, Client, StatusCode};
+use actix_web::http::StatusCode;
 
-use super::errors::{Error, Result};
+use super::{
+    errors::{Error, Result},
+    request::https_client,
+};
 
 // https://www.twilio.com/docs/api
 
@@ -38,30 +42,34 @@ impl Config {
         body: &str,
         callback: Option<String>,
     ) -> Result<sms::Response> {
-        let mut form = Form::new()
-            .text("To", to.to_string())
-            .text("Body", body.to_string())
-            .text("From", self.from.clone());
-        if let Some(cb) = callback {
-            form = form.text("StatusCallback", cb);
-        }
         // application/x-www-form-urlencoded
-        let res = Client::new()
+        let mut form = HashMap::new();
+        form.insert("To", to.to_string());
+        form.insert("Body", body.to_string());
+        form.insert("From", self.from.clone());
+        if let Some(cb) = callback {
+            form.insert("StatusCallback", cb);
+        }
+        let mut res = https_client()?
+            .basic_auth(&self.account_sid, Some(&self.auth_token.clone()))
+            .finish()
             .post(&format!(
                 "https://api.twilio.com/2010-04-01/Accounts/{}/Messages.json",
                 self.account_sid
             ))
-            .basic_auth(&self.account_sid, Some(self.auth_token.clone()))
-            // .header(AUTHORIZATION, HeaderValue::from_str(&self.credentials())?)
-            .multipart(form)
-            .send()
+            .send_form(&form)
             .await?;
+
         match res.status() {
             StatusCode::OK | StatusCode::CREATED => {
                 let it = res.json().await?;
                 Ok(it)
             }
-            v => Err(Error::Http(v, Some(res.text().await?))),
+            v => {
+                let it = res.body().await?;
+                let it = std::str::from_utf8(&it)?;
+                Err(Error::Http(v, Some(it.to_string())))
+            }
         }
     }
 }
