@@ -1,3 +1,4 @@
+use actix_web::http::StatusCode;
 use chrono::NaiveDateTime;
 use diesel::{
     delete,
@@ -6,8 +7,27 @@ use diesel::{
     prelude::*,
 };
 
-use super::super::super::super::super::{errors::Result, orm::postgresql::Connection};
+use super::super::super::super::super::{
+    errors::{Error, Result},
+    orm::postgresql::Connection,
+    request::https_client,
+};
 use super::super::schema::ops_crawler_logs;
+
+pub async fn pull(db: &Connection, name: &str, url: &str) -> Result<()> {
+    debug!("fetch {}", url);
+
+    let mut res = https_client()?.finish().get(url).send().await?;
+    let body = res.body().await?;
+    let body = std::str::from_utf8(&body)?;
+    match res.status() {
+        StatusCode::OK => {
+            db.create(name, url, &body)?;
+            Ok(())
+        }
+        v => Err(Error::Http(v, Some(body.to_string()))),
+    }
+}
 
 #[derive(Queryable, Serialize)]
 #[serde(rename_all = "camelCase")]

@@ -20,7 +20,8 @@ use super::errors::Result;
 
 pub fn https_client() -> Result<ClientBuilder> {
     let mut ssl = SslConnector::builder(SslMethod::tls_client())?;
-    ssl.set_verify(SslVerifyMode::NONE | SslVerifyMode::PEER);
+    // SslVerifyMode::PEER
+    ssl.set_verify(SslVerifyMode::NONE);
     Ok(Client::builder().connector(
         Connector::new()
             .timeout(Duration::from_secs(5))
