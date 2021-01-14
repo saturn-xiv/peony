@@ -112,6 +112,7 @@ pub struct Administrator {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Http {
+    pub home: String,
     pub origins: Vec<String>,
     pub port: u16,
 }
@@ -125,8 +126,9 @@ impl Http {
 impl Default for Http {
     fn default() -> Self {
         Self {
+            home: "https://www.change-me.com".to_string(),
             port: 8080,
-            origins: vec!["https://www.change-me.com".to_string()],
+            origins: vec!["https://my.change-me.com".to_string()],
         }
     }
 }

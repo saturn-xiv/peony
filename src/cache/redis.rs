@@ -9,7 +9,7 @@ use serde::{de::DeserializeOwned, ser::Serialize};
 
 use super::super::errors::Result;
 
-type Connection = redis_::Client;
+pub type Connection = redis_::Client;
 pub type Pool = r2d2::Pool<Connection>;
 pub type PooledConnection = r2d2::PooledConnection<Connection>;
 
