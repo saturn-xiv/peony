@@ -93,3 +93,10 @@ pub enum MediaType {
     Html,
     Markdown,
 }
+
+
+impl Default for  MediaType {
+    fn default() -> Self {
+        Self::Plain
+    }
+}

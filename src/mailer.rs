@@ -30,6 +30,20 @@ pub struct Task {
     pub body: String,
     pub media_type: MediaType,
 }
+
+impl Task {
+    pub fn new(to: &str, subject: &str, body: &str) -> Self {
+        Self {
+            to: to.to_string(),
+            cc: Vec::new(),
+            bcc: Vec::new(),
+            subject: subject.to_string(),
+            body: body.to_string(),
+            media_type: MediaType::default(),
+        }
+    }
+}
+
 impl Config {
     pub const OUT: &'static str = "mailer.smtp";
     pub fn send(&self, task: &Task) -> Result<()> {

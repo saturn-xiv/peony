@@ -11,7 +11,6 @@ use super::{
     orm::postgresql::{Config as PostgreSqlConfig, Pool as DbPool},
     queue::rabbit::{Config as RabbitMQConfig, RabbitMQ},
     twilio::Config as TwilioConfig,
-    MediaType,
 };
 
 include!(concat!(env!("OUT_DIR"), "/env.rs"));
@@ -89,18 +88,8 @@ impl Config {
             if let Some(ref to) = to.email {
                 let qu = self.rabbitmq.open();
 
-                qu.publish(
-                    Mailer::OUT,
-                    &MailerTask {
-                        to: to.to_string(),
-                        cc: Vec::new(),
-                        bcc: Vec::new(),
-                        subject: subject.to_string(),
-                        body: body.to_string(),
-                        media_type: MediaType::Plain,
-                    },
-                )
-                .await?;
+                qu.publish(Mailer::OUT, &MailerTask::new(to, subject, body))
+                    .await?;
             }
         }
         Ok(())
