@@ -1,5 +1,4 @@
 pub mod models;
-pub mod rpc;
 pub mod schema;
 
 use std::sync::Arc;
@@ -16,9 +15,9 @@ impl super::Plugin for Plugin {
         let mut items = Vec::new();
         items.push(Migration {
             version: "20201214175333",
-            name: "create-forum",
-            up: include_str!("create-up.sql"),
-            down: include_str!("create-down.sql"),
+            name: "init-forum",
+            up: include_str!("init-up.sql"),
+            down: include_str!("init-down.sql"),
         });
         items
     }

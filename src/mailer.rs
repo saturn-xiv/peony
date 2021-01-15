@@ -1,44 +1,38 @@
-use uuid::Uuid;
-
 use lettre::{transport::smtp::authentication::Credentials, Message, SmtpTransport, Transport};
 
-use super::{
-    errors::Result,
-    protos::auth::{ContentType, EmailTask},
-};
+use super::{errors::Result, MediaType};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Smtp {
-    pub host: String,
+pub struct Config {
+    pub smtp: String,
+    pub imap: String,
     pub user: String,
     pub password: String,
 }
 
-impl Default for Smtp {
+impl Default for Config {
     fn default() -> Self {
         Self {
-            host: "smtp.gmail.com".to_string(),
+            smtp: "smtp.gmail.com".to_string(),
+            imap: "imap.gmail.com".to_string(),
             user: "who-am-i@gmail.com".to_string(),
             password: "change-me".to_string(),
         }
     }
 }
 
-impl Smtp {
-    pub const QUEUE: &'static str = "emails";
-    pub fn push(to: &str, subject: &str, body: &str) -> (String, EmailTask) {
-        (
-            Uuid::new_v4().to_string(),
-            EmailTask {
-                to: to.to_string(),
-                subject: subject.to_string(),
-                body: body.to_string(),
-                content_type: ContentType::PROTOBUF,
-                ..Default::default()
-            },
-        )
-    }
-    pub fn send(&self, task: &EmailTask) -> Result<()> {
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Task {
+    pub to: String,
+    pub cc: Vec<String>,
+    pub bcc: Vec<String>,
+    pub subject: String,
+    pub body: String,
+    pub media_type: MediaType,
+}
+impl Config {
+    pub const OUT: &'static str = "mailer.smtp";
+    pub fn send(&self, task: &Task) -> Result<()> {
         debug!("send email {:?} to {}", task.subject, task.to);
         let mut email = Message::builder()
             .from(self.user.parse()?)
@@ -53,7 +47,7 @@ impl Smtp {
         }
         let email = email.body(&task.body)?;
 
-        let mailer = SmtpTransport::relay(&self.host)?
+        let mailer = SmtpTransport::relay(&self.smtp)?
             .credentials(Credentials::new(self.user.clone(), self.password.clone()))
             .build();
 

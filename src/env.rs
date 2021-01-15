@@ -2,17 +2,16 @@ use std::collections::HashMap;
 use std::default::Default;
 use std::fmt;
 
-use protobuf::Message;
-
 use super::{
     cache::redis::{Config as RedisConfig, Pool as CachePool},
     crypto::Key,
     errors::Result,
     jwt::Jwt,
-    mail::Smtp,
+    mailer::{Config as Mailer, Task as MailerTask},
     orm::postgresql::{Config as PostgreSqlConfig, Pool as DbPool},
     queue::rabbit::{Config as RabbitMQConfig, RabbitMQ},
     twilio::Config as TwilioConfig,
+    MediaType,
 };
 
 include!(concat!(env!("OUT_DIR"), "/env.rs"));
@@ -78,6 +77,7 @@ pub struct Config {
     pub redis: RedisConfig,
     pub rabbitmq: RabbitMQConfig,
     pub twilio: TwilioConfig,
+    pub mailer: Mailer,
 }
 
 impl Config {
@@ -89,13 +89,16 @@ impl Config {
             if let Some(ref to) = to.email {
                 let qu = self.rabbitmq.open();
 
-                let it = Smtp::push(to, subject, body);
-
                 qu.publish(
-                    Smtp::QUEUE,
-                    &it.0,
-                    super::PROTOBUF_CONTENT_TYPE,
-                    it.1.write_to_bytes()?,
+                    Mailer::OUT,
+                    &MailerTask {
+                        to: to.to_string(),
+                        cc: Vec::new(),
+                        bcc: Vec::new(),
+                        subject: subject.to_string(),
+                        body: body.to_string(),
+                        media_type: MediaType::Plain,
+                    },
                 )
                 .await?;
             }

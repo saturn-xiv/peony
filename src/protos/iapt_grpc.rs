@@ -15,12 +15,12 @@
 #![allow(unused_imports)]
 #![allow(unused_results)]
 
-const METHOD_FORUM_SERVICE_CREATE_POST: ::grpcio::Method<
-    super::forum::CreatePostRequest,
+const METHOD_IAPT_SERVICE_IMPORT: ::grpcio::Method<
+    super::iapt::ImportRequest,
     super::empty::Empty,
 > = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
-    name: "/peony.forum.ForumService/CreatePost",
+    name: "/peony.iapt.IaptService/Import",
     req_mar: ::grpcio::Marshaller {
         ser: ::grpcio::pb_ser,
         de: ::grpcio::pb_de,
@@ -32,47 +32,47 @@ const METHOD_FORUM_SERVICE_CREATE_POST: ::grpcio::Method<
 };
 
 #[derive(Clone)]
-pub struct ForumServiceClient {
+pub struct IaptServiceClient {
     client: ::grpcio::Client,
 }
 
-impl ForumServiceClient {
+impl IaptServiceClient {
     pub fn new(channel: ::grpcio::Channel) -> Self {
-        ForumServiceClient {
+        IaptServiceClient {
             client: ::grpcio::Client::new(channel),
         }
     }
 
-    pub fn create_post_opt(
+    pub fn import_opt(
         &self,
-        req: &super::forum::CreatePostRequest,
+        req: &super::iapt::ImportRequest,
         opt: ::grpcio::CallOption,
     ) -> ::grpcio::Result<super::empty::Empty> {
         self.client
-            .unary_call(&METHOD_FORUM_SERVICE_CREATE_POST, req, opt)
+            .unary_call(&METHOD_IAPT_SERVICE_IMPORT, req, opt)
     }
 
-    pub fn create_post(
+    pub fn import(
         &self,
-        req: &super::forum::CreatePostRequest,
+        req: &super::iapt::ImportRequest,
     ) -> ::grpcio::Result<super::empty::Empty> {
-        self.create_post_opt(req, ::grpcio::CallOption::default())
+        self.import_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn create_post_async_opt(
+    pub fn import_async_opt(
         &self,
-        req: &super::forum::CreatePostRequest,
+        req: &super::iapt::ImportRequest,
         opt: ::grpcio::CallOption,
     ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::empty::Empty>> {
         self.client
-            .unary_call_async(&METHOD_FORUM_SERVICE_CREATE_POST, req, opt)
+            .unary_call_async(&METHOD_IAPT_SERVICE_IMPORT, req, opt)
     }
 
-    pub fn create_post_async(
+    pub fn import_async(
         &self,
-        req: &super::forum::CreatePostRequest,
+        req: &super::iapt::ImportRequest,
     ) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::empty::Empty>> {
-        self.create_post_async_opt(req, ::grpcio::CallOption::default())
+        self.import_async_opt(req, ::grpcio::CallOption::default())
     }
     pub fn spawn<F>(&self, f: F)
     where
@@ -82,21 +82,20 @@ impl ForumServiceClient {
     }
 }
 
-pub trait ForumService {
-    fn create_post(
+pub trait IaptService {
+    fn import(
         &mut self,
         ctx: ::grpcio::RpcContext,
-        req: super::forum::CreatePostRequest,
+        req: super::iapt::ImportRequest,
         sink: ::grpcio::UnarySink<super::empty::Empty>,
     );
 }
 
-pub fn create_forum_service<S: ForumService + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
+pub fn create_iapt_service<S: IaptService + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
     let mut builder = ::grpcio::ServiceBuilder::new();
     let mut instance = s;
-    builder = builder
-        .add_unary_handler(&METHOD_FORUM_SERVICE_CREATE_POST, move |ctx, req, resp| {
-            instance.create_post(ctx, req, resp)
-        });
+    builder = builder.add_unary_handler(&METHOD_IAPT_SERVICE_IMPORT, move |ctx, req, resp| {
+        instance.import(ctx, req, resp)
+    });
     builder.build()
 }

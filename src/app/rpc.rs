@@ -6,10 +6,10 @@ use grpcio::{ChannelBuilder, Environment, ResourceQuota, ServerBuilder};
 use super::super::{
     env::{Config, Context, LOCALHOST},
     errors::Result,
-    plugins::{forum, nut},
+    plugins::{cbeta, iapt, nut},
     protos::{
-        auth_grpc::create_user_service, forum_grpc::create_forum_service,
-        nut_grpc::create_nut_service,
+        auth_grpc::create_user_service, cbeta_grpc::create_cbeta_service,
+        iapt_grpc::create_iapt_service,
     },
 };
 
@@ -22,9 +22,9 @@ pub fn launch(cfg: &Config) -> Result<()> {
 
     let ctx = Arc::new(Context::new(cfg)?);
     let mut server = ServerBuilder::new(env)
-        .register_service(create_user_service(nut::Plugin { ctx: ctx.clone() }))
-        .register_service(create_nut_service(nut::Plugin { ctx: ctx.clone() }))
-        .register_service(create_forum_service(forum::Plugin { ctx }))
+        .register_service(create_cbeta_service(cbeta::Plugin { ctx: ctx.clone() }))
+        .register_service(create_iapt_service(iapt::Plugin { ctx: ctx.clone() }))
+        .register_service(create_user_service(nut::Plugin { ctx }))
         .bind(LOCALHOST, cfg.grpc.port)
         .channel_args(chb.build_args())
         .build()?;

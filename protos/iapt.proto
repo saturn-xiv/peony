@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package peony.iapt;
+
+import "google/protobuf/empty.proto";
+
+service IaptService {
+  rpc Import(ImportRequest) returns (google.protobuf.Empty) {}
+}
+
+message ImportRequest {}

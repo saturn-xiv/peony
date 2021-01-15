@@ -74,7 +74,7 @@ pub mod env;
 pub mod errors;
 pub mod i18n;
 pub mod jwt;
-pub mod mail;
+pub mod mailer;
 pub mod oauth;
 pub mod orm;
 pub mod parser;
@@ -86,4 +86,10 @@ pub mod sys;
 pub mod twilio;
 
 pub const XML_HEADER: &str = r###"<?xml version="1.0" encoding="utf-8" ?>"###;
-pub const PROTOBUF_CONTENT_TYPE: &str = "application/protobuf";
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum MediaType {
+    Plain,
+    Html,
+    Markdown,
+}

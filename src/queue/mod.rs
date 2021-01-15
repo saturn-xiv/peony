@@ -2,10 +2,12 @@ pub mod paho;
 pub mod rabbit;
 pub mod zero;
 
+use mime::Mime;
+
 use super::errors::Result;
 
 pub trait Handler: Sync + Send {
-    fn handle(&self, id: &str, content_type: &str, payload: &[u8]) -> Result<()>;
+    fn handle(&self, id: &str, content_type: &Mime, payload: &[u8]) -> Result<()>;
 }
 
 // TODO

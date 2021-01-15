@@ -1,5 +1,4 @@
-pub mod auth;
-pub mod site;
+use std::ops::Deref;
 
 use actix_web::http::{
     header::{HeaderName, ACCEPT_LANGUAGE, AUTHORIZATION, USER_AGENT},
@@ -12,18 +11,14 @@ use super::super::super::{
     jwt::Jwt,
     orm::postgresql::Connection as DbConnection,
     protos::{
-        auth::{
-            EmailRequest, ImportRequest, ResetPasswordRequest, SignInRequest, SignInResponse,
-            SignUpRequest,
-        },
+        auth::{ImportRequest, SignInRequest, SignInResponse},
         auth_grpc::UserService,
         empty::Empty,
-        nut::{HeartbeatResponse, SetLocaleRequest},
-        nut_grpc::NutService,
     },
     request::Token as Auth,
 };
 use super::{
+    controllers::users::SignInForm,
     models::{
         policy::{Dao as PolicyDao, Role},
         user::Item as User,
@@ -119,42 +114,60 @@ impl UserService for super::Plugin {
     fn sign_in(&mut self, ctx: RpcContext, req: SignInRequest, sink: UnarySink<SignInResponse>) {
         let ct = self.ctx.clone();
         let ss = Session::new(&ctx);
-        let fm: auth::SignIn = req.into();
-        ctx.spawn(async move { __unary_sink!(fm.execute(&ct, &ss), sink) })
+        let fm: SignInForm = req.into();
+        ctx.spawn(async move {
+            __unary_sink!(
+                {
+                    match ct.db.get() {
+                        Ok(db) => {
+                            let db = db.deref();
+                            let it: Result<SignInResponse> =
+                                fm.execute(&db, &ct.jwt, &ss.locale, &ss.peer);
+                            it
+                        }
+                        Err(e) => {
+                            let it: Result<SignInResponse> = Err(e.into());
+                            it
+                        }
+                    }
+                },
+                sink
+            )
+        })
     }
-    fn sign_up(&mut self, ctx: RpcContext, req: SignUpRequest, sink: UnarySink<Empty>) {
-        let ct = self.ctx.clone();
-        let ss = Session::new(&ctx);
-        let fm: auth::SignUp = req.into();
-        ctx.spawn(async move { __unary_sink!(fm.execute(&ct, &ss), sink) })
-    }
-    fn forgot_password(&mut self, _ctx: RpcContext, _req: EmailRequest, _sink: UnarySink<Empty>) {
-        // TODO
-    }
-    fn unlock(&mut self, _ctx: RpcContext, _req: EmailRequest, _sink: UnarySink<Empty>) {
-        // TODO
-    }
-    fn confirm(&mut self, _ctx: RpcContext, _req: EmailRequest, _sink: UnarySink<Empty>) {
-        // TODO
-    }
-    fn reset_password(
-        &mut self,
-        _ctx: RpcContext,
-        _req: ResetPasswordRequest,
-        _sink: UnarySink<Empty>,
-    ) {
-        // TODO
-    }
+    // fn sign_up(&mut self, ctx: RpcContext, req: SignUpRequest, sink: UnarySink<Empty>) {
+    //     let ct = self.ctx.clone();
+    //     let ss = Session::new(&ctx);
+    //     let fm: auth::SignUp = req.into();
+    //     ctx.spawn(async move { __unary_sink!(fm.execute(&ct, &ss), sink) })
+    // }
+    // fn forgot_password(&mut self, _ctx: RpcContext, _req: EmailRequest, _sink: UnarySink<Empty>) {
+    //     // TODO
+    // }
+    // fn unlock(&mut self, _ctx: RpcContext, _req: EmailRequest, _sink: UnarySink<Empty>) {
+    //     // TODO
+    // }
+    // fn confirm(&mut self, _ctx: RpcContext, _req: EmailRequest, _sink: UnarySink<Empty>) {
+    //     // TODO
+    // }
+    // fn reset_password(
+    //     &mut self,
+    //     _ctx: RpcContext,
+    //     _req: ResetPasswordRequest,
+    //     _sink: UnarySink<Empty>,
+    // ) {
+    //     // TODO
+    // }
 }
 
-impl NutService for super::Plugin {
-    fn heartbeat(&mut self, ctx: RpcContext, _req: Empty, sink: UnarySink<HeartbeatResponse>) {
-        let ss = Session::new(&ctx);
-        let ct = self.ctx.clone();
-        ctx.spawn(async move { __unary_sink!(site::Heartbeat::execute(&ct, &ss), sink) })
-    }
+// impl NutService for super::Plugin {
+//     fn heartbeat(&mut self, ctx: RpcContext, _req: Empty, sink: UnarySink<HeartbeatResponse>) {
+//         let ss = Session::new(&ctx);
+//         let ct = self.ctx.clone();
+//         ctx.spawn(async move { __unary_sink!(site::Heartbeat::execute(&ct, &ss), sink) })
+//     }
 
-    fn set_locale(&mut self, _ctx: RpcContext, _req: SetLocaleRequest, _sink: UnarySink<Empty>) {
-        // TODO
-    }
-}
+//     fn set_locale(&mut self, _ctx: RpcContext, _req: SetLocaleRequest, _sink: UnarySink<Empty>) {
+//         // TODO
+//     }
+// }

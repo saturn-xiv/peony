@@ -1,8 +1,7 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use amq_protocol_uri::{AMQPAuthority, AMQPUri, AMQPUserInfo};
-
 use actix_web::http::StatusCode;
+use amq_protocol_uri::{AMQPAuthority, AMQPUri, AMQPUserInfo};
 use futures::StreamExt;
 use lapin::{
     message::Delivery,
@@ -10,6 +9,9 @@ use lapin::{
     types::FieldTable,
     BasicProperties, Channel, Connection, ConnectionProperties,
 };
+use mime::APPLICATION_JSON;
+use serde::ser::Serialize;
+use uuid::Uuid;
 
 use super::super::errors::{Error, Result};
 
@@ -82,20 +84,16 @@ impl RabbitMQ {
 }
 
 impl RabbitMQ {
-    pub async fn publish(
-        &self,
-        queue: &str,
-        id: &str,
-        content_type: &str,
-        payload: Vec<u8>,
-    ) -> Result<()> {
+    pub async fn publish<T: Serialize>(&self, queue: &str, payload: &T) -> Result<()> {
         let ch = self.open(queue).await?;
+        let id = Uuid::new_v4().to_string();
+        let content_type = APPLICATION_JSON.to_string();
         info!("publish task {}://{}", queue, id);
         ch.basic_publish(
             "",
             queue,
             BasicPublishOptions::default(),
-            payload,
+            serde_json::to_vec(payload)?,
             BasicProperties::default()
                 .with_message_id(id.into())
                 .with_content_type(content_type.into())
@@ -141,8 +139,9 @@ async fn handle_message<H: super::Handler>(delivery: Delivery, hnd: &H) -> Resul
     if let Some(content_type) = props.content_type() {
         if let Some(id) = props.message_id() {
             let id = id.to_string();
-            info!("got message: {}", id);
-            hnd.handle(&id, &content_type.to_string(), &delivery.data)?;
+            let content_type = content_type.to_string();
+            info!("got message: {}[{}]", id, content_type);
+            hnd.handle(&id, &content_type.parse()?, &delivery.data)?;
             delivery.ack(BasicAckOptions::default()).await?;
             return Ok(());
         }
