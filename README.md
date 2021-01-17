@@ -9,6 +9,7 @@ cd docker
 docker build -t peony .
 cd ..
 docker run --rm -it --network host -v `pwd`:/workspace peony
+> ./docker/deb.sh amd64 # or armhf
 ```
 
 ## Documents

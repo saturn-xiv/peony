@@ -2,8 +2,8 @@
 
 set -e
 
-if [ $# -ne 2 ] ; then
-    echo 'Please specify your arch(amd64, armhf) AND domain name'
+if [ $# -ne 1 ] ; then
+    echo 'Please specify your arch(amd64, armhf)'
     exit 1
 fi
 
@@ -93,7 +93,7 @@ then
 fi
 cd $WORKSPACE/dashboard
 # %REACT_APP_WEBSITE_NAME%
-REACT_API_HOST=api.$2 REACT_GRPC_HOST=rpc.$2 npm run build
+npm run build
 
 # -----------------------------
 mkdir -pv $TARGET/usr/share/peony
@@ -104,7 +104,7 @@ rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony
 cp -r $WORKSPACE/LICENSE $WORKSPACE/README.md $WORKSPACE/package.json $TARGET/etc/peony/
 echo "$VERSION $(date -R)" > $TARGET/etc/peony/VERSION
-echo "$1 $(lsb_release -cs) $2" >> $TARGET/etc/peony/VERSION
+echo "$1 $(lsb_release -cs)" >> $TARGET/etc/peony/VERSION
 
 rm -rf $TARGET/var
 mkdir -pv $TARGET/var/lib/peony
