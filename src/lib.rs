@@ -19,7 +19,7 @@ extern crate actix_files;
 extern crate amq_protocol_uri;
 extern crate askama;
 extern crate base64;
-extern crate bytesize;
+extern crate bytes;
 extern crate chrono;
 extern crate chrono_tz;
 extern crate clap;
@@ -72,6 +72,7 @@ pub mod crypto;
 pub mod dict;
 pub mod env;
 pub mod errors;
+pub mod hal;
 pub mod i18n;
 pub mod jwt;
 pub mod mailer;
@@ -94,8 +95,7 @@ pub enum MediaType {
     Markdown,
 }
 
-
-impl Default for  MediaType {
+impl Default for MediaType {
     fn default() -> Self {
         Self::Plain
     }

@@ -19,6 +19,7 @@ futures = "0.3"
 mime = "0.3"
 actix-session = "0.4"
 hex = "0.4"
+linux-embedded-hal = "0.4.0-alpha.0"
 log = "0.4"
 sitemap = "0.4"
 serde-xml-rs = "0.4"
@@ -49,7 +50,7 @@ rusoto_credential = "0.46"
 rusoto_s3 = "0.46"
 rusoto_sqs = "0.46"
 derive_more = "0.99"
-bytesize = "1"
+bytes = "1"
 eui48 = "1"
 serde = "1"
 serde_derive = "1"
@@ -68,6 +69,7 @@ percent-encoding = "2"
 protobuf = "2"
 clap = "3.0.0-beta.2"
 tempfile = "3"
+serialport = "4"
 amq-protocol-uri = "7.0.0-alpha.5"
 elasticsearch = "7.10.0-alpha.1"
 jsonwebtoken = "7"
@@ -91,6 +93,10 @@ features = ["openssl-vendored"]
 [dependencies.redis]
 version = "0.19"
 features = ["r2d2"]
+
+[dependencies.sdl2]
+version = "0.34"
+features = ["bundled"]
 
 [dependencies.diesel]
 version = "1"

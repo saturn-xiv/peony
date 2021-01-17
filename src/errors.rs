@@ -44,6 +44,7 @@ pub enum Error {
     Protobuf(protobuf::ProtobufError),
     R2d2(r2d2::Error),
     Redis(redis::RedisError),
+    Regex(regex::Error),
     RusotoCoreRegionParse(rusoto_core::region::ParseRegionError),
     RusotoCoreRequestTls(rusoto_core::request::TlsError),
     RusotoCoreS3DeleteObject(rusoto_core::RusotoError<rusoto_s3::DeleteObjectError>),
@@ -59,6 +60,7 @@ pub enum Error {
     RusotoCoreSqsCreateQueue(rusoto_core::RusotoError<rusoto_sqs::CreateQueueError>),
     SerdeJson(serde_json::Error),
     SerdeXml(serde_xml_rs::Error),
+    Serialport(serialport::Error),
     TomlDe(toml::de::Error),
     TomlSer(toml::ser::Error),
     UrlParse(url::ParseError),
@@ -109,6 +111,7 @@ impl fmt::Display for Error {
             Self::Protobuf(v) => v.fmt(f),
             Self::R2d2(v) => v.fmt(f),
             Self::Redis(v) => v.fmt(f),
+            Self::Regex(v) => v.fmt(f),
             Self::RusotoCoreRegionParse(v) => v.fmt(f),
             Self::RusotoCoreRequestTls(v) => v.fmt(f),
             Self::RusotoCoreS3DeleteObject(v) => v.fmt(f),
@@ -124,6 +127,7 @@ impl fmt::Display for Error {
             Self::RusotoCoreSqsCreateQueue(v) => v.fmt(f),
             Self::SerdeJson(v) => v.fmt(f),
             Self::SerdeXml(v) => v.fmt(f),
+            Self::Serialport(v) => v.fmt(f),
             Self::TomlDe(v) => v.fmt(f),
             Self::TomlSer(v) => v.fmt(f),
             Self::UrlParse(v) => v.fmt(f),
@@ -476,6 +480,18 @@ impl From<yaml_rust::EmitError> for Error {
 impl From<yaml_rust::ScanError> for Error {
     fn from(err: yaml_rust::ScanError) -> Self {
         Self::YamlScan(err)
+    }
+}
+
+impl From<serialport::Error> for Error {
+    fn from(err: serialport::Error) -> Self {
+        Self::Serialport(err)
+    }
+}
+
+impl From<regex::Error> for Error {
+    fn from(err: regex::Error) -> Self {
+        Self::Regex(err)
     }
 }
 

@@ -34,7 +34,7 @@ cp -r $WORKSPACE/docker/debian $TARGET/
 if [ $1 = "armhf" ]
 then
     sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
-        libssl-dev:armhf libzmq3-dev:armhf \
+        libssl-dev:armhf libzmq3-dev:armhf libudev-dev:armhf \
         libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
     # export PKG_CONFIG_PATH=$HOME/vcpkg/installed/arm-linux/lib/pkgconfig
 
@@ -60,7 +60,7 @@ then
 elif [ $1 = "amd64" ]
 then
     sudo apt -y install libssl-dev \
-        libzmq3-dev \
+        libzmq3-dev libudev-dev \
         libpq-dev libmysqlclient-dev libsqlite3-dev
     # export PKG_CONFIG_PATH=$HOME/vcpkg/installed/x64-linux/lib/pkgconfig
     
