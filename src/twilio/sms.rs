@@ -28,22 +28,22 @@ pub struct Response {
 // Your status delivery URL will receive an HTTP POST request with the application/x-www-form-urlencoded content type.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct HookForm {
+    #[serde(rename(deserialize = "To"))]
+    pub to: String,
+    #[serde(rename(deserialize = "AccountSid"))]
+    pub account_sid: String,
+    #[serde(rename(deserialize = "ApiVersion"))]
+    pub api_version: String,
+    #[serde(rename(deserialize = "MessageStatus"))]
+    pub message_status: String,
     #[serde(rename(deserialize = "SmsSid"))]
     pub sms_sid: String,
+    #[serde(rename(deserialize = "From"))]
+    pub from: String,
+    #[serde(rename(deserialize = "MessageSid"))]
+    pub message_sid: String,
     #[serde(rename(deserialize = "SmsStatus"))]
     pub sms_status: String,
     #[serde(rename(deserialize = "Body"))]
-    pub body: String,
-    #[serde(rename(deserialize = "MessageStatus"))]
-    pub message_status: String,
-    #[serde(rename(deserialize = "To"))]
-    pub to: String,
-    #[serde(rename(deserialize = "MessageSid"))]
-    pub message_sid: String,
-    #[serde(rename(deserialize = "AccountSid"))]
-    pub account_sid: String,
-    #[serde(rename(deserialize = "From"))]
-    pub from: String,
-    #[serde(rename(deserialize = "ApiVersion"))]
-    pub api_version: String,
+    pub body: Option<String>,
 }
