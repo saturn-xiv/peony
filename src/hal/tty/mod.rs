@@ -1,6 +1,5 @@
 pub mod g786;
 
-use std::collections::HashMap;
 use std::fmt::{Debug, Display};
 use std::io::{prelude::*, Error as IoError, ErrorKind as IoErrorKind};
 use std::result::Result as StdResult;
@@ -10,7 +9,6 @@ use std::time::Duration;
 
 use bytes::BytesMut;
 use chrono::Utc;
-use regex::bytes::Regex;
 use serialport::SerialPort;
 
 use super::super::errors::Result;
@@ -18,7 +16,7 @@ use super::super::errors::Result;
 pub trait Decoder {
     type Item: Debug;
     type Error: Debug;
-    fn decode(&self, buf: &[u8]) -> StdResult<Option<(Self::Item, usize)>, Self::Error>;
+    fn decode(buf: &[u8]) -> StdResult<Option<(Self::Item, usize)>, Self::Error>;
 }
 
 pub trait Handler {
@@ -38,7 +36,7 @@ impl Tty {
     pub const USB0: &'static str = "/dev/ttyUSB0";
     pub const USB1: &'static str = "/dev/ttyUSB1";
     pub const RASPBERRY_PI_UART1: &'static str = "/dev/serial0";
-    pub const RETRY: u8 = std::u8::MAX;
+    pub const RETRY: u8 = 32;
     pub const MAX_BUFFER_LEN: usize = 1 << 24;
 
     pub fn new(name: &str) -> StdResult<Self, IoError> {
@@ -93,7 +91,7 @@ impl Tty {
         }
     }
 
-    pub fn read<D, ED, H, EH>(&mut self, decoder: &D, handler: &mut H) -> StdResult<(), EH>
+    pub fn read<D, ED, H, EH>(&mut self, handler: &mut H) -> StdResult<(), EH>
     where
         D: Decoder<Item = D, Error = ED>,
         ED: From<IoError> + Debug,
@@ -106,7 +104,7 @@ impl Tty {
                 debug!("receive {} bytes", len);
                 // log::trace!("{:?}", std::str::from_utf8(&buf[..len]));
                 self.line.extend_from_slice(&buf[..len]);
-                if let Some((it, at)) = decoder.decode(&self.line)? {
+                if let Some((it, at)) = D::decode(&self.line)? {
                     let buf = self.line.split_to(at);
                     debug!("split to: {:?}", std::str::from_utf8(&buf));
                     return handler.handle(&it);
@@ -120,70 +118,5 @@ impl Tty {
             Err(ref e) if e.kind() == IoErrorKind::TimedOut => Ok(()),
             Err(e) => Err(e.into()),
         }
-    }
-}
-
-#[derive(PartialEq, Serialize, Deserialize, Debug)]
-pub struct LineDecoder {
-    pub begin: String,
-    pub end: String,
-}
-
-impl Decoder for LineDecoder {
-    type Item = String;
-    type Error = StrUtf8Error;
-    fn decode(&self, buf: &[u8]) -> StdResult<Option<(Self::Item, usize)>, Self::Error> {
-        let buf = std::str::from_utf8(buf)?;
-        if let Some(b) = buf.find(&self.begin) {
-            if let Some(e) = buf.find(&self.end) {
-                return Ok(Some((
-                    buf.chars()
-                        .skip(b + self.begin.len())
-                        .take(e + self.end.len() - b - self.begin.len())
-                        .collect(),
-                    e + self.end.len(),
-                )));
-            }
-        }
-        Ok(None)
-    }
-}
-
-pub struct RegexDecoder {
-    regex: Regex,
-}
-
-impl RegexDecoder {
-    pub fn new(re: &str) -> Result<Self> {
-        Ok(Self {
-            regex: Regex::new(re)?,
-        })
-    }
-}
-
-impl Decoder for RegexDecoder {
-    type Item = HashMap<String, String>;
-    type Error = StrUtf8Error;
-
-    fn decode(&self, buf: &[u8]) -> StdResult<Option<(Self::Item, usize)>, Self::Error> {
-        if let Some(captures) = self.regex.captures(buf) {
-            let mut items = HashMap::new();
-            for k in self.regex.capture_names() {
-                if let Some(k) = k {
-                    if let Some(v) = captures.name(k) {
-                        items.insert(
-                            k.to_string(),
-                            std::str::from_utf8(v.as_bytes())?.to_string(),
-                        );
-                    }
-                }
-            }
-            if let Some(it) = captures.iter().last() {
-                if let Some(it) = it {
-                    return Ok(Some((items, it.end())));
-                }
-            }
-        }
-        Ok(None)
     }
 }

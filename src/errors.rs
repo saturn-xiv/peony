@@ -10,6 +10,7 @@ pub enum Error {
     StdIo(std::io::Error),
     StdNetAddrParse(std::net::AddrParseError),
     StdNumParseInt(std::num::ParseIntError),
+    StdNumParseFloat(std::num::ParseFloatError),
     StdStrUtf8(std::str::Utf8Error),
     StdStringFromUtf8(std::string::FromUtf8Error),
     StdSystemTime(std::time::SystemTimeError),
@@ -77,6 +78,7 @@ impl fmt::Display for Error {
             Self::StdIo(v) => v.fmt(f),
             Self::StdNetAddrParse(v) => v.fmt(f),
             Self::StdNumParseInt(v) => v.fmt(f),
+            Self::StdNumParseFloat(v) => v.fmt(f),
             Self::StdStrUtf8(v) => v.fmt(f),
             Self::StdStringFromUtf8(v) => v.fmt(f),
             Self::StdSystemTime(v) => v.fmt(f),
@@ -158,6 +160,12 @@ impl From<std::io::Error> for Error {
 impl From<std::num::ParseIntError> for Error {
     fn from(err: std::num::ParseIntError) -> Self {
         Self::StdNumParseInt(err)
+    }
+}
+
+impl From<std::num::ParseFloatError> for Error {
+    fn from(err: std::num::ParseFloatError) -> Self {
+        Self::StdNumParseFloat(err)
     }
 }
 

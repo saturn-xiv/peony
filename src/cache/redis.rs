@@ -18,12 +18,15 @@ pub struct Config {
     pub host: String,
     pub port: u16,
     pub db: u8,
+    pub pool: Option<u32>,
 }
 
 impl Config {
     pub fn open(&self) -> Result<Pool> {
         let manager = Connection::open(self.to_string())?;
-        let pool = r2d2::Pool::builder().build(manager)?;
+        let pool = r2d2::Pool::builder()
+            .max_size(self.pool.unwrap_or(32))
+            .build(manager)?;
         Ok(pool)
     }
 }
@@ -34,6 +37,7 @@ impl Default for Config {
             host: "127.0.0.1".to_string(),
             port: 6379,
             db: 0,
+            pool: None,
         }
     }
 }

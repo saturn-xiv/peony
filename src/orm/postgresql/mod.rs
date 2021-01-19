@@ -26,12 +26,15 @@ pub struct Config {
     pub name: String,
     pub user: String,
     pub password: Option<String>,
+    pub pool: Option<u32>,
 }
 
 impl Config {
     pub fn open(&self) -> Result<Pool> {
         let manager = diesel::r2d2::ConnectionManager::<Connection>::new(&self.to_string());
-        Ok(Pool::new(manager)?)
+        Ok(Pool::builder()
+            .max_size(self.pool.unwrap_or(32))
+            .build(manager)?)
     }
 }
 
@@ -43,6 +46,7 @@ impl Default for Config {
             user: "postgres".to_string(),
             name: "dev".to_string(),
             password: None,
+            pool: None,
         }
     }
 }
