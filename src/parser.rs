@@ -13,6 +13,7 @@ pub fn to_xml_response<T: super::ToXml>(t: &T) -> Result<impl Responder> {
     let mut buf: Vec<u8> = Vec::new();
     let mut wrt = EmitterConfig::new()
         .perform_indent(true)
+        .normalize_empty_elements(false)
         .create_writer(&mut buf);
     t.write(&mut wrt)?;
     Ok(HttpResponse::Ok()
