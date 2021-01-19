@@ -1,4 +1,9 @@
 use std::collections::HashMap;
+use std::io::Write;
+
+use xml::writer::{EventWriter, Result as XmlResult, XmlEvent};
+
+use super::super::ToXml;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Response {
@@ -88,4 +93,32 @@ pub struct InboundForm {
     pub from: String,
     #[serde(rename(deserialize = "ApiVersion"))]
     pub api_version: String,
+}
+
+#[derive(PartialEq, Serialize, Deserialize, Debug, Clone)]
+pub struct InboundResponse {
+    pub message: Option<InboundMessage>,
+}
+
+#[derive(PartialEq, Serialize, Deserialize, Debug, Clone)]
+pub struct InboundMessage {
+    pub body: String,
+}
+
+impl ToXml for InboundResponse {
+    fn write<W: Write>(&self, wrt: &mut EventWriter<W>) -> XmlResult<()> {
+        wrt.write(XmlEvent::start_element("Response"))?;
+        if let Some(ref it) = self.message {
+            wrt.write(XmlEvent::start_element("Message"))?;
+            {
+                wrt.write(XmlEvent::start_element("Body"))?;
+                wrt.write(XmlEvent::characters(&it.body))?;
+                wrt.write(XmlEvent::end_element())?;
+            }
+            wrt.write(XmlEvent::end_element())?;
+        }
+        wrt.write(XmlEvent::end_element())?;
+
+        Ok(())
+    }
 }

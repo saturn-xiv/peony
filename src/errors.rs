@@ -66,6 +66,7 @@ pub enum Error {
     TomlSer(toml::ser::Error),
     UrlParse(url::ParseError),
     Validator(validator::ValidationErrors),
+    XmlWriter(xml::writer::Error),
     YamlEmit(yaml_rust::EmitError),
     YamlScan(yaml_rust::ScanError),
 
@@ -134,6 +135,7 @@ impl fmt::Display for Error {
             Self::TomlSer(v) => v.fmt(f),
             Self::UrlParse(v) => v.fmt(f),
             Self::Validator(v) => v.fmt(f),
+            Self::XmlWriter(v) => v.fmt(f),
             Self::YamlEmit(v) => v.fmt(f),
             Self::YamlScan(v) => v.fmt(f),
 
@@ -166,6 +168,12 @@ impl From<std::num::ParseIntError> for Error {
 impl From<std::num::ParseFloatError> for Error {
     fn from(err: std::num::ParseFloatError) -> Self {
         Self::StdNumParseFloat(err)
+    }
+}
+
+impl From<xml::writer::Error> for Error {
+    fn from(err: xml::writer::Error) -> Self {
+        Self::XmlWriter(err)
     }
 }
 

@@ -9,6 +9,9 @@ async fn sms() -> peony::errors::Result<()> {
 }
 
 #[test]
+fn test_inbound() {}
+
+#[test]
 fn test_sms() {
     let mut ctx = actix::System::new("test-sms");
     ctx.block_on(sms()).unwrap();

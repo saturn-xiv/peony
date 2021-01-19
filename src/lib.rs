@@ -86,6 +86,10 @@ pub mod settings;
 pub mod sys;
 pub mod twilio;
 
+use std::io::Write;
+
+use xml::writer::{EventWriter, Result as XmlWriterResult};
+
 pub const XML_HEADER: &str = r###"<?xml version="1.0" encoding="utf-8" ?>"###;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -99,4 +103,8 @@ impl Default for MediaType {
     fn default() -> Self {
         Self::Plain
     }
+}
+
+pub trait ToXml {
+    fn write<W: Write>(&self, wrt: &mut EventWriter<W>) -> XmlWriterResult<()>;
 }
