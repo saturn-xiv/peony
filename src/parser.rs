@@ -17,11 +17,7 @@ pub fn to_xml_response<T: super::ToXml>(t: &T) -> Result<impl Responder> {
     t.write(&mut wrt)?;
     Ok(HttpResponse::Ok()
         .content_type(TEXT_XML.to_string())
-        .body(format!(
-            "{}\n{}",
-            super::XML_HEADER,
-            String::from_utf8(buf)?
-        )))
+        .body(String::from_utf8(buf)?))
 }
 
 pub fn from_xml_bytes<T: DeserializeOwned>(buf: &[u8]) -> Result<T> {
