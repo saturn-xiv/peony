@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt update
 RUN apt -y install apt-transport-https software-properties-common curl gnupg
 # https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
-# RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
 # https://docs.bazel.build/versions/master/install-ubuntu.html
 # RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/bazel.gpg
 # RUN echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
@@ -18,7 +18,7 @@ RUN apt update
 RUN apt -y upgrade
 RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm \
-    meson nasm bazel ninja-build \
+    meson nasm ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
     clang llvm bison flex \
     g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
