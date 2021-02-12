@@ -54,7 +54,7 @@ pub struct CallbackForm {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct InboundForm {
+pub struct ReplyForm {
     #[serde(rename(deserialize = "ToCountry"))]
     pub to_country: String,
     #[serde(rename(deserialize = "ToState"))]

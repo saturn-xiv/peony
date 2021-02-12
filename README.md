@@ -2,6 +2,12 @@
 
 A total free education &amp; translation &amp; ops solution.
 
+## Development
+
+```bash
+cargo install grpcio-compiler protobuf-codegen diesel_cli
+```
+
 ## Usage
 
 ```bash

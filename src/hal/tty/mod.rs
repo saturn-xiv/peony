@@ -37,7 +37,7 @@ impl Tty {
     pub const USB1: &'static str = "/dev/ttyUSB1";
     pub const RASPBERRY_PI_UART1: &'static str = "/dev/serial0";
     pub const RETRY: u8 = 32;
-    pub const MAX_BUFFER_LEN: usize = 1 << 24;
+    pub const MAX_BUFFER_LEN: usize = 1 << 16;
 
     pub fn new(name: &str) -> StdResult<Self, IoError> {
         info!("open serial port {}", name);

@@ -69,6 +69,7 @@ pub enum Error {
     XmlWriter(xml::writer::Error),
     YamlEmit(yaml_rust::EmitError),
     YamlScan(yaml_rust::ScanError),
+    Zmq(zmq::Error),
 
     Http(StatusCode, Option<String>),
 }
@@ -138,6 +139,7 @@ impl fmt::Display for Error {
             Self::XmlWriter(v) => v.fmt(f),
             Self::YamlEmit(v) => v.fmt(f),
             Self::YamlScan(v) => v.fmt(f),
+            Self::Zmq(v) => v.fmt(f),
 
             Self::Http(v, r) => match r {
                 Some(r) => r.fmt(f),
@@ -508,6 +510,12 @@ impl From<serialport::Error> for Error {
 impl From<regex::Error> for Error {
     fn from(err: regex::Error) -> Self {
         Self::Regex(err)
+    }
+}
+
+impl From<zmq::Error> for Error {
+    fn from(err: zmq::Error) -> Self {
+        Self::Zmq(err)
     }
 }
 

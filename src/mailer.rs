@@ -59,7 +59,7 @@ impl Config {
         for it in task.bcc.iter() {
             email = email.bcc(it.parse()?);
         }
-        let email = email.body(&task.body)?;
+        let email = email.body(task.body.clone())?;
 
         let mailer = SmtpTransport::relay(&self.smtp)?
             .credentials(Credentials::new(self.user.clone(), self.password.clone()))

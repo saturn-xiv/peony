@@ -21,4 +21,4 @@ make clean
 make
 make install
 
-exho 'Done.'
+echo 'Done.'

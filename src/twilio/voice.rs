@@ -1,5 +1,5 @@
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct InboundForm {
+pub struct VoiceForm {
     #[serde(rename(deserialize = "Called"))]
     pub called: String,
     #[serde(rename(deserialize = "ToState"))]
