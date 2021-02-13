@@ -42,10 +42,12 @@ fn test_publisher() {
         println!("publish message {}", i);
         cfg.publish(
             TOPIC,
-            &Echo {
+            "flat",
+            &flexbuffers::to_vec(&Echo {
                 message: "hello, MQTT!".to_string(),
                 id: i,
-            },
+            })
+            .unwrap(),
         )
         .unwrap();
         thread::sleep(Duration::from_secs(3));

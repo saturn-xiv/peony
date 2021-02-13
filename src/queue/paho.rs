@@ -6,7 +6,6 @@ use paho_mqtt::{
     properties, Client, ConnectOptionsBuilder, CreateOptionsBuilder, MessageBuilder, PropertyCode,
     MQTT_VERSION_5,
 };
-use serde::ser::Serialize;
 
 use super::super::{errors::Result, sys::hostname};
 
@@ -37,7 +36,6 @@ impl Default for Config {
 
 impl Config {
     pub const LAST_WORD_TOPIC: &'static str = "lwt";
-    pub const CONTENT_TYPE: &'static str = "flat";
     pub const QOS: i32 = 2;
     fn open<F>(&self, f: &F) -> Result<()>
     where
@@ -71,8 +69,8 @@ impl Config {
                 let rsp = cli.connect(
                     ConnectOptionsBuilder::new()
                         .mqtt_version(MQTT_VERSION_5)
-                        // .user_name(&self.username)
-                        // .password(&self.password)
+                        .user_name(&self.username)
+                        .password(&self.password)
                         .clean_session(false)
                         .will_message(
                             MessageBuilder::new()
@@ -119,13 +117,13 @@ impl Config {
         Ok(())
     }
 
-    pub fn publish<V: Serialize>(&self, topic: &str, payload: &V) -> Result<()> {
+    pub fn publish(&self, topic: &str, content_type: &str, payload: &[u8]) -> Result<()> {
         self.open(&|cli| -> Result<()> {
             let msg = MessageBuilder::new()
                 .topic(topic)
-                .payload(flexbuffers::to_vec(payload)?)
+                .payload(payload)
                 .properties(properties![
-                    PropertyCode::ContentType => Self::CONTENT_TYPE,
+                    PropertyCode::ContentType => content_type.to_string(),
                 ])
                 .qos(Self::QOS)
                 .finalize();
@@ -135,8 +133,8 @@ impl Config {
                 let rsp = cli.connect(
                     ConnectOptionsBuilder::new()
                         .mqtt_version(MQTT_VERSION_5)
-                        // .user_name(&self.username)
-                        // .password(&self.password)
+                        .user_name(&self.username)
+                        .password(&self.password)
                         .finalize(),
                 )?;
                 if let Some(it) = rsp.connect_response() {
