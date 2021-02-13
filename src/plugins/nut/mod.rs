@@ -1,7 +1,6 @@
 pub mod controllers;
 pub mod models;
 pub mod request;
-pub mod rpc;
 pub mod schema;
 
 use std::sync::Arc;

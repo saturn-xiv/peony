@@ -9,7 +9,7 @@ use std::time::Duration;
 
 use bytes::BytesMut;
 use chrono::Utc;
-use serialport::SerialPort;
+use serialport::{SerialPortBuilder, TTYPort};
 
 use super::super::errors::Result;
 
@@ -26,7 +26,7 @@ pub trait Handler {
 }
 
 pub struct Tty {
-    pub port: Box<dyn SerialPort>,
+    pub port: TTYPort,
     line: BytesMut,
 }
 
@@ -39,16 +39,20 @@ impl Tty {
     pub const RETRY: u8 = 32;
     pub const MAX_BUFFER_LEN: usize = 1 << 16;
 
-    pub fn new(name: &str) -> StdResult<Self, IoError> {
-        info!("open serial port {}", name);
-        let it = Self {
-            port: serialport::new(name, 9600)
-                .timeout(Duration::from_millis(10))
-                .open()?,
-            line: BytesMut::new(),
-        };
-        Ok(it)
+    pub fn open(name: &str) -> StdResult<Self, IoError> {
+        Self::new(serialport::new(name, 9600).timeout(Duration::from_millis(10)))
     }
+
+    pub fn new(builder: SerialPortBuilder) -> StdResult<Self, IoError> {
+        info!("open serial port {:?}", builder);
+        let mut port = builder.open_native()?;
+        port.set_exclusive(true)?;
+        Ok(Self {
+            port,
+            line: BytesMut::new(),
+        })
+    }
+
     pub fn ports() -> Result<Vec<String>> {
         let items = serialport::available_ports()?
             .iter()

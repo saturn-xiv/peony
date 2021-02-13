@@ -28,7 +28,6 @@ pub enum Error {
     DieselResult(diesel::result::Error),
     ChronoParse(chrono::ParseError),
     Eui48Parse(eui48::ParseError),
-    Grpcio(grpcio::Error),
     IniParse(ini::ParseError),
     Ipnetwork(ipnetwork::IpNetworkError),
     JsonWebToken(jsonwebtoken::errors::Error),
@@ -42,7 +41,6 @@ pub enum Error {
     HandlebarsTemplate(handlebars::TemplateError),
     HandlebarsTemplateRender(handlebars::TemplateRenderError),
     OpensslStack(openssl::error::ErrorStack),
-    Protobuf(protobuf::ProtobufError),
     R2d2(r2d2::Error),
     Redis(redis::RedisError),
     Regex(regex::Error),
@@ -98,7 +96,6 @@ impl fmt::Display for Error {
             Self::ChronoParse(v) => v.fmt(f),
             Self::DieselResult(v) => v.fmt(f),
             Self::Eui48Parse(v) => v.fmt(f),
-            Self::Grpcio(v) => v.fmt(f),
             Self::IniParse(v) => v.fmt(f),
             Self::Ipnetwork(v) => v.fmt(f),
             Self::JsonWebToken(v) => v.fmt(f),
@@ -112,7 +109,6 @@ impl fmt::Display for Error {
             Self::HandlebarsTemplate(v) => v.fmt(f),
             Self::HandlebarsTemplateRender(v) => v.fmt(f),
             Self::OpensslStack(v) => v.fmt(f),
-            Self::Protobuf(v) => v.fmt(f),
             Self::R2d2(v) => v.fmt(f),
             Self::Redis(v) => v.fmt(f),
             Self::Regex(v) => v.fmt(f),
@@ -347,12 +343,6 @@ impl From<jsonwebtoken::errors::Error> for Error {
     }
 }
 
-impl From<grpcio::Error> for Error {
-    fn from(err: grpcio::Error) -> Self {
-        Self::Grpcio(err)
-    }
-}
-
 impl From<url::ParseError> for Error {
     fn from(err: url::ParseError) -> Self {
         Self::UrlParse(err)
@@ -465,12 +455,6 @@ impl From<actix_web::error::Canceled> for Error {
     }
 }
 
-impl From<protobuf::ProtobufError> for Error {
-    fn from(err: protobuf::ProtobufError) -> Self {
-        Self::Protobuf(err)
-    }
-}
-
 impl From<handlebars::RenderError> for Error {
     fn from(err: handlebars::RenderError) -> Self {
         Self::HandlebarsRender(err)
@@ -516,18 +500,6 @@ impl From<regex::Error> for Error {
 impl From<zmq::Error> for Error {
     fn from(err: zmq::Error) -> Self {
         Self::Zmq(err)
-    }
-}
-
-impl From<Error> for grpcio::RpcStatus {
-    fn from(err: Error) -> Self {
-        grpcio::RpcStatus::new(grpcio::RpcStatusCode::INTERNAL, Some(err.to_string()))
-    }
-}
-
-impl Error {
-    pub fn to_rpc_status(&self) -> grpcio::RpcStatus {
-        grpcio::RpcStatus::new(grpcio::RpcStatusCode::INTERNAL, Some(self.to_string()))
     }
 }
 

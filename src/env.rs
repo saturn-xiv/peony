@@ -71,7 +71,6 @@ pub struct Config {
     pub secrets: Key,
     pub administrators: HashMap<String, Administrator>,
     pub http: Http,
-    pub grpc: Grpc,
     pub postgresql: PostgreSqlConfig,
     pub redis: RedisConfig,
     pub rabbitmq: RabbitMQConfig,
@@ -122,28 +121,5 @@ impl Default for Http {
             port: 8080,
             origins: vec!["https://my.change-me.com".to_string()],
         }
-    }
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Grpc {
-    pub port: u16,
-    pub threads: usize,
-    pub memory: usize,
-}
-
-impl Default for Grpc {
-    fn default() -> Self {
-        Self {
-            port: 8086,
-            threads: 8,
-            memory: 10,
-        }
-    }
-}
-
-impl fmt::Display for Grpc {
-    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
-        write!(fmt, "{}:{}", LOCALHOST, self.port)
     }
 }

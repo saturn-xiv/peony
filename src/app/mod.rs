@@ -1,6 +1,5 @@
 pub mod generate;
 pub mod http;
-pub mod rpc;
 pub mod worker;
 
 use actix_web::http::StatusCode;
@@ -123,7 +122,6 @@ pub async fn launch() -> Result<()> {
                     .takes_value(true),
             ),
         )
-        .subcommand(App::new("rpc").about("Start gRPC listener"))
         .get_matches();
     if sodiumoxide::init().is_err() {
         return Err(Error::Http(
@@ -199,9 +197,6 @@ pub async fn launch() -> Result<()> {
         }
     }
 
-    if matches.subcommand_matches("rpc").is_some() {
-        return rpc::launch(&config);
-    }
     if let Some(matches) = matches.subcommand_matches("worker") {
         let queue = matches.value_of("queue").unwrap();
         return worker::launch(&config, &queue);

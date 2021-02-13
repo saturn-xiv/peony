@@ -15,31 +15,6 @@ diesel print-schema -o forum_posts forum_topics > src/plugins/forum/schema.rs
 diesel print-schema -o ops_crawler_logs > src/plugins/ops/crawler/schema.rs
 diesel print-schema -o ops_cron_tasks > src/plugins/ops/cron/schema.rs
 
-# cargo install protobuf-codegen
-# cargo install grpcio-compiler
-
-
-echo "generate grpc-rust..."
-export RUST_OUT=src/protos
-mkdir -p $RUST_OUT
-$HOME/.local/bin/protoc --rust_out=$RUST_OUT --grpc_out=$RUST_OUT \
-    --plugin=protoc-gen-grpc=`which grpc_rust_plugin` \
-    $HOME/.local/include/google/protobuf/empty.proto \
-    protos/*.proto
-
-
-echo "generate grpc-php..."
-export PHP_OUT=tmp/php
-if [ -d $PHP_OUT ]
-then
-    rm -rf $PHP_OUT
-fi
-mkdir -p $PHP_OUT
-$HOME/.local/bin/protoc --php_out=$PHP_OUT --grpc_out=$PHP_OUT \
-    --plugin=protoc-gen-grpc=`which grpc_php_plugin` \
-    $HOME/.local/include/google/protobuf/empty.proto \
-    protos/*.proto
-
 echo "format code"
 cargo fmt
 

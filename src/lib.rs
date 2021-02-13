@@ -28,7 +28,6 @@ extern crate elasticsearch;
 extern crate encoding_rs;
 extern crate eui48;
 extern crate futures;
-extern crate grpcio;
 extern crate hex;
 extern crate humantime;
 extern crate ini;
@@ -39,7 +38,6 @@ extern crate md5;
 extern crate mime;
 extern crate nix;
 extern crate percent_encoding;
-extern crate protobuf;
 extern crate r2d2;
 extern crate rand;
 extern crate redis as redis_;
@@ -61,9 +59,6 @@ extern crate yaml_rust;
 
 #[macro_use]
 pub mod macros;
-
-#[allow(deprecated)]
-pub mod protos;
 
 pub mod app;
 pub mod aws;

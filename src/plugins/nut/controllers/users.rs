@@ -10,10 +10,6 @@ use super::super::super::super::{
     i18n::I18n,
     jwt::Jwt,
     orm::postgresql::Connection as Db,
-    protos::{
-        auth::{SignInRequest, SignInResponse},
-        empty::Empty,
-    },
 };
 use super::super::{
     models::{log::Dao as LogDao, user::Dao as UserDao},
@@ -34,7 +30,7 @@ pub struct SignUp {
 }
 
 impl SignUp {
-    pub fn execute(&self, db: &Db) -> Result<Empty> {
+    pub fn execute(&self, db: &Db) -> Result<()> {
         self.validate()?;
         let db = db.deref();
         UserDao::sign_up::<Crypto>(
@@ -45,7 +41,7 @@ impl SignUp {
             &self.password,
         )?;
         // TODO
-        Ok(Empty::default())
+        Ok(())
     }
 }
 
@@ -58,17 +54,8 @@ pub struct SignInForm {
     password: String,
 }
 
-impl From<SignInRequest> for SignInForm {
-    fn from(item: SignInRequest) -> Self {
-        Self {
-            user: item.user,
-            password: item.password,
-        }
-    }
-}
-
 impl SignInForm {
-    pub fn execute(&self, db: &Db, jwt: &Jwt, lang: &str, peer: &str) -> Result<SignInResponse> {
+    pub fn execute(&self, db: &Db, jwt: &Jwt, lang: &str, peer: &str) -> Result<String> {
         self.validate()?;
         let db = db.deref();
 
@@ -100,9 +87,6 @@ impl SignInForm {
             },
         )?;
 
-        Ok(SignInResponse {
-            token,
-            ..Default::default()
-        })
+        Ok(token)
     }
 }
