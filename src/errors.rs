@@ -28,6 +28,8 @@ pub enum Error {
     DieselResult(diesel::result::Error),
     ChronoParse(chrono::ParseError),
     Eui48Parse(eui48::ParseError),
+    FlexBuffersDeserialization(flexbuffers::DeserializationError),
+    FlexBuffersSerialization(flexbuffers::SerializationError),
     IniParse(ini::ParseError),
     Ipnetwork(ipnetwork::IpNetworkError),
     JsonWebToken(jsonwebtoken::errors::Error),
@@ -41,6 +43,7 @@ pub enum Error {
     HandlebarsTemplate(handlebars::TemplateError),
     HandlebarsTemplateRender(handlebars::TemplateRenderError),
     OpensslStack(openssl::error::ErrorStack),
+    PahoMqtt(paho_mqtt::Error),
     R2d2(r2d2::Error),
     Redis(redis::RedisError),
     Regex(regex::Error),
@@ -96,6 +99,8 @@ impl fmt::Display for Error {
             Self::ChronoParse(v) => v.fmt(f),
             Self::DieselResult(v) => v.fmt(f),
             Self::Eui48Parse(v) => v.fmt(f),
+            Self::FlexBuffersDeserialization(v) => v.fmt(f),
+            Self::FlexBuffersSerialization(v) => v.fmt(f),
             Self::IniParse(v) => v.fmt(f),
             Self::Ipnetwork(v) => v.fmt(f),
             Self::JsonWebToken(v) => v.fmt(f),
@@ -109,6 +114,7 @@ impl fmt::Display for Error {
             Self::HandlebarsTemplate(v) => v.fmt(f),
             Self::HandlebarsTemplateRender(v) => v.fmt(f),
             Self::OpensslStack(v) => v.fmt(f),
+            Self::PahoMqtt(v) => v.fmt(f),
             Self::R2d2(v) => v.fmt(f),
             Self::Redis(v) => v.fmt(f),
             Self::Regex(v) => v.fmt(f),
@@ -202,6 +208,24 @@ impl From<r2d2::Error> for Error {
 impl From<lapin::Error> for Error {
     fn from(err: lapin::Error) -> Self {
         Self::Lapin(err)
+    }
+}
+
+impl From<paho_mqtt::Error> for Error {
+    fn from(err: paho_mqtt::Error) -> Self {
+        Self::PahoMqtt(err)
+    }
+}
+
+impl From<flexbuffers::DeserializationError> for Error {
+    fn from(err: flexbuffers::DeserializationError) -> Self {
+        Self::FlexBuffersDeserialization(err)
+    }
+}
+
+impl From<flexbuffers::SerializationError> for Error {
+    fn from(err: flexbuffers::SerializationError) -> Self {
+        Self::FlexBuffersSerialization(err)
     }
 }
 

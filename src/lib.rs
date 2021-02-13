@@ -27,6 +27,7 @@ extern crate csv;
 extern crate elasticsearch;
 extern crate encoding_rs;
 extern crate eui48;
+extern crate flexbuffers;
 extern crate futures;
 extern crate hex;
 extern crate humantime;
