@@ -63,6 +63,8 @@ RUN sh -c ". $HOME/.profile \
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | sh
 RUN sh -c ". $HOME/.profile \
     && nvm install node"
+RUN sh -c ". $HOME/.profile \
+    && npm i yarn -g"
 
 ENV ANDROID_SDK_VERSION 6858069
 RUN wget -P $HOME/downloads https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_VERSION}_latest.zip
