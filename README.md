@@ -22,25 +22,28 @@ docker run --rm -it --network host -v `pwd`:/workspace peony
 
 ### Tools
 
-- [Create React App](https://create-react-app.dev/docs/adding-typescript/)
+- [SDKMAN!](https://sdkman.io/usage)
 - [Node Version Manager](https://github.com/nvm-sh/nvm)
 - [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [Visual Studio Code](https://code.visualstudio.com/Download)
-- [Graphql](https://graphql.org/learn/)
 
 ### Background
 
 - [FlatBuffers](https://google.github.io/flatbuffers/flatbuffers_support.html)
 
+- [PostgreSQL](https://www.postgresql.org/docs/current/)
+- [Redis](https://redis.io/commands)
+- [Eclipse Mosquitto](https://mosquitto.org/documentation/)
+- [RabbitMQ](https://www.rabbitmq.com/admin-guide.html)
+- [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+
 ### Frontend
 
 - [Bootstrap](https://getbootstrap.com/)
-- [Materialize](https://materializecss.com/getting-started.html)
+- [Bulma: the modern CSS framework that just works.](https://bulma.io/)
 - [Material Icons Guide](https://google.github.io/material-design-icons/)
-- [Create React App](https://create-react-app.dev/docs/adding-typescript/)
-- [Material UI](https://next.material-ui.com/components/typography/#general)
-- [Build forms in React, without the tears](https://formik.org/docs/examples/with-material-ui)
-- [React Hook Form](https://react-hook-form.com/get-started/#IntegratingwithUIlibraries)
 - [Moment.js](https://momentjs.com/)
 - [Marked](https://github.com/markedjs/marked)
+
+- [ANT DESIGN PRO](https://beta-pro.ant.design/docs/introduction)
