@@ -82,23 +82,21 @@ fi
 if [ ! -d $WORKSPACE/node_modules ]
 then
     cd $WORKSPACE
-    npm install
+    yarn
 fi
 
 if [ ! -d $WORKSPACE/dashboard/node_modules ]
 then
     cd $WORKSPACE/dashboard
-    # FIXME https://github.com/facebook/create-react-app/issues/10142
-    npm install --legacy-peer-deps
+    yarn
 fi
 cd $WORKSPACE/dashboard
-# %REACT_APP_WEBSITE_NAME%
-npm run build
+yarn build
 
 # -----------------------------
 mkdir -pv $TARGET/usr/share/peony
 cp -r $WORKSPACE/node_modules $TARGET/usr/share/peony/
-cp -r $WORKSPACE/dashboard/build $TARGET/usr/share/peony/dashboard
+cp -r $WORKSPACE/dashboard/dist $TARGET/usr/share/peony/dashboard
 
 rm -rf $TARGET/etc
 mkdir -pv $TARGET/etc/peony

@@ -1,0 +1,42 @@
+table TtyRequest {
+    commands: [string] (required);
+    delay: ulong = 300;
+}
+
+table TtyResponse {
+    commands: [string] (required);
+    delay: ulong = 300;
+}
+
+table GpioStatus {
+    id: byte;
+    on: bool;
+}
+
+table GpioGetRequest {
+    id: byte;
+}
+
+enum GpioPressedMode: ubyte {
+    Single = 1, Double, Hold 
+}
+
+table GpioButtonStatus {
+    id: ubyte;
+    mode: GpioPressedMode = Single;
+}
+
+enum AudioType: ubyte {
+    MP3=1, WAV
+}
+
+table AudioFile {
+    type: AudioType = MP3;
+    payload: [byte] (required);
+}
+
+table AudioPlayList{
+    files: [AudioFile] (required);
+    loop: ulong = 0;
+    delay: ulong = 0;
+}

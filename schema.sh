@@ -19,18 +19,6 @@ diesel print-schema -o ops_cron_tasks > src/plugins/ops/cron/schema.rs
 echo "generate flatbuffers schema..."
 flatc --rust --filename-suffix '' -o src/protos/ protos/*.fbs
 
-# declare -a plugins=(
-#     "nut"
-#     "iapt"
-#     "cbeta"
-# )
-
-# for i in "${plugins[@]}"
-# do
-    
-# done
-
-
 echo "format code"
 cargo fmt
 
