@@ -8,4 +8,9 @@ export default defineConfig({
     { path: '/', component: '@/pages/index' },
   ],
   fastRefresh: {},
+  base: '/my/',
+  hash: true,
+  dynamicImport: {
+    loading: '@/Loading',
+  },
 });
