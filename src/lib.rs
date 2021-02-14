@@ -61,6 +61,14 @@ extern crate yaml_rust;
 #[macro_use]
 pub mod macros;
 
+#[allow(
+    dead_code,
+    unused_imports,
+    clippy::redundant_field_names,
+    clippy::redundant_static_lifetimes
+)]
+pub mod protos;
+
 pub mod app;
 pub mod aws;
 pub mod cache;
@@ -88,18 +96,7 @@ use xml::writer::{EventWriter, Result as XmlWriterResult};
 
 pub const XML_HEADER: &str = r###"<?xml version="1.0" encoding="utf-8" ?>"###;
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub enum MediaType {
-    Plain,
-    Html,
-    Markdown,
-}
-
-impl Default for MediaType {
-    fn default() -> Self {
-        Self::Plain
-    }
-}
+pub const FLAT_BUFFERS_TYPE: &str = "flat-buffers";
 
 pub trait ToXml {
     fn write<W: Write>(&self, wrt: &mut EventWriter<W>) -> XmlWriterResult<()>;

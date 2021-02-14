@@ -2,15 +2,18 @@ use std::collections::HashMap;
 use std::default::Default;
 use std::fmt;
 
+use flatbuffers::FlatBufferBuilder;
+
 use super::{
-    cache::redis::{Config as RedisConfig, Pool as CachePool},
+    cache::redis::Config as RedisConfig,
     crypto::Key,
     errors::Result,
-    jwt::Jwt,
-    mailer::{Config as Mailer, Task as MailerTask},
-    orm::postgresql::{Config as PostgreSqlConfig, Pool as DbPool},
-    queue::rabbit::{Config as RabbitMQConfig, RabbitMQ},
+    mailer::Config as Mailer,
+    orm::postgresql::Config as PostgreSqlConfig,
+    protos::nut::{EmailTask, EmailTaskArgs},
+    queue::paho::Config as MqttConfig,
     twilio::Config as TwilioConfig,
+    FLAT_BUFFERS_TYPE,
 };
 
 include!(concat!(env!("OUT_DIR"), "/env.rs"));
@@ -22,24 +25,6 @@ pub const AUTHORS: &str = env!("CARGO_PKG_AUTHORS");
 pub const BANNER: &str = include_str!("banner.txt");
 
 pub const LOCALHOST: &str = "127.0.0.1";
-
-pub struct Context {
-    pub cache: CachePool,
-    pub db: DbPool,
-    pub jwt: Jwt,
-    pub queue: RabbitMQ,
-}
-
-impl Context {
-    pub fn new(cfg: &Config) -> Result<Self> {
-        Ok(Self {
-            cache: cfg.redis.open()?,
-            db: cfg.postgresql.open()?,
-            jwt: Jwt::new(cfg.secrets.0.clone()),
-            queue: cfg.rabbitmq.open(),
-        })
-    }
-}
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -73,7 +58,7 @@ pub struct Config {
     pub http: Http,
     pub postgresql: PostgreSqlConfig,
     pub redis: RedisConfig,
-    pub rabbitmq: RabbitMQConfig,
+    pub mqtt: MqttConfig,
     pub twilio: TwilioConfig,
     pub mailer: Mailer,
 }
@@ -85,10 +70,22 @@ impl Config {
                 self.twilio.sms(to, body, None).await?;
             }
             if let Some(ref to) = to.email {
-                let qu = self.rabbitmq.open();
-
-                qu.publish(Mailer::OUT, &MailerTask::new(to, subject, body))
-                    .await?;
+                let mut builder = FlatBufferBuilder::new_with_capacity(1 << 10);
+                let to = builder.create_string(to);
+                let subject = builder.create_string(subject);
+                let body = builder.create_string(body);
+                let email = EmailTask::create(
+                    &mut builder,
+                    &EmailTaskArgs {
+                        to: Some(to),
+                        subject: Some(subject),
+                        body: Some(body),
+                        ..Default::default()
+                    },
+                );
+                builder.finish(email, None);
+                self.mqtt
+                    .publish(Mailer::OUT, FLAT_BUFFERS_TYPE, builder.finished_data())?;
             }
         }
         Ok(())

@@ -1,0 +1,13 @@
+// namespace peony;
+
+enum MediaType: ubyte { Plain = 1, Html, Markdown}
+
+table EmailTask {
+    to: string (required);
+    cc: [string] (required);
+    bcc: [string] (required);
+    subject: string (required);
+    body: string (required);
+    media_type: MediaType = Plain;
+}
+

@@ -64,11 +64,9 @@ pub fn ip4(name: &str) -> Option<Ipv4Addr> {
     if let Ok(items) = nix::ifaddrs::getifaddrs() {
         for it in items {
             if it.interface_name == *name {
-                if let Some(addr) = it.address {
-                    if let nix::sys::socket::SockAddr::Inet(addr) = addr {
-                        if let SocketAddr::V4(addr) = addr.to_std() {
-                            return Some(*addr.ip());
-                        }
+                if let Some(nix::sys::socket::SockAddr::Inet(addr)) = it.address {
+                    if let SocketAddr::V4(addr) = addr.to_std() {
+                        return Some(*addr.ip());
                     }
                 }
             }
@@ -82,11 +80,9 @@ pub fn ip6(name: &str) -> Option<Ipv6Addr> {
     if let Ok(items) = nix::ifaddrs::getifaddrs() {
         for it in items {
             if it.interface_name == *name {
-                if let Some(addr) = it.address {
-                    if let nix::sys::socket::SockAddr::Inet(addr) = addr {
-                        if let SocketAddr::V6(addr) = addr.to_std() {
-                            return Some(*addr.ip());
-                        }
+                if let Some(nix::sys::socket::SockAddr::Inet(addr)) = it.address {
+                    if let SocketAddr::V6(addr) = addr.to_std() {
+                        return Some(*addr.ip());
                     }
                 }
             }

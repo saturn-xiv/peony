@@ -31,8 +31,7 @@ docker run --rm -it --network host -v `pwd`:/workspace peony
 
 ### Background
 
-- [gRPC Web](https://github.com/grpc/grpc-web)
-- [Protobuf](https://developers.google.com/protocol-buffers/docs/proto3)
+- [FlatBuffers](https://google.github.io/flatbuffers/flatbuffers_support.html)
 
 ### Frontend
 

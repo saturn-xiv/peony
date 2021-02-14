@@ -3,18 +3,17 @@ pub mod schema;
 
 use std::fs::File;
 use std::io::prelude::*;
-use std::ops::Deref;
 use std::path::{Component, Path};
-use std::sync::Arc;
 
-use super::super::super::{env::Context, errors::Result, orm::migration::New as Migration};
+use super::super::super::{
+    errors::Result,
+    orm::{migration::New as Migration, postgresql::Connection as Db},
+};
 
 // https://crontab.guru/
 // https://help.ubuntu.com/community/CronHowto
 #[derive(Clone)]
-pub struct Plugin {
-    pub ctx: Arc<Context>,
-}
+pub struct Plugin {}
 
 impl super::super::Plugin for Plugin {
     fn migrations<'a>() -> Vec<Migration<'a>> {
@@ -30,11 +29,9 @@ impl super::super::Plugin for Plugin {
 }
 
 impl Plugin {
-    pub fn save(&self, name: &str) -> Result<()> {
+    pub fn save(&self, name: &str, db: &Db) -> Result<()> {
         use self::models::task::Dao as TaskDao;
 
-        let db = self.ctx.db.get()?;
-        let db = db.deref();
         let file = Path::new(&Component::RootDir)
             .join("etc")
             .join("cron.d")

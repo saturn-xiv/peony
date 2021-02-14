@@ -3,14 +3,10 @@ pub mod models;
 pub mod request;
 pub mod schema;
 
-use std::sync::Arc;
-
-use super::super::{env::Context, i18n, orm::migration::New as Migration, settings};
+use super::super::{i18n, orm::migration::New as Migration, settings};
 
 #[derive(Clone)]
-pub struct Plugin {
-    pub ctx: Arc<Context>,
-}
+pub struct Plugin {}
 
 impl super::Plugin for Plugin {
     fn migrations<'a>() -> Vec<Migration<'a>> {

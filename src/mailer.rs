@@ -1,6 +1,6 @@
 use lettre::{transport::smtp::authentication::Credentials, Message, SmtpTransport, Transport};
 
-use super::{errors::Result, MediaType};
+use super::{errors::Result, protos::nut::EmailTask};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Config {
@@ -21,45 +21,24 @@ impl Default for Config {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Task {
-    pub to: String,
-    pub cc: Vec<String>,
-    pub bcc: Vec<String>,
-    pub subject: String,
-    pub body: String,
-    pub media_type: MediaType,
-}
-
-impl Task {
-    pub fn new(to: &str, subject: &str, body: &str) -> Self {
-        Self {
-            to: to.to_string(),
-            cc: Vec::new(),
-            bcc: Vec::new(),
-            subject: subject.to_string(),
-            body: body.to_string(),
-            media_type: MediaType::default(),
-        }
-    }
-}
-
 impl Config {
     pub const OUT: &'static str = "mailer.smtp";
-    pub fn send(&self, task: &Task) -> Result<()> {
-        debug!("send email {:?} to {}", task.subject, task.to);
+    pub fn send(&self, task: &EmailTask) -> Result<()> {
+        debug!("send email {:?} to {}", task.subject(), task.to());
         let mut email = Message::builder()
             .from(self.user.parse()?)
             // .reply_to(self.user.parse()?)
-            .to(task.to.parse()?)
-            .subject(&task.subject);
-        for it in task.cc.iter() {
+            .to(task.to().parse()?)
+            .subject(task.subject());
+        for it in task.cc().iter() {
             email = email.cc(it.parse()?);
         }
-        for it in task.bcc.iter() {
+        for it in task.bcc().iter() {
             email = email.bcc(it.parse()?);
         }
-        let email = email.body(task.body.clone())?;
+        let email = email.body(task.body().to_string())?;
+
+        // TODO media type
 
         let mailer = SmtpTransport::relay(&self.smtp)?
             .credentials(Credentials::new(self.user.clone(), self.password.clone()))
