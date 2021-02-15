@@ -82,9 +82,9 @@ impl Item {
         }
         Ok(())
     }
-    pub fn auth<E: Password>(&self, password: &str) -> Result<()> {
+    pub fn auth<T: Password>(&self, enc: &T, password: &str) -> Result<()> {
         if let Some(ref v) = self.password {
-            if E::verify(v, password.as_bytes()) {
+            if enc.verify(v, password.as_bytes()) {
                 return Ok(());
             }
         }
@@ -116,6 +116,7 @@ pub trait Dao {
     fn google(&self, access_token: &str, token: &IdToken, ip: &str) -> Result<Item>;
     fn sign_up<T: Password>(
         &self,
+        enc: &T,
         real_name: &str,
         nickname: &str,
         email: &str,
@@ -125,7 +126,7 @@ pub trait Dao {
     fn confirm(&self, id: i64) -> Result<()>;
     fn count(&self) -> Result<i64>;
     fn all(&self) -> Result<Vec<Item>>;
-    fn password<T: Password>(&self, id: i64, password: &str) -> Result<()>;
+    fn password<T: Password>(&self, enc: &T, id: i64, password: &str) -> Result<()>;
 }
 
 impl Dao for Connection {
@@ -244,6 +245,7 @@ impl Dao for Connection {
     }
     fn sign_up<T: Password>(
         &self,
+        enc: &T,
         real_name: &str,
         nickname: &str,
         email: &str,
@@ -256,7 +258,7 @@ impl Dao for Connection {
                 real_name,
                 nickname,
                 email: &email,
-                password: Some(&T::sum(password.as_bytes())?),
+                password: Some(&enc.sum(password.as_bytes())?),
                 provider_type: &Type::Email.to_string(),
                 provider_id: &email,
                 logo: &format!(
@@ -318,9 +320,9 @@ impl Dao for Connection {
         Ok(items)
     }
 
-    fn password<T: Password>(&self, id: i64, password: &str) -> Result<()> {
+    fn password<T: Password>(&self, enc: &T, id: i64, password: &str) -> Result<()> {
         let now = Utc::now().naive_utc();
-        let password = T::sum(password.as_bytes())?;
+        let password = enc.sum(password.as_bytes())?;
         let it = users::dsl::users.filter(users::dsl::id.eq(id));
         update(it)
             .set((

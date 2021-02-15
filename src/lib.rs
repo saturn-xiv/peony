@@ -49,7 +49,6 @@ extern crate rusoto_s3;
 extern crate rusoto_sqs;
 extern crate serde;
 extern crate serde_xml_rs;
-extern crate sodiumoxide;
 extern crate tempfile;
 extern crate toml;
 extern crate url;

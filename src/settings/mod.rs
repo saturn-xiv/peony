@@ -53,7 +53,7 @@ impl Dao for Connection {
         let buf = flexbuffers::to_vec(v)?;
 
         let (val, salt) = if f {
-            let (val, salt) = e.encrypt(&buf);
+            let (val, salt) = e.encrypt(&buf)?;
             (val, Some(salt))
         } else {
             (buf, None)

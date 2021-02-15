@@ -1,27 +1,24 @@
-// https://github.com/RustCrypto/hashes
-
+pub mod random;
 pub mod ssha512;
 
-use actix_web::http::StatusCode;
-use sodiumoxide::{
-    crypto::{pwhash, secretbox},
-    randombytes,
+use openssl::{
+    hash::MessageDigest,
+    memcmp,
+    pkey::{PKey, Private},
+    sign::Signer,
+    symm::{Cipher, Crypter, Mode},
 };
 
-use super::errors::{Error, Result};
-
-pub trait Random {
-    fn bytes(l: usize) -> Vec<u8>;
-}
+use super::errors::Result;
 
 pub trait Password {
-    fn sum(plain: &[u8]) -> Result<Vec<u8>>;
-    fn verify(cipher: &[u8], plain: &[u8]) -> bool;
+    fn sum(&self, plain: &[u8]) -> Result<Vec<u8>>;
+    fn verify(&self, cipher: &[u8], plain: &[u8]) -> bool;
 }
 
 pub trait Secret {
-    fn encrypt(&self, plain: &[u8]) -> (Vec<u8>, Vec<u8>);
-    fn decrypt(&self, cipher: &[u8], nonce: &[u8]) -> Result<Vec<u8>>;
+    fn encrypt(&self, plain: &[u8]) -> Result<(Vec<u8>, Vec<u8>)>;
+    fn decrypt(&self, cipher: &[u8], iv: &[u8]) -> Result<Vec<u8>>;
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -29,7 +26,7 @@ pub struct Key(pub String);
 
 impl Default for Key {
     fn default() -> Self {
-        Key(base64::encode(&randombytes::randombytes(32)))
+        Key(base64::encode(&random::bytes(32)))
     }
 }
 
@@ -40,69 +37,71 @@ impl Into<Result<Vec<u8>>> for Key {
     }
 }
 
-#[derive(Clone)]
-pub struct Crypto {
-    key: secretbox::Key,
+pub struct Hmac {
+    key: PKey<Private>,
+    digest: MessageDigest,
 }
 
-impl Crypto {
-    pub fn new(key: Key) -> Result<Self> {
-        let key: Result<Vec<u8>> = key.into();
-        match secretbox::Key::from_slice(&key?) {
-            Some(key) => Ok(Self { key }),
-            None => Err(Error::Http(
-                StatusCode::NOT_IMPLEMENTED,
-                Some("parse key".to_string()),
-            )),
-        }
+impl Hmac {
+    pub fn new(key: &str) -> Result<Self> {
+        let key = base64::decode(key)?;
+        Ok(Self {
+            key: PKey::hmac(&key)?,
+            digest: MessageDigest::sha512(),
+        })
     }
 }
 
-impl Random for Crypto {
-    fn bytes(l: usize) -> Vec<u8> {
-        randombytes::randombytes(l)
+impl Password for Hmac {
+    fn sum(&self, plain: &[u8]) -> Result<Vec<u8>> {
+        let mut signer = Signer::new(self.digest, &self.key)?;
+        signer.update(plain)?;
+        let cipher = signer.sign_to_vec()?;
+        Ok(cipher)
+    }
+    fn verify(&self, cipher: &[u8], plain: &[u8]) -> bool {
+        if let Ok(buf) = self.sum(plain) {
+            return memcmp::eq(&buf, cipher);
+        }
+        false
     }
 }
 
-impl Password for Crypto {
-    fn sum(plain: &[u8]) -> Result<Vec<u8>> {
-        match pwhash::pwhash(
-            plain,
-            pwhash::OPSLIMIT_INTERACTIVE,
-            pwhash::MEMLIMIT_INTERACTIVE,
-        ) {
-            Ok(cip) => Ok(cip[..].to_vec()),
-            Err(_) => Err(Error::Http(
-                StatusCode::NOT_IMPLEMENTED,
-                Some("password hash".to_string()),
-            )),
-        }
-    }
+// Serpent > Twofish > Serpent
+pub struct Aes {
+    key: Vec<u8>, // 32 bytes
+    cipher: Cipher,
+}
 
-    fn verify(cipher: &[u8], plain: &[u8]) -> bool {
-        match pwhash::HashedPassword::from_slice(cipher) {
-            Some(cipher) => pwhash::pwhash_verify(&cipher, plain),
-            None => false,
-        }
+impl Aes {
+    pub fn new(key: &str) -> Result<Self> {
+        let key = base64::decode(key)?;
+        Ok(Self {
+            key,
+            cipher: Cipher::aes_256_cbc(),
+        })
     }
 }
 
-impl Secret for Crypto {
-    fn encrypt(&self, plain: &[u8]) -> (Vec<u8>, Vec<u8>) {
-        let nonce = secretbox::gen_nonce();
-        let cipher = secretbox::seal(plain, &nonce, &self.key);
-        (cipher, nonce[..].to_vec())
+impl Secret for Aes {
+    fn encrypt(&self, plain: &[u8]) -> Result<(Vec<u8>, Vec<u8>)> {
+        let iv = random::bytes(self.cipher.block_size());
+        let mut enc = Crypter::new(self.cipher, Mode::Encrypt, &self.key, Some(&iv))?;
+        let mut cipher = vec![0; plain.len() + self.cipher.block_size()];
+        let mut count = enc.update(plain, &mut cipher)?;
+        count += enc.finalize(&mut cipher[count..])?;
+        cipher.truncate(count);
+        Ok((cipher, iv))
     }
 
-    fn decrypt(&self, cipher: &[u8], nonce: &[u8]) -> Result<Vec<u8>> {
-        if let Some(nonce) = secretbox::Nonce::from_slice(nonce) {
-            if let Ok(buf) = secretbox::open(cipher, &nonce, &self.key) {
-                return Ok(buf);
-            }
-        }
-        Err(Error::Http(
-            StatusCode::BAD_REQUEST,
-            Some("decrypt".to_string()),
-        ))
+    fn decrypt(&self, cipher: &[u8], iv: &[u8]) -> Result<Vec<u8>> {
+        let mut dec = Crypter::new(self.cipher, Mode::Decrypt, &self.key, Some(iv))?;
+        let mut plain = vec![0; cipher.len() + self.cipher.block_size()];
+
+        let mut count = dec.update(cipher, &mut plain)?;
+        count += dec.finalize(&mut plain[count..])?;
+        plain.truncate(count);
+
+        Ok(plain)
     }
 }

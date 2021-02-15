@@ -2,13 +2,12 @@ pub mod generate;
 pub mod http;
 pub mod worker;
 
-use actix_web::http::StatusCode;
 use clap::{App, Arg};
 
 use super::{
     cache::Provider as CacheProvider,
     env,
-    errors::{Error, Result},
+    errors::Result,
     orm::migration::Dao as MigrationDao,
     parser,
     plugins::{forum, nut, ops, Plugin},
@@ -123,12 +122,6 @@ pub async fn launch() -> Result<()> {
             ),
         )
         .get_matches();
-    if sodiumoxide::init().is_err() {
-        return Err(Error::Http(
-            StatusCode::INTERNAL_SERVER_ERROR,
-            Some("init sodium".to_string()),
-        ));
-    }
 
     debug!("run on debug mode");
     if let Some(matches) = matches.subcommand_matches("generate") {

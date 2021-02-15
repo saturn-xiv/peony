@@ -5,7 +5,7 @@ use diesel::Connection;
 use validator::Validate;
 
 use super::super::super::super::{
-    crypto::Crypto,
+    crypto::Password,
     errors::{Error, Result},
     i18n::I18n,
     jwt::Jwt,
@@ -30,11 +30,12 @@ pub struct SignUp {
 }
 
 impl SignUp {
-    pub fn execute(&self, db: &Db) -> Result<()> {
+    pub fn execute<T: Password>(&self, db: &Db, enc: &T) -> Result<()> {
         self.validate()?;
         let db = db.deref();
-        UserDao::sign_up::<Crypto>(
+        UserDao::sign_up(
             db,
+            enc,
             &self.real_name,
             &self.nickname,
             &self.email,
@@ -55,7 +56,14 @@ pub struct SignInForm {
 }
 
 impl SignInForm {
-    pub fn execute(&self, db: &Db, jwt: &Jwt, lang: &str, peer: &str) -> Result<String> {
+    pub fn execute<T: Password>(
+        &self,
+        db: &Db,
+        enc: &T,
+        jwt: &Jwt,
+        lang: &str,
+        peer: &str,
+    ) -> Result<String> {
         self.validate()?;
         let db = db.deref();
 
@@ -64,7 +72,7 @@ impl SignInForm {
             user = UserDao::by_email(db, &self.user);
         }
         let user = user?;
-        user.auth::<Crypto>(&self.password)?;
+        user.auth(enc, &self.password)?;
         user.available()?;
 
         let uid = user.uid.clone();

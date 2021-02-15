@@ -1,4 +1,4 @@
-use std::fmt;
+use std::fmt::{self};
 use std::result::Result as StdResult;
 
 use actix_web::{dev::HttpResponseBuilder, error::ResponseError, http::StatusCode, HttpResponse};
@@ -43,6 +43,7 @@ pub enum Error {
     HandlebarsTemplate(handlebars::TemplateError),
     HandlebarsTemplateRender(handlebars::TemplateRenderError),
     OpensslStack(openssl::error::ErrorStack),
+    OpensslAesKey(openssl::aes::KeyError),
     PahoMqtt(paho_mqtt::Error),
     R2d2(r2d2::Error),
     Redis(redis::RedisError),
@@ -114,6 +115,7 @@ impl fmt::Display for Error {
             Self::HandlebarsTemplate(v) => v.fmt(f),
             Self::HandlebarsTemplateRender(v) => v.fmt(f),
             Self::OpensslStack(v) => v.fmt(f),
+            Self::OpensslAesKey(_) => write!(f, "aes key is not 128, 192, or 256 bits"),
             Self::PahoMqtt(v) => v.fmt(f),
             Self::R2d2(v) => v.fmt(f),
             Self::Redis(v) => v.fmt(f),
@@ -429,6 +431,12 @@ impl From<mime::FromStrError> for Error {
 impl From<openssl::error::ErrorStack> for Error {
     fn from(err: openssl::error::ErrorStack) -> Self {
         Self::OpensslStack(err)
+    }
+}
+
+impl From<openssl::aes::KeyError> for Error {
+    fn from(err: openssl::aes::KeyError) -> Self {
+        Self::OpensslAesKey(err)
     }
 }
 
