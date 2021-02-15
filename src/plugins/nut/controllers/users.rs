@@ -1,5 +1,6 @@
 use std::ops::Deref;
 
+use actix_web::{post, HttpResponse, Responder};
 use chrono::Duration;
 use diesel::Connection;
 use validator::Validate;
@@ -44,6 +45,12 @@ impl SignUp {
         // TODO
         Ok(())
     }
+}
+
+#[post("/sign-up")]
+async fn sign_up() -> Result<impl Responder> {
+    // TODO
+    Ok(HttpResponse::Ok().json(()))
 }
 
 #[derive(Serialize, Deserialize, Validate, Debug)]
@@ -97,4 +104,10 @@ impl SignInForm {
 
         Ok(token)
     }
+}
+
+#[post("/sign-in")]
+async fn sign_in() -> Result<impl Responder> {
+    // TODO
+    Ok(HttpResponse::Ok().json(()))
 }

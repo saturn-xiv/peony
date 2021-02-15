@@ -1,6 +1,5 @@
 pub mod generate;
 pub mod http;
-pub mod worker;
 
 use clap::{App, Arg};
 
@@ -111,16 +110,6 @@ pub async fn launch() -> Result<()> {
                 ),
         )
         .subcommand(App::new("http").about("Start http listener"))
-        .subcommand(
-            App::new("worker").about("Run rabbitmq worker").arg(
-                Arg::new("queue")
-                    .long("queue")
-                    .short('q')
-                    .about("Queue")
-                    .required(true)
-                    .takes_value(true),
-            ),
-        )
         .get_matches();
 
     debug!("run on debug mode");
@@ -190,10 +179,5 @@ pub async fn launch() -> Result<()> {
         }
     }
 
-    if let Some(matches) = matches.subcommand_matches("worker") {
-        let queue = matches.value_of("queue").unwrap();
-        return worker::launch(&config, &queue);
-    }
-
-    http::launch(&config)
+    http::launch(config).await
 }
