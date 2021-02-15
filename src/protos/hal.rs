@@ -6,49 +6,20 @@ use std::mem;
 extern crate flatbuffers;
 use self::flatbuffers::EndianScalar;
 
-#[allow(non_camel_case_types)]
-#[repr(u8)]
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
-pub enum GpioPressedMode {
-    Single = 1,
-    Double = 2,
-    Hold = 3,
-}
-
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
 pub const ENUM_MIN_GPIO_PRESSED_MODE: u8 = 1;
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
 pub const ENUM_MAX_GPIO_PRESSED_MODE: u8 = 3;
-
-impl<'a> flatbuffers::Follow<'a> for GpioPressedMode {
-    type Inner = Self;
-    #[inline]
-    fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
-        flatbuffers::read_scalar_at::<Self>(buf, loc)
-    }
-}
-
-impl flatbuffers::EndianScalar for GpioPressedMode {
-    #[inline]
-    fn to_little_endian(self) -> Self {
-        let n = u8::to_le(self as u8);
-        let p = &n as *const u8 as *const GpioPressedMode;
-        unsafe { *p }
-    }
-    #[inline]
-    fn from_little_endian(self) -> Self {
-        let n = u8::from_le(self as u8);
-        let p = &n as *const u8 as *const GpioPressedMode;
-        unsafe { *p }
-    }
-}
-
-impl flatbuffers::Push for GpioPressedMode {
-    type Output = GpioPressedMode;
-    #[inline]
-    fn push(&self, dst: &mut [u8], _rest: &[u8]) {
-        flatbuffers::emplace_scalar::<GpioPressedMode>(dst, *self);
-    }
-}
-
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
 #[allow(non_camel_case_types)]
 pub const ENUM_VALUES_GPIO_PRESSED_MODE: [GpioPressedMode; 3] = [
     GpioPressedMode::Single,
@@ -56,45 +27,131 @@ pub const ENUM_VALUES_GPIO_PRESSED_MODE: [GpioPressedMode; 3] = [
     GpioPressedMode::Hold,
 ];
 
-#[allow(non_camel_case_types)]
-pub const ENUM_NAMES_GPIO_PRESSED_MODE: [&'static str; 3] = ["Single", "Double", "Hold"];
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
+#[repr(transparent)]
+pub struct GpioPressedMode(pub u8);
+#[allow(non_upper_case_globals)]
+impl GpioPressedMode {
+    pub const Single: Self = Self(1);
+    pub const Double: Self = Self(2);
+    pub const Hold: Self = Self(3);
 
-pub fn enum_name_gpio_pressed_mode(e: GpioPressedMode) -> &'static str {
-    let index = e as u8 - GpioPressedMode::Single as u8;
-    ENUM_NAMES_GPIO_PRESSED_MODE[index as usize]
+    pub const ENUM_MIN: u8 = 1;
+    pub const ENUM_MAX: u8 = 3;
+    pub const ENUM_VALUES: &'static [Self] = &[Self::Single, Self::Double, Self::Hold];
+    /// Returns the variant's name or "" if unknown.
+    pub fn variant_name(self) -> Option<&'static str> {
+        match self {
+            Self::Single => Some("Single"),
+            Self::Double => Some("Double"),
+            Self::Hold => Some("Hold"),
+            _ => None,
+        }
+    }
+}
+impl std::fmt::Debug for GpioPressedMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        if let Some(name) = self.variant_name() {
+            f.write_str(name)
+        } else {
+            f.write_fmt(format_args!("<UNKNOWN {:?}>", self.0))
+        }
+    }
+}
+impl<'a> flatbuffers::Follow<'a> for GpioPressedMode {
+    type Inner = Self;
+    #[inline]
+    fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
+        let b = flatbuffers::read_scalar_at::<u8>(buf, loc);
+        Self(b)
+    }
 }
 
-#[allow(non_camel_case_types)]
-#[repr(u8)]
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
-pub enum AudioType {
-    MP3 = 1,
-    WAV = 2,
+impl flatbuffers::Push for GpioPressedMode {
+    type Output = GpioPressedMode;
+    #[inline]
+    fn push(&self, dst: &mut [u8], _rest: &[u8]) {
+        flatbuffers::emplace_scalar::<u8>(dst, self.0);
+    }
 }
 
+impl flatbuffers::EndianScalar for GpioPressedMode {
+    #[inline]
+    fn to_little_endian(self) -> Self {
+        let b = u8::to_le(self.0);
+        Self(b)
+    }
+    #[inline]
+    fn from_little_endian(self) -> Self {
+        let b = u8::from_le(self.0);
+        Self(b)
+    }
+}
+
+impl<'a> flatbuffers::Verifiable for GpioPressedMode {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        u8::run_verifier(v, pos)
+    }
+}
+
+impl flatbuffers::SimpleToVerifyInSlice for GpioPressedMode {}
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
 pub const ENUM_MIN_AUDIO_TYPE: u8 = 1;
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
 pub const ENUM_MAX_AUDIO_TYPE: u8 = 2;
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
+#[allow(non_camel_case_types)]
+pub const ENUM_VALUES_AUDIO_TYPE: [AudioType; 2] = [AudioType::MP3, AudioType::WAV];
 
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
+#[repr(transparent)]
+pub struct AudioType(pub u8);
+#[allow(non_upper_case_globals)]
+impl AudioType {
+    pub const MP3: Self = Self(1);
+    pub const WAV: Self = Self(2);
+
+    pub const ENUM_MIN: u8 = 1;
+    pub const ENUM_MAX: u8 = 2;
+    pub const ENUM_VALUES: &'static [Self] = &[Self::MP3, Self::WAV];
+    /// Returns the variant's name or "" if unknown.
+    pub fn variant_name(self) -> Option<&'static str> {
+        match self {
+            Self::MP3 => Some("MP3"),
+            Self::WAV => Some("WAV"),
+            _ => None,
+        }
+    }
+}
+impl std::fmt::Debug for AudioType {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        if let Some(name) = self.variant_name() {
+            f.write_str(name)
+        } else {
+            f.write_fmt(format_args!("<UNKNOWN {:?}>", self.0))
+        }
+    }
+}
 impl<'a> flatbuffers::Follow<'a> for AudioType {
     type Inner = Self;
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
-        flatbuffers::read_scalar_at::<Self>(buf, loc)
-    }
-}
-
-impl flatbuffers::EndianScalar for AudioType {
-    #[inline]
-    fn to_little_endian(self) -> Self {
-        let n = u8::to_le(self as u8);
-        let p = &n as *const u8 as *const AudioType;
-        unsafe { *p }
-    }
-    #[inline]
-    fn from_little_endian(self) -> Self {
-        let n = u8::from_le(self as u8);
-        let p = &n as *const u8 as *const AudioType;
-        unsafe { *p }
+        let b = flatbuffers::read_scalar_at::<u8>(buf, loc);
+        Self(b)
     }
 }
 
@@ -102,23 +159,37 @@ impl flatbuffers::Push for AudioType {
     type Output = AudioType;
     #[inline]
     fn push(&self, dst: &mut [u8], _rest: &[u8]) {
-        flatbuffers::emplace_scalar::<AudioType>(dst, *self);
+        flatbuffers::emplace_scalar::<u8>(dst, self.0);
     }
 }
 
-#[allow(non_camel_case_types)]
-pub const ENUM_VALUES_AUDIO_TYPE: [AudioType; 2] = [AudioType::MP3, AudioType::WAV];
-
-#[allow(non_camel_case_types)]
-pub const ENUM_NAMES_AUDIO_TYPE: [&'static str; 2] = ["MP3", "WAV"];
-
-pub fn enum_name_audio_type(e: AudioType) -> &'static str {
-    let index = e as u8 - AudioType::MP3 as u8;
-    ENUM_NAMES_AUDIO_TYPE[index as usize]
+impl flatbuffers::EndianScalar for AudioType {
+    #[inline]
+    fn to_little_endian(self) -> Self {
+        let b = u8::to_le(self.0);
+        Self(b)
+    }
+    #[inline]
+    fn from_little_endian(self) -> Self {
+        let b = u8::from_le(self.0);
+        Self(b)
+    }
 }
 
+impl<'a> flatbuffers::Verifiable for AudioType {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        u8::run_verifier(v, pos)
+    }
+}
+
+impl flatbuffers::SimpleToVerifyInSlice for AudioType {}
 pub enum TtyRequestOffset {}
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 
 pub struct TtyRequest<'a> {
     pub _tab: flatbuffers::Table<'a>,
@@ -129,7 +200,7 @@ impl<'a> flatbuffers::Follow<'a> for TtyRequest<'a> {
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
-            _tab: flatbuffers::Table { buf: buf, loc: loc },
+            _tab: flatbuffers::Table { buf, loc },
         }
     }
 }
@@ -157,7 +228,11 @@ impl<'a> TtyRequest<'a> {
 
     #[inline]
     pub fn commands(&self) -> flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>> {
-        self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<flatbuffers::ForwardsUOffset<&'a str>>>>(TtyRequest::VT_COMMANDS, None).unwrap()
+        self._tab
+            .get::<flatbuffers::ForwardsUOffset<
+                flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>,
+            >>(TtyRequest::VT_COMMANDS, None)
+            .unwrap()
     }
     #[inline]
     pub fn delay(&self) -> u64 {
@@ -167,6 +242,22 @@ impl<'a> TtyRequest<'a> {
     }
 }
 
+impl flatbuffers::Verifiable for TtyRequest<'_> {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        v.visit_table(pos)?
+            .visit_field::<flatbuffers::ForwardsUOffset<
+                flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>,
+            >>(&"commands", Self::VT_COMMANDS, true)?
+            .visit_field::<u64>(&"delay", Self::VT_DELAY, false)?
+            .finish();
+        Ok(())
+    }
+}
 pub struct TtyRequestArgs<'a> {
     pub commands: Option<
         flatbuffers::WIPOffset<flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>>,
@@ -217,8 +308,16 @@ impl<'a: 'b, 'b> TtyRequestBuilder<'a, 'b> {
     }
 }
 
+impl std::fmt::Debug for TtyRequest<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut ds = f.debug_struct("TtyRequest");
+        ds.field("commands", &self.commands());
+        ds.field("delay", &self.delay());
+        ds.finish()
+    }
+}
 pub enum TtyResponseOffset {}
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 
 pub struct TtyResponse<'a> {
     pub _tab: flatbuffers::Table<'a>,
@@ -229,7 +328,7 @@ impl<'a> flatbuffers::Follow<'a> for TtyResponse<'a> {
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
-            _tab: flatbuffers::Table { buf: buf, loc: loc },
+            _tab: flatbuffers::Table { buf, loc },
         }
     }
 }
@@ -257,7 +356,11 @@ impl<'a> TtyResponse<'a> {
 
     #[inline]
     pub fn commands(&self) -> flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>> {
-        self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<flatbuffers::ForwardsUOffset<&'a str>>>>(TtyResponse::VT_COMMANDS, None).unwrap()
+        self._tab
+            .get::<flatbuffers::ForwardsUOffset<
+                flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>,
+            >>(TtyResponse::VT_COMMANDS, None)
+            .unwrap()
     }
     #[inline]
     pub fn delay(&self) -> u64 {
@@ -267,6 +370,22 @@ impl<'a> TtyResponse<'a> {
     }
 }
 
+impl flatbuffers::Verifiable for TtyResponse<'_> {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        v.visit_table(pos)?
+            .visit_field::<flatbuffers::ForwardsUOffset<
+                flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>,
+            >>(&"commands", Self::VT_COMMANDS, true)?
+            .visit_field::<u64>(&"delay", Self::VT_DELAY, false)?
+            .finish();
+        Ok(())
+    }
+}
 pub struct TtyResponseArgs<'a> {
     pub commands: Option<
         flatbuffers::WIPOffset<flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>>,
@@ -318,8 +437,16 @@ impl<'a: 'b, 'b> TtyResponseBuilder<'a, 'b> {
     }
 }
 
+impl std::fmt::Debug for TtyResponse<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut ds = f.debug_struct("TtyResponse");
+        ds.field("commands", &self.commands());
+        ds.field("delay", &self.delay());
+        ds.finish()
+    }
+}
 pub enum GpioStatusOffset {}
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 
 pub struct GpioStatus<'a> {
     pub _tab: flatbuffers::Table<'a>,
@@ -330,7 +457,7 @@ impl<'a> flatbuffers::Follow<'a> for GpioStatus<'a> {
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
-            _tab: flatbuffers::Table { buf: buf, loc: loc },
+            _tab: flatbuffers::Table { buf, loc },
         }
     }
 }
@@ -366,6 +493,20 @@ impl<'a> GpioStatus<'a> {
     }
 }
 
+impl flatbuffers::Verifiable for GpioStatus<'_> {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        v.visit_table(pos)?
+            .visit_field::<i8>(&"id", Self::VT_ID, false)?
+            .visit_field::<bool>(&"on", Self::VT_ON, false)?
+            .finish();
+        Ok(())
+    }
+}
 pub struct GpioStatusArgs {
     pub id: i8,
     pub on: bool,
@@ -404,8 +545,16 @@ impl<'a: 'b, 'b> GpioStatusBuilder<'a, 'b> {
     }
 }
 
+impl std::fmt::Debug for GpioStatus<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut ds = f.debug_struct("GpioStatus");
+        ds.field("id", &self.id());
+        ds.field("on", &self.on());
+        ds.finish()
+    }
+}
 pub enum GpioGetRequestOffset {}
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 
 pub struct GpioGetRequest<'a> {
     pub _tab: flatbuffers::Table<'a>,
@@ -416,7 +565,7 @@ impl<'a> flatbuffers::Follow<'a> for GpioGetRequest<'a> {
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
-            _tab: flatbuffers::Table { buf: buf, loc: loc },
+            _tab: flatbuffers::Table { buf, loc },
         }
     }
 }
@@ -444,6 +593,19 @@ impl<'a> GpioGetRequest<'a> {
     }
 }
 
+impl flatbuffers::Verifiable for GpioGetRequest<'_> {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        v.visit_table(pos)?
+            .visit_field::<i8>(&"id", Self::VT_ID, false)?
+            .finish();
+        Ok(())
+    }
+}
 pub struct GpioGetRequestArgs {
     pub id: i8,
 }
@@ -477,8 +639,15 @@ impl<'a: 'b, 'b> GpioGetRequestBuilder<'a, 'b> {
     }
 }
 
+impl std::fmt::Debug for GpioGetRequest<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut ds = f.debug_struct("GpioGetRequest");
+        ds.field("id", &self.id());
+        ds.finish()
+    }
+}
 pub enum GpioButtonStatusOffset {}
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 
 pub struct GpioButtonStatus<'a> {
     pub _tab: flatbuffers::Table<'a>,
@@ -489,7 +658,7 @@ impl<'a> flatbuffers::Follow<'a> for GpioButtonStatus<'a> {
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
-            _tab: flatbuffers::Table { buf: buf, loc: loc },
+            _tab: flatbuffers::Table { buf, loc },
         }
     }
 }
@@ -527,6 +696,20 @@ impl<'a> GpioButtonStatus<'a> {
     }
 }
 
+impl flatbuffers::Verifiable for GpioButtonStatus<'_> {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        v.visit_table(pos)?
+            .visit_field::<u8>(&"id", Self::VT_ID, false)?
+            .visit_field::<GpioPressedMode>(&"mode", Self::VT_MODE, false)?
+            .finish();
+        Ok(())
+    }
+}
 pub struct GpioButtonStatusArgs {
     pub id: u8,
     pub mode: GpioPressedMode,
@@ -574,8 +757,16 @@ impl<'a: 'b, 'b> GpioButtonStatusBuilder<'a, 'b> {
     }
 }
 
+impl std::fmt::Debug for GpioButtonStatus<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut ds = f.debug_struct("GpioButtonStatus");
+        ds.field("id", &self.id());
+        ds.field("mode", &self.mode());
+        ds.finish()
+    }
+}
 pub enum AudioFileOffset {}
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 
 pub struct AudioFile<'a> {
     pub _tab: flatbuffers::Table<'a>,
@@ -586,7 +777,7 @@ impl<'a> flatbuffers::Follow<'a> for AudioFile<'a> {
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
-            _tab: flatbuffers::Table { buf: buf, loc: loc },
+            _tab: flatbuffers::Table { buf, loc },
         }
     }
 }
@@ -630,6 +821,24 @@ impl<'a> AudioFile<'a> {
     }
 }
 
+impl flatbuffers::Verifiable for AudioFile<'_> {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        v.visit_table(pos)?
+            .visit_field::<AudioType>(&"type_", Self::VT_TYPE_, false)?
+            .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i8>>>(
+                &"payload",
+                Self::VT_PAYLOAD,
+                true,
+            )?
+            .finish();
+        Ok(())
+    }
+}
 pub struct AudioFileArgs<'a> {
     pub type_: AudioType,
     pub payload: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i8>>>,
@@ -674,8 +883,16 @@ impl<'a: 'b, 'b> AudioFileBuilder<'a, 'b> {
     }
 }
 
+impl std::fmt::Debug for AudioFile<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut ds = f.debug_struct("AudioFile");
+        ds.field("type_", &self.type_());
+        ds.field("payload", &self.payload());
+        ds.finish()
+    }
+}
 pub enum AudioPlayListOffset {}
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 
 pub struct AudioPlayList<'a> {
     pub _tab: flatbuffers::Table<'a>,
@@ -686,7 +903,7 @@ impl<'a> flatbuffers::Follow<'a> for AudioPlayList<'a> {
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
-            _tab: flatbuffers::Table { buf: buf, loc: loc },
+            _tab: flatbuffers::Table { buf, loc },
         }
     }
 }
@@ -718,7 +935,7 @@ impl<'a> AudioPlayList<'a> {
     pub fn files(&self) -> flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<AudioFile<'a>>> {
         self._tab
             .get::<flatbuffers::ForwardsUOffset<
-                flatbuffers::Vector<flatbuffers::ForwardsUOffset<AudioFile<'a>>>,
+                flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<AudioFile>>,
             >>(AudioPlayList::VT_FILES, None)
             .unwrap()
     }
@@ -736,6 +953,23 @@ impl<'a> AudioPlayList<'a> {
     }
 }
 
+impl flatbuffers::Verifiable for AudioPlayList<'_> {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        v.visit_table(pos)?
+            .visit_field::<flatbuffers::ForwardsUOffset<
+                flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<AudioFile>>,
+            >>(&"files", Self::VT_FILES, true)?
+            .visit_field::<u64>(&"loop_", Self::VT_LOOP_, false)?
+            .visit_field::<u64>(&"delay", Self::VT_DELAY, false)?
+            .finish();
+        Ok(())
+    }
+}
 pub struct AudioPlayListArgs<'a> {
     pub files: Option<
         flatbuffers::WIPOffset<
@@ -793,5 +1027,15 @@ impl<'a: 'b, 'b> AudioPlayListBuilder<'a, 'b> {
         let o = self.fbb_.end_table(self.start_);
         self.fbb_.required(o, AudioPlayList::VT_FILES, "files");
         flatbuffers::WIPOffset::new(o.value())
+    }
+}
+
+impl std::fmt::Debug for AudioPlayList<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut ds = f.debug_struct("AudioPlayList");
+        ds.field("files", &self.files());
+        ds.field("loop_", &self.loop_());
+        ds.field("delay", &self.delay());
+        ds.finish()
     }
 }

@@ -102,6 +102,10 @@ features = ["bundled"]
 version = "1"
 features = ["chrono", "r2d2", "postgres", "mysql", "sqlite", "128-column-tables"]
 
+# [dependencies.tokio]
+# version = "1"
+# features = ["full"]
+
 [dependencies.rss]
 version = "1"
 features = ["validation", "with-serde"]

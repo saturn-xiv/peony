@@ -7,7 +7,7 @@ extern crate flatbuffers;
 use self::flatbuffers::EndianScalar;
 
 pub enum SyncTaskOffset {}
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 
 pub struct SyncTask<'a> {
     pub _tab: flatbuffers::Table<'a>,
@@ -18,7 +18,7 @@ impl<'a> flatbuffers::Follow<'a> for SyncTask<'a> {
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
-            _tab: flatbuffers::Table { buf: buf, loc: loc },
+            _tab: flatbuffers::Table { buf, loc },
         }
     }
 }
@@ -38,6 +38,17 @@ impl<'a> SyncTask<'a> {
     }
 }
 
+impl flatbuffers::Verifiable for SyncTask<'_> {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        v.visit_table(pos)?.finish();
+        Ok(())
+    }
+}
 pub struct SyncTaskArgs {}
 impl<'a> Default for SyncTaskArgs {
     #[inline]
@@ -62,5 +73,12 @@ impl<'a: 'b, 'b> SyncTaskBuilder<'a, 'b> {
     pub fn finish(self) -> flatbuffers::WIPOffset<SyncTask<'a>> {
         let o = self.fbb_.end_table(self.start_);
         flatbuffers::WIPOffset::new(o.value())
+    }
+}
+
+impl std::fmt::Debug for SyncTask<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut ds = f.debug_struct("SyncTask");
+        ds.finish()
     }
 }

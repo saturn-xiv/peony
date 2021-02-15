@@ -6,38 +6,61 @@ use std::mem;
 extern crate flatbuffers;
 use self::flatbuffers::EndianScalar;
 
-#[allow(non_camel_case_types)]
-#[repr(u8)]
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
-pub enum MediaType {
-    Plain = 1,
-    Html = 2,
-    Markdown = 3,
-}
-
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
 pub const ENUM_MIN_MEDIA_TYPE: u8 = 1;
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
 pub const ENUM_MAX_MEDIA_TYPE: u8 = 3;
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
+#[allow(non_camel_case_types)]
+pub const ENUM_VALUES_MEDIA_TYPE: [MediaType; 3] =
+    [MediaType::Plain, MediaType::Html, MediaType::Markdown];
 
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
+#[repr(transparent)]
+pub struct MediaType(pub u8);
+#[allow(non_upper_case_globals)]
+impl MediaType {
+    pub const Plain: Self = Self(1);
+    pub const Html: Self = Self(2);
+    pub const Markdown: Self = Self(3);
+
+    pub const ENUM_MIN: u8 = 1;
+    pub const ENUM_MAX: u8 = 3;
+    pub const ENUM_VALUES: &'static [Self] = &[Self::Plain, Self::Html, Self::Markdown];
+    /// Returns the variant's name or "" if unknown.
+    pub fn variant_name(self) -> Option<&'static str> {
+        match self {
+            Self::Plain => Some("Plain"),
+            Self::Html => Some("Html"),
+            Self::Markdown => Some("Markdown"),
+            _ => None,
+        }
+    }
+}
+impl std::fmt::Debug for MediaType {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        if let Some(name) = self.variant_name() {
+            f.write_str(name)
+        } else {
+            f.write_fmt(format_args!("<UNKNOWN {:?}>", self.0))
+        }
+    }
+}
 impl<'a> flatbuffers::Follow<'a> for MediaType {
     type Inner = Self;
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
-        flatbuffers::read_scalar_at::<Self>(buf, loc)
-    }
-}
-
-impl flatbuffers::EndianScalar for MediaType {
-    #[inline]
-    fn to_little_endian(self) -> Self {
-        let n = u8::to_le(self as u8);
-        let p = &n as *const u8 as *const MediaType;
-        unsafe { *p }
-    }
-    #[inline]
-    fn from_little_endian(self) -> Self {
-        let n = u8::from_le(self as u8);
-        let p = &n as *const u8 as *const MediaType;
-        unsafe { *p }
+        let b = flatbuffers::read_scalar_at::<u8>(buf, loc);
+        Self(b)
     }
 }
 
@@ -45,24 +68,37 @@ impl flatbuffers::Push for MediaType {
     type Output = MediaType;
     #[inline]
     fn push(&self, dst: &mut [u8], _rest: &[u8]) {
-        flatbuffers::emplace_scalar::<MediaType>(dst, *self);
+        flatbuffers::emplace_scalar::<u8>(dst, self.0);
     }
 }
 
-#[allow(non_camel_case_types)]
-pub const ENUM_VALUES_MEDIA_TYPE: [MediaType; 3] =
-    [MediaType::Plain, MediaType::Html, MediaType::Markdown];
-
-#[allow(non_camel_case_types)]
-pub const ENUM_NAMES_MEDIA_TYPE: [&'static str; 3] = ["Plain", "Html", "Markdown"];
-
-pub fn enum_name_media_type(e: MediaType) -> &'static str {
-    let index = e as u8 - MediaType::Plain as u8;
-    ENUM_NAMES_MEDIA_TYPE[index as usize]
+impl flatbuffers::EndianScalar for MediaType {
+    #[inline]
+    fn to_little_endian(self) -> Self {
+        let b = u8::to_le(self.0);
+        Self(b)
+    }
+    #[inline]
+    fn from_little_endian(self) -> Self {
+        let b = u8::from_le(self.0);
+        Self(b)
+    }
 }
 
+impl<'a> flatbuffers::Verifiable for MediaType {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        u8::run_verifier(v, pos)
+    }
+}
+
+impl flatbuffers::SimpleToVerifyInSlice for MediaType {}
 pub enum EmailTaskOffset {}
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 
 pub struct EmailTask<'a> {
     pub _tab: flatbuffers::Table<'a>,
@@ -73,7 +109,7 @@ impl<'a> flatbuffers::Follow<'a> for EmailTask<'a> {
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
-            _tab: flatbuffers::Table { buf: buf, loc: loc },
+            _tab: flatbuffers::Table { buf, loc },
         }
     }
 }
@@ -123,11 +159,19 @@ impl<'a> EmailTask<'a> {
     }
     #[inline]
     pub fn cc(&self) -> flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>> {
-        self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<flatbuffers::ForwardsUOffset<&'a str>>>>(EmailTask::VT_CC, None).unwrap()
+        self._tab
+            .get::<flatbuffers::ForwardsUOffset<
+                flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>,
+            >>(EmailTask::VT_CC, None)
+            .unwrap()
     }
     #[inline]
     pub fn bcc(&self) -> flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>> {
-        self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<flatbuffers::ForwardsUOffset<&'a str>>>>(EmailTask::VT_BCC, None).unwrap()
+        self._tab
+            .get::<flatbuffers::ForwardsUOffset<
+                flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>,
+            >>(EmailTask::VT_BCC, None)
+            .unwrap()
     }
     #[inline]
     pub fn subject(&self) -> &'a str {
@@ -149,6 +193,28 @@ impl<'a> EmailTask<'a> {
     }
 }
 
+impl flatbuffers::Verifiable for EmailTask<'_> {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        v.visit_table(pos)?
+            .visit_field::<flatbuffers::ForwardsUOffset<&str>>(&"to", Self::VT_TO, true)?
+            .visit_field::<flatbuffers::ForwardsUOffset<
+                flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>,
+            >>(&"cc", Self::VT_CC, true)?
+            .visit_field::<flatbuffers::ForwardsUOffset<
+                flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>,
+            >>(&"bcc", Self::VT_BCC, true)?
+            .visit_field::<flatbuffers::ForwardsUOffset<&str>>(&"subject", Self::VT_SUBJECT, true)?
+            .visit_field::<flatbuffers::ForwardsUOffset<&str>>(&"body", Self::VT_BODY, true)?
+            .visit_field::<MediaType>(&"media_type", Self::VT_MEDIA_TYPE, false)?
+            .finish();
+        Ok(())
+    }
+}
 pub struct EmailTaskArgs<'a> {
     pub to: Option<flatbuffers::WIPOffset<&'a str>>,
     pub cc: Option<
@@ -232,5 +298,18 @@ impl<'a: 'b, 'b> EmailTaskBuilder<'a, 'b> {
         self.fbb_.required(o, EmailTask::VT_SUBJECT, "subject");
         self.fbb_.required(o, EmailTask::VT_BODY, "body");
         flatbuffers::WIPOffset::new(o.value())
+    }
+}
+
+impl std::fmt::Debug for EmailTask<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut ds = f.debug_struct("EmailTask");
+        ds.field("to", &self.to());
+        ds.field("cc", &self.cc());
+        ds.field("bcc", &self.bcc());
+        ds.field("subject", &self.subject());
+        ds.field("body", &self.body());
+        ds.field("media_type", &self.media_type());
+        ds.finish()
     }
 }

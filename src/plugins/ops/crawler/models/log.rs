@@ -15,7 +15,7 @@ use super::super::super::super::super::{
 use super::super::schema::ops_crawler_logs;
 
 pub async fn pull(db: &Connection, name: &str, url: &str) -> Result<()> {
-    debug!("fetch {}", url);
+    info!("fetch {} {}", name, url);
 
     let mut res = https_client()?.finish().get(url).send().await?;
     let body = res.body().await?;
