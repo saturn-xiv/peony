@@ -2,11 +2,13 @@ use std::ops::Deref;
 use std::sync::Arc;
 use std::time::Duration;
 
+use actix_session::CookieSession;
 use actix_web::{middleware, web, App, HttpServer};
+use cookie::SameSite;
 
 use super::super::{
     crypto::{Aes, Hmac},
-    env::Config,
+    env::{Config, Environment},
     errors::Result,
     jwt::Jwt,
     plugins::nut,
@@ -36,10 +38,20 @@ pub async fn launch(cfg: Config) -> Result<()> {
             }
         });
     }
-
+    let key: Result<Vec<u8>> = cfg.secrets.clone().into();
+    let key = key?;
     HttpServer::new(move || {
         App::new()
             .wrap(middleware::Logger::default())
+            .wrap(
+                CookieSession::signed(&key)
+                    .name("s")
+                    .path("/")
+                    .http_only(true)
+                    .same_site(SameSite::Strict)
+                    .expires_in(60 * 60 * 24)
+                    .secure(cfg.env == Environment::Production),
+            )
             .app_data(cfg.clone())
             .app_data(jwt.clone())
             .app_data(aes.clone())

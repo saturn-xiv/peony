@@ -26,7 +26,7 @@ pub const BANNER: &str = include_str!("banner.txt");
 
 pub const LOCALHOST: &str = "127.0.0.1";
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum Environment {
     Production,

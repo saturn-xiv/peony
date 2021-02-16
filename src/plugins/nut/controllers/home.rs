@@ -1,9 +1,10 @@
+use actix_session::Session;
 use actix_web::{get, web, HttpResponse, Responder};
 
 use super::super::super::super::{errors::Result, orm::postgresql::Pool as Db};
 
 #[get("/")]
-async fn index(_db: web::Data<Db>) -> Result<impl Responder> {
+async fn index(_db: web::Data<Db>, _ss: Session) -> Result<impl Responder> {
     // TODO
     Ok(HttpResponse::Ok().json(()))
 }
