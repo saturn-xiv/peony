@@ -16,7 +16,6 @@ use super::super::{
 
 pub async fn launch(cfg: Config) -> Result<()> {
     info!("start http server");
-    let address = cfg.http.address();
     let aes = web::Data::new(Aes::new(&cfg.secrets.0)?);
     let hmac = web::Data::new(Hmac::new(&cfg.secrets.0)?);
     let jwt = web::Data::new(Jwt::new(cfg.secrets.0.clone()));
@@ -38,6 +37,9 @@ pub async fn launch(cfg: Config) -> Result<()> {
             }
         });
     }
+
+    let address = cfg.http.address();
+    let workers = cfg.http.workers;
     let key: Result<Vec<u8>> = cfg.secrets.clone().into();
     let key = key?;
     HttpServer::new(move || {
@@ -61,6 +63,7 @@ pub async fn launch(cfg: Config) -> Result<()> {
             .configure(nut::controllers::mount)
     })
     .bind(address)?
+    .workers(workers)
     .run()
     .await?;
     Ok(())

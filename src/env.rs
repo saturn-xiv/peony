@@ -103,6 +103,7 @@ pub struct Http {
     pub home: String,
     pub origins: Vec<String>,
     pub port: u16,
+    pub workers: usize,
 }
 
 impl Http {
@@ -117,6 +118,7 @@ impl Default for Http {
             home: "https://www.change-me.com".to_string(),
             port: 8080,
             origins: vec!["https://my.change-me.com".to_string()],
+            workers: 32,
         }
     }
 }
