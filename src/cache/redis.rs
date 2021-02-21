@@ -78,7 +78,7 @@ impl super::Provider for Pool {
 
         let key = key.to_string();
         if let Ok(buf) = cmd("get").arg(&key).query::<Vec<u8>>(db) {
-            if let Ok(val) = serde_json::from_slice(buf.as_slice()) {
+            if let Ok(val) = flexbuffers::from_slice(buf.as_slice()) {
                 return Ok(val);
             }
         }
@@ -86,7 +86,7 @@ impl super::Provider for Pool {
         let val = fun()?;
         let _: String = cmd("set")
             .arg(&key)
-            .arg(serde_json::to_vec(&val)?.as_slice())
+            .arg(flexbuffers::to_vec(&val)?.as_slice())
             .arg("ex")
             .arg(ttl.as_secs())
             .query(db)?;
@@ -99,5 +99,24 @@ impl super::Provider for Pool {
         let rst = cmd("flushdb").query::<String>(db)?;
         info!("{}", rst);
         Ok(())
+    }
+}
+
+impl super::KV for Pool {
+    fn set<K: Display, V: Serialize>(&self, key: &K, val: &V) -> Result<()> {
+        let key = key.to_string();
+        let val = flexbuffers::to_vec(val)?;
+        let mut db = self.get()?;
+        let db = db.deref_mut();
+        let _: String = cmd("set").arg(&key).arg(val.as_slice()).query(db)?;
+        Ok(())
+    }
+    fn get<K: Display, V: DeserializeOwned>(&self, key: &K) -> Result<V> {
+        let key = key.to_string();
+        let mut db = self.get()?;
+        let db = db.deref_mut();
+        let val = cmd("get").arg(&key).query::<Vec<u8>>(db)?;
+        let val = flexbuffers::from_slice(val.as_slice())?;
+        Ok(val)
     }
 }

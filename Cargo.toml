@@ -64,15 +64,15 @@ actix-service = "1"
 lazy_static = "1"
 actix-utils = "2"
 humantime="2"
-lapin = "2.0.0-alpha.1"
+lapin = "2.0.0-alpha.2"
 mime_guess = "2"
 url = "2"
 percent-encoding = "2"
 clap = "3.0.0-beta.2"
 tempfile = "3"
 serialport = "4"
-amq-protocol-uri = "7.0.0-alpha.5"
-elasticsearch = "7.10.1-alpha.1"
+amq-protocol-uri = "7.0.0-alpha.6"
+elasticsearch = "7.11.0-alpha.1"
 jsonwebtoken = "7"
 
 # https://github.com/bitvecto-rs/bitvec/issues/105
@@ -95,7 +95,7 @@ version = "0.9"
 features = ["vendored"]
 
 [dependencies.redis]
-version = "0.19"
+version = "0.20"
 features = ["r2d2"]
 
 [dependencies.sdl2]

@@ -1,5 +1,4 @@
 pub mod home;
-pub mod pi;
 pub mod twilio;
 pub mod users;
 

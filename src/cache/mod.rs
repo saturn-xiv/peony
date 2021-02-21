@@ -17,3 +17,8 @@ pub trait Provider {
     fn keys(&self) -> Result<Vec<(String, i64)>>;
     fn version(&self) -> Result<String>;
 }
+
+pub trait KV {
+    fn set<K: Display, V: Serialize>(&self, key: &K, val: &V) -> Result<()>;
+    fn get<K: Display, V: DeserializeOwned>(&self, key: &K) -> Result<V>;
+}
