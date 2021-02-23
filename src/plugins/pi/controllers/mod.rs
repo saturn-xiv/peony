@@ -31,6 +31,7 @@ pub fn mount(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/api")
             .service(reset)
+            .service(reboot)
             .service(token)
             .service(web::scope("/vpn").service(vpn::get).service(vpn::set))
             .service(web::scope("/ntp").service(ntp::get).service(ntp::set))
@@ -53,19 +54,30 @@ pub fn mount(cfg: &mut web::ServiceConfig) {
                 web::scope("/users")
                     .service(users::sign_in)
                     .service(users::logs)
-                    .service(users::get_profile)
-                    .service(users::set_profile)
-                    .service(users::change_password),
+                    .service(users::set_profile),
             ),
     );
 }
 
 #[post("/reset")]
-async fn reset(_user: CurrentUser, db: web::Data<DbPool>) -> Result<impl Responder> {
+pub async fn reset(_user: CurrentUser, db: web::Data<DbPool>) -> Result<impl Responder> {
     warn!("prepare to reset");
     let mut db = db.get()?;
     let db = db.deref_mut();
     let _: String = redis::cmd("flushall").query(db)?;
+    let _: String = redis::cmd("save").query(db)?;
+    actix_rt::time::delay_for(Duration::from_secs(5)).await;
+    warn!("reboot");
+    nix::sys::reboot::reboot(RebootMode::RB_AUTOBOOT)?;
+    Ok(HttpResponse::Ok().json(()))
+}
+
+#[post("/reboot")]
+pub async fn reboot(_user: CurrentUser, db: web::Data<DbPool>) -> Result<impl Responder> {
+    warn!("prepare to reset");
+    let mut db = db.get()?;
+    let db = db.deref_mut();
+    let _: String = redis::cmd("save").query(db)?;
     actix_rt::time::delay_for(Duration::from_secs(5)).await;
     warn!("reboot");
     nix::sys::reboot::reboot(RebootMode::RB_AUTOBOOT)?;
@@ -87,10 +99,21 @@ async fn token(
     Ok(HttpResponse::Ok().json(it))
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash, Validate, Debug)]
 pub struct User {
+    #[validate(length(min = 1))]
     pub name: String,
+    #[validate(length(min = 1))]
     pub password: String,
+}
+
+impl Default for User {
+    fn default() -> Self {
+        Self {
+            name: "admin".to_string(),
+            password: "admin".to_string(),
+        }
+    }
 }
 
 impl User {
