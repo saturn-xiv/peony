@@ -46,5 +46,4 @@ docker run --rm -it --network host -v `pwd`:/workspace peony
 - [Moment.js](https://momentjs.com/)
 - [Marked](https://github.com/markedjs/marked)
 
-- [UmiJS](https://umijs.org/docs)
-- [Material-UI](https://material-ui.com/getting-started/installation/)
+- [Vuetify](https://vuetifyjs.com/en/getting-started/installation/)

@@ -1,6 +1,7 @@
 pub mod image_magick;
 pub mod network;
 pub mod nmap;
+pub mod ntp;
 pub mod timezone;
 pub mod vpn;
 pub mod watchdog;

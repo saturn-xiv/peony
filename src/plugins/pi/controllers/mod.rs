@@ -29,7 +29,6 @@ use super::super::nut::request::{Action, Token};
 pub fn mount(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/api")
-            .service(reboot)
             .service(reset)
             .service(token)
             .service(web::scope("/vpn").service(vpn::get).service(vpn::set))
@@ -65,14 +64,6 @@ pub fn mount(cfg: &mut web::ServiceConfig) {
                     .service(users::change_password),
             ),
     );
-}
-
-#[post("/reboot")]
-async fn reboot(_user: CurrentUser) -> Result<impl Responder> {
-    actix_rt::time::delay_for(Duration::from_secs(5)).await;
-    warn!("prepare to reboot");
-    nix::sys::reboot::reboot(RebootMode::RB_AUTOBOOT)?;
-    Ok(HttpResponse::Ok().json(()))
 }
 
 #[post("/reset")]
