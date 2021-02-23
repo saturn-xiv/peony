@@ -38,6 +38,7 @@ extern crate lettre;
 extern crate md5;
 extern crate mime;
 extern crate nix;
+extern crate oping;
 extern crate percent_encoding;
 extern crate r2d2;
 extern crate rand;

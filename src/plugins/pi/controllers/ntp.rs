@@ -6,6 +6,7 @@ use std::path::{Component, Path};
 use actix_web::{get, http::StatusCode, post, web, HttpResponse, Responder};
 use chrono::{DateTime, Local};
 use chrono_tz::Tz;
+use validator::Validate;
 
 use super::super::super::super::{
     cache::{redis::Pool as DbPool, KV},
@@ -93,6 +94,7 @@ pub async fn set(
     let db = db.deref();
     let db = db.deref();
     let form = form.deref();
+    form.validate()?;
     form.test()?;
     form.save()?;
     KV::set(db, &Form::KEY.to_string(), form)?;

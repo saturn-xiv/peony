@@ -5,6 +5,7 @@ use std::os::unix::fs::OpenOptionsExt;
 use std::path::{Component, Path};
 
 use actix_web::{get, post, web, HttpResponse, Responder};
+use validator::Validate;
 
 use super::super::super::super::{
     cache::{redis::Pool as DbPool, KV},
@@ -62,6 +63,7 @@ pub async fn set(
     let db = db.deref();
     let db = db.deref();
     let form = form.deref();
+    form.validate()?;
     form.save()?;
     KV::set(db, &Form::KEY.to_string(), form)?;
     Ok(HttpResponse::Ok().json(()))

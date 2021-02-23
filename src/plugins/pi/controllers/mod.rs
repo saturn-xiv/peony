@@ -15,6 +15,7 @@ use actix_web::{
     dev::Payload, error::Error as ActixError, get, http::StatusCode, post, web, FromRequest,
     HttpRequest, HttpResponse, Responder,
 };
+use chrono::{Datelike, Utc};
 use futures::future::Future;
 use nix::sys::reboot::RebootMode;
 
@@ -44,16 +45,9 @@ pub fn mount(cfg: &mut web::ServiceConfig) {
             .service(
                 web::scope("/network")
                     .service(network::status)
-                    .service(
-                        web::scope("/wifi")
-                            .service(network::wifi::get)
-                            .service(network::wifi::set),
-                    )
-                    .service(
-                        web::scope("/ether")
-                            .service(network::ether::get)
-                            .service(network::ether::set),
-                    ),
+                    .service(network::ping)
+                    .service(network::get)
+                    .service(network::set),
             )
             .service(
                 web::scope("/users")
@@ -78,9 +72,19 @@ async fn reset(_user: CurrentUser, db: web::Data<DbPool>) -> Result<impl Respond
     Ok(HttpResponse::Ok().json(()))
 }
 
-#[get("/token")]
-async fn token(_user: CurrentUser) -> Result<impl Responder> {
-    Ok(HttpResponse::Ok().json(()))
+#[get("/token/{year}")]
+async fn token(
+    _user: CurrentUser,
+    db: web::Data<DbPool>,
+    jwt: web::Data<Jwt>,
+    years: web::Path<i32>,
+) -> Result<impl Responder> {
+    let db = db.deref();
+    let db = db.deref();
+    let user: User = KV::get(db, &User::KEY)?;
+    let jwt = jwt.deref();
+    let it = user.token(jwt, years.0)?;
+    Ok(HttpResponse::Ok().json(it))
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -90,7 +94,26 @@ pub struct User {
 }
 
 impl User {
+    pub const KEY: &'static str = "administrator";
     pub const ID: &'static str = "e883c3ef-fe83-43d5-94dc-5658c7e733ac";
+
+    pub fn token(&self, jwt: &Jwt, years: i32) -> Result<String> {
+        let nbf = Utc::now().naive_utc();
+        if let Some(exp) = nbf.with_year(nbf.year() + years) {
+            let it = jwt.sum(
+                None,
+                &Token {
+                    sub: self.name.clone(),
+                    uid: Self::ID.to_string(),
+                    act: Action::SignIn,
+                    nbf: nbf.timestamp(),
+                    exp: exp.timestamp(),
+                },
+            )?;
+            return Ok(it);
+        }
+        Err(Error::Http(StatusCode::BAD_REQUEST, None))
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
