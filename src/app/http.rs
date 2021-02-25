@@ -3,8 +3,7 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use actix_session::CookieSession;
-use actix_web::{middleware, web, App, HttpServer};
-use cookie::SameSite;
+use actix_web::{cookie::SameSite, middleware, web, App, HttpServer};
 
 use super::super::{
     crypto::{Aes, Hmac},
