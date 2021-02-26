@@ -44,7 +44,6 @@ pub enum Error {
     HandlebarsTemplateRender(handlebars::TemplateRenderError),
     OpensslStack(openssl::error::ErrorStack),
     OpensslAesKey(openssl::aes::KeyError),
-    Oping(oping::PingError),
     PahoMqtt(paho_mqtt::Error),
     R2d2(r2d2::Error),
     Redis(redis::RedisError),
@@ -117,7 +116,6 @@ impl fmt::Display for Error {
             Self::HandlebarsTemplateRender(v) => v.fmt(f),
             Self::OpensslStack(v) => v.fmt(f),
             Self::OpensslAesKey(_) => write!(f, "aes key is not 128, 192, or 256 bits"),
-            Self::Oping(v) => v.fmt(f),
             Self::PahoMqtt(v) => v.fmt(f),
             Self::R2d2(v) => v.fmt(f),
             Self::Redis(v) => v.fmt(f),
@@ -522,12 +520,6 @@ impl From<yaml_rust::ScanError> for Error {
 impl From<serialport::Error> for Error {
     fn from(err: serialport::Error) -> Self {
         Self::Serialport(err)
-    }
-}
-
-impl From<oping::PingError> for Error {
-    fn from(err: oping::PingError) -> Self {
-        Self::Oping(err)
     }
 }
 

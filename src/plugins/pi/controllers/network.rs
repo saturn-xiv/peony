@@ -1,6 +1,7 @@
 use std::collections::BTreeMap;
 use std::default::Default;
 use std::ops::Deref;
+use std::process::Command;
 
 use actix_web::{get, post, web, HttpResponse, Responder};
 use eui48::MacAddress;
@@ -124,24 +125,38 @@ async fn status(_user: CurrentUser) -> Result<impl Responder> {
 
 #[post("/ping/{host}")]
 async fn ping(_user: CurrentUser, path: web::Path<String>) -> Result<impl Responder> {
-    let mut ping = oping::Ping::new();
-    ping.set_timeout(2.0)?;
-    ping.add_host(&path.0)?;
-    let items: Vec<String> = ping
-        .send()?
-        .map(|it| {
-            if it.dropped > 0 {
-                format!("No response from host: {}", it.hostname)
-            } else {
-                format!(
-                    "Response from host {} (address {}): latency {} ms",
-                    it.hostname, it.address, it.latency_ms
-                )
-            }
-        })
-        .collect();
+    // let mut ping = oping::Ping::new();
+    // ping.set_timeout(2.0)?;
+    // ping.add_host(&path.0)?;
+    // let items: Vec<String> = ping
+    //     .send()?
+    //     .map(|it| {
+    //         if it.dropped > 0 {
+    //             format!("No response from host: {}", it.hostname)
+    //         } else {
+    //             format!(
+    //                 "Response from host {} (address {}): latency {} ms",
+    //                 it.hostname, it.address, it.latency_ms
+    //             )
+    //         }
+    //     })
+    //     .collect();
 
-    Ok(HttpResponse::Ok().json(items))
+    // Ok(HttpResponse::Ok().json(items))
+
+    let out = Command::new("ping")
+        .arg("-c")
+        .arg(4.to_string())
+        .arg("-i")
+        .arg(1.to_string())
+        .arg(&path.0)
+        .output()?;
+    let out = String::from_utf8(if out.status.success() {
+        out.stdout
+    } else {
+        out.stderr
+    })?;
+    Ok(HttpResponse::Ok().json(out))
 }
 
 #[get("/")]
