@@ -4,7 +4,7 @@ use std::fmt::Display;
 use std::ops::DerefMut;
 use std::time::Duration;
 
-use redis_::cmd;
+use redis_::{cmd, Commands, RedisResult};
 use serde::{de::DeserializeOwned, ser::Serialize};
 
 use super::super::errors::Result;
@@ -16,12 +16,16 @@ pub type PooledConnection = r2d2::PooledConnection<Connection>;
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Config {
     pub host: String,
-    pub port: u16,
-    pub db: u8,
+    pub user: Option<String>,
+    pub password: Option<String>,
+    pub port: Option<u16>,
+    pub db: Option<u8>,
     pub pool: Option<u32>,
 }
 
 impl Config {
+    const PORT: u16 = 6379;
+    const DB: u8 = 0;
     pub fn open(&self) -> Result<Pool> {
         let manager = Connection::open(self.to_string())?;
         let pool = r2d2::Pool::builder()
@@ -35,16 +39,26 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             host: "127.0.0.1".to_string(),
-            port: 6379,
-            db: 0,
-            pool: None,
+            port: Some(Self::PORT),
+            user: None,
+            password: None,
+            db: Some(Self::DB),
+            pool: Some(32),
         }
     }
 }
 
 impl fmt::Display for Config {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "redis://{}:{}/{}", self.host, self.port, self.db)
+        write!(
+            f,
+            "redis://{}:{}@{}:{}/{}",
+            self.user.as_deref().unwrap_or(""),
+            self.password.as_deref().unwrap_or(""),
+            self.host,
+            self.port.unwrap_or(Self::PORT),
+            self.db.unwrap_or(Self::DB)
+        )
     }
 }
 
@@ -60,9 +74,10 @@ impl super::Provider for Pool {
         let mut db = self.get()?;
         let db = db.deref_mut();
         let mut items = Vec::new();
-        for key in cmd("keys").arg("*").query::<Vec<String>>(db)? {
-            let ttl = cmd("ttl").arg(&key).query::<i64>(db)?;
-            items.push((key, ttl));
+        let keys: Vec<String> = db.keys("*")?;
+        for it in keys {
+            let ttl = db.ttl(&it)?;
+            items.push((it, ttl));
         }
         Ok(items)
     }
@@ -77,19 +92,19 @@ impl super::Provider for Pool {
         let db = db.deref_mut();
 
         let key = key.to_string();
-        if let Ok(buf) = cmd("get").arg(&key).query::<Vec<u8>>(db) {
+        let buf: RedisResult<Vec<u8>> = db.get(&key);
+        if let Ok(buf) = buf {
             if let Ok(val) = flexbuffers::from_slice(buf.as_slice()) {
                 return Ok(val);
             }
         }
-        debug!("set {:?} {:?}", key, ttl);
+        debug!("cache expire, set {:?} {:?}", key, ttl);
         let val = fun()?;
-        let _: String = cmd("set")
-            .arg(&key)
-            .arg(flexbuffers::to_vec(&val)?.as_slice())
-            .arg("ex")
-            .arg(ttl.as_secs())
-            .query(db)?;
+        let _: () = db.set_ex(
+            &key,
+            flexbuffers::to_vec(&val)?.as_slice(),
+            ttl.as_secs() as usize,
+        )?;
         Ok(val)
     }
 
@@ -108,14 +123,15 @@ impl super::KV for Pool {
         let val = flexbuffers::to_vec(val)?;
         let mut db = self.get()?;
         let db = db.deref_mut();
-        let _: String = cmd("set").arg(&key).arg(val.as_slice()).query(db)?;
+        let _: () = db.set(&key, val.as_slice())?;
         Ok(())
     }
     fn get<K: Display, V: DeserializeOwned>(&self, key: &K) -> Result<V> {
         let key = key.to_string();
         let mut db = self.get()?;
         let db = db.deref_mut();
-        let val = cmd("get").arg(&key).query::<Vec<u8>>(db)?;
+
+        let val: Vec<u8> = db.get(&key)?;
         let val = flexbuffers::from_slice(val.as_slice())?;
         Ok(val)
     }

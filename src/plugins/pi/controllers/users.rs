@@ -2,7 +2,7 @@ use std::ops::{Deref, DerefMut};
 
 use actix_web::{get, http::StatusCode, post, web, HttpResponse, Responder};
 use chrono::{NaiveDateTime, Utc};
-use redis_::Connection as Db;
+use redis_::{Commands, Connection as Db};
 use validator::Validate;
 
 use super::super::super::super::{
@@ -23,24 +23,18 @@ impl Log {
     const KEY: &'static str = "logs";
     pub fn list(db: &mut Db) -> Result<Vec<Self>> {
         let mut items = Vec::new();
-        for f in redis::cmd("hkeys")
-            .arg(Self::KEY)
-            .query::<Vec<String>>(db)?
-        {
+        let keys: Vec<String> = db.hkeys(Self::KEY)?;
+        for f in keys {
             items.push(Log {
                 created_at: f.parse()?,
-                message: redis::cmd("hget").arg(Self::KEY).arg(f).query(db)?,
+                message: db.hget(Self::KEY, f)?,
             });
         }
         Ok(items)
     }
     pub fn create(db: &mut Db, message: &str) -> Result<()> {
         let now = Utc::now().naive_local();
-        let _: String = redis::cmd("hset")
-            .arg("logs")
-            .arg(now.to_string())
-            .arg(message)
-            .query(db)?;
+        let _: () = db.hset(Self::KEY, now.to_string(), message)?;
         Ok(())
     }
 }
