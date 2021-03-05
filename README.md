@@ -5,6 +5,7 @@ A total free education &amp; translation &amp; ops solution.
 ## Development
 
 ```bash
+sudo pacman -S podman buildah
 cargo install grpcio-compiler protobuf-codegen diesel_cli
 ```
 
@@ -12,9 +13,9 @@ cargo install grpcio-compiler protobuf-codegen diesel_cli
 
 ```bash
 cd docker
-docker build -t peony .
+buildah bud -t peony .
 cd ..
-docker run --rm -it --network host -v `pwd`:/workspace peony
+podman run --rm -it --network host -v `pwd`:/workspace peony
 > ./docker/deb.sh amd64 # or armhf
 ```
 
@@ -25,6 +26,7 @@ docker run --rm -it --network host -v `pwd`:/workspace peony
 - [SDKMAN!](https://sdkman.io/usage)
 - [Node Version Manager](https://github.com/nvm-sh/nvm)
 - [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
+- [Podman](https://www.redhat.com/sysadmin/podman-windows-wsl2)
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [Visual Studio Code](https://code.visualstudio.com/Download)
 

@@ -13,8 +13,8 @@ declare -a features=(
 
 for i in "${features[@]}"
 do
-    docker pull ubuntu:$i
-    docker build --build-arg CODE_VERSION=$i -t peony-$i .
+    buildah pull ubuntu:$i
+    buildah bud --build-arg CODE_VERSION=$i -t peony-$i .
 done
 
 echo 'done.'

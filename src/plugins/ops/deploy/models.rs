@@ -170,6 +170,12 @@ pub enum Command {
 impl Command {
     const LOCALHOST: &'static str = "localhost";
 
+    fn parse_ssh_host(vars: &Vars) -> Option<String> {
+        if let Some(Value::String(v)) = vars.get("ssh.host") {
+            return Some(v.clone());
+        }
+        None
+    }
     fn parse_ssh_port(vars: &Vars) -> u16 {
         if let Some(Value::Integer(v)) = vars.get("ssh.port") {
             return *v as u16;
@@ -201,6 +207,7 @@ impl Command {
     }
     pub fn run(&self, inventory: &str, host: &str, vars: &Vars) -> Result<()> {
         debug!("host {} env: {:?}", host, vars);
+        let host = Self::parse_ssh_host(vars).unwrap_or_else(|| host.to_string());
         let user = Self::parse_ssh_user(vars);
         let port = Self::parse_ssh_port(vars);
         let timeout = Self::parse_ssh_timeout(vars);
@@ -222,7 +229,7 @@ impl Command {
                 let dest = template_str(dest, vars)?;
                 if host == Self::LOCALHOST {
                     shell(
-                        host,
+                        &host,
                         ShellCommand::new("rsync")
                             .arg("-rlptD")
                             .arg("-v")
@@ -231,7 +238,7 @@ impl Command {
                     )?;
                 } else {
                     shell(
-                        host,
+                        &host,
                         ShellCommand::new("rsync")
                             .arg("-rlptD")
                             .arg("-zz")
@@ -252,7 +259,7 @@ impl Command {
                 let src = template_str(src, vars)?;
                 let dest = template_str(dest, vars)?;
                 let dest = {
-                    let it = Path::new("tmp").join("downloads").join(host).join(dest);
+                    let it = Path::new("tmp").join("downloads").join(&host).join(dest);
                     {
                         if let Some(it) = it.parent() {
                             if !it.exists() {
@@ -264,7 +271,7 @@ impl Command {
                 };
                 if host == Self::LOCALHOST {
                     shell(
-                        host,
+                        &host,
                         ShellCommand::new("rsync")
                             .arg("-rlptD")
                             .arg("-v")
@@ -273,7 +280,7 @@ impl Command {
                     )?;
                 } else {
                     shell(
-                        host,
+                        &host,
                         ShellCommand::new("rsync")
                             .arg("-rlptD")
                             .arg("-zz")
@@ -295,10 +302,10 @@ impl Command {
                     .display()
                     .to_string();
                 if host == Self::LOCALHOST {
-                    shell(host, ShellCommand::new(&sh).arg(script))?;
+                    shell(&host, ShellCommand::new(&sh).arg(script))?;
                 } else {
                     shell(
-                        host,
+                        &host,
                         ShellCommand::new("ssh")
                             .arg("-T")
                             .arg("-o")
