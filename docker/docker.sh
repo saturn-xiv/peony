@@ -16,8 +16,8 @@ declare -a features=(
 for i in "${features[@]}"
 do
     buildah pull ubuntu:$i
-    buildah bud --build-arg CODE_VERSION=$i -t peony-$i .
-    podman save > peony-$VERSION.tar peony
+    buildah bud --layers --build-arg CODE_VERSION=$i -t peony-$i .
+    podman save > peony-$i-$VERSION.tar peony-$i
 done
 
 echo 'done.'

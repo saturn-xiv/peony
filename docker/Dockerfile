@@ -48,9 +48,12 @@ RUN passwd -l deploy
 RUN echo 'deploy ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/101-deploy
 
 USER deploy
-# https://github.com/ohmyzsh/ohmyzsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 RUN mkdir -p $HOME/downloads
+
+# https://github.com/ohmyzsh/ohmyzsh
+RUN git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
 # https://pip.pypa.io/en/stable/installing/
 RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py

@@ -182,16 +182,19 @@ impl Command {
         }
         22
     }
-    fn parse_ssh_key_file(inventory: &str, vars: &Vars) -> String {
+    fn parse_ssh_key_file(inventory: &str, vars: &Vars) -> Option<String> {
         if let Some(Value::String(v)) = vars.get("ssh.key-file") {
-            return v.clone();
+            return Some(v.clone());
         }
         let key = Path::new(inventory).join("id_rsa");
         if key.exists() {
-            key.display().to_string()
-        } else {
-            "~/.ssh/id_rsa".to_string()
+            return Some(key.display().to_string());
         }
+        let key = Path::new(inventory).join("id_ed25519");
+        if key.exists() {
+            return Some(key.display().to_string());
+        }
+        None
     }
     fn parse_ssh_user(vars: &Vars) -> String {
         if let Some(Value::String(v)) = vars.get("ssh.user") {
@@ -211,17 +214,17 @@ impl Command {
         let user = Self::parse_ssh_user(vars);
         let port = Self::parse_ssh_port(vars);
         let timeout = Self::parse_ssh_timeout(vars);
-        let key: String = Self::parse_ssh_key_file(inventory, vars);
+        let key = Self::parse_ssh_key_file(inventory, vars);
         let sh = match vars.get("ssh.shell") {
             Some(Value::String(v)) => v.clone(),
             _ => "bash".to_string(),
         };
 
         let ssh = format!(
-            "ssh -T -o ConnectTimeout={timeout} -o ConnectionAttempts=5 -o StrictHostKeyChecking=no -o PasswordAuthentication=no -p {port} -i {key}",
+            "ssh -T -o ConnectTimeout={timeout} -o ConnectionAttempts=5 -o StrictHostKeyChecking=no -o PasswordAuthentication=no -p {port} {key}",
             timeout = timeout,
             port = port,
-            key = key
+            key = key.as_deref().map_or("".to_string(), |x|format!("-i {}",x))
         );
         match self {
             Self::Upload { src, dest } => {
@@ -304,6 +307,11 @@ impl Command {
                 if host == Self::LOCALHOST {
                     shell(&host, ShellCommand::new(&sh).arg(script))?;
                 } else {
+                    let mut args = vec![];
+                    if let Some(key) = key.as_deref() {
+                        args.push("-i");
+                        args.push(key);
+                    }
                     shell(
                         &host,
                         ShellCommand::new("ssh")
@@ -318,8 +326,7 @@ impl Command {
                             .arg("PasswordAuthentication=no")
                             .arg("-p")
                             .arg(port.to_string())
-                            .arg("-i")
-                            .arg(key)
+                            .args(args)
                             .arg(format!("{}@{}", user, host))
                             .arg(format!("{} -s", sh))
                             .stdin(File::open(script)?),
