@@ -5,6 +5,7 @@ A total free education &amp; translation &amp; ops solution.
 ## Development
 
 ```bash
+sudo apt-get install crun podman buildsh
 sudo pacman -S podman buildah
 cargo install grpcio-compiler protobuf-codegen diesel_cli
 ```
