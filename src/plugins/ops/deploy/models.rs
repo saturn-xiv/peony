@@ -186,11 +186,13 @@ impl Command {
         if let Some(Value::String(v)) = vars.get("ssh.key-file") {
             return Some(v.clone());
         }
-        let key = Path::new(inventory).join("id_rsa");
+        // ssh-keygen -t ed25519 -C "your_email@example.com"
+        let key = Path::new(inventory).join("id_ed25519");
         if key.exists() {
             return Some(key.display().to_string());
         }
-        let key = Path::new(inventory).join("id_ed25519");
+        // ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+        let key = Path::new(inventory).join("id_rsa");
         if key.exists() {
             return Some(key.display().to_string());
         }
@@ -210,7 +212,7 @@ impl Command {
     }
     pub fn run(&self, inventory: &str, host: &str, vars: &Vars) -> Result<()> {
         debug!("host {} env: {:?}", host, vars);
-        let host = Self::parse_ssh_host(vars).unwrap_or_else(|| host.to_string());
+        let ip = Self::parse_ssh_host(vars).unwrap_or_else(|| host.to_string());
         let user = Self::parse_ssh_user(vars);
         let port = Self::parse_ssh_port(vars);
         let timeout = Self::parse_ssh_timeout(vars);
@@ -232,7 +234,7 @@ impl Command {
                 let dest = template_str(dest, vars)?;
                 if host == Self::LOCALHOST {
                     shell(
-                        &host,
+                        host,
                         ShellCommand::new("rsync")
                             .arg("-rlptD")
                             .arg("-v")
@@ -241,7 +243,7 @@ impl Command {
                     )?;
                 } else {
                     shell(
-                        &host,
+                        host,
                         ShellCommand::new("rsync")
                             .arg("-rlptD")
                             .arg("-zz")
@@ -252,7 +254,7 @@ impl Command {
                             .arg(format!(
                                 "{user}@{host}:{dest}",
                                 user = user,
-                                host = host,
+                                host = ip,
                                 dest = dest,
                             )),
                     )?;
@@ -274,7 +276,7 @@ impl Command {
                 };
                 if host == Self::LOCALHOST {
                     shell(
-                        &host,
+                        host,
                         ShellCommand::new("rsync")
                             .arg("-rlptD")
                             .arg("-v")
@@ -283,7 +285,7 @@ impl Command {
                     )?;
                 } else {
                     shell(
-                        &host,
+                        host,
                         ShellCommand::new("rsync")
                             .arg("-rlptD")
                             .arg("-zz")
@@ -294,7 +296,7 @@ impl Command {
                                 "{user}@{host}:{src}",
                                 src = src,
                                 user = user,
-                                host = host,
+                                host = ip,
                             ))
                             .arg(dest),
                     )?;
@@ -327,7 +329,7 @@ impl Command {
                             .arg("-p")
                             .arg(port.to_string())
                             .args(args)
-                            .arg(format!("{}@{}", user, host))
+                            .arg(format!("{}@{}", user, ip))
                             .arg(format!("{} -s", sh))
                             .stdin(File::open(script)?),
                     )?;
