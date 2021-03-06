@@ -52,8 +52,8 @@ USER deploy
 RUN mkdir -p $HOME/downloads
 
 # https://github.com/ohmyzsh/ohmyzsh
-RUN git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+RUN git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+RUN cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
 
 # https://pip.pypa.io/en/stable/installing/
 RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py

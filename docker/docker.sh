@@ -4,7 +4,7 @@ set -e
 
 export VERSION=$(date "+%4Y%m%d%H%M%S")
 
-buildah pull ubuntu:latest
+# buildah pull ubuntu:latest
 
 # https://wiki.ubuntu.com/Releases
 declare -a features=(

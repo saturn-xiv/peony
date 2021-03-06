@@ -3,7 +3,7 @@
 ## Usage
 
 ```bash
-docker run --rm -it --network host -v `pwd`:/workspace peony-CODE
+podman run --rm -it --userns=keep-id --user=$(id -ur):$(id -gr) --network host -v `pwd`:/workspace:z peony-CODE
 ```
 
 ## Os & Image
