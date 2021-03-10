@@ -90,8 +90,6 @@ RUN zsh -c "source $HOME/.cargo/env \
     && rustup target add armv7-unknown-linux-gnueabihf \
     && rustup target add armv7-unknown-linux-musleabihf"
 
-RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
-
 RUN sh -c "git clone https://github.com/microsoft/vcpkg $HOME/vcpkg"
 # RUN sh -c "source $HOME/.profile \
 #     && $HOME/vcpkg/bootstrap-vcpkg.sh"
@@ -117,6 +115,7 @@ RUN sh -c "git clone https://github.com/microsoft/vcpkg $HOME/vcpkg"
 # RUN zsh -c "source $HOME/.profile \
 #     && $HOME/peony/grpc.sh"
 
+RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 VOLUME /workspace
 WORKDIR /workspace
 

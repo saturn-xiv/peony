@@ -2,21 +2,22 @@
 
 A total free education &amp; translation &amp; ops solution.
 
-## Development
-
-```bash
-sudo apt-get install crun podman buildsh
-sudo pacman -S podman buildah
-cargo install grpcio-compiler protobuf-codegen diesel_cli
-```
-
 ## Usage
 
 ```bash
+# for ubuntu
+sudo apt-get install crun podman buildsh
+# for archlinux
+sudo pacman -S podman buildah
 cd docker
-buildah bud -t peony .
+# build docker images
+./docker.sh
 cd ..
-podman run --rm -it --network host -v `pwd`:/workspace peony
+# first run image CODE container NAME
+podman run --name NAME -it --userns=keep-id --user=$(id -ur):$(id -gr) --network host --events-backend=file -v $PWD:/workspace:z peony-CODE
+# run container NAME in the next times
+podman start -i -a NAME
+# build package
 > ./docker/deb.sh amd64 # or armhf
 ```
 
@@ -28,6 +29,7 @@ podman run --rm -it --network host -v `pwd`:/workspace peony
 - [Node Version Manager](https://github.com/nvm-sh/nvm)
 - [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
 - [Podman](https://www.redhat.com/sysadmin/podman-windows-wsl2)
+- [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [Visual Studio Code](https://code.visualstudio.com/Download)
 
