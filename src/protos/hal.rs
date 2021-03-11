@@ -10,6 +10,98 @@ use self::flatbuffers::EndianScalar;
     since = "2.0.0",
     note = "Use associated constants instead. This will no longer be generated in 2021."
 )]
+pub const ENUM_MIN_REQUEST: u8 = 0;
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
+pub const ENUM_MAX_REQUEST: u8 = 2;
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
+#[allow(non_camel_case_types)]
+pub const ENUM_VALUES_REQUEST: [Request; 3] = [Request::NONE, Request::tty, Request::gpio_get];
+
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
+#[repr(transparent)]
+pub struct Request(pub u8);
+#[allow(non_upper_case_globals)]
+impl Request {
+    pub const NONE: Self = Self(0);
+    pub const tty: Self = Self(1);
+    pub const gpio_get: Self = Self(2);
+
+    pub const ENUM_MIN: u8 = 0;
+    pub const ENUM_MAX: u8 = 2;
+    pub const ENUM_VALUES: &'static [Self] = &[Self::NONE, Self::tty, Self::gpio_get];
+    /// Returns the variant's name or "" if unknown.
+    pub fn variant_name(self) -> Option<&'static str> {
+        match self {
+            Self::NONE => Some("NONE"),
+            Self::tty => Some("tty"),
+            Self::gpio_get => Some("gpio_get"),
+            _ => None,
+        }
+    }
+}
+impl std::fmt::Debug for Request {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        if let Some(name) = self.variant_name() {
+            f.write_str(name)
+        } else {
+            f.write_fmt(format_args!("<UNKNOWN {:?}>", self.0))
+        }
+    }
+}
+impl<'a> flatbuffers::Follow<'a> for Request {
+    type Inner = Self;
+    #[inline]
+    fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
+        let b = flatbuffers::read_scalar_at::<u8>(buf, loc);
+        Self(b)
+    }
+}
+
+impl flatbuffers::Push for Request {
+    type Output = Request;
+    #[inline]
+    fn push(&self, dst: &mut [u8], _rest: &[u8]) {
+        flatbuffers::emplace_scalar::<u8>(dst, self.0);
+    }
+}
+
+impl flatbuffers::EndianScalar for Request {
+    #[inline]
+    fn to_little_endian(self) -> Self {
+        let b = u8::to_le(self.0);
+        Self(b)
+    }
+    #[inline]
+    fn from_little_endian(self) -> Self {
+        let b = u8::from_le(self.0);
+        Self(b)
+    }
+}
+
+impl<'a> flatbuffers::Verifiable for Request {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        u8::run_verifier(v, pos)
+    }
+}
+
+impl flatbuffers::SimpleToVerifyInSlice for Request {}
+pub struct RequestUnionTableOffset {}
+
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
 pub const ENUM_MIN_GPIO_PRESSED_MODE: u8 = 1;
 #[deprecated(
     since = "2.0.0",
@@ -217,21 +309,31 @@ impl<'a> TtyRequest<'a> {
     ) -> flatbuffers::WIPOffset<TtyRequest<'bldr>> {
         let mut builder = TtyRequestBuilder::new(_fbb);
         builder.add_delay(args.delay);
-        if let Some(x) = args.commands {
-            builder.add_commands(x);
+        if let Some(x) = args.messages {
+            builder.add_messages(x);
+        }
+        if let Some(x) = args.name {
+            builder.add_name(x);
         }
         builder.finish()
     }
 
-    pub const VT_COMMANDS: flatbuffers::VOffsetT = 4;
-    pub const VT_DELAY: flatbuffers::VOffsetT = 6;
+    pub const VT_NAME: flatbuffers::VOffsetT = 4;
+    pub const VT_MESSAGES: flatbuffers::VOffsetT = 6;
+    pub const VT_DELAY: flatbuffers::VOffsetT = 8;
 
     #[inline]
-    pub fn commands(&self) -> flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>> {
+    pub fn name(&self) -> &'a str {
+        self._tab
+            .get::<flatbuffers::ForwardsUOffset<&str>>(TtyRequest::VT_NAME, None)
+            .unwrap()
+    }
+    #[inline]
+    pub fn messages(&self) -> flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>> {
         self._tab
             .get::<flatbuffers::ForwardsUOffset<
                 flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>,
-            >>(TtyRequest::VT_COMMANDS, None)
+            >>(TtyRequest::VT_MESSAGES, None)
             .unwrap()
     }
     #[inline]
@@ -250,16 +352,18 @@ impl flatbuffers::Verifiable for TtyRequest<'_> {
     ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
         use self::flatbuffers::Verifiable;
         v.visit_table(pos)?
+            .visit_field::<flatbuffers::ForwardsUOffset<&str>>(&"name", Self::VT_NAME, true)?
             .visit_field::<flatbuffers::ForwardsUOffset<
                 flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>,
-            >>(&"commands", Self::VT_COMMANDS, true)?
+            >>(&"messages", Self::VT_MESSAGES, true)?
             .visit_field::<u64>(&"delay", Self::VT_DELAY, false)?
             .finish();
         Ok(())
     }
 }
 pub struct TtyRequestArgs<'a> {
-    pub commands: Option<
+    pub name: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub messages: Option<
         flatbuffers::WIPOffset<flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>>,
     >,
     pub delay: u64,
@@ -268,7 +372,8 @@ impl<'a> Default for TtyRequestArgs<'a> {
     #[inline]
     fn default() -> Self {
         TtyRequestArgs {
-            commands: None, // required field
+            name: None,     // required field
+            messages: None, // required field
             delay: 300,
         }
     }
@@ -279,14 +384,19 @@ pub struct TtyRequestBuilder<'a: 'b, 'b> {
 }
 impl<'a: 'b, 'b> TtyRequestBuilder<'a, 'b> {
     #[inline]
-    pub fn add_commands(
+    pub fn add_name(&mut self, name: flatbuffers::WIPOffset<&'b str>) {
+        self.fbb_
+            .push_slot_always::<flatbuffers::WIPOffset<_>>(TtyRequest::VT_NAME, name);
+    }
+    #[inline]
+    pub fn add_messages(
         &mut self,
-        commands: flatbuffers::WIPOffset<
+        messages: flatbuffers::WIPOffset<
             flatbuffers::Vector<'b, flatbuffers::ForwardsUOffset<&'b str>>,
         >,
     ) {
         self.fbb_
-            .push_slot_always::<flatbuffers::WIPOffset<_>>(TtyRequest::VT_COMMANDS, commands);
+            .push_slot_always::<flatbuffers::WIPOffset<_>>(TtyRequest::VT_MESSAGES, messages);
     }
     #[inline]
     pub fn add_delay(&mut self, delay: u64) {
@@ -303,7 +413,8 @@ impl<'a: 'b, 'b> TtyRequestBuilder<'a, 'b> {
     #[inline]
     pub fn finish(self) -> flatbuffers::WIPOffset<TtyRequest<'a>> {
         let o = self.fbb_.end_table(self.start_);
-        self.fbb_.required(o, TtyRequest::VT_COMMANDS, "commands");
+        self.fbb_.required(o, TtyRequest::VT_NAME, "name");
+        self.fbb_.required(o, TtyRequest::VT_MESSAGES, "messages");
         flatbuffers::WIPOffset::new(o.value())
     }
 }
@@ -311,7 +422,8 @@ impl<'a: 'b, 'b> TtyRequestBuilder<'a, 'b> {
 impl std::fmt::Debug for TtyRequest<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut ds = f.debug_struct("TtyRequest");
-        ds.field("commands", &self.commands());
+        ds.field("name", &self.name());
+        ds.field("messages", &self.messages());
         ds.field("delay", &self.delay());
         ds.finish()
     }
@@ -344,28 +456,28 @@ impl<'a> TtyResponse<'a> {
         args: &'args TtyResponseArgs<'args>,
     ) -> flatbuffers::WIPOffset<TtyResponse<'bldr>> {
         let mut builder = TtyResponseBuilder::new(_fbb);
-        builder.add_delay(args.delay);
-        if let Some(x) = args.commands {
-            builder.add_commands(x);
+        if let Some(x) = args.payload {
+            builder.add_payload(x);
+        }
+        if let Some(x) = args.name {
+            builder.add_name(x);
         }
         builder.finish()
     }
 
-    pub const VT_COMMANDS: flatbuffers::VOffsetT = 4;
-    pub const VT_DELAY: flatbuffers::VOffsetT = 6;
+    pub const VT_NAME: flatbuffers::VOffsetT = 4;
+    pub const VT_PAYLOAD: flatbuffers::VOffsetT = 6;
 
     #[inline]
-    pub fn commands(&self) -> flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>> {
+    pub fn name(&self) -> &'a str {
         self._tab
-            .get::<flatbuffers::ForwardsUOffset<
-                flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>,
-            >>(TtyResponse::VT_COMMANDS, None)
+            .get::<flatbuffers::ForwardsUOffset<&str>>(TtyResponse::VT_NAME, None)
             .unwrap()
     }
     #[inline]
-    pub fn delay(&self) -> u64 {
+    pub fn payload(&self) -> &'a str {
         self._tab
-            .get::<u64>(TtyResponse::VT_DELAY, Some(300))
+            .get::<flatbuffers::ForwardsUOffset<&str>>(TtyResponse::VT_PAYLOAD, None)
             .unwrap()
     }
 }
@@ -378,26 +490,22 @@ impl flatbuffers::Verifiable for TtyResponse<'_> {
     ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
         use self::flatbuffers::Verifiable;
         v.visit_table(pos)?
-            .visit_field::<flatbuffers::ForwardsUOffset<
-                flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>,
-            >>(&"commands", Self::VT_COMMANDS, true)?
-            .visit_field::<u64>(&"delay", Self::VT_DELAY, false)?
+            .visit_field::<flatbuffers::ForwardsUOffset<&str>>(&"name", Self::VT_NAME, true)?
+            .visit_field::<flatbuffers::ForwardsUOffset<&str>>(&"payload", Self::VT_PAYLOAD, true)?
             .finish();
         Ok(())
     }
 }
 pub struct TtyResponseArgs<'a> {
-    pub commands: Option<
-        flatbuffers::WIPOffset<flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>>,
-    >,
-    pub delay: u64,
+    pub name: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub payload: Option<flatbuffers::WIPOffset<&'a str>>,
 }
 impl<'a> Default for TtyResponseArgs<'a> {
     #[inline]
     fn default() -> Self {
         TtyResponseArgs {
-            commands: None, // required field
-            delay: 300,
+            name: None,    // required field
+            payload: None, // required field
         }
     }
 }
@@ -407,19 +515,14 @@ pub struct TtyResponseBuilder<'a: 'b, 'b> {
 }
 impl<'a: 'b, 'b> TtyResponseBuilder<'a, 'b> {
     #[inline]
-    pub fn add_commands(
-        &mut self,
-        commands: flatbuffers::WIPOffset<
-            flatbuffers::Vector<'b, flatbuffers::ForwardsUOffset<&'b str>>,
-        >,
-    ) {
+    pub fn add_name(&mut self, name: flatbuffers::WIPOffset<&'b str>) {
         self.fbb_
-            .push_slot_always::<flatbuffers::WIPOffset<_>>(TtyResponse::VT_COMMANDS, commands);
+            .push_slot_always::<flatbuffers::WIPOffset<_>>(TtyResponse::VT_NAME, name);
     }
     #[inline]
-    pub fn add_delay(&mut self, delay: u64) {
+    pub fn add_payload(&mut self, payload: flatbuffers::WIPOffset<&'b str>) {
         self.fbb_
-            .push_slot::<u64>(TtyResponse::VT_DELAY, delay, 300);
+            .push_slot_always::<flatbuffers::WIPOffset<_>>(TtyResponse::VT_PAYLOAD, payload);
     }
     #[inline]
     pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> TtyResponseBuilder<'a, 'b> {
@@ -432,7 +535,8 @@ impl<'a: 'b, 'b> TtyResponseBuilder<'a, 'b> {
     #[inline]
     pub fn finish(self) -> flatbuffers::WIPOffset<TtyResponse<'a>> {
         let o = self.fbb_.end_table(self.start_);
-        self.fbb_.required(o, TtyResponse::VT_COMMANDS, "commands");
+        self.fbb_.required(o, TtyResponse::VT_NAME, "name");
+        self.fbb_.required(o, TtyResponse::VT_PAYLOAD, "payload");
         flatbuffers::WIPOffset::new(o.value())
     }
 }
@@ -440,8 +544,8 @@ impl<'a: 'b, 'b> TtyResponseBuilder<'a, 'b> {
 impl std::fmt::Debug for TtyResponse<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut ds = f.debug_struct("TtyResponse");
-        ds.field("commands", &self.commands());
-        ds.field("delay", &self.delay());
+        ds.field("name", &self.name());
+        ds.field("payload", &self.payload());
         ds.finish()
     }
 }

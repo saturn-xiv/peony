@@ -1,11 +1,27 @@
+union Request{
+    tty:TtyRequest,
+    gpio_pin_get: GpioGetRequest,
+    gpio_pin_set: GpioStatus,
+    audio_play: AudioPlaylist,
+    audio_stop: Au
+}
+
+union Response{
+    tty:TtyResponse,
+    gpio_pin_get: GpioStatus,
+    gpio_button_report: GpioButtonStatus,
+    
+}
+
 table TtyRequest {
-    commands: [string] (required);
+    name: string (required);
+    messages: [string] (required);
     delay: ulong = 300;
 }
 
 table TtyResponse {
-    commands: [string] (required);
-    delay: ulong = 300;
+    name: string (required);
+    payload: string (required);
 }
 
 table GpioStatus {
@@ -35,8 +51,10 @@ table AudioFile {
     payload: [byte] (required);
 }
 
-table AudioPlayList{
+table AudioPlaylist{
     files: [AudioFile] (required);
     loop: ulong = 0;
     delay: ulong = 0;
 }
+
+ 
