@@ -29,7 +29,8 @@ podman start -i -a NAME
 - [Node Version Manager](https://github.com/nvm-sh/nvm)
 - [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
 - [Podman](https://www.redhat.com/sysadmin/podman-windows-wsl2)
-- [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- [WSL2 install](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- [WSL2 config](https://docs.microsoft.com/en-us/windows/wsl/wsl-config)
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [Visual Studio Code](https://code.visualstudio.com/Download)
 

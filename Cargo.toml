@@ -28,6 +28,7 @@ yaml-rust = "0.4"
 actix-cors = "0.5"
 actix-files = "0.5"
 toml = "0.5"
+imgui = "0.7"
 md5 = "0.7"
 robots_txt = "0.7"
 env_logger = "0.8"
@@ -39,7 +40,7 @@ xml-rs = "0.8"
 paho-mqtt = "0.9"
 actix = "0.10"
 askama = "0.10"
-lettre = "0.10.0-alpha.5"
+lettre = "0.10.0-beta.2"
 validator = "0.12"
 validator_derive = "0.12"
 base64 = "0.13"
@@ -99,7 +100,7 @@ features = ["r2d2"]
 
 [dependencies.sdl2]
 version = "0.34"
-features = ["bundled"]
+features = ["bundled", "mixer", "image", "ttf"]
 
 [dependencies.diesel]
 version = "1"
@@ -120,3 +121,4 @@ features = ["script_helper"]
 [dependencies.openssl]
 version = "*"
 features = ["vendored"]
+

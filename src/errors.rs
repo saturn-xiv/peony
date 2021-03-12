@@ -535,6 +535,12 @@ impl From<zmq::Error> for Error {
     }
 }
 
+impl From<String> for Error {
+    fn from(err: String) -> Self {
+        Self::Http(StatusCode::INTERNAL_SERVER_ERROR, Some(err))
+    }
+}
+
 impl From<Error> for std::io::Error {
     fn from(err: Error) -> Self {
         std::io::Error::new(std::io::ErrorKind::Interrupted, err.to_string())
