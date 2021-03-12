@@ -35,6 +35,7 @@ if [ $1 = "armhf" ]
 then
     sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
         libssl-dev:armhf libzmq3-dev:armhf libudev-dev:armhf \
+        libsdl2-dev:armhf libsdl2-image-dev:armhf libsdl2-ttf-dev:armhf libsdl2-mixer-dev:armhf libsdl2-gfx-dev:armhf \
         libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
     # export PKG_CONFIG_PATH=$HOME/vcpkg/installed/arm-linux/lib/pkgconfig
 
@@ -61,6 +62,7 @@ elif [ $1 = "amd64" ]
 then
     sudo apt -y install libssl-dev \
         libzmq3-dev libudev-dev \
+        libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev libsdl2-gfx-dev \
         libpq-dev libmysqlclient-dev libsqlite3-dev
     # export PKG_CONFIG_PATH=$HOME/vcpkg/installed/x64-linux/lib/pkgconfig
     

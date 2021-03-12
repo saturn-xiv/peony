@@ -28,7 +28,6 @@ yaml-rust = "0.4"
 actix-cors = "0.5"
 actix-files = "0.5"
 toml = "0.5"
-imgui = "0.7"
 md5 = "0.7"
 robots_txt = "0.7"
 env_logger = "0.8"
@@ -100,7 +99,7 @@ features = ["r2d2"]
 
 [dependencies.sdl2]
 version = "0.34"
-features = ["bundled", "mixer", "image", "ttf"]
+features = ["bundled", "mixer", "image", "ttf", "gfx"]
 
 [dependencies.diesel]
 version = "1"
