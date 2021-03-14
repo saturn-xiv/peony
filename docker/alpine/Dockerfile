@@ -3,10 +3,11 @@ LABEL maintainer="Jeremy Zheng"
 
 RUN apk update
 RUN apk upgrade
-RUN apk add alpine-sdk build-base \
-    sudo zsh vim zip unzip curl wget pwgen \
-    nodejs npm yarn \
-    openssl-dev
+RUN apk add alpine-sdk build-base linux-headers \
+    sudo git zsh vim zip unzip curl wget pwgen cmake rsync openssh-client tzdata \
+    nodejs npm yarn perl \
+    openssl-dev \
+    mariadb-dev postgresql-dev sqlite-dev
 
 # deploy user
 RUN adduser -s /bin/bash -D deploy
@@ -27,7 +28,6 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 # RUN sh -c ". $HOME/.nvm/nvm.sh \
 #     && npm install -g yarn"
 
-# RUN echo 'RUSTFLAGS="-C target-feature=+crt-static"' >> $HOME/.profile
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 VOLUME /workspace
 WORKDIR /workspace
