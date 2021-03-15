@@ -6,8 +6,18 @@ export VERSION=$(date "+%4Y%m%d%H%M%S")
 export CODE=peony-alpine
 
 buildah pull alpine:latest
-buildah bud --layers -t $CODE-amd64 .
-podman save -o peony-$i-$VERSION.tar $CODE-amd64
+
+declare -a features=(
+    "amd64"
+    # "armhf"
+)
+
+for i in "${features[@]}"
+do
+    buildah bud --layers -t $CODE-$i $i.dockerfile
+    podman save -o $CODE-$i-$VERSION.tar $CODE-$i
+done
+
 
 echo 'done.'
 exit 0

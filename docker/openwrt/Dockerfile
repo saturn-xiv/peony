@@ -38,19 +38,20 @@ RUN cd $HOME/openwrt \
     && ./scripts/feeds install -a
 
 # https://www.rust-lang.org/tools/install
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-RUN zsh -c "source $HOME/.cargo/env \
-    && rustup target add x86_64-unknown-linux-musl \
-    && rustup target add armv7-unknown-linux-gnueabihf \
-    && rustup target add armv7-unknown-linux-musleabihf"
+# RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# RUN zsh -c "source $HOME/.cargo/env \
+#     && rustup target add x86_64-unknown-linux-musl \
+#     && rustup target add armv7-unknown-linux-gnueabihf \
+#     && rustup target add armv7-unknown-linux-musleabihf"
 
 # https://github.com/nvm-sh/nvm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | sh
-RUN sh -c ". $HOME/.profile \
-    && nvm install node"
-RUN sh -c ". $HOME/.profile \
-    && npm i yarn -g"
+# RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | sh
+# RUN sh -c ". $HOME/.profile \
+#     && nvm install node"
+# RUN sh -c ". $HOME/.profile \
+#     && npm i yarn -g"
 
+RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 VOLUME /workspace
 WORKDIR /workspace
 

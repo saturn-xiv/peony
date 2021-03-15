@@ -7,7 +7,7 @@ export CODE=peony-openwrt
 
 buildah pull ubuntu:latest
 buildah bud --layers -t $CODE .
-podman save -o peony-$i-$VERSION.tar $CODE
+podman save -o $CODE-$VERSION.tar $CODE
 
 echo 'done.'
 exit 0
