@@ -3,7 +3,7 @@ LABEL maintainer="Jeremy Zheng"
 
 RUN apk update
 RUN apk upgrade
-RUN apk add alpine-sdk build-base linux-headers \
+RUN apk add busybox-extras alpine-sdk build-base linux-headers \
     sudo git zsh vim zip unzip curl wget pwgen cmake rsync openssh-client tzdata \
     nodejs npm yarn perl \
     openssl-dev \
