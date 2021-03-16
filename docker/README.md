@@ -1,5 +1,14 @@
 # Docker
 
+- Usage
+
+```bash
+# first time
+podman run --name samoyed -it --userns=keep-id --user=$(id -ur):$(id -gr) --network host --events-backend=file -v $PWD:/workspace:z CODE
+# next time
+podman start -i -a --events-backend=file CODE
+```
+
 ## Os & Image
   
 | Board     |  Model   |                                                              Install OS | Default User  | Docker Code |

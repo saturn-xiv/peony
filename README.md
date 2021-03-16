@@ -9,14 +9,12 @@ A total free education &amp; translation &amp; ops solution.
 sudo apt-get install crun podman buildsh
 # for archlinux
 sudo pacman -S podman buildah
-cd docker
+cd docker/ubuntu
 # build docker images
-./docker.sh
+./build.sh
 cd ..
 # first run image CODE container NAME
 podman run --name NAME -it --userns=keep-id --user=$(id -ur):$(id -gr) --network host --events-backend=file -v $PWD:/workspace:z peony-CODE
-# run container NAME in the next times
-podman start -i -a NAME
 # build package
 > ./docker/deb.sh amd64 # or armhf
 ```
@@ -33,6 +31,7 @@ podman start -i -a NAME
 - [WSL2 config](https://docs.microsoft.com/en-us/windows/wsl/wsl-config)
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [Visual Studio Code](https://code.visualstudio.com/Download)
+- [Ansible](https://docs.ansible.com/ansible/latest/index.html)
 
 ### Background
 
