@@ -22,7 +22,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN mkdir $HOME/downloads
 RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py
 RUN python3 $HOME/downloads/get-pip.py --user
-RUN python3 -m pip install --user ansible paramiko
+RUN source $HOME/.profile && python3 -m pip install --user ansible paramiko
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
