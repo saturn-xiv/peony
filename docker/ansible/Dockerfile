@@ -5,7 +5,7 @@ RUN apk update
 RUN apk upgrade
 RUN apk add busybox-extras build-base \
     python3 python3-dev libffi-dev openssl-dev \
-    sudo curl git zsh pwgen openssl pwgen rsync openssh-client
+    sudo curl git zsh pwgen openssl pwgen rsync openssh-client tree
 
 # deploy user
 RUN adduser -s /bin/bash -D deploy

@@ -4,7 +4,7 @@ LABEL maintainer="Jeremy Zheng"
 RUN apk update
 RUN apk upgrade
 RUN apk add busybox-extras alpine-sdk build-base linux-headers \
-    sudo git zsh vim zip unzip curl wget pwgen cmake rsync openssh-client tzdata \
+    sudo git zsh vim zip unzip curl wget pwgen cmake rsync openssh-client tzdata tree \
     nodejs npm yarn perl \
     openssl-dev \
     mariadb-dev postgresql-dev sqlite-dev

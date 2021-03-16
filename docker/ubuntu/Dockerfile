@@ -17,7 +17,7 @@ RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install zsh git locales rsync openssh-client \
-    vim sudo tzdata pwgen curl zip unzip wget yasm \
+    vim sudo tzdata pwgen curl zip unzip wget yasm tree \
     meson nasm ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
     clang llvm bison flex \

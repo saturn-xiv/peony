@@ -4,7 +4,7 @@ LABEL maintainer="Jeremy Zheng"
 RUN apk update
 RUN apk upgrade
 RUN apk add busybox-extras \
-    git sudo zsh vim zip unzip curl wget pwgen rsync openssh-client tzdata \
+    git sudo zsh vim zip unzip curl wget pwgen rsync openssh-client tzdata tree \
     screen tmux ttf-dejavu \
     nodejs npm yarn
 

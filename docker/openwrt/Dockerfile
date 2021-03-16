@@ -12,7 +12,7 @@ RUN apt -y install build-essential ccache ecj fastjar file g++ gawk \
     libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
     python3-distutils python3-setuptools rsync subversion swig time \
     xsltproc zlib1g-dev 
-RUN apt -y install sudo vim locales zsh curl cmake
+RUN apt -y install sudo vim locales zsh curl cmake tree
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 RUN locale-gen
