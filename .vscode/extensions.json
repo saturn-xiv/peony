@@ -1,6 +1,7 @@
 {
     "recommendations": [
         // "ms-vscode.cpptools-extension-pack",
+        "vscoss.vscode-ansible",
         "ms-vscode-remote.remote-ssh",
         "ms-azuretools.vscode-docker",
         "vscode-icons-team.vscode-icons",

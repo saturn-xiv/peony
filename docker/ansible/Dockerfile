@@ -26,6 +26,8 @@ RUN source $HOME/.profile && python3 -m pip install --user ansible paramiko
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
+RUN echo 'export ANSIBLE_HOST_KEY_CHECKING=False' >> $HOME/.profile
+RUN echo 'export ANSIBLE_LOG_PATH=$HOME/logs' >> $HOME/.profile
 
 VOLUME /workspace
 WORKDIR /workspace

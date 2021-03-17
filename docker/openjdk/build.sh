@@ -5,9 +5,9 @@ set -e
 export VERSION=$(date "+%4Y%m%d%H%M%S")
 export CODE=peony-jdk
 
-buildah pull alpine:latest
+buildah pull ubuntu:latest
 
-buildah bud --layers -t $CODE .
+buildah bud --layers -t $CODE ubuntu.dockerfile
 podman save -o $CODE-$VERSION.tar $CODE
 
 echo 'done.'

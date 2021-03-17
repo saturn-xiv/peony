@@ -10,7 +10,7 @@ export VERSION=$(date "+%4Y%m%d%H%M%S")
 declare -a features=(
     "focal"
     "bionic"
-    "xenial"
+    # "xenial"
 )
 
 for i in "${features[@]}"

@@ -5,14 +5,15 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update
 RUN apt -y install apt-transport-https software-properties-common curl gnupg
-# https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
+
 # https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
 RUN add-apt-repository -y ppa:deadsnakes/ppa
+
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install zsh git locales rsync openssh-client \
-    vim sudo tzdata pwgen curl zip unzip wget yasm \
+    vim sudo tzdata pwgen curl zip unzip wget yasm tree \
+    telnet net-tools iputils-arping iputils-ping dnsutils \
     meson nasm ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
     clang llvm bison flex \
@@ -75,7 +76,7 @@ RUN zsh -c "source $HOME/.zshrc \
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN echo 'export LC_ALL=zh_CN.UTF-8' >> $HOME/.zshrc
 RUN echo 'export LANG=zh_CN.UTF-8' >> $HOME/.zshrc
-RUN echo 'export EDITOR=vim' >> $HOME/.zshrc
+
 VOLUME /workspace
 WORKDIR /workspace
 
