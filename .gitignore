@@ -9,6 +9,7 @@
 
 # testing
 /config.toml
+/hal.toml
 
 # production
 /target/

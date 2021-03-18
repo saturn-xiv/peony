@@ -2,6 +2,26 @@
 
 A total free education &amp; translation &amp; ops solution.
 
+## Development
+
+```bash
+# https://github.com/kbknapp/cargo-outdated
+cargo install --locked cargo-outdated
+cargo outdated -R
+
+# https://diesel.rs/guides/getting-started/
+cargo install diesel_cli
+
+# https://pip.pypa.io/en/stable/installing/
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py --user
+
+# https://pypi.org/project/autopep8/
+pip install --user autopep8
+
+pip install pyzmq --user
+```
+
 ## Usage
 
 ```bash
@@ -36,6 +56,7 @@ podman run --name NAME -it --userns=keep-id --user=$(id -ur):$(id -gr) --network
 ### Background
 
 - [FlatBuffers](https://google.github.io/flatbuffers/flatbuffers_support.html)
+- [ØMQ](https://zguide.zeromq.org/)
 
 - [PostgreSQL](https://www.postgresql.org/docs/current/)
 - [Redis](https://redis.io/commands)
