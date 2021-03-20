@@ -1,0 +1,16 @@
+{
+    "files.autoSave": "onFocusChange",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Atom One Dark",
+    "window.zoomLevel": 2,
+    "editor.formatOnSave": true,
+    "editor.fontFamily": "source code pro",
+    "editor.mouseWheelZoom": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "python.pythonPath": "/usr/bin/python3",
+    "cmake.configureSettings": {
+        "CMAKE_TOOLCHAIN_FILE": "$HOME/local/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    }
+}
