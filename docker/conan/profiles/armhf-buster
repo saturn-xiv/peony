@@ -1,5 +1,5 @@
-toolchain=/usr/arm-linux-gnueabihf
-target_host=arm-linux-gnueabihf
+toolchain=/opt/toolchains/sysroot-glibc-linaro-2.25-2019.12-arm-linux-gnueabihf
+target_host=/opt/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf
 
 [settings]
 os=Linux
@@ -8,7 +8,7 @@ arch=armv7hf
 arch_build=x86_64
 compiler=gcc
 compiler.cppstd=17
-compiler.version=9
+compiler.version=7.5
 compiler.libcxx=libstdc++11
 build_type=Release
 
@@ -17,8 +17,8 @@ build_type=Release
 [build_requires]
 
 [env]
-#CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
-#CONAN_CMAKE_SYSROOT=$toolchain
+CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
+CONAN_CMAKE_SYSROOT=$toolchain
 CHOST=$target_host
 USE_DEV_URANDOM=1
 AR=$target_host-ar

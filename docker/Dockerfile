@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:latest
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -6,25 +6,14 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt update
 RUN apt -y install apt-transport-https software-properties-common curl gnupg
 
-# https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
-
-# https://docs.bazel.build/versions/master/install-ubuntu.html
-# RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/bazel.gpg
-# RUN echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
-
-# https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
-RUN add-apt-repository -y ppa:deadsnakes/ppa
-
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm tree \
     meson nasm ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
-    g++-10 clang-10 llvm bison flex \
-    python3.10 python3.10-distutils python3.10-dev
-
+    g++ clang llvm bison flex \
+    python3 python3-distutils python3-dev
 
 RUN apt update
 RUN apt -y autoremove
@@ -50,11 +39,12 @@ RUN cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
 
 # https://pip.pypa.io/en/stable/installing/
 RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py
-RUN python3.10 $HOME/downloads/get-pip.py --user
-RUN sh -c ". $HOME/.profile \
-    && pip install --user cmake \
-    && pip install --user conan \
-    && pip install --user ansible paramiko"
+RUN python3 $HOME/downloads/get-pip.py --user
+RUN sh -c ". $HOME/.profile && python3 -m pip install --user cmake"
+RUN sh -c ". $HOME/.profile && python3 -m pip install --user conan"
+RUN sh -c ". $HOME/.profile && python3 -m pip install --user ansible"
+RUN sh -c ". $HOME/.profile && python3 -m pip install --user paramiko"
+
 
 # https://github.com/nvm-sh/nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | sh
@@ -76,20 +66,23 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install maven \
     && sdk install gradle"
 
-COPY conan toolchains peony.cmake armhf.cmake /opt/
+COPY peony.cmake armhf-buster.cmake armhf-xenial.cmake clean.sh /opt/
+COPY conan /opt/conan
+# COPY toolchains /opt/toolchains
 
-RUN tar -xf /opt/toolchains/gcc-linaro-6.5.0-2018.12-x86_64_arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-RUN tar -xf /opt/toolchains/runtime-gcc-linaro-6.5.0-2018.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-RUN tar -xf /opt/toolchains/sysroot-glibc-linaro-2.23-2018.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+# RUN tar -xf /opt/toolchains/gcc-linaro-6.5.0-2018.12-x86_64_arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+# RUN tar -xf /opt/toolchains/runtime-gcc-linaro-6.5.0-2018.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+# RUN tar -xf /opt/toolchains/sysroot-glibc-linaro-2.23-2018.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
 
-RUN tar -xf /opt/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-RUN tar -xf /opt/toolchains/runtime-gcc-linaro-7.5.0-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-RUN tar -xf /opt/toolchains/sysroot-glibc-linaro-2.25-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+# RUN tar -xf /opt/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+# RUN tar -xf /opt/toolchains/runtime-gcc-linaro-7.5.0-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+# RUN tar -xf /opt/toolchains/sysroot-glibc-linaro-2.25-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
 
-RUN zsh -c "source $HOME/.profile \
-    && mkdir -p $HOME/amd64-bionic \
-    && cd $HOME/amd64-bionic \
-    && conan install /opt/conan --profile=/opt/conan/profiles/amd64-bionic --build=missing"
+# RUN sudo apt install -y libgl1-mesa-dev libglu1-mesa-dev
+# RUN zsh -c "source $HOME/.profile \
+#     && mkdir -p $HOME/amd64-bionic \
+#     && cd $HOME/amd64-bionic \
+#     && conan install /opt/conan --profile=/opt/conan/profiles/amd64-bionic --build=missing"
 
 # RUN zsh -c "source $HOME/.profile \
 #     && mkdir -p $HOME/armhf-buster \
@@ -102,7 +95,7 @@ RUN zsh -c "source $HOME/.profile \
 #     && conan install /opt/conan --profile=/opt/conan/profiles/armhf-xenial --build=missing"
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
-RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
+
 RUN echo 'export ANSIBLE_HOST_KEY_CHECKING=False' >> $HOME/.profile
 RUN echo 'alias peony="ANSIBLE_LOG_PATH=$HOME/$(date +%Y%m%d%H%M%S).log ansible-playbook"' >> $HOME/.profile
 

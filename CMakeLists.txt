@@ -5,7 +5,7 @@ include(FetchContent)
 
 project(peony VERSION 0.1.1)
 
-include(peony.cmake)
+include(/opt/peony.cmake)
 
 # FetchContent_Declare(gRPC
 #     GIT_REPOSITORY  "https://github.com/grpc/grpc.git"
