@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -22,7 +22,7 @@ RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm tree \
     meson nasm ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
-    g++-9 clang llvm bison flex \
+    g++-10 clang-10 llvm bison flex \
     python3.10 python3.10-distutils python3.10-dev
 
 
@@ -54,7 +54,7 @@ RUN python3.10 $HOME/downloads/get-pip.py --user
 RUN sh -c ". $HOME/.profile \
     && pip install --user cmake \
     && pip install --user conan \
-    && pip install --user ansible"
+    && pip install --user ansible paramiko"
 
 # https://github.com/nvm-sh/nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | sh
@@ -76,17 +76,36 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install maven \
     && sdk install gradle"
 
-# COPY conan /opt/conan
+COPY conan toolchains peony.cmake armhf.cmake /opt/
+
+RUN tar -xf /opt/toolchains/gcc-linaro-6.5.0-2018.12-x86_64_arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+RUN tar -xf /opt/toolchains/runtime-gcc-linaro-6.5.0-2018.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+RUN tar -xf /opt/toolchains/sysroot-glibc-linaro-2.23-2018.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+
+RUN tar -xf /opt/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+RUN tar -xf /opt/toolchains/runtime-gcc-linaro-7.5.0-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+RUN tar -xf /opt/toolchains/sysroot-glibc-linaro-2.25-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
+
+RUN zsh -c "source $HOME/.profile \
+    && mkdir -p $HOME/amd64-bionic \
+    && cd $HOME/amd64-bionic \
+    && conan install /opt/conan --profile=/opt/conan/profiles/amd64-bionic --build=missing"
+
 # RUN zsh -c "source $HOME/.profile \
-#     && mkdir -p $HOME/amd64 \
-#     && cd $HOME/amd64 \
-#     && conan install /opt/conan --profile=/opt/conan/profiles/focal/amd64 --build=missing"
+#     && mkdir -p $HOME/armhf-buster \
+#     && cd $HOME/armhf-buster \
+#     && conan install /opt/conan --profile=/opt/conan/profiles/armhf-buster --build=missing"
+
 # RUN zsh -c "source $HOME/.profile \
-#     && mkdir -p $HOME/armhf \
-#     && cd $HOME/armhf \
-#     && conan install /opt/conan --profile=/opt/conan/profiles/focal/armhf --build=missing" 
+#     && mkdir -p $HOME/armhf-xenial \
+#     && cd $HOME/armhf-xenial \
+#     && conan install /opt/conan --profile=/opt/conan/profiles/armhf-xenial --build=missing"
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
+RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
+RUN echo 'export ANSIBLE_HOST_KEY_CHECKING=False' >> $HOME/.profile
+RUN echo 'alias peony="ANSIBLE_LOG_PATH=$HOME/$(date +%Y%m%d%H%M%S).log ansible-playbook"' >> $HOME/.profile
+
 VOLUME /workspace
 WORKDIR /workspace
 
