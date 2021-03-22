@@ -198,6 +198,7 @@ class Theme {};
 namespace utils {
 std::string mac(const std::string &name);
 void watchdog();
+
 }  // namespace utils
 }  // namespace peony
 

@@ -83,10 +83,9 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install maven \
     && sdk install gradle"
 
-COPY gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz $HOME/downloads/
-RUN sudo tar -xf $HOME/downloads/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C /opt/toolchains
-
-COPY conan /opt/conan
+ADD packages /opt/packages
+RUN sudo tar -xf /opt/packages/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C /opt
+ADD conan /opt/conan
 RUN sh -c ". $HOME/.profile \
     && mkdir -p $HOME/build/amd64 \
     && cd $HOME/build/amd64 \
@@ -96,6 +95,8 @@ RUN sh -c ". $HOME/.profile \
     && cd $HOME/build/armhf \
     && conan install /opt/conan --build=missing --profile=/opt/conan/profiles/ubuntu/armhf"
 
+
+# ----------------------
 # RUN tar -xf /opt/packages/x-tools.tar.xz -C /opt/toolchains
 
 # BUILDROOT & CROSSTOOL-ng
@@ -109,7 +110,7 @@ RUN sh -c ". $HOME/.profile \
 #     && ./configure --prefix=$HOME/.local \
 #     && make \
 #     && make install"
-# COPY crosstool-ng /opt/crosstool-ng
+# ADD crosstool-ng /opt/crosstool-ng
 # RUN zsh -c "source $HOME/.zshrc \
 #     && mkdir -p $HOME/build/amd64 \
 #     && cd $HOME/build/amd64 \
@@ -120,7 +121,7 @@ RUN sh -c ". $HOME/.profile \
 #     && cd $HOME/build/armhf \
 #     && cp /opt/crosstool-ng/armhf .config \
 #     && ct-ng build"
-
+# -----------------
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 
