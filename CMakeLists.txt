@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 
-include(ExternalProject)
-include(FetchContent)
-
 project(peony VERSION 0.1.1)
-
 include(docker/conan/peony.cmake)
 
 # FetchContent_Declare(gRPC
@@ -34,6 +30,3 @@ include(docker/conan/peony.cmake)
 
 add_executable(peony src/main.cpp ${PEONY_SOURCES} ${PEONY_IMGUI_SOURCES})
 target_link_libraries(peony ${PEONY_THIRD_LIBRARIES})
-
-
-

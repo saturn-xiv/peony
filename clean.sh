@@ -10,11 +10,36 @@ then
     rm -r $WORKSPACE/build
 fi
 
-mkdir -p $WORKSPACE/build/amd64-xenial-debug
-cd $WORKSPACE/build/amd64-xenial-debug
-conan install $CONAN_HOME --build=missing --profile=$CONAN_HOME/profiles/xenial/amd64
-CC=gcc-9 CXX=g++-9 cmake $WORKSPACE
-make 
+# ---------------------------------------------------------
+
+# sudo apt install -y libgl1-mesa-dev libglu1-mesa-dev libxtst-dev
+# mkdir -p $WORKSPACE/build/amd64-xenial-debug
+# cd $WORKSPACE/build/amd64-xenial-debug
+# conan install $CONAN_HOME --build=missing --profile=$CONAN_HOME/profiles/xenial/amd64
+# CC=gcc-9 CXX=g++-9 cmake $WORKSPACE
+# make -j
+
+# ---------------------------------------------------------
+
+# sudo apt install -y libgl1-mesa-dev libglu1-mesa-dev libglew-dev libgl1-mesa-dev \
+#     libc6-dev:armhf libxi-dev:armhf libxtst-dev:armhf \
+#     libgl1-mesa-dev:armhf libglu1-mesa-dev:armhf libglfw3-dev:armhf libglew-dev:armhf libgl1-mesa-dev:armhf
+# mkdir -p $WORKSPACE/build/linaro-2020-debug
+# cd $WORKSPACE/build/linaro-2020-debug
+# PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig conan install $CONAN_HOME --build=missing --profile=$CONAN_HOME/profiles/linaro/2020
+# PKG_CONFIG_ALLOW_CROSS=1
+# PKG_CONFIG_DIR=
+# PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
+# export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR
+# -DPKG_CONFIG_ALLOW_CROSS=1 -DPKG_CONFIG_DIR="" -DPKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
+
+# sudo apt build-dep -y libgl1-mesa-dev:armhf libglu1-mesa-dev:armhf libxtst-dev:armhf
+# sudo apt install -y libgl1-mesa-dev:armhf libglu1-mesa-dev:armhf libxtst-dev:armhf
+mkdir -p $WORKSPACE/build/linaro-2020-debug
+cd $WORKSPACE/build/linaro-2020-debug
+PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig conan install $CONAN_HOME --build=missing --profile=$CONAN_HOME/profiles/linaro/2020
+cmake $WORKSPACE -DCMAKE_TOOLCHAIN_FILE=$CONAN_HOME/profiles/linaro/2020.cmake
+make -j
 
 
 # mkdir -p $WORKSPACE/build/amd64-bionic-release

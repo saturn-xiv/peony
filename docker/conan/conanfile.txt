@@ -3,9 +3,9 @@ boost/1.75.0
 openssl/1.1.1j
 
 imgui/1.81
+stb/20200203
 glfw/3.3.3
 glew/2.2.0
-stb/20200203
 
 #cpprestsdk/2.10.18
 #poco/1.10.1
