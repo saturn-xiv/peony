@@ -1,5 +1,5 @@
-#toolchain=/opt/toolchains/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf
-target_host=/opt/toolchains/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf
+#toolchain=/opt/toolchains/sysroot-glibc-linaro-2.23-2018.12-arm-linux-gnueabihf
+target_host=/opt/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf
 #target_host=/opt/x-tools/arm-peony-linux-gnueabi/bin/arm-peony-linux-gnueabi
 
 [settings]

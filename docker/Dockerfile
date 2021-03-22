@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -15,17 +15,11 @@ RUN add-apt-repository -y ppa:deadsnakes/ppa
 # https://wiki.ubuntu.com/ToolChain
 RUN dpkg --add-architecture armhf
 RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs) main restricted universe multiverse" > /etc/apt/sources.list
-# RUN echo "deb-src [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs) main restricted universe multiverse" > /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
-# RUN echo "deb-src [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
-# RUN echo "deb-src [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
 RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs) main restricted universe multiverse" >> /etc/apt/sources.list
-# RUN echo "deb-src [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs) main restricted universe multiverse" >> /etc/apt/sources.list
 RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
-# RUN echo "deb-src [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
 RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
-# RUN echo "deb-src [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
 
 
 RUN apt update
@@ -35,7 +29,7 @@ RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm tree \
     meson nasm ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
-    g++-9 clang llvm bison flex texinfo help2man libtool-bin \
+    g++-10 clang llvm bison flex texinfo help2man libtool-bin \
     crossbuild-essential-armhf g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
     telnet net-tools iputils-arping iputils-ping dnsutils \
     python${PYTHON_VERSION} python${PYTHON_VERSION}-distutils python${PYTHON_VERSION}-dev
@@ -89,28 +83,18 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install maven \
     && sdk install gradle"
 
-COPY toolchains /opt/packages
-RUN sudo mkdir /opt/toolchains
-RUN sudo chown deploy:deploy /opt/toolchains
-RUN tar -xf /opt/packages/gcc-linaro-6.5.0-2018.12-x86_64_arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-RUN tar -xf /opt/packages/runtime-gcc-linaro-6.5.0-2018.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-RUN tar -xf /opt/packages/sysroot-glibc-linaro-2.23-2018.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-
-RUN tar -xf /opt/packages/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-RUN tar -xf /opt/packages/runtime-gcc-linaro-7.5.0-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-RUN tar -xf /opt/packages/sysroot-glibc-linaro-2.25-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
-
-RUN tar -xf /opt/packages/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C /opt/toolchains
+COPY gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz $HOME/downloads/
+RUN sudo tar -xf $HOME/downloads/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C /opt/toolchains
 
 COPY conan /opt/conan
 RUN sh -c ". $HOME/.profile \
-    && mkdir -p $HOME/build/amd64-xenial \
-    && cd $HOME/build/amd64-xenial \
-    && conan install /opt/conan --build=missing --profile=/opt/conan/profiles/xenial/amd64"
+    && mkdir -p $HOME/build/amd64 \
+    && cd $HOME/build/amd64 \
+    && conan install /opt/conan --build=missing --profile=/opt/conan/profiles/ubuntu/amd64"
 RUN sh -c ". $HOME/.profile \
-    && mkdir -p $HOME/build/armhf-xenial \
-    && cd $HOME/build/armhf-xenial \
-    && conan install /opt/conan --build=missing --profile=/opt/conan/profiles/xenial/armhf"
+    && mkdir -p $HOME/build/armhf \
+    && cd $HOME/build/armhf \
+    && conan install /opt/conan --build=missing --profile=/opt/conan/profiles/ubuntu/armhf"
 
 # RUN tar -xf /opt/packages/x-tools.tar.xz -C /opt/toolchains
 
@@ -136,38 +120,6 @@ RUN sh -c ". $HOME/.profile \
 #     && cd $HOME/build/armhf \
 #     && cp /opt/crosstool-ng/armhf .config \
 #     && ct-ng build"
-
-# COPY build.sh /opt/
-# COPY conan /opt/conan
-# COPY cmake /opt/cmake
-
-
-# RUN sudo apt install -y libgl1-mesa-dev libglu1-mesa-dev \
-#     libgl1-mesa-dev:armhf libglu1-mesa-dev:armhf
-# RUN zsh -c "source $HOME/.profile \
-#     && mkdir -p $HOME/amd64-bionic \
-#     && cd $HOME/amd64-bionic \
-#     && conan install /opt/conan --profile=/opt/conan/profiles/amd64-bionic --build=missing"
-
-# RUN zsh -c "source $HOME/.profile \
-#     && mkdir -p $HOME/armhf-buster \
-#     && cd $HOME/armhf-buster \
-#     && conan install /opt/conan --profile=/opt/conan/profiles/armhf-buster --build=missing"
-
-# RUN zsh -c "source $HOME/.profile \
-#     && mkdir -p $HOME/armhf-xenial \
-#     && cd $HOME/armhf-xenial \
-#     && conan install /opt/conan --profile=/opt/conan/profiles/armhf-xenial --build=missing"
-
-
-
-
-
-
-
-
-
-
 
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
