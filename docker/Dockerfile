@@ -15,17 +15,17 @@ RUN add-apt-repository -y ppa:deadsnakes/ppa
 # https://wiki.ubuntu.com/ToolChain
 RUN dpkg --add-architecture armhf
 RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs) main restricted universe multiverse" > /etc/apt/sources.list
-RUN echo "deb-src [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs) main restricted universe multiverse" > /etc/apt/sources.list
+# RUN echo "deb-src [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs) main restricted universe multiverse" > /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
 RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs) main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs) main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs) main restricted universe multiverse" >> /etc/apt/sources.list
 RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
 RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
 
 
 RUN apt update
@@ -100,15 +100,17 @@ RUN tar -xf /opt/packages/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf.ta
 RUN tar -xf /opt/packages/runtime-gcc-linaro-7.5.0-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
 RUN tar -xf /opt/packages/sysroot-glibc-linaro-2.25-2019.12-arm-linux-gnueabihf.tar.xz -C /opt/toolchains
 
+RUN tar -xf /opt/packages/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C /opt/toolchains
+
 COPY conan /opt/conan
 RUN sh -c ". $HOME/.profile \
     && mkdir -p $HOME/build/amd64-xenial \
     && cd $HOME/build/amd64-xenial \
     && conan install /opt/conan --build=missing --profile=/opt/conan/profiles/xenial/amd64"
 RUN sh -c ". $HOME/.profile \
-    && mkdir -p $HOME/build/linaro-2020 \
-    && cd $HOME/build/linaro-2020 \
-    && conan install /opt/conan --build=missing --profile=/opt/conan/profiles/linaro/2020"
+    && mkdir -p $HOME/build/armhf-xenial \
+    && cd $HOME/build/armhf-xenial \
+    && conan install /opt/conan --build=missing --profile=/opt/conan/profiles/xenial/armhf"
 
 # RUN tar -xf /opt/packages/x-tools.tar.xz -C /opt/toolchains
 

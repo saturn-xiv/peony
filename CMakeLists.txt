@@ -28,5 +28,7 @@ include(docker/conan/peony.cmake)
 
 # FetchContent_MakeAvailable(mailio)
 
-add_executable(peony src/main.cpp ${PEONY_SOURCES} ${PEONY_IMGUI_SOURCES})
+add_executable(peony src/main.cpp ${PEONY_SOURCES})
 target_link_libraries(peony ${PEONY_THIRD_LIBRARIES})
+set_target_properties(peony PROPERTIES LINK_FLAGS_RELEASE -s)
+SET_TARGET_PROPERTIES(peony PROPERTIES LINK_SEARCH_END_STATIC 1)

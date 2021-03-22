@@ -51,12 +51,6 @@
 #include <pqxx/pqxx>
 #include <zmq.hpp>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
-
 // #include <mailio/imap.hpp>
 // #include <mailio/message.hpp>
 // #include <mailio/mime.hpp>
@@ -204,8 +198,6 @@ class Theme {};
 namespace utils {
 std::string mac(const std::string &name);
 void watchdog();
-bool load_texture_from_file(const char *filename, GLuint *out_texture,
-                            int *out_width, int *out_height);
 }  // namespace utils
 }  // namespace peony
 

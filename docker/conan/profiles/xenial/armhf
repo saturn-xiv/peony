@@ -1,5 +1,6 @@
-#toolchain=
-target_host=/opt/toolchains/x-tools/arm-peony-linux-gnueabi/bin/arm-peony-linux-gnueabi
+#toolchain=/opt/toolchains/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf
+target_host=/opt/toolchains/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf
+#target_host=/opt/x-tools/arm-peony-linux-gnueabi/bin/arm-peony-linux-gnueabi
 
 [settings]
 os=Linux
