@@ -1,6 +1,6 @@
 #toolchain=/opt/toolchains/sysroot-glibc-linaro-2.23-2018.12-arm-linux-gnueabihf
-target_host=/opt/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf
-#target_host=/opt/x-tools/arm-peony-linux-gnueabi/bin/arm-peony-linux-gnueabi
+#target_host=/opt/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf
+target_host=arm-linux-gnueabihf
 
 [settings]
 os=Linux
@@ -9,7 +9,7 @@ arch=armv7hf
 arch_build=x86_64
 compiler=gcc
 compiler.cppstd=17
-compiler.version=10
+compiler.version=9
 compiler.libcxx=libstdc++11
 build_type=Release
 

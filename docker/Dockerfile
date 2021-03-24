@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:latest
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -29,7 +29,7 @@ RUN apt -y install zsh git locales rsync openssh-client \
     vim sudo tzdata pwgen curl zip unzip wget yasm tree \
     meson nasm ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
-    g++-10 clang llvm bison flex texinfo help2man libtool-bin \
+    clang llvm bison flex texinfo help2man libtool-bin \
     crossbuild-essential-armhf g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
     telnet net-tools iputils-arping iputils-ping dnsutils \
     python${PYTHON_VERSION} python${PYTHON_VERSION}-distutils python${PYTHON_VERSION}-dev
@@ -83,8 +83,8 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install maven \
     && sdk install gradle"
 
-ADD packages /opt/packages
-RUN sudo tar -xf /opt/packages/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C /opt
+# ADD packages /opt/packages
+# RUN sudo tar -xf /opt/packages/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C /opt
 ADD conan /opt/conan
 RUN sh -c ". $HOME/.profile \
     && mkdir -p $HOME/build/amd64 \

@@ -1,8 +1,8 @@
 SET(CMAKE_SYSTEM_NAME Linux)
 SET(CMAKE_SYSTEM_PROCESSOR arm)
 
-SET(CROSSTOOL_PREFIX /opt/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf)
-# SET(CROSSTOOL_PREFIX /opt/x-tools/arm-peony-linux-gnueabi/bin/arm-peony-linux-gnueabi)
+# SET(CROSSTOOL_PREFIX /opt/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf)
+SET(CROSSTOOL_PREFIX arm-linux-gnueabihf)
 
 SET(CMAKE_C_COMPILER   ${CROSSTOOL_PREFIX}-gcc)
 SET(CMAKE_CXX_COMPILER ${CROSSTOOL_PREFIX}-g++)

@@ -13,7 +13,7 @@ fi
 mkdir -p $WORKSPACE/build/amd64-release
 cd $WORKSPACE/build/amd64-release
 conan install $CONAN_HOME --build=missing --profile=$CONAN_HOME/profiles/ubuntu/amd64
-CC=gcc-10 CXX=g++-10 cmake $WORKSPACE -DCMAKE_BUILD_TYPE=Release
+cmake $WORKSPACE -DCMAKE_BUILD_TYPE=Release
 make -j
 
 mkdir -p $WORKSPACE/build/armhf-release
