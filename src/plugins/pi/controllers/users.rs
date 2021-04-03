@@ -6,7 +6,7 @@ use redis_::{Commands, Connection as Db};
 use validator::Validate;
 
 use super::super::super::super::{
-    cache::{redis::Pool as DbPool, KV},
+    cache::{redis::Pool as DbPool, Kv},
     errors::{Error, Result},
     jwt::Jwt,
 };
@@ -49,7 +49,7 @@ async fn sign_in(
     let db = db.deref();
     let form = form.deref();
     form.validate()?;
-    let user: User = KV::get(db, &User::KEY.to_string()).unwrap_or_default();
+    let user: User = Kv::get(db, &User::KEY.to_string()).unwrap_or_default();
 
     let mut db = db.get()?;
     let db = db.deref_mut();
@@ -92,11 +92,11 @@ async fn set_profile(
     let db = db.deref();
     let form = form.deref();
     form.validate()?;
-    let user: User = KV::get(db, &User::KEY.to_string()).unwrap_or_default();
+    let user: User = Kv::get(db, &User::KEY.to_string()).unwrap_or_default();
     if form.current_password != user.password {
         return Err(Error::Http(StatusCode::FORBIDDEN, None));
     }
-    KV::set(
+    Kv::set(
         db,
         &User::KEY.to_string(),
         &User {

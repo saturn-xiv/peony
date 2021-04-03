@@ -7,7 +7,7 @@ use actix_web::{get, post, web, HttpResponse, Responder};
 use eui48::MacAddress;
 
 use super::super::super::super::{
-    cache::{redis::Pool as DbPool, KV},
+    cache::{redis::Pool as DbPool, Kv},
     errors::Result,
     sys::network::{
         ip4 as get_ip4, is_on, mac as get_mac,
@@ -163,7 +163,7 @@ async fn ping(_user: CurrentUser, path: web::Path<String>) -> Result<impl Respon
 async fn get(_user: CurrentUser, db: web::Data<DbPool>) -> Result<impl Responder> {
     let db = db.deref();
     let db = db.deref();
-    let it: Form = KV::get(db, &Form::KEY.to_string()).unwrap_or_default();
+    let it: Form = Kv::get(db, &Form::KEY.to_string()).unwrap_or_default();
     Ok(HttpResponse::Ok().json(it))
 }
 
@@ -177,6 +177,6 @@ async fn set(
     let db = db.deref();
     let form = form.deref();
     form.save("pi")?;
-    KV::set(db, &Form::KEY.to_string(), form)?;
+    Kv::set(db, &Form::KEY.to_string(), form)?;
     Ok(HttpResponse::Ok().json(()))
 }

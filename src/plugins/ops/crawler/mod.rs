@@ -8,13 +8,11 @@ pub struct Plugin {}
 
 impl super::super::Plugin for Plugin {
     fn migrations<'a>() -> Vec<Migration<'a>> {
-        let mut items = Vec::new();
-        items.push(Migration {
+        vec![Migration {
             version: "20210113142934",
             name: "create-crawler",
             up: include_str!("up.sql"),
             down: include_str!("down.sql"),
-        });
-        items
+        }]
     }
 }

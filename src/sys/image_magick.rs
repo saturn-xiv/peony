@@ -1,11 +1,11 @@
-use std::path::PathBuf;
+use std::path::Path;
 use std::process::Command;
 
 use tempfile::NamedTempFile;
 
 use super::super::errors::Result;
 
-pub fn resize(src: &PathBuf, width: u16, height: u16, target: &PathBuf) -> Result<()> {
+pub fn resize(src: &Path, width: u16, height: u16, target: &Path) -> Result<()> {
     run(&format!(
         "convert -resize {width}x{height}! {src} {target}",
         src = src.display(),
@@ -15,7 +15,7 @@ pub fn resize(src: &PathBuf, width: u16, height: u16, target: &PathBuf) -> Resul
     ))
 }
 
-pub fn merge(back: &PathBuf, cover: &PathBuf, target: &PathBuf) -> Result<()> {
+pub fn merge(back: &Path, cover: &Path, target: &Path) -> Result<()> {
     let tmp = NamedTempFile::new()?;
     run(&format!(
         "convert -resize $(identify -ping -format '%wx%h!' {back}) {cover} {tmp} && convert {back} -compose over {tmp} -composite {target}",
@@ -26,7 +26,7 @@ pub fn merge(back: &PathBuf, cover: &PathBuf, target: &PathBuf) -> Result<()> {
     ))
 }
 
-pub fn rotate(src: &PathBuf, degrees: i8, target: &PathBuf) -> Result<()> {
+pub fn rotate(src: &Path, degrees: i8, target: &Path) -> Result<()> {
     run(&format!(
         "convert -rotate '{degrees}' {src} {target}",
         src = src.display(),

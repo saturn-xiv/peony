@@ -18,7 +18,7 @@ pub trait Provider {
     fn version(&self) -> Result<String>;
 }
 
-pub trait KV {
+pub trait Kv {
     fn set<K: Display, V: Serialize>(&self, key: &K, val: &V) -> Result<()>;
     fn get<K: Display, V: DeserializeOwned>(&self, key: &K) -> Result<V>;
 }

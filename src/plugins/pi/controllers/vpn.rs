@@ -8,7 +8,7 @@ use actix_web::{get, post, web, HttpResponse, Responder};
 use validator::Validate;
 
 use super::super::super::super::{
-    cache::{redis::Pool as DbPool, KV},
+    cache::{redis::Pool as DbPool, Kv},
     errors::Result,
 };
 use super::CurrentUser;
@@ -50,7 +50,7 @@ impl Form {
 pub async fn get(_user: CurrentUser, db: web::Data<DbPool>) -> Result<impl Responder> {
     let db = db.deref();
     let db = db.deref();
-    let it: Form = KV::get(db, &Form::KEY.to_string()).unwrap_or_default();
+    let it: Form = Kv::get(db, &Form::KEY.to_string()).unwrap_or_default();
     Ok(HttpResponse::Ok().json(it))
 }
 
@@ -65,6 +65,6 @@ pub async fn set(
     let form = form.deref();
     form.validate()?;
     form.save()?;
-    KV::set(db, &Form::KEY.to_string(), form)?;
+    Kv::set(db, &Form::KEY.to_string(), form)?;
     Ok(HttpResponse::Ok().json(()))
 }

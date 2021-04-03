@@ -117,7 +117,7 @@ impl super::Provider for Pool {
     }
 }
 
-impl super::KV for Pool {
+impl super::Kv for Pool {
     fn set<K: Display, V: Serialize>(&self, key: &K, val: &V) -> Result<()> {
         let key = key.to_string();
         let val = flexbuffers::to_vec(val)?;

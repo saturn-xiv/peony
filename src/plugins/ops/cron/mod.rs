@@ -17,14 +17,12 @@ pub struct Plugin {}
 
 impl super::super::Plugin for Plugin {
     fn migrations<'a>() -> Vec<Migration<'a>> {
-        let mut items = Vec::new();
-        items.push(Migration {
+        vec![Migration {
             version: "20210113143500",
             name: "create-cron",
             up: include_str!("up.sql"),
             down: include_str!("down.sql"),
-        });
-        items
+        }]
     }
 }
 

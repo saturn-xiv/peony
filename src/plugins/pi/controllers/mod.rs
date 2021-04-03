@@ -20,7 +20,7 @@ use futures::future::Future;
 use nix::sys::reboot::RebootMode;
 
 use super::super::super::{
-    cache::{redis::Pool as DbPool, KV},
+    cache::{redis::Pool as DbPool, Kv},
     errors::{Error, Result},
     jwt::Jwt,
     request::Token as Auth,
@@ -93,7 +93,7 @@ async fn token(
 ) -> Result<impl Responder> {
     let db = db.deref();
     let db = db.deref();
-    let user: User = KV::get(db, &User::KEY)?;
+    let user: User = Kv::get(db, &User::KEY)?;
     let jwt = jwt.deref();
     let it = user.token(jwt, years.0)?;
     Ok(HttpResponse::Ok().json(it))
@@ -167,7 +167,7 @@ impl FromRequest for CurrentUser {
 
             if let Ok(auth) = jwt.parse::<Token>(&auth.0) {
                 if auth.claims.act == Action::SignIn {
-                    if let Ok(user) = KV::get::<String, User>(db, &User::ID.to_string()) {
+                    if let Ok(user) = Kv::get::<String, User>(db, &User::ID.to_string()) {
                         return Ok(Self(user.name));
                     }
                 }

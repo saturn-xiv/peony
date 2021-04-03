@@ -12,6 +12,10 @@ import toml
 import zmq
 import serial
 
+# /dev/serial0(raspberry pi uart)
+# /dev/ttyS1(nano/orange pi uart)
+# /dev/ttyUSB0(usb)
+
 
 class Tty:
     def __init__(self, name, matchers):

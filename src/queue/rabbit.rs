@@ -38,8 +38,8 @@ impl Default for Config {
 }
 
 impl Config {
-    pub fn open(&self) -> RabbitMQ {
-        RabbitMQ {
+    pub fn open(&self) -> RabbitMq {
+        RabbitMq {
             uri: AMQPUri {
                 vhost: self.virtual_host.clone(),
                 authority: AMQPAuthority {
@@ -58,12 +58,12 @@ impl Config {
 }
 
 #[derive(Clone)]
-pub struct RabbitMQ {
+pub struct RabbitMq {
     uri: AMQPUri,
     conn: ConnectionProperties,
 }
 
-impl RabbitMQ {
+impl RabbitMq {
     async fn open(&self, queue: &str) -> Result<Channel> {
         let con = Connection::connect_uri(self.uri.clone(), self.conn.clone()).await?;
         let ch = con.create_channel().await?;
@@ -83,7 +83,7 @@ impl RabbitMQ {
     }
 }
 
-impl RabbitMQ {
+impl RabbitMq {
     pub async fn publish<T: Serialize>(&self, queue: &str, payload: &T) -> Result<()> {
         let ch = self.open(queue).await?;
         let id = Uuid::new_v4().to_string();

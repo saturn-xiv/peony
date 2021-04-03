@@ -30,9 +30,16 @@ impl Default for Key {
     }
 }
 
-impl Into<Result<Vec<u8>>> for Key {
-    fn into(self) -> Result<Vec<u8>> {
-        let buf = base64::decode(&self.0)?;
+// impl Into<Result<Vec<u8>>> for Key {
+//     fn into(self) -> Result<Vec<u8>> {
+//         let buf = base64::decode(&self.0)?;
+//         Ok(buf)
+//     }
+// }
+
+impl From<Key> for Result<Vec<u8>> {
+    fn from(it: Key) -> Self {
+        let buf = base64::decode(&it.0)?;
         Ok(buf)
     }
 }
