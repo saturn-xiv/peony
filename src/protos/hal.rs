@@ -15,13 +15,19 @@ pub const ENUM_MIN_REQUEST: u8 = 0;
     since = "2.0.0",
     note = "Use associated constants instead. This will no longer be generated in 2021."
 )]
-pub const ENUM_MAX_REQUEST: u8 = 2;
+pub const ENUM_MAX_REQUEST: u8 = 4;
 #[deprecated(
     since = "2.0.0",
     note = "Use associated constants instead. This will no longer be generated in 2021."
 )]
 #[allow(non_camel_case_types)]
-pub const ENUM_VALUES_REQUEST: [Request; 3] = [Request::NONE, Request::tty, Request::gpio_get];
+pub const ENUM_VALUES_REQUEST: [Request; 5] = [
+    Request::NONE,
+    Request::tty,
+    Request::gpio_pin_get,
+    Request::gpio_pin_set,
+    Request::audio_play,
+];
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 #[repr(transparent)]
@@ -30,17 +36,27 @@ pub struct Request(pub u8);
 impl Request {
     pub const NONE: Self = Self(0);
     pub const tty: Self = Self(1);
-    pub const gpio_get: Self = Self(2);
+    pub const gpio_pin_get: Self = Self(2);
+    pub const gpio_pin_set: Self = Self(3);
+    pub const audio_play: Self = Self(4);
 
     pub const ENUM_MIN: u8 = 0;
-    pub const ENUM_MAX: u8 = 2;
-    pub const ENUM_VALUES: &'static [Self] = &[Self::NONE, Self::tty, Self::gpio_get];
+    pub const ENUM_MAX: u8 = 4;
+    pub const ENUM_VALUES: &'static [Self] = &[
+        Self::NONE,
+        Self::tty,
+        Self::gpio_pin_get,
+        Self::gpio_pin_set,
+        Self::audio_play,
+    ];
     /// Returns the variant's name or "" if unknown.
     pub fn variant_name(self) -> Option<&'static str> {
         match self {
             Self::NONE => Some("NONE"),
             Self::tty => Some("tty"),
-            Self::gpio_get => Some("gpio_get"),
+            Self::gpio_pin_get => Some("gpio_pin_get"),
+            Self::gpio_pin_set => Some("gpio_pin_set"),
+            Self::audio_play => Some("audio_play"),
             _ => None,
         }
     }
@@ -97,6 +113,110 @@ impl<'a> flatbuffers::Verifiable for Request {
 
 impl flatbuffers::SimpleToVerifyInSlice for Request {}
 pub struct RequestUnionTableOffset {}
+
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
+pub const ENUM_MIN_RESPONSE: u8 = 0;
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
+pub const ENUM_MAX_RESPONSE: u8 = 3;
+#[deprecated(
+    since = "2.0.0",
+    note = "Use associated constants instead. This will no longer be generated in 2021."
+)]
+#[allow(non_camel_case_types)]
+pub const ENUM_VALUES_RESPONSE: [Response; 4] = [
+    Response::NONE,
+    Response::tty,
+    Response::gpio_pin_get,
+    Response::gpio_button_report,
+];
+
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
+#[repr(transparent)]
+pub struct Response(pub u8);
+#[allow(non_upper_case_globals)]
+impl Response {
+    pub const NONE: Self = Self(0);
+    pub const tty: Self = Self(1);
+    pub const gpio_pin_get: Self = Self(2);
+    pub const gpio_button_report: Self = Self(3);
+
+    pub const ENUM_MIN: u8 = 0;
+    pub const ENUM_MAX: u8 = 3;
+    pub const ENUM_VALUES: &'static [Self] = &[
+        Self::NONE,
+        Self::tty,
+        Self::gpio_pin_get,
+        Self::gpio_button_report,
+    ];
+    /// Returns the variant's name or "" if unknown.
+    pub fn variant_name(self) -> Option<&'static str> {
+        match self {
+            Self::NONE => Some("NONE"),
+            Self::tty => Some("tty"),
+            Self::gpio_pin_get => Some("gpio_pin_get"),
+            Self::gpio_button_report => Some("gpio_button_report"),
+            _ => None,
+        }
+    }
+}
+impl std::fmt::Debug for Response {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        if let Some(name) = self.variant_name() {
+            f.write_str(name)
+        } else {
+            f.write_fmt(format_args!("<UNKNOWN {:?}>", self.0))
+        }
+    }
+}
+impl<'a> flatbuffers::Follow<'a> for Response {
+    type Inner = Self;
+    #[inline]
+    fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
+        let b = flatbuffers::read_scalar_at::<u8>(buf, loc);
+        Self(b)
+    }
+}
+
+impl flatbuffers::Push for Response {
+    type Output = Response;
+    #[inline]
+    fn push(&self, dst: &mut [u8], _rest: &[u8]) {
+        flatbuffers::emplace_scalar::<u8>(dst, self.0);
+    }
+}
+
+impl flatbuffers::EndianScalar for Response {
+    #[inline]
+    fn to_little_endian(self) -> Self {
+        let b = u8::to_le(self.0);
+        Self(b)
+    }
+    #[inline]
+    fn from_little_endian(self) -> Self {
+        let b = u8::from_le(self.0);
+        Self(b)
+    }
+}
+
+impl<'a> flatbuffers::Verifiable for Response {
+    #[inline]
+    fn run_verifier(
+        v: &mut flatbuffers::Verifier,
+        pos: usize,
+    ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+        use self::flatbuffers::Verifiable;
+        u8::run_verifier(v, pos)
+    }
+}
+
+impl flatbuffers::SimpleToVerifyInSlice for Response {}
+pub struct ResponseUnionTableOffset {}
 
 #[deprecated(
     since = "2.0.0",
@@ -995,15 +1115,15 @@ impl std::fmt::Debug for AudioFile<'_> {
         ds.finish()
     }
 }
-pub enum AudioPlayListOffset {}
+pub enum AudioPlaylistOffset {}
 #[derive(Copy, Clone, PartialEq)]
 
-pub struct AudioPlayList<'a> {
+pub struct AudioPlaylist<'a> {
     pub _tab: flatbuffers::Table<'a>,
 }
 
-impl<'a> flatbuffers::Follow<'a> for AudioPlayList<'a> {
-    type Inner = AudioPlayList<'a>;
+impl<'a> flatbuffers::Follow<'a> for AudioPlaylist<'a> {
+    type Inner = AudioPlaylist<'a>;
     #[inline]
     fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
         Self {
@@ -1012,17 +1132,17 @@ impl<'a> flatbuffers::Follow<'a> for AudioPlayList<'a> {
     }
 }
 
-impl<'a> AudioPlayList<'a> {
+impl<'a> AudioPlaylist<'a> {
     #[inline]
     pub fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
-        AudioPlayList { _tab: table }
+        AudioPlaylist { _tab: table }
     }
     #[allow(unused_mut)]
     pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
         _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
-        args: &'args AudioPlayListArgs<'args>,
-    ) -> flatbuffers::WIPOffset<AudioPlayList<'bldr>> {
-        let mut builder = AudioPlayListBuilder::new(_fbb);
+        args: &'args AudioPlaylistArgs<'args>,
+    ) -> flatbuffers::WIPOffset<AudioPlaylist<'bldr>> {
+        let mut builder = AudioPlaylistBuilder::new(_fbb);
         builder.add_delay(args.delay);
         builder.add_loop_(args.loop_);
         if let Some(x) = args.files {
@@ -1040,24 +1160,24 @@ impl<'a> AudioPlayList<'a> {
         self._tab
             .get::<flatbuffers::ForwardsUOffset<
                 flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<AudioFile>>,
-            >>(AudioPlayList::VT_FILES, None)
+            >>(AudioPlaylist::VT_FILES, None)
             .unwrap()
     }
     #[inline]
     pub fn loop_(&self) -> u64 {
         self._tab
-            .get::<u64>(AudioPlayList::VT_LOOP_, Some(0))
+            .get::<u64>(AudioPlaylist::VT_LOOP_, Some(0))
             .unwrap()
     }
     #[inline]
     pub fn delay(&self) -> u64 {
         self._tab
-            .get::<u64>(AudioPlayList::VT_DELAY, Some(0))
+            .get::<u64>(AudioPlaylist::VT_DELAY, Some(0))
             .unwrap()
     }
 }
 
-impl flatbuffers::Verifiable for AudioPlayList<'_> {
+impl flatbuffers::Verifiable for AudioPlaylist<'_> {
     #[inline]
     fn run_verifier(
         v: &mut flatbuffers::Verifier,
@@ -1074,7 +1194,7 @@ impl flatbuffers::Verifiable for AudioPlayList<'_> {
         Ok(())
     }
 }
-pub struct AudioPlayListArgs<'a> {
+pub struct AudioPlaylistArgs<'a> {
     pub files: Option<
         flatbuffers::WIPOffset<
             flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<AudioFile<'a>>>,
@@ -1083,21 +1203,21 @@ pub struct AudioPlayListArgs<'a> {
     pub loop_: u64,
     pub delay: u64,
 }
-impl<'a> Default for AudioPlayListArgs<'a> {
+impl<'a> Default for AudioPlaylistArgs<'a> {
     #[inline]
     fn default() -> Self {
-        AudioPlayListArgs {
+        AudioPlaylistArgs {
             files: None, // required field
             loop_: 0,
             delay: 0,
         }
     }
 }
-pub struct AudioPlayListBuilder<'a: 'b, 'b> {
+pub struct AudioPlaylistBuilder<'a: 'b, 'b> {
     fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
     start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> AudioPlayListBuilder<'a, 'b> {
+impl<'a: 'b, 'b> AudioPlaylistBuilder<'a, 'b> {
     #[inline]
     pub fn add_files(
         &mut self,
@@ -1106,37 +1226,37 @@ impl<'a: 'b, 'b> AudioPlayListBuilder<'a, 'b> {
         >,
     ) {
         self.fbb_
-            .push_slot_always::<flatbuffers::WIPOffset<_>>(AudioPlayList::VT_FILES, files);
+            .push_slot_always::<flatbuffers::WIPOffset<_>>(AudioPlaylist::VT_FILES, files);
     }
     #[inline]
     pub fn add_loop_(&mut self, loop_: u64) {
         self.fbb_
-            .push_slot::<u64>(AudioPlayList::VT_LOOP_, loop_, 0);
+            .push_slot::<u64>(AudioPlaylist::VT_LOOP_, loop_, 0);
     }
     #[inline]
     pub fn add_delay(&mut self, delay: u64) {
         self.fbb_
-            .push_slot::<u64>(AudioPlayList::VT_DELAY, delay, 0);
+            .push_slot::<u64>(AudioPlaylist::VT_DELAY, delay, 0);
     }
     #[inline]
-    pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> AudioPlayListBuilder<'a, 'b> {
+    pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> AudioPlaylistBuilder<'a, 'b> {
         let start = _fbb.start_table();
-        AudioPlayListBuilder {
+        AudioPlaylistBuilder {
             fbb_: _fbb,
             start_: start,
         }
     }
     #[inline]
-    pub fn finish(self) -> flatbuffers::WIPOffset<AudioPlayList<'a>> {
+    pub fn finish(self) -> flatbuffers::WIPOffset<AudioPlaylist<'a>> {
         let o = self.fbb_.end_table(self.start_);
-        self.fbb_.required(o, AudioPlayList::VT_FILES, "files");
+        self.fbb_.required(o, AudioPlaylist::VT_FILES, "files");
         flatbuffers::WIPOffset::new(o.value())
     }
 }
 
-impl std::fmt::Debug for AudioPlayList<'_> {
+impl std::fmt::Debug for AudioPlaylist<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut ds = f.debug_struct("AudioPlayList");
+        let mut ds = f.debug_struct("AudioPlaylist");
         ds.field("files", &self.files());
         ds.field("loop_", &self.loop_());
         ds.field("delay", &self.delay());

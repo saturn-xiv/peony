@@ -3,7 +3,6 @@ union Request{
     gpio_pin_get: GpioGetRequest,
     gpio_pin_set: GpioStatus,
     audio_play: AudioPlaylist,
-    audio_stop: Au
 }
 
 union Response{

@@ -25,7 +25,8 @@ pub enum Error {
     ActixWebClientPayload(actix_web::client::PayloadError),
     ActixWebHttpInvalidHeaderName(actix_web::http::header::InvalidHeaderName),
     Base64Decode(base64::DecodeError),
-    DieselResult(diesel::result::Error),
+    Diesel(diesel::result::Error),
+    DieselMigrationsRun(diesel_migrations::RunMigrationsError),
     ChronoParse(chrono::ParseError),
     Eui48Parse(eui48::ParseError),
     FlexBuffersDeserialization(flexbuffers::DeserializationError),
@@ -98,7 +99,8 @@ impl fmt::Display for Error {
             Self::ActixWebHttpInvalidHeaderName(v) => v.fmt(f),
             Self::Base64Decode(v) => v.fmt(f),
             Self::ChronoParse(v) => v.fmt(f),
-            Self::DieselResult(v) => v.fmt(f),
+            Self::Diesel(v) => v.fmt(f),
+            Self::DieselMigrationsRun(v) => v.fmt(f),
             Self::Eui48Parse(v) => v.fmt(f),
             Self::FlexBuffersDeserialization(v) => v.fmt(f),
             Self::FlexBuffersSerialization(v) => v.fmt(f),
@@ -311,7 +313,13 @@ impl From<rusoto_core::RusotoError<rusoto_sqs::CreateQueueError>> for Error {
 
 impl From<diesel::result::Error> for Error {
     fn from(err: diesel::result::Error) -> Self {
-        Self::DieselResult(err)
+        Self::Diesel(err)
+    }
+}
+
+impl From<diesel_migrations::RunMigrationsError> for Error {
+    fn from(err: diesel_migrations::RunMigrationsError) -> Self {
+        Self::DieselMigrationsRun(err)
     }
 }
 

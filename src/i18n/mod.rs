@@ -1,7 +1,6 @@
 pub mod locale;
 pub mod schema;
 
-
 use actix_web::http::StatusCode;
 use handlebars::Handlebars;
 use serde::ser::Serialize;

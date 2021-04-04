@@ -6,13 +6,7 @@ use std::ops::Deref;
 
 use clap::{App, Arg};
 
-use super::{
-    cache::Provider as CacheProvider,
-    env,
-    errors::Result,
-    parser,
-    plugins::{forum, nut, ops, Plugin},
-};
+use super::{cache::Provider as CacheProvider, env, errors::Result, parser, plugins::ops};
 
 pub async fn launch() -> Result<()> {
     let matches = App::new(env::NAME)
