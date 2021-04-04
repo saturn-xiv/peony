@@ -8,11 +8,6 @@ pub struct Plugin {}
 
 impl super::Plugin for Plugin {
     fn migrations<'a>() -> Vec<Migration<'a>> {
-        vec![Migration {
-            version: "20201214175333",
-            name: "init-forum",
-            up: include_str!("init-up.sql"),
-            down: include_str!("init-down.sql"),
-        }]
+        vec![]
     }
 }

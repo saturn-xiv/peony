@@ -4,7 +4,7 @@ set -e
 
 echo "generate diesel schema..."
 
-export DATABASE_URL="postgres://postgres:@localhost:5432/peony"
+source .env
 
 diesel print-schema -o schema_migrations > src/orm/postgresql/schema.rs
 diesel print-schema -o settings > src/settings/schema.rs
