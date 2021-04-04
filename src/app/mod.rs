@@ -1,5 +1,8 @@
+pub mod db;
 pub mod generate;
 pub mod http;
+
+use std::ops::Deref;
 
 use clap::{App, Arg};
 
@@ -7,7 +10,6 @@ use super::{
     cache::Provider as CacheProvider,
     env,
     errors::Result,
-    orm::migration::Dao as MigrationDao,
     parser,
     plugins::{forum, nut, ops, Plugin},
 };
@@ -39,6 +41,18 @@ pub async fn launch() -> Result<()> {
                 .about("Redis operations")
                 .subcommand(App::new("list").about("List all cache keys"))
                 .subcommand(App::new("clear").about("Remove all keys")),
+        )
+        .subcommand(
+            App::new("db")
+                .about("PostgreSql operations")
+                .subcommand(App::new("migrate").about("Runs all pending migrations"))
+                .subcommand(App::new("rollback").about("Reverts the latest run migration"))
+                .subcommand(
+                    App::new("status").about(
+                        "Lists all available migrations, marking those that have been applied",
+                    ),
+                )
+                .subcommand(App::new("reset").about("Reverts and re-runs the latest migration")),
         )
         .subcommand(
             App::new("generate")
@@ -141,27 +155,18 @@ pub async fn launch() -> Result<()> {
     if let Some(matches) = matches.subcommand_matches("db") {
         let db = config.postgresql.open()?;
         let db = db.get()?;
-        let mut items = Vec::new();
-        {
-            items.extend(nut::Plugin::migrations());
-            items.extend(forum::Plugin::migrations());
-            items.extend(ops::crawler::Plugin::migrations());
-            items.extend(ops::cron::Plugin::migrations());
-        }
-        db.check()?;
-        db.load(&items)?;
+        let db = db.deref();
         if matches.subcommand_matches("migrate").is_some() {
-            return db.migrate();
+            return self::db::migrate(db);
         }
         if matches.subcommand_matches("rollback").is_some() {
-            return db.rollback();
+            return self::db::rollback(db);
         }
         if matches.subcommand_matches("status").is_some() {
-            println!("{:<14} {:<32} RUN AT", "VERSION", "NAME");
-            for it in db.status()? {
-                println!("{}", it);
-            }
-            return Ok(());
+            return self::db::status(db);
+        }
+        if matches.subcommand_matches("reset").is_some() {
+            return self::db::reset(db);
         }
     }
 

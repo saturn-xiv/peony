@@ -8,9 +8,6 @@ use super::{crypto::Secret, errors::Result, orm::postgresql::Connection};
 
 use self::schema::settings;
 
-pub const UP: &str = include_str!("up.sql");
-pub const DOWN: &str = include_str!("down.sql");
-
 #[derive(Queryable)]
 pub struct Item {
     pub id: i64,

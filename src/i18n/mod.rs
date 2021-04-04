@@ -1,8 +1,6 @@
 pub mod locale;
 pub mod schema;
 
-pub const UP: &str = include_str!("up.sql");
-pub const DOWN: &str = include_str!("down.sql");
 
 use actix_web::http::StatusCode;
 use handlebars::Handlebars;
