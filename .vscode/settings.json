@@ -1,5 +1,6 @@
 {
     "files.autoSave": "onFocusChange",
+    "files.insertFinalNewline": true,
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "Atom One Dark",
     "window.zoomLevel": 2,

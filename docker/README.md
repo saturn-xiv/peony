@@ -9,6 +9,12 @@ podman run --name samoyed -it --userns=keep-id --user=$(id -ur):$(id -gr) --netw
 podman start -i -a --events-backend=file CODE
 ```
 
+## Buildroot
+
+```bash
+make raspberrypi3_defconfig
+```
+
 ## Os & Image
   
 | Board     |  Model   |                                                              Install OS | Default User  | Docker Code |
