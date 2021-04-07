@@ -118,7 +118,3 @@ features = ["script_helper"]
 version = "*"
 features = ["vendored"]
 
-[dependencies.libsqlite3-sys]
-version = "*"
-features = ["bundled"]
-

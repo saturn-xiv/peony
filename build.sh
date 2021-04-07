@@ -19,12 +19,12 @@ then
     rm -rf $TARGET
 fi
 mkdir -pv $TARGET/usr/bin
-cp -r $WORKSPACE/docker/debian $TARGET/
+cp -r $WORKSPACE/debian $TARGET/
 
 
 # FIXME static link
 # https://github.com/sgrif/pq-sys/pull/29
-# export PKG_CONFIG_ALL_STATIC=1
+export PKG_CONFIG_ALL_STATIC=1
 # FIXME libmysqlclient@arm & libpq link
 # export PKG_CONFIG_PATH=$HOME/$1
 # FIXME grpcio openssl glibc link
