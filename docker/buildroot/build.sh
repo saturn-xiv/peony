@@ -4,9 +4,9 @@ set -e
 
 export VERSION=$(date "+%4Y%m%d%H%M%S")
 
-buildah pull ubuntu:latest
-buildah bud --layers -t peony-buildroot .
-podman save -o peony-buildroot-$VERSION.tar peony-buildroot
+buildah pull ubuntu:xenial
+buildah bud --layers -t peony .
+podman save -o peony-$VERSION.tar peony
 
 echo 'done.'
 

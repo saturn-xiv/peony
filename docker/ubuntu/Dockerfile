@@ -25,7 +25,7 @@ RUN apt -y install zsh git locales rsync openssh-client \
     meson nasm ninja-build \
     build-essential pkg-config libtool automake autoconf binutils cmake debhelper \
     clang llvm bison flex \
-    g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
+    crossbuild-essential-armhf g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
     python3.10 python3.10-distutils python3.10-dev
 
 # https://wiki.ubuntu.com/ToolChain

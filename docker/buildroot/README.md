@@ -13,3 +13,5 @@ podman run --rm -it --userns=keep-id --user=$(id -ur):$(id -gr) --network host -
 ## Documents
 
 - [The Buildroot user manual](https://buildroot.org/downloads/manual/manual.html)
+- [Nano pi Duo2](http://wiki.friendlyarm.com/wiki/index.php/NanoPi_Duo2)
+- [Raspberry pi](https://www.raspberrypi.org/documentation/linux/kernel/building.md)

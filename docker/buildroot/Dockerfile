@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:xenial
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -6,11 +6,28 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install apt-transport-https software-properties-common curl gnupg
+
+# https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
+RUN add-apt-repository -y ppa:deadsnakes/ppa
+
+RUN apt update
 RUN apt -y install zsh git locales rsync openssh-client screen tmux \
     vim sudo tzdata pwgen curl zip unzip wget yasm tree cpio bc \
     build-essential pkg-config cmake libtool automake autoconf binutils debhelper libncurses5-dev \
     clang llvm bison flex \
-    python3 python3-pip python3-distutils python3-dev
+    crossbuild-essential-armhf g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
+    python3.9 python3.9-distutils python3.9-dev
+
+
+# https://wiki.ubuntu.com/ToolChain
+RUN dpkg --add-architecture armhf
+RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs) main restricted universe multiverse" > /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs) main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-security main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ $(lsb_release -cs)-updates main restricted universe multiverse" >> /etc/apt/sources.list
+
 RUN apt -y autoremove
 RUN apt -y clean
 
@@ -32,7 +49,14 @@ RUN mkdir -p $HOME/downloads
 RUN git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
 RUN cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
 
-RUN pip3 install --user cmake conan ansible paramiko
+
+# https://pip.pypa.io/en/stable/installing/
+RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py
+RUN python3.9 $HOME/downloads/get-pip.py --user
+RUN sh -c ". $HOME/.profile \
+    && pip install --user cmake \
+    && pip install --user conan \
+    && pip install --user ansible paramiko"
 
 # https://github.com/nvm-sh/nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | sh
@@ -60,14 +84,17 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN zsh -c "source $HOME/.cargo/env \
     && rustup target add armv7-unknown-linux-gnueabihf"
 
-RUN git clone https://github.com/microsoft/vcpkg $HOME/vcpkg
-RUN sh -c "source $HOME/.profile \
-    && $HOME/vcpkg/bootstrap-vcpkg.sh"
+# RUN git clone https://github.com/microsoft/vcpkg $HOME/vcpkg
+# RUN zsh -c "source $HOME/.profile \
+#     && $HOME/vcpkg/bootstrap-vcpkg.sh"
 
-ENV BUILDROOT_VERSION "2021.02"
-RUN git clone https://github.com/buildroot/buildroot.git $HOME/buildroot
-RUN cd $HOME/buildroot && git checkout ${BUILDROOT_VERSION}
-COPY config/raspberry-3 config/orange-0 config/nano-duo2 $HOME/buildroot/configs/
+# RUN git clone --depth=1 --branch "2021.02" https://github.com/buildroot/buildroot.git $HOME/buildroot
+# COPY configs /opt/buildroot
+
+# Raspberry pi
+# RUN git clone --depth=1 https://github.com/raspberrypi/linux $HOME/raspberry-pi
+
+# Nano pi duo2
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
