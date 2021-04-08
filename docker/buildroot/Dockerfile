@@ -100,10 +100,13 @@ RUN sudo apt install -y g++-9
 RUN zsh -c "source $HOME/.profile \
     && $HOME/local/vcpkg/bootstrap-vcpkg.sh"
 
-# RUN git clone --depth=1 --branch "2021.02" https://github.com/buildroot/buildroot.git $HOME/buildroot
+RUN git clone --depth=1 --branch "2021.02" https://github.com/buildroot/buildroot.git $HOME/downloads/buildroot
+RUN git clone --depth=1 https://github.com/raspberrypi/tools.git $HOME/local/raspberry-pi
+
 # COPY configs /opt/buildroot
 
 # Raspberry pi
+
 # RUN git clone --depth=1 https://github.com/raspberrypi/linux $HOME/raspberry-pi
 
 # Nano pi duo2

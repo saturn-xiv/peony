@@ -1,9 +1,9 @@
 use super::super::{errors::Result, orm::postgresql::Connection};
 
-embed_migrations!("db/migrations/postgresql");
+// embed_migrations!("db/migrations/postgresql");
 
 pub fn migrate(db: &Connection) -> Result<()> {
-    embedded_migrations::run(db)?;
+    // embedded_migrations::run(db)?;
     Ok(())
 }
 

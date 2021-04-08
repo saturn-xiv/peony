@@ -1,5 +1,3 @@
-extern crate vcpkg;
-
 use std::env;
 use std::fs::File;
 use std::io::Write;
@@ -14,16 +12,6 @@ fn shell(cmd: &mut Command) -> String {
 }
 
 fn main() {
-    {
-        for it in vec!["libpq", "sqlite3", "libmariadb"] {
-            vcpkg::find_package(it).unwrap();
-        }
-        // for it in vec!["unofficial::sqlite3::sqlite3"] {
-        //     println!("cargo:rustc-link-lib={}", it);
-        // }
-        // println!("cargo:rustc-link-search=native=/home/deploy/local/vcpkg/installed/x64-linux/lib");
-        println!("cargo:rustc-link-lib=sqlite3-static");
-    }
     {
         let out_dir = env::var("OUT_DIR").unwrap();
         let git_version = shell(

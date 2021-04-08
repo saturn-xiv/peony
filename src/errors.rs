@@ -26,7 +26,7 @@ pub enum Error {
     ActixWebHttpInvalidHeaderName(actix_web::http::header::InvalidHeaderName),
     Base64Decode(base64::DecodeError),
     Diesel(diesel::result::Error),
-    DieselMigrationsRun(diesel_migrations::RunMigrationsError),
+    // DieselMigrationsRun(diesel_migrations::RunMigrationsError),
     ChronoParse(chrono::ParseError),
     Eui48Parse(eui48::ParseError),
     FlexBuffersDeserialization(flexbuffers::DeserializationError),
@@ -100,7 +100,7 @@ impl fmt::Display for Error {
             Self::Base64Decode(v) => v.fmt(f),
             Self::ChronoParse(v) => v.fmt(f),
             Self::Diesel(v) => v.fmt(f),
-            Self::DieselMigrationsRun(v) => v.fmt(f),
+            // Self::DieselMigrationsRun(v) => v.fmt(f),
             Self::Eui48Parse(v) => v.fmt(f),
             Self::FlexBuffersDeserialization(v) => v.fmt(f),
             Self::FlexBuffersSerialization(v) => v.fmt(f),
@@ -317,11 +317,11 @@ impl From<diesel::result::Error> for Error {
     }
 }
 
-impl From<diesel_migrations::RunMigrationsError> for Error {
-    fn from(err: diesel_migrations::RunMigrationsError) -> Self {
-        Self::DieselMigrationsRun(err)
-    }
-}
+// impl From<diesel_migrations::RunMigrationsError> for Error {
+//     fn from(err: diesel_migrations::RunMigrationsError) -> Self {
+//         Self::DieselMigrationsRun(err)
+//     }
+// }
 
 impl From<serde_json::Error> for Error {
     fn from(err: serde_json::Error) -> Self {
