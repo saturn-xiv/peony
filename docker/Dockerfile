@@ -57,14 +57,15 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install maven \
     && sdk install gradle"
 
-# https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads
-RUN wget -P $HOME/downloads https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz 
-RUN tar xf $HOME/downloads/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C $HOME/local/
-
 RUN git clone https://github.com/microsoft/vcpkg $HOME/local/vcpkg
 RUN zsh -c "source $HOME/.profile \
     && $HOME/local/vcpkg/bootstrap-vcpkg.sh"
 RUN echo 'export VCPKG_DISABLE_METRICS=1' >> $HOME/.profile
+
+# https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads
+RUN wget -P $HOME/downloads https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz 
+RUN tar xf $HOME/downloads/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C $HOME/local/
+
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
