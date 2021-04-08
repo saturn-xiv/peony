@@ -1,5 +1,4 @@
-#ifndef PEONY_CONFIG_H_
-#define PEONY_CONFIG_H_
+#pragma once
 
 // clang-format off
 #define PEONY_PROJECT_NAME "@CMAKE_PROJECT_NAME@"
@@ -10,5 +9,3 @@
 
 #define PEONY_GIT_VERSION "@GIT_REV@"
 // clang-format on
-
-#endif

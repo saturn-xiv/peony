@@ -14,5 +14,8 @@
     "files.watcherExclude": {
         "**/.git/**": true,
         "**/node_modules/**": true
+    },
+    "cmake.configureSettings": {
+        "CMAKE_TOOLCHAIN_FILE": "$HOME/local/vcpkg/scripts/buildsystems/vcpkg.cmake"
     }
 }
