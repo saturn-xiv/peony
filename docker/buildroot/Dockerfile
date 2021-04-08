@@ -4,13 +4,17 @@ LABEL maintainer="Jeremy Zheng"
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update
-RUN apt -y upgrade
 RUN apt -y install apt-transport-https software-properties-common curl gnupg
+
+
+# https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
+RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
 
 # https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
 RUN add-apt-repository -y ppa:deadsnakes/ppa
 
 RUN apt update
+RUN apt -y upgrade
 RUN apt -y install zsh git locales rsync openssh-client screen tmux \
     vim sudo tzdata pwgen curl zip unzip wget yasm tree cpio bc \
     build-essential pkg-config cmake libtool automake autoconf binutils debhelper libncurses5-dev \
@@ -84,9 +88,17 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN zsh -c "source $HOME/.cargo/env \
     && rustup target add armv7-unknown-linux-gnueabihf"
 
-# RUN git clone https://github.com/microsoft/vcpkg $HOME/vcpkg
-# RUN zsh -c "source $HOME/.profile \
-#     && $HOME/vcpkg/bootstrap-vcpkg.sh"
+
+# gcc arm
+# RUN wget -P $HOME/downloads https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz 
+# RUN tar xf $HOME/downloads/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C $HOME/local/
+
+
+
+RUN git clone https://github.com/microsoft/vcpkg $HOME/local/vcpkg
+RUN sudo apt install -y g++-9
+RUN zsh -c "source $HOME/.profile \
+    && $HOME/local/vcpkg/bootstrap-vcpkg.sh"
 
 # RUN git clone --depth=1 --branch "2021.02" https://github.com/buildroot/buildroot.git $HOME/buildroot
 # COPY configs /opt/buildroot
@@ -96,10 +108,13 @@ RUN zsh -c "source $HOME/.cargo/env \
 
 # Nano pi duo2
 
+# COPY x-tools /opt/
+
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
 RUN echo 'export ANSIBLE_HOST_KEY_CHECKING=False' >> $HOME/.profile
 RUN echo 'alias peony="ANSIBLE_LOG_PATH=$HOME/$(date +%Y%m%d%H%M%S).log ansible-playbook"' >> $HOME/.profile
+RUN echo 'export VCPKG_DISABLE_METRICS=1' >> $HOME/.profile
 
 VOLUME /workspace
 WORKDIR /workspace

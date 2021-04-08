@@ -7,7 +7,7 @@ if [ $# -ne 1 ] ; then
     exit 1
 fi
 
-sudo apt update
+# sudo apt update
 
 export WORKSPACE=$PWD
 export VERSION=$(git describe --tags --always --dirty --first-parent)
@@ -24,25 +24,29 @@ cp -r $WORKSPACE/debian $TARGET/
 
 # FIXME static link
 # https://github.com/sgrif/pq-sys/pull/29
-export PKG_CONFIG_ALL_STATIC=1
+# export PKG_CONFIG_ALL_STATIC=1
 # FIXME libmysqlclient@arm & libpq link
 # export PKG_CONFIG_PATH=$HOME/$1
 # FIXME grpcio openssl glibc link
-# export RUSTFLAGS="-C target-feature=+crt-static"
+export RUSTFLAGS="-C target-feature=+crt-static"
+export VCPKG_ROOT=$HOME/local/vcpkg
 
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 if [ $1 = "armhf" ]
 then
-    sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
-        libssl-dev:armhf libzmq3-dev:armhf libudev-dev:armhf \
-        libsdl2-dev:armhf libsdl2-image-dev:armhf libsdl2-ttf-dev:armhf libsdl2-mixer-dev:armhf libsdl2-gfx-dev:armhf \
-        libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
+    # libsdl2-dev:armhf libsdl2-image-dev:armhf libsdl2-ttf-dev:armhf libsdl2-mixer-dev:armhf libsdl2-gfx-dev:armhf \
+    # sudo apt -y install libc6-dev-i386 g++-arm-linux-gnueabihf libc6-dev:armhf \
+    #     libssl-dev:armhf libzmq3-dev:armhf libudev-dev:armhf \
+    #     libpq-dev:armhf libmysqlclient-dev:armhf libsqlite3-dev:armhf
     # export PKG_CONFIG_PATH=$HOME/vcpkg/installed/arm-linux/lib/pkgconfig
 
+    export VCPKGRS_TRIPLET=arm-linux
+    
     PKG_CONFIG_ALLOW_CROSS=1
     PKG_CONFIG_DIR=
-    PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
-    export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR PKG_CONFIG_LIBDIR
+    # PKG_CONFIG_LIBDIR
+    # PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig
+    export PKG_CONFIG_ALLOW_CROSS PKG_CONFIG_DIR
     
     cargo build --target armv7-unknown-linux-gnueabihf --release
 
@@ -60,12 +64,15 @@ then
     export CC CXX
 elif [ $1 = "amd64" ]
 then
-    sudo apt -y install libssl-dev \
-        libzmq3-dev libudev-dev \
-        libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev libsdl2-gfx-dev \
-        libpq-dev libmysqlclient-dev libsqlite3-dev
+    # libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev libsdl2-gfx-dev \
+    # sudo apt -y install libssl-dev \
+    #     libzmq3-dev libudev-dev \
+    #     libpq-dev libmysqlclient-dev libsqlite3-dev
     # export PKG_CONFIG_PATH=$HOME/vcpkg/installed/x64-linux/lib/pkgconfig
-    
+    export VCPKGRS_TRIPLET=x64-linux
+    $HOME/local/vcpkg/vcpkg install libpq sqlite3
+    vcpkg_cli probe sqlite3
+    vcpkg_cli probe libpq
     cargo build --target x86_64-unknown-linux-gnu --release
 
     # MUSL
