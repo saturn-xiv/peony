@@ -1,0 +1,18 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools-extension-pack",
+        "vscoss.vscode-ansible",
+        "ms-vscode-remote.remote-ssh",
+        "ms-azuretools.vscode-docker",
+        "vscode-icons-team.vscode-icons",
+        "akamud.vscode-theme-onedark",
+        "hookyqr.beautify",
+        "dbaeumer.vscode-eslint",
+        "editorconfig.editorconfig",
+        "bungcip.better-toml",
+        "gaborv.flatbuffers",
+        "adpyke.vscode-sql-formatter",
+        "yzhang.markdown-all-in-one",
+        "gruntfuggly.todo-tree",
+    ]
+}
