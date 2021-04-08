@@ -10,6 +10,7 @@ RUN apt -y install zsh git locales rsync openssh-client screen tmux \
     vim sudo tzdata pwgen curl zip unzip wget yasm tree cpio bc \
     build-essential pkg-config cmake libtool automake autoconf binutils debhelper libncurses5-dev \
     clang llvm bison flex \
+    crossbuild-essential-armhf g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
     python3 python3-distutils python3-dev
 
 RUN apt -y autoremove
@@ -61,11 +62,6 @@ RUN git clone https://github.com/microsoft/vcpkg $HOME/local/vcpkg
 RUN zsh -c "source $HOME/.profile \
     && $HOME/local/vcpkg/bootstrap-vcpkg.sh"
 RUN echo 'export VCPKG_DISABLE_METRICS=1' >> $HOME/.profile
-
-# https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads
-RUN wget -P $HOME/downloads https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz 
-RUN tar xf $HOME/downloads/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C $HOME/local/
-
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
