@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.18)
 
+set(CMAKE_TOOLCHAIN_FILE $ENV{HOME}/local/vcpkg/scripts/buildsystems/vcpkg.cmake)
+
 project(peony 
     VERSION 2021.4.8
     DESCRIPTION "A total free education & translation & ops solution."
