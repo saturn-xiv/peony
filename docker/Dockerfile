@@ -62,6 +62,8 @@ RUN git clone https://github.com/microsoft/vcpkg $HOME/local/vcpkg
 RUN zsh -c "source $HOME/.profile \
     && $HOME/local/vcpkg/bootstrap-vcpkg.sh"
 RUN echo 'export VCPKG_DISABLE_METRICS=1' >> $HOME/.profile
+# COPY vcpkg.sh /opt/
+# RUN zsh /opt/vcpkg.sh
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
