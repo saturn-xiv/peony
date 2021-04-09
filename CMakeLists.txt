@@ -14,7 +14,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
 set(CMAKE_EXE_LINKER_FLAGS "-static")
 
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED COMPONENTS log date_time program_options)
 find_package(OpenSSL REQUIRED)
 # find_package(libpq CONFIG REQUIRED)
 find_package(unofficial-libmariadb CONFIG REQUIRED)

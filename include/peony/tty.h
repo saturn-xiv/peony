@@ -1,37 +1,34 @@
 #pragma once
 
-#include <stdio.h>
-#include <string.h>
-
-#include <exception>
+#include <cstdint>
 #include <mutex>
 #include <optional>
-#include <string>
 #include <utility>
 
-#include <errno.h>
-#include <fcntl.h>
-#include <termios.h>
-#include <unistd.h>
+#include <boost/log/trivial.hpp>
 
 // https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
 namespace peony {
 
 class SerialPort {
  public:
-  SerialPort(const std::string name);
+  SerialPort(const std::string &name);
   ~SerialPort();
+
+  void send(const std::string &line);
+  void listen(const uint16_t port);
 
  protected:
   std::optional<std::pair<size_t, size_t>> match(const std::string &payload,
                                                  const std::string &begin,
-                                                 const std::string &end);
-  virtual std::optional<std::pair<size_t, size_t>> match(
+                                                 const std::string &end) const;
+  virtual std::optional<std::pair<size_t, size_t>> on_match(
       const std::string &payload) const = 0;
 
  private:
-  struct termios tty;
-  char line[1 << 12];
+  const std::string name;
+
+  const int port;
   std::string payload;
   std::mutex locker;
 };
