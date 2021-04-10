@@ -127,10 +127,10 @@ void peony::SerialPort::listen(const uint16_t port_) {
           BOOST_LOG_TRIVIAL(error) << "handle " << name << ": " << e.what();
         }
         BOOST_LOG_TRIVIAL(debug)
-            << "split " << name << " :" << payload.substr(0, it.second);
+            << "split " << name << ": " << payload.substr(0, it.second);
         payload = payload.substr(it.second);
         if (payload.length() > 0) {
-          BOOST_LOG_TRIVIAL(debug) << "remain " << name << " :" << payload;
+          BOOST_LOG_TRIVIAL(debug) << "remain " << name << ": " << payload;
         }
       }
 

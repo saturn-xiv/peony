@@ -27,7 +27,6 @@ class SerialPort {
 
  private:
   const std::string name;
-
   const int tty;
   std::string payload;
   std::mutex locker;
