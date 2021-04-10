@@ -9,3 +9,4 @@ A total free education &amp; translation &amp; ops solution.
 
 - [POCO C++ LIBRARIES DOCUMENTATION](https://pocoproject.org/documentation.html)
 - [Sqlite3](https://sqlite.org/cintro.html)
+- [SOCI - The C++ Database Access Library](http://soci.sourceforge.net/doc/release/4.0/)

@@ -3,7 +3,7 @@
 #include <chrono>
 #include <filesystem>
 
-#include <sqlite3.h>
+// #include <sqlite3.h>
 
 namespace peony {
 
@@ -21,18 +21,19 @@ namespace peony {
  *  SELECT name FROM sqlite_master WHERE type='table' AND name='TABLE_NAME'
  *
  */
-class Sqlite3 {
- public:
-  Sqlite3(const std::filesystem::path& file);
-  ~Sqlite3();
+// class Sqlite3 {
+//  public:
+//   Sqlite3(const std::filesystem::path& file);
+//   ~Sqlite3();
 
-  // https://stackoverflow.com/questions/57123453/how-to-use-diesel-with-sqlite-connections-and-avoid-database-is-locked-type-of
-  void wal_mode(const std::chrono::microseconds& timeout);
+//   //
+//   https://stackoverflow.com/questions/57123453/how-to-use-diesel-with-sqlite-connections-and-avoid-database-is-locked-type-of
+//   void wal_mode(const std::chrono::microseconds& timeout);
 
-  void execute(const std::string& sql);
-  void execute(const std::string& sql, sqlite3_stmt** query);
+//   void execute(const std::string& sql);
+//   void execute(const std::string& sql, sqlite3_stmt** query);
 
- private:
-  sqlite3* db;
-};
+//  private:
+//   sqlite3* db;
+// };
 }  // namespace peony

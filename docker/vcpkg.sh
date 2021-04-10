@@ -19,19 +19,28 @@ declare -a packages=(
     "boost-format"
     "boost-test"
 
+    "soci"
+    "soci[boost]"
+    "soci[sqlite3]"
+    "soci[postgresql]"
+
+    # FIXME arm-linux
+    # "soci[mysql]"
+
     "openssl"
-    "libpq"
-    "libmariadb"
-    "sqlite3"
+    # "libpq"
+    # "libmariadb"
+    # "sqlite3"
     "jwt-cpp"
     "toml11"
 
     "inja"
     "nlohmann-json"
     "cpp-httplib"
+    "curl"
     
     "hiredis"
-    "czmq"
+    "cppzmq"
     "librabbitmq"
     "paho-mqtt"
 )
