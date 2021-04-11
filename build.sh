@@ -6,7 +6,7 @@ export WORKSPACE=$PWD
 
 if [ -d $WORKSPACE/build ]
 then
-    rm -rv $WORKSPACE/build
+    rm -rfv $WORKSPACE/build
 fi
 
 mkdir -pv $WORKSPACE/build/amd64-release

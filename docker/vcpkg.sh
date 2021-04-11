@@ -32,7 +32,7 @@ declare -a packages=(
     # "libpq"
     # "libmariadb"
     # "sqlite3"
-    "jwt-cpp"
+    # "jwt-cpp"
     "toml11"
 
     "inja"

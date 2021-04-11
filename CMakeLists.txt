@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
+include(ExternalProject)
+include(FetchContent)
 
 set(CMAKE_TOOLCHAIN_FILE $ENV{HOME}/local/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
@@ -28,9 +30,6 @@ find_package(cppzmq CONFIG REQUIRED)
 find_package(rabbitmq-c CONFIG REQUIRED)
 find_package(eclipse-paho-mqtt-c CONFIG REQUIRED)
 
-include(CTest)
-
-
 execute_process(COMMAND git describe --tags --always --dirty
     OUTPUT_VARIABLE GIT_REV
     ERROR_QUIET
@@ -41,6 +40,7 @@ configure_file(include/peony/version.h.in version.h)
 add_subdirectory(src)
 add_subdirectory(apps)
 
+include(CTest)
 if(BUILD_TESTING)
     add_subdirectory(tests)
 endif()

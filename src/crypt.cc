@@ -44,7 +44,12 @@ peony::Key::Key(const std::string& secret) {
   }
 }
 
-peony::Key::~Key() {}
+peony::Key::~Key() {
+  if (_payload != NULL) {
+    delete[] _payload;
+    _payload = NULL;
+  }
+}
 std::pair<unsigned char*, unsigned char*> peony::Key::encrypt(
     const unsigned char* plain, const size_t len) {
   auto nonce = new unsigned char[crypto_secretbox_NONCEBYTES];
