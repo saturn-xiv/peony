@@ -12,12 +12,12 @@ fi
 mkdir -pv $WORKSPACE/build/amd64-release
 cd $WORKSPACE/build/amd64-release
 cmake $WORKSPACE -DCMAKE_BUILD_TYPE=Release
-make -j
+time make -j
 
 mkdir -pv $WORKSPACE/build/armhf-release
 cd $WORKSPACE/build/armhf-release
 cmake $WORKSPACE -DCMAKE_BUILD_TYPE=Release -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$WORKSPACE/armhf.cmake
-make -j
+time make -j
 
 
 echo 'done.'

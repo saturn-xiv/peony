@@ -1,11 +1,17 @@
 #pragma once
 
+#include <chrono>
 #include <cstdint>
+#include <exception>
 #include <mutex>
 #include <optional>
+#include <sstream>
+#include <string>
+#include <thread>
 #include <utility>
 
 #include <boost/log/trivial.hpp>
+#include <zmq.hpp>
 
 // https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
 namespace peony {

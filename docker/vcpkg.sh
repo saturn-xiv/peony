@@ -28,6 +28,7 @@ declare -a packages=(
     # "soci[mysql]"
 
     "openssl"
+    "libsodium"
     # "libpq"
     # "libmariadb"
     # "sqlite3"

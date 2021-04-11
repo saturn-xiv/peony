@@ -10,3 +10,8 @@ set_target_properties(tty-test PROPERTIES LINK_FLAGS_RELEASE -s)
 add_executable(orm-test orm.cc)
 target_link_libraries(orm-test PRIVATE peony)
 set_target_properties(orm-test PROPERTIES LINK_FLAGS_RELEASE -s)
+
+
+add_executable(crypt-test crypt.cc)
+target_link_libraries(crypt-test PRIVATE peony)
+set_target_properties(crypt-test PROPERTIES LINK_FLAGS_RELEASE -s)

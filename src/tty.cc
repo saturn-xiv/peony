@@ -11,12 +11,6 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include <chrono>
-#include <exception>
-#include <sstream>
-#include <string>
-#include <thread>
-
 peony::SerialPort::SerialPort(const std::string &name)
     : name(name), tty(open("/dev/ttyUSB0", O_RDWR)) {
   // if (flock(port, LOCK_EX | LOCK_NB) == -1) {
@@ -88,13 +82,18 @@ void peony::SerialPort::send(const std::string &line) {
   }
 }
 
-void peony::SerialPort::listen(const uint16_t port_) {
+void peony::SerialPort::listen(const uint16_t port) {
   std::string payload;
   char line[1 << 8];
 
+  zmq::context_t ctx;
+  zmq::socket_t sock(ctx, zmq::socket_type::pub);
+  sock.bind("tcp://*:" + port);
+  std::this_thread::sleep_for(std::chrono::milliseconds(20));
+
   while (true) {
     memset(&line, '\0', sizeof(line));
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
     {
       std::lock_guard<std::mutex> locker(this->locker);
       const int len = read(tty, &line, sizeof(line));
@@ -120,12 +119,7 @@ void peony::SerialPort::listen(const uint16_t port_) {
         const auto it = size.value();
         const auto msg = payload.substr(it.first, it.second - it.first);
         BOOST_LOG_TRIVIAL(info) << "match " << name << ": " << msg;
-        try {
-          // TODO publish msg
-          // this->execute(msg);
-        } catch (const std::exception &e) {
-          BOOST_LOG_TRIVIAL(error) << "handle " << name << ": " << e.what();
-        }
+        sock.send(zmq::buffer(msg));
         BOOST_LOG_TRIVIAL(debug)
             << "split " << name << ": " << payload.substr(0, it.second);
         payload = payload.substr(it.second);

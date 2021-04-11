@@ -10,6 +10,8 @@ target_link_libraries(peony PRIVATE
   stdc++fs
   ${CMAKE_THREAD_LIBS_INIT}
   ${Boost_LIBRARIES}
+  unofficial-sodium::sodium
+  cppzmq-static
   # unofficial::sqlite3::sqlite3
   # eclipse-paho-mqtt-c::paho-mqtt3c-static  
 )
