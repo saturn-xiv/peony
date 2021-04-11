@@ -22,7 +22,7 @@ std::string peony::Jwt::sum(
   }
   return obj.signature();
 }
-const nlohmann::json peony::Jwt::verify(const std::string& token) const {
+const nlohmann::json peony::Jwt::parse(const std::string& token) const {
   try {
     const auto obj = jwt::decode(
         token, jwt::params::algorithms({"HS512"}), jwt::params::secret(_secret),

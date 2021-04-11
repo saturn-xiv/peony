@@ -15,7 +15,7 @@ class Jwt {
   std::string sum(
       const std::unordered_map<std::string, nlohmann::json>& payload,
       const std::chrono::seconds& ttl) const;
-  const nlohmann::json verify(const std::string& token) const;
+  const nlohmann::json parse(const std::string& token) const;
 
  private:
   const std::string _secret;

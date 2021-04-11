@@ -19,17 +19,17 @@ BOOST_AUTO_TEST_CASE(sum_verify_test) {
   const auto token = j.sum(payload, ttl);
   std::cout << "token: " << token << std::endl;
   {
-    const auto v = j.verify(token);
+    const auto v = j.parse(token);
     std::cout << v << std::endl;
     BOOST_TEST(v[key] == val);
   }
   {
-    const auto v = j1.verify(token);
+    const auto v = j1.parse(token);
     std::cout << "bad key: " << v << std::endl;
     BOOST_TEST(v.empty());
   }
   {
-    const auto v = j2.verify(token);
+    const auto v = j2.parse(token);
     std::cout << "bad issuer: " << v << std::endl;
     BOOST_TEST(v.empty());
   }
