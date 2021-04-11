@@ -16,9 +16,14 @@ file(GLOB SOURCE_LIST CONFIGURE_DEPENDS "${peony_SOURCE_DIR}/src/*.cc")
 
 
 add_library(peony ${SOURCE_LIST} ${HEADER_LIST})
-add_dependencies(peony cpp-jwt)
 
-target_include_directories(peony PUBLIC ${CMAKE_CURRENT_BINARY_DIR} ${Boost_INCLUDE_DIRS} ../include)
+target_include_directories(peony PUBLIC 
+  ${CMAKE_CURRENT_BINARY_DIR} 
+  ${Boost_INCLUDE_DIRS} 
+  ${cpp_jwt_SOURCE_DIR}/include
+  
+  ../include
+)
 
 target_link_libraries(peony PRIVATE
   stdc++fs

@@ -1,35 +1,49 @@
 #include "peony/jwt.h"
 
-#include <jwt-cpp/jwt.h>
-
 #include <iostream>
+
+#include <boost/log/trivial.hpp>
+#include <jwt/jwt.hpp>
 
 peony::Jwt::Jwt(const std::string& secret, const std::string& issuer)
     : _secret(secret), _issuer(issuer) {}
 peony::Jwt::~Jwt() {}
-std::string peony::Jwt::sum(const std::string& key, const std::string& val,
-                            const std::chrono::seconds& ttl) const {
-  return jwt::create()
-      .set_type("JWT")
-      .set_issuer(_issuer)
-      .set_issued_at(std::chrono::system_clock::now())
-      .set_expires_at(std::chrono::system_clock::now() + ttl)
-      .set_payload_claim(key, jwt::claim(val))
-      .sign(jwt::algorithm::hs512{_secret});
-}
-std::optional<std::string> peony::Jwt::verify(const std::string& token,
-                                              const std::string& key) const {
-  auto verifier = jwt::verify()
-                      .allow_algorithm(jwt::algorithm::hs512{_secret})
-                      .with_issuer(_issuer);
-  auto decoded = jwt::decode(token);
+std::string peony::Jwt::sum(
+    const std::unordered_map<std::string, nlohmann::json>& payload,
+    const std::chrono::seconds& ttl) const {
+  jwt::jwt_object obj{jwt::params::algorithm("HS512"),
+                      jwt::params::secret(_secret)};
+  obj.add_claim("iss", _issuer)
+      .add_claim("iat", std::chrono::system_clock::now())
+      .add_claim("exp", std::chrono::system_clock::now() + ttl);
 
-  verifier.verify(decoded);
-  for (const auto& it : decoded.get_payload_claims()) {
-    if (it.first == key) {
-      return it.second.as_string();
-    }
+  for (const auto& it : payload) {
+    obj.payload().add_claim(it.first, it.second);
+  }
+  return obj.signature();
+}
+const nlohmann::json peony::Jwt::verify(const std::string& token) const {
+  try {
+    const auto obj = jwt::decode(
+        token, jwt::params::algorithms({"HS512"}), jwt::params::secret(_secret),
+        jwt::params::verify(true), jwt::params::issuer(_issuer));
+
+    return obj.payload().create_json_obj();
+
+  } catch (const jwt::TokenExpiredError& e) {
+    BOOST_LOG_TRIVIAL(error) << "token expire: " << e.what();
+
+  } catch (const jwt::SignatureFormatError& e) {
+    BOOST_LOG_TRIVIAL(error) << "token signature format error: " << e.what();
+
+  } catch (const jwt::DecodeError& e) {
+    BOOST_LOG_TRIVIAL(error) << "token decode: " << e.what();
+
+  } catch (const jwt::VerificationError& e) {
+    BOOST_LOG_TRIVIAL(error) << "token verification: " << e.what();
+  } catch (...) {
+    BOOST_LOG_TRIVIAL(error) << "parse token failed";
   }
 
-  return std::nullopt;
+  return {};
 }
