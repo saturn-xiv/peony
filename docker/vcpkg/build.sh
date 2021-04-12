@@ -4,18 +4,18 @@ set -e
 
 export WORKSPACE=$PWD
 
-if [ -d $WORKSPACE/build ]
-then
-    rm -rfv $WORKSPACE/build
-fi
+# if [ -d $WORKSPACE/build ]
+# then
+#     rm -rfv $WORKSPACE/build
+# fi
 
-mkdir -pv $WORKSPACE/build/amd64-release
-cd $WORKSPACE/build/amd64-release
+mkdir -pv $WORKSPACE/build/x64-release
+cd $WORKSPACE/build/x64-release
 cmake $WORKSPACE -DCMAKE_BUILD_TYPE=Release
 time make -j
 
-mkdir -pv $WORKSPACE/build/armhf-release
-cd $WORKSPACE/build/armhf-release
+mkdir -pv $WORKSPACE/build/arm-release
+cd $WORKSPACE/build/arm-release
 cmake $WORKSPACE -DCMAKE_BUILD_TYPE=Release -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$WORKSPACE/armhf.cmake
 time make -j
 

@@ -39,6 +39,7 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py
 RUN python3 $HOME/downloads/get-pip.py --user
 RUN sh -c ". $HOME/.profile \
     && pip install --user cmake \
+    && pip install --user conan \
     && pip install --user ansible paramiko"
 RUN echo 'export ANSIBLE_HOST_KEY_CHECKING=False' >> $HOME/.profile
 RUN echo 'alias peony="ANSIBLE_LOG_PATH=$HOME/$(date +%Y%m%d%H%M%S).log ansible-playbook"' >> $HOME/.profile
@@ -49,6 +50,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | s
 RUN sh -c ". $HOME/.profile \
     && nvm install node"
 RUN sh -c ". $HOME/.profile \
+    && npm i npm -g \
     && npm i yarn -g"
 
 RUN curl -s "https://get.sdkman.io" | zsh

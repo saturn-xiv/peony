@@ -19,19 +19,21 @@ declare -a packages=(
     "boost-format"
     "boost-test"
 
+    "openssl"
+    "libsodium"
+
     "soci"
+    "libpq"
+    "libpq[openssl]"
+    "sqlite3"
     "soci[boost]"
     "soci[sqlite3]"
     "soci[postgresql]"
 
     # FIXME arm-linux
     # "soci[mysql]"
-
-    "openssl"
-    "libsodium"
     # "libpq"
     # "libmariadb"
-    # "sqlite3"
     # "jwt-cpp"
     "toml11"
 
