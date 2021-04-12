@@ -64,8 +64,18 @@ RUN git clone https://github.com/microsoft/vcpkg $HOME/local/vcpkg
 RUN zsh -c "source $HOME/.profile \
     && $HOME/local/vcpkg/bootstrap-vcpkg.sh"
 RUN echo 'export VCPKG_DISABLE_METRICS=1' >> $HOME/.profile
-# COPY vcpkg.sh /opt/
+COPY vcpkg /opt/
 # RUN zsh /opt/vcpkg.sh
+
+RUN COPY conan /opt/
+RUN zsh -c "source $HOME/.zshrc \
+    && mkdir $HOME/amd64 \
+    && cd $HOME/amd64 \
+    && conan install /opt/conan --build=missing --profile=/opt/conan/amd64"
+RUN zsh -c "source $HOME/.zshrc \
+    && mkdir $HOME/armhf \
+    && cd $HOME/armhf \
+    && conan install /opt/conan --build=missing --profile:host=/opt/conan/armhf --profile:build=/opt/conan/amd64"
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
