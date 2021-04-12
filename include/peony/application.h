@@ -12,7 +12,7 @@ class Application {
   void launch(int argc, char **argv);
 
  protected:
-  virtual void launch(boost::property_tree::ptree tree) = 0;
+  virtual void launch(const boost::property_tree::ptree tree) = 0;
   virtual std::string version() const = 0;
 
  private:

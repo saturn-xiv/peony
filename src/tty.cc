@@ -12,7 +12,7 @@
 #include <unistd.h>
 
 peony::SerialPort::SerialPort(const std::string &name)
-    : name(name), tty(open("/dev/ttyUSB0", O_RDWR)) {
+    : name(name), tty(open((std::string("/dev/") + name).c_str(), O_RDWR)) {
   // if (flock(port, LOCK_EX | LOCK_NB) == -1) {
   //   std::stringstream ss;
   //   ss << name << " is already locked by another process";
@@ -21,16 +21,17 @@ peony::SerialPort::SerialPort(const std::string &name)
   // }
   if (tty < 0) {
     std::stringstream ss;
-    ss << "open serial port " << name << "(" << errno
+    ss << "open serial port " << this->name << "(" << errno
        << "): " << strerror(errno);
     throw std::invalid_argument(ss.str());
   }
 
   struct termios opt;
 
-  if (tcgetattr(tty, &opt) != 0) {
+  if (tcgetattr(this->tty, &opt) != 0) {
     std::stringstream ss;
-    ss << "tcgetattr " << name << "(" << errno << "): " << strerror(errno);
+    ss << "tcgetattr " << this->name << "(" << errno
+       << "): " << strerror(errno);
     throw std::invalid_argument(ss.str());
   }
 
@@ -54,41 +55,51 @@ peony::SerialPort::SerialPort(const std::string &name)
   opt.c_cc[VTIME] = 1;
   opt.c_cc[VMIN] = 0;
 
-  if (tcsetattr(tty, TCSANOW, &opt) != 0) {
+  if (tcsetattr(this->tty, TCSANOW, &opt) != 0) {
     std::stringstream ss;
-    ss << "tcsetattr " << name << "(" << errno << "): " << strerror(errno);
+    ss << "tcsetattr " << this->name << "(" << errno
+       << "): " << strerror(errno);
     throw std::invalid_argument(ss.str());
   }
-  tcflush(tty, TCIOFLUSH);
+  tcflush(this->tty, TCIOFLUSH);
 }
 
 peony::SerialPort::~SerialPort() {
   std::lock_guard<std::mutex> locker(this->locker);
-  close(tty);
+  close(this->tty);
 }
 
 void peony::SerialPort::send(const std::string &line) {
   while (true) {
-    BOOST_LOG_TRIVIAL(info) << "write \"" << line << "\" to " << name;
+    BOOST_LOG_TRIVIAL(info) << "write \"" << line << "\" to " << this->name;
     {
       std::lock_guard<std::mutex> locker(this->locker);
-      const auto len = write(tty, line.c_str(), sizeof(line));
+      const auto len = write(this->tty, line.c_str(), sizeof(line));
       if (len >= 0) {
-        BOOST_LOG_TRIVIAL(info) << "written " << name << " " << len << " bytes";
+        BOOST_LOG_TRIVIAL(info)
+            << "written " << this->name << " " << len << " bytes";
         return;
       }
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
 
 void peony::SerialPort::listen(const uint16_t port) {
   std::string payload;
-  char line[1 << 8];
+  char line[1 << 10];
 
   zmq::context_t ctx;
   zmq::socket_t sock(ctx, zmq::socket_type::pub);
-  sock.bind("tcp://*:" + port);
+
+  {
+    std::stringstream ss;
+    ss << "tcp://*:" << port;
+    const auto addr = ss.str();
+    BOOST_LOG_TRIVIAL(info) << "bind " << this->name << " to tcp " << addr;
+    sock.bind(addr);
+  }
+
   std::this_thread::sleep_for(std::chrono::milliseconds(20));
 
   while (true) {
@@ -96,20 +107,20 @@ void peony::SerialPort::listen(const uint16_t port) {
     std::this_thread::sleep_for(std::chrono::milliseconds(20));
     {
       std::lock_guard<std::mutex> locker(this->locker);
-      const int len = read(tty, &line, sizeof(line));
+      const int len = read(this->tty, &line, sizeof(line));
 
       if (len == 0) {
         continue;
       }
 
       if (len < 0) {
-        BOOST_LOG_TRIVIAL(error)
-            << "read from " << name << "(" << errno << "): " << strerror(errno);
+        BOOST_LOG_TRIVIAL(error) << "read from " << this->name << "(" << errno
+                                 << "): " << strerror(errno);
         continue;
       }
 
       BOOST_LOG_TRIVIAL(info) << "received " << len << " bytes: " << line;
-      payload += std::string(line, len);
+      this->payload += std::string(line, len);
 
       for (;;) {
         const auto size = this->on_match(payload);
@@ -117,21 +128,22 @@ void peony::SerialPort::listen(const uint16_t port) {
           break;
         }
         const auto it = size.value();
-        const auto msg = payload.substr(it.first, it.second - it.first);
+        const auto msg = this->payload.substr(it.first, it.second - it.first);
         BOOST_LOG_TRIVIAL(info) << "match " << name << ": " << msg;
         sock.send(zmq::buffer(msg));
         BOOST_LOG_TRIVIAL(debug)
             << "split " << name << ": " << payload.substr(0, it.second);
-        payload = payload.substr(it.second);
-        if (payload.length() > 0) {
-          BOOST_LOG_TRIVIAL(debug) << "remain " << name << ": " << payload;
+        this->payload = this->payload.substr(it.second);
+        if (this->payload.length() > 0) {
+          BOOST_LOG_TRIVIAL(debug)
+              << "remain " << name << ": " << this->payload;
         }
       }
 
-      if (payload.length() >= (1 << 12)) {
+      if (this->payload.length() >= (1 << 12)) {
         BOOST_LOG_TRIVIAL(warning)
-            << "clear buffer " << name << ": " << payload;
-        payload.clear();
+            << "clear buffer " << name << ": " << this->payload;
+        this->payload.clear();
       }
     }
   }

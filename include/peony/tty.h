@@ -3,6 +3,7 @@
 #include <chrono>
 #include <cstdint>
 #include <exception>
+#include <iostream>
 #include <mutex>
 #include <optional>
 #include <sstream>
