@@ -9,7 +9,7 @@ RUN apt -y install apt-transport-https software-properties-common curl gnupg
 RUN apt -y install zsh git locales rsync openssh-client screen tmux \
     vim sudo tzdata pwgen curl zip unzip wget yasm tree cpio bc \
     build-essential pkg-config cmake libtool automake autoconf binutils debhelper libncurses5-dev \
-    clang llvm bison flex \
+    clang llvm bison flex meson \
     crossbuild-essential-armhf g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
     python3 python3-distutils python3-dev
 
