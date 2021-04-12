@@ -67,12 +67,14 @@ RUN echo 'export VCPKG_DISABLE_METRICS=1' >> $HOME/.profile
 COPY vcpkg /opt/
 # RUN zsh /opt/vcpkg.sh
 
-RUN COPY conan /opt/
-RUN zsh -c "source $HOME/.zshrc \
+COPY conan /opt/conan/
+# RUN zsh -c "source $HOME/.profile \
+#     && conan remote update conan-center https://api.bintray.com/conan/conan/conan-center"
+RUN zsh -c "source $HOME/.profile \
     && mkdir $HOME/amd64 \
     && cd $HOME/amd64 \
     && conan install /opt/conan --build=missing --profile=/opt/conan/amd64"
-RUN zsh -c "source $HOME/.zshrc \
+RUN zsh -c "source $HOME/.profile \
     && mkdir $HOME/armhf \
     && cd $HOME/armhf \
     && conan install /opt/conan --build=missing --profile:host=/opt/conan/armhf --profile:build=/opt/conan/amd64"
