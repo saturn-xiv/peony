@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:groovy
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
