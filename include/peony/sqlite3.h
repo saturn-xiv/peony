@@ -1,12 +1,14 @@
 #pragma once
 
-#include <chrono>
-#include <filesystem>
+#include "peony/orm.h"
+
+#include <soci/sqlite3/soci-sqlite3.h>
 
 // #include <sqlite3.h>
 
 namespace peony {
 
+namespace sqlite3 {
 /**
  *
  *  .show Displays current settings for various parameters
@@ -21,6 +23,11 @@ namespace peony {
  *  SELECT name FROM sqlite_master WHERE type='table' AND name='TABLE_NAME'
  *
  */
+std::string version(std::shared_ptr<soci::session> db);
+//   https://stackoverflow.com/questions/57123453/how-to-use-diesel-with-sqlite-connections-and-avoid-database-is-locked-type-of
+void wal_mode(std::shared_ptr<soci::session> db,
+              const std::chrono::milliseconds& timeout);
+}  // namespace sqlite3
 // class Sqlite3 {
 //  public:
 //   Sqlite3(const std::filesystem::path& file);

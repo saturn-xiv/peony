@@ -1,7 +1,10 @@
 #pragma once
 
 #include <filesystem>
+#include <fstream>
 #include <optional>
+#include <streambuf>
+#include <string>
 
 #include <boost/date_time/local_time/local_time.hpp>
 #include <boost/log/trivial.hpp>

@@ -6,19 +6,19 @@
 #include <optional>
 #include <string>
 
+#include <cpr/cpr.h>
 #include <httplib.h>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/log/trivial.hpp>
 
 namespace peony {
 namespace http {
-std::optional<std::string> get(const std::string url);
 
 namespace response {
 class Ok {
  public:
   Ok();
-  NLOHMANN_DEFINE_TYPE_INTRUSIVE(peony::http::response::Ok, created_at)
+  NLOHMANN_DEFINE_TYPE_INTRUSIVE(Ok, created_at)
  private:
   boost::posix_time::ptime created_at;
 };

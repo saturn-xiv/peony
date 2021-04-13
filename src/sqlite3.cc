@@ -1,8 +1,18 @@
 #include "peony/sqlite3.h"
 
-#include <memory>
+std::string peony::sqlite3::version(std::shared_ptr<soci::session> db) {
+  std::string it;
+  *db << "select sqlite_version()", soci::into(it);
+  return it;
+}
 
-#include <boost/log/trivial.hpp>
+void peony::sqlite3::wal_mode(std::shared_ptr<soci::session> db,
+                              const std::chrono::milliseconds& timeout) {
+  *db << "PRAGMA synchronous = OFF";
+  *db << "PRAGMA journal_mode = WAL";
+  *db << "PRAGMA foreign_keys = ON";
+  *db << "PRAGMA busy_timeout = " << timeout.count();
+}
 
 // peony::Sqlite3::Sqlite3(const std::filesystem::path& file) {
 //   BOOST_LOG_TRIVIAL(info) << "open db " << file;

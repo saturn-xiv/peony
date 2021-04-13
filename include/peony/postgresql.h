@@ -1,5 +1,8 @@
 #pragma once
 
+#include "peony/orm.h"
+
+#include <soci/postgresql/soci-postgresql.h>
 
 namespace peony {
 /**

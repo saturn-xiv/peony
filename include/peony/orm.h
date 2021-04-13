@@ -13,8 +13,7 @@
 #include <thread>
 #include <utility>
 
-#include <soci/postgresql/soci-postgresql.h>
-#include <soci/sqlite3/soci-sqlite3.h>
+#include <soci/soci.h>
 #include <boost/log/trivial.hpp>
 
 #ifndef PEONY_DEFAULT_POOL_SIZE
@@ -22,5 +21,13 @@
 #endif
 
 namespace peony {
-namespace orm {}
+namespace orm {
+class Logger : public soci::logger_impl {
+ public:
+  void start_query(std::string const& query) override;
+
+ private:
+  Logger* do_clone() const override;
+};
+}  // namespace orm
 }  // namespace peony
