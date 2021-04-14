@@ -1,5 +1,11 @@
 #include "peony/application.h"
+#include "peony/crypt.h"
+#include "peony/postgresql.h"
+#include "peony/sqlite3.h"
+#include "peony/theme.h"
+#include "peony/utils.h"
 
+#include <sodium.h>
 #include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>
 #include <boost/log/trivial.hpp>
@@ -32,6 +38,12 @@ void peony::Application::launch(int argc, char** argv) {
     std::cout << version() << std::endl;
     return;
   }
+
+  if (sodium_init() == -1) {
+    throw std::invalid_argument("sodium init");
+  }
+  soci::register_factory_sqlite3();
+  soci::register_factory_postgresql();
 
   boost::log::core::get()->set_filter(boost::log::trivial::severity >=
                                       (vm.count("debug")

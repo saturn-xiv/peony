@@ -1,13 +1,13 @@
 #include "peony/sqlite3.h"
 
-std::string peony::sqlite3::version(std::shared_ptr<soci::session> db) {
+peony::sqlite3::Dao::Dao(std::shared_ptr<soci::session> db) : db(db) {}
+std::string peony::sqlite3::Dao::version() {
   std::string it;
-  *db << "select sqlite_version()", soci::into(it);
+  *db << "SELECT SQLITE_VERSION()", soci::into(it);
   return it;
 }
 
-void peony::sqlite3::wal_mode(std::shared_ptr<soci::session> db,
-                              const std::chrono::milliseconds& timeout) {
+void peony::sqlite3::Dao::wal_mode(const std::chrono::milliseconds& timeout) {
   *db << "PRAGMA synchronous = OFF";
   *db << "PRAGMA journal_mode = WAL";
   *db << "PRAGMA foreign_keys = ON";

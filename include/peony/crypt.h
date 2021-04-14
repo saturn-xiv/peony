@@ -20,20 +20,21 @@ double double_(unsigned int min, unsigned int max);
 
 class Key {
  public:
+  Key();
   Key(const std::string& secret);
   ~Key();
   std::pair<unsigned char*, unsigned char*> encrypt(const unsigned char* plain,
                                                     size_t len);
   unsigned char* decrypt(const unsigned char* secret,
                          const unsigned char* nonce, const size_t len);
-  std::pair<unsigned char*, unsigned char*> password(const char* plain);
-  bool verify(const unsigned char* secret, const unsigned char* salt,
-              const char* plain);
+  static std::pair<unsigned char*, unsigned char*> password(const char* plain);
+  static bool verify(const unsigned char* secret, const unsigned char* salt,
+                     const char* plain);
 
   static std::string generate_key();
 
  private:
-  unsigned char* _payload;
+  unsigned char* payload;
 };
 
 }  // namespace peony

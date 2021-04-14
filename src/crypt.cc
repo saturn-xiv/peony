@@ -33,21 +33,20 @@ std::string peony::Key::generate_key() {
   return it;
 }
 
+peony::Key::Key() {
+  this->payload = new unsigned char[crypto_secretbox_KEYBYTES];
+  crypto_secretbox_keygen(this->payload);
+}
 peony::Key::Key(const std::string& secret) {
-  if (sodium_init() == -1) {
-    throw std::invalid_argument("sodium init");
-  }
-  {
-    _payload = new unsigned char[crypto_secretbox_KEYBYTES];
-    boost::beast::detail::base64::decode(_payload, secret.c_str(),
-                                         secret.size());
-  }
+  this->payload = new unsigned char[crypto_secretbox_KEYBYTES];
+  boost::beast::detail::base64::decode(this->payload, secret.c_str(),
+                                       secret.size());
 }
 
 peony::Key::~Key() {
-  if (_payload != NULL) {
-    delete[] _payload;
-    _payload = NULL;
+  if (this->payload != NULL) {
+    delete[] this->payload;
+    this->payload = NULL;
   }
 }
 std::pair<unsigned char*, unsigned char*> peony::Key::encrypt(
@@ -55,7 +54,7 @@ std::pair<unsigned char*, unsigned char*> peony::Key::encrypt(
   auto nonce = new unsigned char[crypto_secretbox_NONCEBYTES];
   auto secret = new unsigned char[crypto_secretbox_MACBYTES + len];
   randombytes_buf(nonce, crypto_secretbox_NONCEBYTES);
-  crypto_secretbox_easy(secret, plain, len, nonce, _payload);
+  crypto_secretbox_easy(secret, plain, len, nonce, this->payload);
   return std::make_pair(secret, nonce);
 }
 unsigned char* peony::Key::decrypt(const unsigned char* secret,
@@ -63,7 +62,7 @@ unsigned char* peony::Key::decrypt(const unsigned char* secret,
                                    const size_t len) {
   auto plain = new unsigned char(len);
   if (crypto_secretbox_open_easy(plain, secret, crypto_secretbox_MACBYTES + len,
-                                 nonce, _payload) != 0) {
+                                 nonce, this->payload) != 0) {
     throw std::invalid_argument("sodium decrypt");
   }
 

@@ -23,10 +23,18 @@ namespace sqlite3 {
  *  SELECT name FROM sqlite_master WHERE type='table' AND name='TABLE_NAME'
  *
  */
-std::string version(std::shared_ptr<soci::session> db);
-//   https://stackoverflow.com/questions/57123453/how-to-use-diesel-with-sqlite-connections-and-avoid-database-is-locked-type-of
-void wal_mode(std::shared_ptr<soci::session> db,
-              const std::chrono::milliseconds& timeout);
+
+class Dao {
+ public:
+  Dao(std::shared_ptr<soci::session> db);
+  std::string version();
+  //   https://stackoverflow.com/questions/57123453/how-to-use-diesel-with-sqlite-connections-and-avoid-database-is-locked-type-of
+  void wal_mode(const std::chrono::milliseconds& timeout);
+
+ private:
+  std::shared_ptr<soci::session> db;
+};
+
 }  // namespace sqlite3
 // class Sqlite3 {
 //  public:

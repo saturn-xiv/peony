@@ -6,13 +6,20 @@
 #include <optional>
 #include <string>
 
-#include <cpr/cpr.h>
 #include <httplib.h>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/log/trivial.hpp>
 
 namespace peony {
 namespace http {
+namespace client {
+
+std::string gets(const std::string& host, const std::string& path,
+                 const unsigned int port = 443);
+std::string posts(const std::string& host, const std::string& path,
+                  const std::string& body, const unsigned int port = 443);
+
+}  // namespace client
 
 namespace response {
 class Ok {

@@ -74,6 +74,17 @@ struct adl_serializer<boost::posix_time::ptime> {
   }
 };
 
+template <typename T>
+struct adl_serializer<std::shared_ptr<T>> {
+  static void to_json(json &j, const std::shared_ptr<T> &opt) {
+    if (opt.get()) {
+      j = *opt;
+    } else {
+      j = nullptr;
+    }
+  }
+};
+
 }  // namespace nlohmann
 
 #define PEONY_APPLICATION_JSON_UTF8 "application/json; charset=UTF-8"
