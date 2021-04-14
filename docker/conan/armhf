@@ -5,9 +5,9 @@ os=Linux
 os_build=Linux
 arch=armv7hf
 arch_build=x86_64
-compiler=gcc
+compiler=clang
 compiler.cppstd=17
-compiler.version=10
+compiler.version=11
 compiler.libcxx=libstdc++11
 build_type=Release
 
@@ -18,11 +18,14 @@ build_type=Release
 [env]
 CHOST=$target_host
 USE_DEV_URANDOM=1
-AR=$target_host-ar
-AS=$target_host-as
-RANLIB=$target_host-ranlib
-CC=$target_host-gcc
-CXX=$target_host-g++
-STRIP=$target_host-strip
-LD=$target_host-ld
+CC=clang
+CXX=clang++
+
+
+#AR=$target_host-ar
+#AS=$target_host-as
+#RANLIB=$target_host-ranlib
+
+#STRIP=$target_host-strip
+#LD=$target_host-ld
 #RC=$target_host-windres

@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <sodium.h>
+// #include <sodium.h>
 #include <boost/beast/core/detail/base64.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/log/trivial.hpp>
@@ -22,25 +22,26 @@
 #include <boost/uuid/uuid_io.hpp>
 
 std::string peony::Key::generate_key() {
-  unsigned char key[crypto_secretbox_KEYBYTES];
-  crypto_secretbox_keygen(key);
+  // unsigned char key[crypto_secretbox_KEYBYTES];
+  // crypto_secretbox_keygen(key);
 
-  std::string it;
-  it.resize(
-      boost::beast::detail::base64::encoded_size(crypto_secretbox_KEYBYTES));
-  it.resize(boost::beast::detail::base64::encode(&it[0], &key[0],
-                                                 crypto_secretbox_KEYBYTES));
-  return it;
+  // std::string it;
+  // it.resize(
+  //     boost::beast::detail::base64::encoded_size(crypto_secretbox_KEYBYTES));
+  // it.resize(boost::beast::detail::base64::encode(&it[0], &key[0],
+  //                                                crypto_secretbox_KEYBYTES));
+  // return it;
+  return "";
 }
 
 peony::Key::Key() {
-  this->payload = new unsigned char[crypto_secretbox_KEYBYTES];
-  crypto_secretbox_keygen(this->payload);
+  this->payload = new unsigned char[11];  // crypto_secretbox_KEYBYTES
+  // crypto_secretbox_keygen(this->payload);
 }
 peony::Key::Key(const std::string& secret) {
-  this->payload = new unsigned char[crypto_secretbox_KEYBYTES];
-  boost::beast::detail::base64::decode(this->payload, secret.c_str(),
-                                       secret.size());
+  this->payload = new unsigned char[11];  // crypto_secretbox_KEYBYTES
+  // boost::beast::detail::base64::decode(this->payload, secret.c_str(),
+  //                                      secret.size());
 }
 
 peony::Key::~Key() {
@@ -51,49 +52,50 @@ peony::Key::~Key() {
 }
 std::pair<unsigned char*, unsigned char*> peony::Key::encrypt(
     const unsigned char* plain, const size_t len) {
-  auto nonce = new unsigned char[crypto_secretbox_NONCEBYTES];
-  auto secret = new unsigned char[crypto_secretbox_MACBYTES + len];
-  randombytes_buf(nonce, crypto_secretbox_NONCEBYTES);
-  crypto_secretbox_easy(secret, plain, len, nonce, this->payload);
+  auto nonce = new unsigned char[11];         // crypto_secretbox_NONCEBYTES
+  auto secret = new unsigned char[11 + len];  // crypto_secretbox_MACBYTES
+  // randombytes_buf(nonce, crypto_secretbox_NONCEBYTES);
+  // crypto_secretbox_easy(secret, plain, len, nonce, this->payload);
   return std::make_pair(secret, nonce);
 }
 unsigned char* peony::Key::decrypt(const unsigned char* secret,
                                    const unsigned char* nonce,
                                    const size_t len) {
   auto plain = new unsigned char(len);
-  if (crypto_secretbox_open_easy(plain, secret, crypto_secretbox_MACBYTES + len,
-                                 nonce, this->payload) != 0) {
-    throw std::invalid_argument("sodium decrypt");
-  }
+  // if (crypto_secretbox_open_easy(plain, secret, crypto_secretbox_MACBYTES +
+  // len,
+  //                                nonce, this->payload) != 0) {
+  //   throw std::invalid_argument("sodium decrypt");
+  // }
 
   return plain;
 }
 std::pair<unsigned char*, unsigned char*> peony::Key::password(
     const char* plain) {
-  auto salt = new unsigned char[crypto_pwhash_SALTBYTES];
-  auto secret = new unsigned char[crypto_box_SEEDBYTES];
-  randombytes_buf(salt, crypto_pwhash_SALTBYTES);
+  auto salt = new unsigned char[11];    // crypto_pwhash_SALTBYTES
+  auto secret = new unsigned char[11];  // crypto_box_SEEDBYTES
+  // randombytes_buf(salt, crypto_pwhash_SALTBYTES);
 
-  if (crypto_pwhash(secret, crypto_box_SEEDBYTES, plain, strlen(plain), salt,
-                    crypto_pwhash_OPSLIMIT_INTERACTIVE,
-                    crypto_pwhash_MEMLIMIT_INTERACTIVE,
-                    crypto_pwhash_ALG_DEFAULT) != 0) {
-    throw std::invalid_argument("sodium password sum");
-  }
+  // if (crypto_pwhash(secret, crypto_box_SEEDBYTES, plain, strlen(plain), salt,
+  //                   crypto_pwhash_OPSLIMIT_INTERACTIVE,
+  //                   crypto_pwhash_MEMLIMIT_INTERACTIVE,
+  //                   crypto_pwhash_ALG_DEFAULT) != 0) {
+  //   throw std::invalid_argument("sodium password sum");
+  // }
 
   return std::make_pair(secret, salt);
 }
 bool peony::Key::verify(const unsigned char* secret, const unsigned char* salt,
                         const char* plain) {
-  unsigned char tmp[crypto_box_SEEDBYTES];
+  unsigned char tmp[11];  // crypto_box_SEEDBYTES
 
-  if (crypto_pwhash(tmp, sizeof(tmp), plain, strlen(plain), salt,
-                    crypto_pwhash_OPSLIMIT_INTERACTIVE,
-                    crypto_pwhash_MEMLIMIT_INTERACTIVE,
-                    crypto_pwhash_ALG_DEFAULT) != 0) {
-    BOOST_LOG_TRIVIAL(error) << "sodium password sum";
-    return false;
-  }
+  // if (crypto_pwhash(tmp, sizeof(tmp), plain, strlen(plain), salt,
+  //                   crypto_pwhash_OPSLIMIT_INTERACTIVE,
+  //                   crypto_pwhash_MEMLIMIT_INTERACTIVE,
+  //                   crypto_pwhash_ALG_DEFAULT) != 0) {
+  //   BOOST_LOG_TRIVIAL(error) << "sodium password sum";
+  //   return false;
+  // }
 
   return memcmp(tmp, secret, sizeof(tmp)) == 0;
 }

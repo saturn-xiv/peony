@@ -1,17 +1,22 @@
-FROM ubuntu:groovy
+FROM ubuntu:xenial
 LABEL maintainer="Jeremy Zheng"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update
-RUN apt -y upgrade
 RUN apt -y install apt-transport-https software-properties-common curl gnupg
+# https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
+RUN add-apt-repository -y ppa:deadsnakes/ppa
+RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
+RUN apt update
+RUN apt -y upgrade
 RUN apt -y install zsh git locales rsync openssh-client screen tmux \
     vim sudo tzdata pwgen curl zip unzip wget yasm tree cpio bc \
-    build-essential pkg-config cmake libtool automake autoconf binutils debhelper libncurses5-dev \
-    clang llvm bison flex meson \
+    build-essential pkg-config cmake libtool automake autoconf binutils debhelper libc++-dev libncurses5-dev \
+    bison flex meson nasm ninja-build \
+    g++-9 \
     crossbuild-essential-armhf g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
-    python3 python3-distutils python3-dev
+    python3.9 python3.9-distutils python3.9-dev
 
 RUN apt -y autoremove
 RUN apt -y clean
@@ -36,7 +41,8 @@ RUN cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
 
 # https://pip.pypa.io/en/stable/installing/
 RUN curl https://bootstrap.pypa.io/get-pip.py -o $HOME/downloads/get-pip.py
-RUN python3 $HOME/downloads/get-pip.py --user
+RUN python3.9 $HOME/downloads/get-pip.py --user
+RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
 RUN sh -c ". $HOME/.profile \
     && pip install --user cmake \
     && pip install --user conan \
@@ -60,16 +66,21 @@ RUN zsh -c "source $HOME/.zshrc \
     && sdk install maven \
     && sdk install gradle"
 
-RUN git clone https://github.com/microsoft/vcpkg $HOME/local/vcpkg
-RUN zsh -c "source $HOME/.profile \
-    && $HOME/local/vcpkg/bootstrap-vcpkg.sh"
-RUN echo 'export VCPKG_DISABLE_METRICS=1' >> $HOME/.profile
-COPY vcpkg /opt/
+# FIXME zmq & libsodium
+# RUN git clone https://github.com/microsoft/vcpkg $HOME/local/vcpkg
+# RUN zsh -c "source $HOME/.profile \
+#     && $HOME/local/vcpkg/bootstrap-vcpkg.sh"
+# RUN echo 'export VCPKG_DISABLE_METRICS=1' >> $HOME/.profile
+# COPY vcpkg /opt/
 # RUN zsh /opt/vcpkg.sh
 
+RUN mkdir -p $HOME/local
+RUN wget -P $HOME/downloads https://github.com/llvm/llvm-project/releases/download/llvmorg-11.1.0/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz
+RUN tar xf $HOME/downloads/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz -C $HOME/local
+
 COPY conan /opt/conan/
-# RUN zsh -c "source $HOME/.profile \
-#     && conan remote update conan-center https://api.bintray.com/conan/conan/conan-center"
+RUN zsh -c "source $HOME/.profile \
+    && conan remote update conan-center https://api.bintray.com/conan/conan/conan-center"
 RUN zsh -c "source $HOME/.profile \
     && mkdir $HOME/amd64 \
     && cd $HOME/amd64 \
@@ -80,7 +91,6 @@ RUN zsh -c "source $HOME/.profile \
     && conan install /opt/conan --build=missing --profile:host=/opt/conan/armhf --profile:build=/opt/conan/amd64"
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
-RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.profile
 
 VOLUME /workspace
 WORKDIR /workspace

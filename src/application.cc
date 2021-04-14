@@ -6,7 +6,6 @@
 #include "peony/utils.h"
 
 #include <curl/curl.h>
-#include <sodium.h>
 #include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>
 #include <boost/log/trivial.hpp>
@@ -40,9 +39,9 @@ void peony::Application::launch(int argc, char** argv) {
     return;
   }
   {
-    if (sodium_init() == -1) {
-      throw std::invalid_argument("sodium init");
-    }
+    // if (sodium_init() == -1) {
+    //   throw std::invalid_argument("sodium init");
+    // }
     soci::register_factory_sqlite3();
     soci::register_factory_postgresql();
     curl_global_init(CURL_GLOBAL_ALL);
