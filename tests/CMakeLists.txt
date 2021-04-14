@@ -1,17 +1,9 @@
-add_executable(jwt-test jwt.cc)
-target_link_libraries(jwt-test PRIVATE peony)
-set_target_properties(jwt-test PROPERTIES LINK_FLAGS_RELEASE -s)
+file(GLOB TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
 
-add_executable(tty-test tty.cc)
-target_link_libraries(tty-test PRIVATE peony)
-set_target_properties(tty-test PROPERTIES LINK_FLAGS_RELEASE -s)
-
-
-add_executable(orm-test orm.cc)
-target_link_libraries(orm-test PRIVATE peony)
-set_target_properties(orm-test PROPERTIES LINK_FLAGS_RELEASE -s)
-
-
-add_executable(crypt-test crypt.cc)
-target_link_libraries(crypt-test PRIVATE peony)
-set_target_properties(crypt-test PROPERTIES LINK_FLAGS_RELEASE -s)
+foreach( sfn ${TEST_SOURCES} )
+    file(RELATIVE_PATH itn ${CMAKE_CURRENT_SOURCE_DIR} ${sfn})
+    string(REPLACE ".cc" "-test" it ${itn})
+    add_executable(${it} ${itn})
+    target_link_libraries(${it} PRIVATE peony)
+    set_target_properties(${it} PROPERTIES LINK_FLAGS_RELEASE -s)
+endforeach(sfn ${TEST_SOURCES})

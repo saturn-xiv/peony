@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE Amqp Test
+#define BOOST_TEST_MODULE Twilio Test
 
 #include <boost/test/included/unit_test.hpp>
 
