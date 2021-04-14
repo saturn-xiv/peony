@@ -14,10 +14,14 @@ namespace peony {
 namespace http {
 namespace client {
 
-std::string gets(const std::string& host, const std::string& path,
-                 const unsigned int port = 443);
-std::string posts(const std::string& host, const std::string& path,
-                  const std::string& body, const unsigned int port = 443);
+std::string post(const std::string& url, const std::string& content_type,
+                 const std::string& body);
+std::string get(const std::string& url);
+
+// std::string gets(const std::string& host, const std::string& path,
+//                  const unsigned int port = 443);
+// std::string posts(const std::string& host, const std::string& path,
+//                   const std::string& body, const unsigned int port = 443);
 
 }  // namespace client
 
