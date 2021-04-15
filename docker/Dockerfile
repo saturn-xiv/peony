@@ -15,7 +15,8 @@ RUN apt -y install zsh git locales rsync openssh-client screen tmux \
     build-essential pkg-config cmake libtool automake autoconf binutils debhelper libc++-dev libncurses5-dev \
     bison flex meson nasm ninja-build \
     g++-9 \
-    crossbuild-essential-armhf g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf binutils-arm-linux-gnueabihf \
+    crossbuild-essential-armhf g++-arm-linux-gnueabihf pkg-config-arm-linux-gnueabihf \
+    gcc-arm-linux-gnueabihf gcc-multilib-arm-linux-gnueabihf binutils-arm-linux-gnueabihf libgcc1-armhf-cross libsfgcc1-armhf-cross  libstdc++6-armhf-cross libstdc++6-4.7-dev-armhf-cross \
     python3.9 python3.9-distutils python3.9-dev
 
 RUN apt -y autoremove

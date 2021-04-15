@@ -1,17 +1,15 @@
-# https://llvm.org/docs/HowToCrossCompileLLVM.html
-
+toolchain=/home/deploy/x-tools/arm-unknown-linux-gnueabihf/bin/arm-unknown-linux-gnueabihf-
 target_host=arm-linux-gnueabihf
-toolchain="/home/deploy/local/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04"
-sysroot="/home/deploy/local/rootfs"
+sysroot=/home/deploy/local/rootfs
 
 [settings]
 os=Linux
 os_build=Linux
 arch=armv7hf
 arch_build=x86_64
-compiler=clang
+compiler=gcc
 compiler.cppstd=17
-compiler.version=11
+compiler.version=10
 compiler.libcxx=libstdc++11
 build_type=Release
 
@@ -20,40 +18,13 @@ build_type=Release
 [build_requires]
 
 [env]
+CONAN_CMAKE_FIND_ROOT_PATH=$sysroot
 CHOST=$target_host
 USE_DEV_URANDOM=1
-CONAN_CMAKE_FIND_ROOT_PATH=$sysroot
-PATH=[$toolchain/bin]
-CHOST=$target_host
-AR=$target_host-ar
-AS=$target_host-as
-RANLIB=$target_host-ranlib
-CC=clang
-CXX=$target_host-$cxx_compiler
-LD=$target_host-ld
-STRIP=$target_host-strip
-CFLAGS= -fPIE -fPIC -I$toolchain/include/c++/4.9.x -ccc-gcc-name armv7l-linux-gnueabihf-gcc -fuse-ld=lld
-CXXFLAGS= -fPIE -fPIC -I$toolchain/include/c++/4.9.x -ccc-gcc-name armv7l-linux-gnueabihf-gcc -fuse-ld=lld
-LDFLAGS= -pie
-
-
-
-#CC=clang
-#CXX=clang++
-
-#CFLAGS="--target=arm-linux-gnueabihf --sysroot=/home/deploy/local/rootfs armv7l-linux-gnueabihf-gcc -fuse-ld=lld"
-#CXXFLAGS="--target=arm-linux-gnueabihf --sysroot=/home/deploy/local/rootfs -ccc-gcc-name armv7l-linux-gnueabihf-gcc -fuse-ld=lld"
-
-#AR=$target_host-ar
-#AS=$target_host-as
-#RANLIB=$target_host-ranlib
-#LD=$target_host-ld
-#STRIP=$target_host-strip
-
-#AR=$target_host-ar
-#AS=$target_host-as
-#RANLIB=$target_host-ranlib
-
-#STRIP=$target_host-strip
-#LD=$target_host-ld
-#RC=$target_host-windres
+AR=$toolchain-ar
+AS=$toolchain-as
+RANLIB=$toolchain-ranlib
+CC=$toolchain-gcc
+CXX=$toolchain-g++
+STRIP=$toolchain-strip
+LD=$toolchain-ld
