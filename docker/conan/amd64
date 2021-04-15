@@ -1,3 +1,5 @@
+toolchain="/home/deploy/local/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04"
+
 [settings]
 os=Linux
 os_build=Linux
@@ -14,6 +16,7 @@ build_type=Release
 [build_requires]
 
 [env]
+PATH=[$toolchain/bin]
 CC=clang
 CXX=clang++
 

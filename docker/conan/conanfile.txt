@@ -1,7 +1,7 @@
 [requires]
 boost/1.75.0
 openssl/1.1.1k
-libsodium/1.0.18
+#libsodium/1.0.18 xenial has bug
 
 soci/4.0.1
 sqlite3/3.35.4

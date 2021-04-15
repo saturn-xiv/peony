@@ -78,17 +78,15 @@ RUN mkdir -p $HOME/local
 RUN wget -P $HOME/downloads https://github.com/llvm/llvm-project/releases/download/llvmorg-11.1.0/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz
 RUN tar xf $HOME/downloads/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz -C $HOME/local
 
-COPY conan /opt/conan/
-RUN zsh -c "source $HOME/.profile \
-    && conan remote update conan-center https://api.bintray.com/conan/conan/conan-center"
-RUN zsh -c "source $HOME/.profile \
-    && mkdir $HOME/amd64 \
-    && cd $HOME/amd64 \
-    && conan install /opt/conan --build=missing --profile=/opt/conan/amd64"
-RUN zsh -c "source $HOME/.profile \
-    && mkdir $HOME/armhf \
-    && cd $HOME/armhf \
-    && conan install /opt/conan --build=missing --profile:host=/opt/conan/armhf --profile:build=/opt/conan/amd64"
+# COPY conan /opt/conan/
+# RUN zsh -c "source $HOME/.profile \
+#     && mkdir $HOME/amd64 \
+#     && cd $HOME/amd64 \
+#     && conan install /opt/conan --build=missing --profile=/opt/conan/amd64"
+# RUN zsh -c "source $HOME/.profile \
+#     && mkdir $HOME/armhf \
+#     && cd $HOME/armhf \
+#     && conan install /opt/conan --build=missing --profile:host=/opt/conan/armhf --profile:build=/opt/conan/amd64"
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 
