@@ -80,7 +80,6 @@ RUN wget -P $HOME/downloads https://github.com/llvm/llvm-project/releases/downlo
 RUN tar xf $HOME/downloads/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz -C $HOME/local
 
 COPY packages /home/deploy/downloads/
-# RUN tar xf $HOME/downloads/rootfs_friendlycore_4.14.tgz -C $HOME/local
 RUN tar xf $HOME/downloads/armv7l-unknown-linux-gnueabihf.tar.xz -C $HOME/local
 
 COPY conan /opt/conan/
