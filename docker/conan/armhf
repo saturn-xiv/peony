@@ -1,4 +1,4 @@
-toolchain=/home/deploy/local/arm-unknown-linux-gnueabihf/bin/armv7l-unknown-linux-gnueabihf
+toolchain=/home/deploy/local/armv7l-unknown-linux-gnueabihf/bin/armv7l-unknown-linux-gnueabihf
 
 [settings]
 os=Linux

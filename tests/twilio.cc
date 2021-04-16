@@ -4,12 +4,17 @@
 
 #include "peony/twilio.h"
 
-BOOST_AUTO_TEST_CASE(http_get_test) {}
-
-BOOST_AUTO_TEST_CASE(https_get_test) {}
-
-BOOST_AUTO_TEST_CASE(http_post_test) {}
-
-BOOST_AUTO_TEST_CASE(https_post_test) {}
+BOOST_AUTO_TEST_CASE(models_test) {
+  {
+    peony::twilio::sms::Request req;
+    nlohmann::json js = req;
+    std::cout << js.dump() << std::endl;
+  }
+  {
+    peony::twilio::sms::Response res;
+    nlohmann::json js = res;
+    std::cout << js.dump() << std::endl;
+  }
+}
 
 BOOST_AUTO_TEST_CASE(sms_test) {}

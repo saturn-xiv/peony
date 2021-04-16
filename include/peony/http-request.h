@@ -2,10 +2,6 @@
 
 #include "peony/theme.h"
 
-#include <locale>
-#include <optional>
-#include <string>
-
 #include <httplib.h>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/log/trivial.hpp>

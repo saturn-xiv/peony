@@ -1,7 +1,6 @@
 file(GLOB HEADER_LIST CONFIGURE_DEPENDS "${peony_SOURCE_DIR}/include/peony/*.h")
 file(GLOB SOURCE_LIST CONFIGURE_DEPENDS "${peony_SOURCE_DIR}/src/*.cc")
 
-
 add_library(peony ${SOURCE_LIST} ${HEADER_LIST})
 
 target_include_directories(peony PUBLIC 

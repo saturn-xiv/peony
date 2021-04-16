@@ -7,6 +7,7 @@ RUN apt update
 RUN apt -y install apt-transport-https software-properties-common curl gnupg
 # https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
 RUN add-apt-repository -y ppa:deadsnakes/ppa
+# https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
 RUN apt update
 RUN apt -y upgrade
@@ -51,7 +52,6 @@ RUN sh -c ". $HOME/.profile \
 RUN echo 'export ANSIBLE_HOST_KEY_CHECKING=False' >> $HOME/.profile
 RUN echo 'alias peony="ANSIBLE_LOG_PATH=$HOME/$(date +%Y%m%d%H%M%S).log ansible-playbook"' >> $HOME/.profile
 
-
 # https://github.com/nvm-sh/nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | sh
 RUN sh -c ". $HOME/.profile \
@@ -79,19 +79,19 @@ RUN mkdir -p $HOME/local
 RUN wget -P $HOME/downloads https://github.com/llvm/llvm-project/releases/download/llvmorg-11.1.0/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz
 RUN tar xf $HOME/downloads/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz -C $HOME/local
 
-# COPY packages /home/deploy/downloads/
+COPY packages /home/deploy/downloads/
 # RUN tar xf $HOME/downloads/rootfs_friendlycore_4.14.tgz -C $HOME/local
-# RUN tar xf $HOME/downloads/arm-unknown-linux-gnueabihf.tar.xz -C $HOME/local
+RUN tar xf $HOME/downloads/armv7l-unknown-linux-gnueabihf.tar.xz -C $HOME/local
 
-# COPY conan /opt/conan/
-# RUN zsh -c "source $HOME/.profile \
-#     && mkdir $HOME/amd64 \
-#     && cd $HOME/amd64 \
-#     && conan install /opt/conan --build=missing --profile=/opt/conan/amd64"
-# RUN zsh -c "source $HOME/.profile \
-#     && mkdir $HOME/armhf \
-#     && cd $HOME/armhf \
-#     && conan install /opt/conan --build=missing --profile:host=/opt/conan/armhf --profile:build=/opt/conan/amd64"
+COPY conan /opt/conan/
+RUN zsh -c "source $HOME/.profile \
+    && mkdir $HOME/amd64 \
+    && cd $HOME/amd64 \
+    && conan install /opt/conan --build=missing --profile=/opt/conan/amd64"
+RUN zsh -c "source $HOME/.profile \
+    && mkdir $HOME/armhf \
+    && cd $HOME/armhf \
+    && conan install /opt/conan --build=missing --profile:host=/opt/conan/armhf --profile:build=/opt/conan/amd64"
 
 RUN echo 'source $HOME/.profile' >> $HOME/.zshrc
 

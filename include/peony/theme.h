@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <locale>
 #include <optional>
 #include <streambuf>
 #include <string>
