@@ -79,6 +79,10 @@ RUN mkdir -p $HOME/local
 RUN wget -P $HOME/downloads https://github.com/llvm/llvm-project/releases/download/llvmorg-11.1.0/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz
 RUN tar xf $HOME/downloads/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz -C $HOME/local
 
+# COPY packages /home/deploy/downloads/
+# RUN tar xf $HOME/downloads/rootfs_friendlycore_4.14.tgz -C $HOME/local
+# RUN tar xf $HOME/downloads/arm-unknown-linux-gnueabihf.tar.xz -C $HOME/local
+
 # COPY conan /opt/conan/
 # RUN zsh -c "source $HOME/.profile \
 #     && mkdir $HOME/amd64 \

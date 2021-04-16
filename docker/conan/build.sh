@@ -14,7 +14,7 @@ fi
 mkdir -p $WORKSPACE/build/amd64-debug
 cd $WORKSPACE/build/amd64-debug
 conan install $CONAN_HOME --build=missing --profile=$CONAN_HOME/amd64
-cmake $WORKSPACE -DCMAKE_BUILD_TYPE=Debug
+CC=$CLANG_HOME/bin/clang CXX=$CLANG_HOME/bin/clang++ cmake $WORKSPACE -DCMAKE_BUILD_TYPE=Debug
 # make -j
 
 mkdir -p $WORKSPACE/build/amd64-release
@@ -25,7 +25,8 @@ CC=$CLANG_HOME/bin/clang CXX=$CLANG_HOME/bin/clang++ cmake $WORKSPACE -DCMAKE_BU
 
 mkdir -p $WORKSPACE/build/armhf-release
 cd $WORKSPACE/build/armhf-release
-conan install $CONAN_HOME --build=missing --profile:host=$CONAN_HOME/armhf --profile:build=$CONAN_HOME/amd64
+# =missing
+conan install $CONAN_HOME --build --profile:host=$CONAN_HOME/armhf --profile:build=$CONAN_HOME/amd64
 cmake $WORKSPACE -DCMAKE_TOOLCHAIN_FILE=$CONAN_HOME/armhf.cmake -DCMAKE_BUILD_TYPE=Release
 # make -j
 

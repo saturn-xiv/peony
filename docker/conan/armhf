@@ -1,6 +1,4 @@
-toolchain=/home/deploy/x-tools/arm-unknown-linux-gnueabihf/bin/arm-unknown-linux-gnueabihf-
-target_host=arm-linux-gnueabihf
-sysroot=/home/deploy/local/rootfs
+toolchain=/home/deploy/local/arm-unknown-linux-gnueabihf/bin/armv7l-unknown-linux-gnueabihf
 
 [settings]
 os=Linux
@@ -18,8 +16,7 @@ build_type=Release
 [build_requires]
 
 [env]
-CONAN_CMAKE_FIND_ROOT_PATH=$sysroot
-CHOST=$target_host
+CHOST=arm-linux-gnueabihf
 USE_DEV_URANDOM=1
 AR=$toolchain-ar
 AS=$toolchain-as
