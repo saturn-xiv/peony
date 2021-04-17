@@ -17,4 +17,13 @@ BOOST_AUTO_TEST_CASE(models_test) {
   }
 }
 
-BOOST_AUTO_TEST_CASE(sms_test) {}
+BOOST_AUTO_TEST_CASE(sms_test) {
+  peony::twilio::Client cli(std::getenv("TWILIO_ACCOUNT_SID"),
+                            std::getenv("TWILIO_AUTH_TOKEN"),
+                            std::getenv("TWILIO_FROM"));
+  {
+    const auto res = cli.sms(std::getenv("TWILIO_TO"), "Hello, Peony!");
+
+    std::cout << "return url: " << res->uri << std::endl;
+  }
+}

@@ -1,8 +1,11 @@
 #pragma once
 
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <locale>
+#include <memory>
 #include <optional>
 #include <streambuf>
 #include <string>
