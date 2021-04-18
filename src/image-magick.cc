@@ -16,7 +16,8 @@ void peony::image_magick::resize(const std::filesystem::path& src,
 
   const auto cmd = ss.str();
   BOOST_LOG_TRIVIAL(debug) << cmd;
-  auto _ = system(cmd.c_str());
+  auto res = system(cmd.c_str());
+  BOOST_LOG_TRIVIAL(debug) << res;
 }
 
 void peony::image_magick::merge(const std::filesystem::path& src,
@@ -30,7 +31,8 @@ void peony::image_magick::merge(const std::filesystem::path& src,
 
   const auto cmd = ss.str();
   BOOST_LOG_TRIVIAL(debug) << cmd;
-  auto _ = system(cmd.c_str());
+  auto res = system(cmd.c_str());
+  BOOST_LOG_TRIVIAL(debug) << res;
 }
 
 void peony::image_magick::rotate(const std::filesystem::path& src,
@@ -41,5 +43,6 @@ void peony::image_magick::rotate(const std::filesystem::path& src,
      << "'";
   const auto cmd = ss.str();
   BOOST_LOG_TRIVIAL(debug) << cmd;
-  auto _ = system(cmd.c_str());
+  auto res = system(cmd.c_str());
+  BOOST_LOG_TRIVIAL(debug) << res;
 }

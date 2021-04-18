@@ -45,9 +45,9 @@ peony::Key::Key(const std::string& secret) {
 }
 
 peony::Key::~Key() {
-  if (this->payload != NULL) {
+  if (this->payload != nullptr) {
     delete[] this->payload;
-    this->payload = NULL;
+    this->payload = nullptr;
   }
 }
 std::pair<unsigned char*, unsigned char*> peony::Key::encrypt(
@@ -164,7 +164,7 @@ std::string peony::get_stdout_from_command(const std::string& cmd) {
 
   if (stream) {
     while (!feof(stream)) {
-      if (fgets(buffer, max_buffer, stream) != NULL) {
+      if (fgets(buffer, max_buffer, stream) != nullptr) {
         data.append(buffer);
       }
     }

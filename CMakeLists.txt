@@ -17,6 +17,7 @@ conan_basic_setup()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
 
 execute_process(COMMAND git describe --tags --always --dirty
     OUTPUT_VARIABLE GIT_REV

@@ -36,19 +36,4 @@ class Dao {
 };
 
 }  // namespace sqlite3
-// class Sqlite3 {
-//  public:
-//   Sqlite3(const std::filesystem::path& file);
-//   ~Sqlite3();
-
-//   //
-//   https://stackoverflow.com/questions/57123453/how-to-use-diesel-with-sqlite-connections-and-avoid-database-is-locked-type-of
-//   void wal_mode(const std::chrono::microseconds& timeout);
-
-//   void execute(const std::string& sql);
-//   void execute(const std::string& sql, sqlite3_stmt** query);
-
-//  private:
-//   sqlite3* db;
-// };
 }  // namespace peony

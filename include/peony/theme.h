@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdlib>
+#include <exception>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -57,7 +58,7 @@ struct adl_serializer<boost::posix_time::ptime> {
         new boost::posix_time::time_facet();
     facet->format(PEONY_BOOST_PTIME_ISO8601_FORMAT);
     std::stringstream ss;
-    // ss.exceptions(std::ios_base::failbit);
+    ss.exceptions(std::ios_base::failbit);
     ss.imbue(std::locale(std::locale(PEONY_LOCALE_ENGLISH), facet));
     ss << opt;
     j = ss.str();
@@ -70,7 +71,7 @@ struct adl_serializer<boost::posix_time::ptime> {
     facet->format(PEONY_BOOST_PTIME_ISO8601_FORMAT);
 
     std::stringstream ss;
-    // ss.exceptions(std::ios_base::failbit);
+    ss.exceptions(std::ios_base::failbit);
     ss.imbue(std::locale(std::locale(PEONY_LOCALE_ENGLISH), facet));
     ss.str(j.get<std::string>());
     ss >> opt;
